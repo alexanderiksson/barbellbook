@@ -15,6 +15,7 @@ export default function Workout() {
                 >
                     + Add exercise
                 </Link>
+
                 <section className="flex flex-col gap-4">
                     {exercises.map((exercise, index) => (
                         <div

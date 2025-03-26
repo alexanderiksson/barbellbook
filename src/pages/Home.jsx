@@ -6,7 +6,7 @@ export default function Home() {
         <div className="content flex justify-center items-center h-screen">
             <Link
                 to="/workout"
-                className="bg-red-500 px-4 py-2 rounded inline-flex justify-center items-center"
+                className="bg-green-600 px-4 py-2 rounded inline-flex justify-center items-center"
             >
                 Start workout
             </Link>

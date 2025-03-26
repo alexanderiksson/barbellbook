@@ -14,7 +14,18 @@ export default function AddExercise() {
     const [weight, setWeight] = useState(0);
 
     return (
-        <div className="content flex flex-col justify-center items-center min-h-screen gap-16">
+        <div className="content flex flex-col justify-center items-center min-h-screen gap-16 pb-12">
+            <div className="w-full flex justify-start">
+                <Link
+                    to="/workout"
+                    className="bg-neutral-600 pl-1 pr-2 py-1 rounded text-neutral-200"
+                >
+                    &lt; back
+                </Link>
+            </div>
+
+            <h1 className="text-3xl font-semibold">New exercise</h1>
+
             <label className="w-full max-w-lg">
                 <input
                     className="bg-neutral-800 p-2 rounded w-full border border-white/10"
