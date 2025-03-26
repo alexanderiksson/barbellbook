@@ -7,7 +7,7 @@ export default function Workout() {
 
     return (
         <>
-            <div className="content py-8">
+            <div className="content">
                 <h1 className="text-3xl font-semibold mb-6">Today's workout</h1>
                 <Link
                     to="/add-exercise"
@@ -45,7 +45,11 @@ export default function Workout() {
                             </table>
                             <button
                                 className="bg-red-600 py-1 px-2 rounded cursor-pointer"
-                                onClick={() => removeExercise(index)}
+                                onClick={() => {
+                                    if (confirm("Are you sure?")) {
+                                        removeExercise(index);
+                                    }
+                                }}
                             >
                                 Remove
                             </button>

@@ -3,7 +3,6 @@ import { useWorkout } from "../context/WorkoutContext";
 import RepCounter from "../components/RepCounter";
 import WeightInput from "../components/WeightInput";
 import SetTable from "../components/SetTable";
-import { Link } from "react-router-dom";
 
 export default function AddExercise() {
     const { addExercise } = useWorkout();
@@ -14,61 +13,63 @@ export default function AddExercise() {
     const [weight, setWeight] = useState(0);
 
     return (
-        <div className="content flex flex-col justify-center items-center min-h-screen gap-16 pb-12">
-            <div className="w-full flex justify-start">
-                <Link
-                    to="/workout"
-                    className="bg-neutral-600 pl-1 pr-2 py-1 rounded text-neutral-200"
-                >
-                    &lt; back
-                </Link>
-            </div>
-
+        <div className="content flex flex-col gap-8 pb-12">
             <h1 className="text-3xl font-semibold">New exercise</h1>
 
-            <label className="w-full max-w-lg">
+            <label className="w-full">
                 <input
                     className="bg-neutral-800 p-2 rounded w-full border border-white/10"
                     type="text"
                     placeholder="Exercise name"
                     onChange={(e) => setName(e.target.value)}
                     value={name}
+                    required
                 />
             </label>
 
-            <RepCounter reps={reps} setReps={setReps} />
+            {/* Add set */}
+            <section className="w-full flex flex-col gap-8 bg-neutral-900 border border-white/10 p-4 rounded">
+                <div className="flex justify-around">
+                    <RepCounter reps={reps} setReps={setReps} />
+                    <WeightInput weight={weight} setWeight={setWeight} />
+                </div>
 
-            <WeightInput weight={weight} setWeight={setWeight} />
+                <button
+                    className="bg-slate-600 px-4 py-2 rounded inline-flex justify-center items-center cursor-pointer"
+                    onClick={() => {
+                        if (reps == 0 || weight == 0) {
+                            alert("Enter weight and reps");
+                        } else {
+                            setSets([...sets, { reps: reps, weight: weight }]);
+                            setReps(0);
+                        }
+                    }}
+                >
+                    Add set
+                </button>
+            </section>
+
+            {sets.length > 0 && <SetTable sets={sets} />}
 
             <button
                 className="bg-green-600 px-4 py-2 rounded inline-flex justify-center items-center cursor-pointer"
                 onClick={() => {
-                    setSets([...sets, { reps: reps, weight: weight }]);
-                    setReps(0);
+                    if (sets <= 0) {
+                        alert("You have no sets");
+                    } else if (!name) {
+                        alert("Enter exercise name");
+                    } else {
+                        const newExercise = {
+                            name: name,
+                            sets: [...sets],
+                        };
+                        addExercise(newExercise);
+                        window.location.href = "/";
+                    }
                 }}
-            >
-                Add set
-            </button>
-
-            {sets.length > 0 && <SetTable sets={sets} />}
-
-            <Link
-                className="bg-green-600 px-4 py-2 rounded inline-flex justify-center items-center cursor-pointer"
-                onClick={() => {
-                    const newExercise = {
-                        name: name,
-                        sets: [...sets],
-                    };
-                    addExercise(newExercise);
-                    setName("");
-                    setSets([]);
-                    setReps(0);
-                    setWeight(0);
-                }}
-                to="/workout"
             >
                 Save exercise
-            </Link>
+            </button>
         </div>
     );
 }
