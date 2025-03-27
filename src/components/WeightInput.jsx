@@ -10,6 +10,8 @@ export default function WeightInput({ weight, setWeight }) {
                 onChange={(e) => setWeight(e.target.value)}
                 value={weight}
                 step={2.5}
+                min={0}
+                max={9999}
             />
         </div>
     );

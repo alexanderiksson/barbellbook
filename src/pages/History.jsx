@@ -18,7 +18,7 @@ export default function History() {
                             key={index}
                             className="p-4 bg-neutral-900 border border-white/10 rounded shadow-2xl"
                         >
-                            <div className="flex justify-between mb-8">
+                            <div className="flex justify-between items-center mb-8">
                                 <h2 className="text-xl font-semibold">
                                     {workout.name
                                         ? workout.name
@@ -36,7 +36,7 @@ export default function History() {
                                     View workout
                                 </Link>
                                 <button
-                                    className="cursor-pointer"
+                                    className="cursor-pointer flex items-end"
                                     onClick={() => {
                                         if (
                                             confirm(

@@ -27,7 +27,7 @@ export default function AddExercise() {
 
             <label className="w-full">
                 <input
-                    className="bg-neutral-800 p-2 rounded w-full border border-white/10"
+                    className="bg-neutral-900 p-2 rounded w-full border border-white/10"
                     type="text"
                     placeholder="Exercise name"
                     onChange={(e) => setName(e.target.value)}
@@ -45,8 +45,8 @@ export default function AddExercise() {
                 <button
                     className="bg-sky-700 px-4 py-2 rounded inline-flex justify-center items-center gap-2 cursor-pointer tracking-wide"
                     onClick={() => {
-                        if (reps == 0 || weight == 0) {
-                            alert("Enter weight and reps");
+                        if (reps == 0 || weight <= 0 || weight > 9999) {
+                            alert("Enter weight and reps.");
                         } else {
                             setSets([...sets, { reps: reps, weight: weight }]);
                         }

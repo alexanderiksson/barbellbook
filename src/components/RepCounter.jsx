@@ -9,6 +9,7 @@ export default function RepCounter({ reps, setReps }) {
                 <button
                     className="flex justify-center text-3xl w-10 h-10 bg-neutral-800 rounded-full cursor-pointer border border-white/10"
                     onClick={() => setReps(reps + 1)}
+                    disabled={reps >= 99}
                 >
                     +
                 </button>
