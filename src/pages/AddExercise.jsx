@@ -3,6 +3,7 @@ import { useWorkout } from "../context/WorkoutContext";
 import RepCounter from "../components/RepCounter";
 import WeightInput from "../components/WeightInput";
 import SetTable from "../components/SetTable";
+import AddIcon from "../assets/icons/AddIcon";
 
 export default function AddExercise() {
     const { addExercise } = useWorkout();
@@ -12,9 +13,17 @@ export default function AddExercise() {
     const [reps, setReps] = useState(0);
     const [weight, setWeight] = useState(0);
 
+    const removeSet = (index) => {
+        setSets((prevSets) => {
+            const newSets = [...prevSets];
+            newSets.splice(index, 1);
+            return newSets;
+        });
+    };
+
     return (
-        <div className="content flex flex-col gap-8 pb-12">
-            <h1 className="text-3xl font-semibold">New exercise</h1>
+        <div className="content flex flex-col gap-8 flex-1">
+            <h1 className="text-3xl font-semibold">Add exercise</h1>
 
             <label className="w-full">
                 <input
@@ -34,29 +43,28 @@ export default function AddExercise() {
                 </div>
 
                 <button
-                    className="bg-slate-600 px-4 py-2 rounded inline-flex justify-center items-center cursor-pointer"
+                    className="bg-sky-700 px-4 py-2 rounded inline-flex justify-center items-center gap-2 cursor-pointer tracking-wide"
                     onClick={() => {
                         if (reps == 0 || weight == 0) {
                             alert("Enter weight and reps");
                         } else {
                             setSets([...sets, { reps: reps, weight: weight }]);
-                            setReps(0);
                         }
                     }}
                 >
-                    + Add set
+                    <AddIcon size="18px" /> Add set
                 </button>
             </section>
 
-            {sets.length > 0 && <SetTable sets={sets} />}
+            {sets.length > 0 && <SetTable sets={sets} removeSet={removeSet} />}
 
             <button
-                className="bg-green-600 px-4 py-2 rounded inline-flex justify-center items-center cursor-pointer"
+                className="bg-green-700 px-4 py-2 rounded inline-flex justify-center items-center cursor-pointer mt-auto tracking-wide"
                 onClick={() => {
                     if (sets <= 0) {
-                        alert("You have no sets");
+                        alert("Exercise dosen't have any sets.");
                     } else if (!name) {
-                        alert("Enter exercise name");
+                        alert("Enter exercise name.");
                     } else {
                         const newExercise = {
                             name: name,

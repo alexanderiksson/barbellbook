@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
 import TrashIcon from "../assets/icons/TrashIcon";
+import AddIcon from "../assets/icons/AddIcon";
 
 export default function Workout() {
     const { exercises, removeExercise, clearExercises, addWorkout } =
@@ -11,27 +12,37 @@ export default function Workout() {
         <>
             <div className="content">
                 <h1 className="text-3xl font-semibold mb-6">Today's workout</h1>
-                <div className="flex justify-between mb-12">
+                <div className="flex justify-between flex-wrap gap-2 mb-12">
                     <Link
                         to="/add-exercise"
-                        className="bg-green-600 px-4 py-2 rounded inline-flex justify-center items-center"
+                        className="bg-green-700 px-4 py-2 rounded inline-flex justify-center items-center gap-2 tracking-wide"
                     >
-                        + Add exercise
+                        <AddIcon size="18px" /> Add exercise
                     </Link>
                     {exercises.length > 0 && (
                         <button
-                            className="bg-slate-600 px-4 py-2 rounded inline-flex justify-center items-center cursor-pointer gap-2"
+                            className="bg-sky-700 px-4 py-2 rounded inline-flex justify-center items-center cursor-pointer gap-2 tracking-wide"
                             onClick={() => {
-                                const date = new Date().toLocaleDateString();
+                                if (
+                                    confirm(
+                                        "Do you want to finish & save workout?"
+                                    )
+                                ) {
+                                    const name = prompt(
+                                        "Workout name (optional)"
+                                    );
+                                    const date =
+                                        new Date().toLocaleDateString();
 
-                                const newWorkout = {
-                                    date: date,
-                                    exercises: [...exercises],
-                                };
+                                    const newWorkout = {
+                                        name: name,
+                                        date: date,
+                                        exercises: [...exercises],
+                                    };
 
-                                addWorkout(newWorkout);
-                                clearExercises();
-                                alert("Workout saved!");
+                                    addWorkout(newWorkout);
+                                    clearExercises();
+                                }
                             }}
                         >
                             Finish workout
@@ -51,7 +62,10 @@ export default function Workout() {
                                     key={index}
                                     className="p-4 bg-neutral-900 border border-white/10 rounded"
                                 >
-                                    <h2 className="text-xl font-bold mb-4">
+                                    <h2 className="text-xl font-semibold mb-4">
+                                        <span className="mr-2 font-normal text-neutral-500">
+                                            #{index + 1}
+                                        </span>
                                         {exercise.name}
                                     </h2>
                                     <table className="w-full mb-4">
@@ -73,9 +87,13 @@ export default function Workout() {
                                         </tbody>
                                     </table>
                                     <button
-                                        className="bg-red-600 p-2 rounded cursor-pointer"
+                                        className="cursor-pointer"
                                         onClick={() => {
-                                            if (confirm("Are you sure?")) {
+                                            if (
+                                                confirm(
+                                                    "Are you sure you want to remove exercise?"
+                                                )
+                                            ) {
                                                 removeExercise(index);
                                             }
                                         }}

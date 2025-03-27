@@ -1,11 +1,16 @@
 import { Outlet } from "react-router-dom";
-import Nav from "./components/Nav";
+import MobileNav from "./components/MobileNav";
+import DesktopNav from "./components/DesktopNav";
 
 export default function Layout() {
     return (
         <>
-            <Nav />
-            <main role="main">
+            <DesktopNav />
+            <MobileNav />
+            <main
+                role="main"
+                className="flex-1 flex flex-col justify-start sm:mt-24 mt-12 mb-20 sm:mb-8"
+            >
                 <Outlet />
             </main>
         </>

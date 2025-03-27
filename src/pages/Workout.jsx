@@ -10,7 +10,9 @@ export default function Workout() {
 
     return (
         <div className="content">
-            <h1 className="text-3xl font-semibold mb-4">Workout #{id}</h1>
+            <h1 className="text-3xl font-semibold mb-4">
+                {workout.name ? workout.name : `Workout #${id}`}
+            </h1>
             <p className="text-neutral-500">{workout.date}</p>
             <section className="flex flex-col gap-4 mt-8">
                 {workout.exercises.map((exercise, index) => (
