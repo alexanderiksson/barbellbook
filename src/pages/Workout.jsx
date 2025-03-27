@@ -20,10 +20,13 @@ export default function Workout() {
                         key={index}
                         className="p-4 bg-neutral-900 border border-white/10 rounded"
                     >
-                        <h2 className="text-xl font-bold mb-4">
+                        <h2 className="text-xl font-semibold mb-4">
+                            <span className="mr-2 font-normal text-neutral-500">
+                                #{index + 1}
+                            </span>
                             {exercise.name}
                         </h2>
-                        <table className="w-full mb-4">
+                        <table className="w-full">
                             <thead>
                                 <tr className="text-left">
                                     <th>Set</th>
