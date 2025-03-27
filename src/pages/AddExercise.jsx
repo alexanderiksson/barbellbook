@@ -23,7 +23,6 @@ export default function AddExercise() {
                     placeholder="Exercise name"
                     onChange={(e) => setName(e.target.value)}
                     value={name}
-                    required
                 />
             </label>
 
@@ -45,7 +44,7 @@ export default function AddExercise() {
                         }
                     }}
                 >
-                    Add set
+                    + Add set
                 </button>
             </section>
 

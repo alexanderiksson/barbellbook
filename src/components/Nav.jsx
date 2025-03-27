@@ -1,7 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import AddIcon from "../assets/AddIcon";
-import HomeIcon from "../assets/HomeIcon";
+import AddIcon from "../assets/icons/AddIcon";
+import HomeIcon from "../assets/icons/HomeIcon";
+import HistoryIcon from "../assets/icons/HistoryIcon";
 
 export default function Nav() {
     return (
@@ -22,6 +23,14 @@ export default function Nav() {
                             className="flex flex-col items-center justify-center text-xs gap-1 py-3 px-5"
                         >
                             <AddIcon />
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink
+                            to="/history"
+                            className="flex flex-col items-center justify-center text-xs gap-1 py-3 px-5"
+                        >
+                            <HistoryIcon />
                         </NavLink>
                     </li>
                 </ul>

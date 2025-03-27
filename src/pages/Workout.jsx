@@ -1,62 +1,47 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
+import { useParams } from "react-router-dom";
 
 export default function Workout() {
-    const { exercises, addExercise, removeExercise } = useWorkout();
+    const { id } = useParams();
+    const { workouts } = useWorkout();
+
+    const workout = workouts.find((_, index) => index === parseInt(id - 1, 10));
 
     return (
-        <>
-            <div className="content">
-                <h1 className="text-3xl font-semibold mb-6">Today's workout</h1>
-                <Link
-                    to="/add-exercise"
-                    className="bg-green-600 px-4 py-2 rounded inline-flex justify-center items-center mb-12"
-                >
-                    + Add exercise
-                </Link>
-
-                <section className="flex flex-col gap-4">
-                    {exercises.map((exercise, index) => (
-                        <div
-                            key={index}
-                            className="p-4 bg-neutral-900 border border-white/10 rounded"
-                        >
-                            <h2 className="text-xl font-bold mb-4">
-                                {exercise.name}
-                            </h2>
-                            <table className="w-full mb-4">
-                                <thead>
-                                    <tr className="text-left">
-                                        <th>Set</th>
-                                        <th>Reps</th>
-                                        <th>Weight</th>
+        <div className="content">
+            <h1 className="text-3xl font-semibold mb-4">Workout #{id}</h1>
+            <p className="text-neutral-500">{workout.date}</p>
+            <section className="flex flex-col gap-4 mt-8">
+                {workout.exercises.map((exercise, index) => (
+                    <div
+                        key={index}
+                        className="p-4 bg-neutral-900 border border-white/10 rounded"
+                    >
+                        <h2 className="text-xl font-bold mb-4">
+                            {exercise.name}
+                        </h2>
+                        <table className="w-full mb-4">
+                            <thead>
+                                <tr className="text-left">
+                                    <th>Set</th>
+                                    <th>Reps</th>
+                                    <th>Weight</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {exercise.sets.map((set, index) => (
+                                    <tr key={index}>
+                                        <td>Set {index + 1}</td>
+                                        <td>{set.reps}</td>
+                                        <td>{set.weight} kg</td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    {exercise.sets.map((set, index) => (
-                                        <tr key={index}>
-                                            <td>Set {index + 1}</td>
-                                            <td>{set.reps}</td>
-                                            <td>{set.weight} kg</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                            <button
-                                className="bg-red-600 py-1 px-2 rounded cursor-pointer"
-                                onClick={() => {
-                                    if (confirm("Are you sure?")) {
-                                        removeExercise(index);
-                                    }
-                                }}
-                            >
-                                Remove
-                            </button>
-                        </div>
-                    ))}
-                </section>
-            </div>
-        </>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                ))}
+            </section>
+        </div>
     );
 }

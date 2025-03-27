@@ -1,8 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Layout from "./Layout";
-import Workout from "./pages/Workout";
-import AddExercise from "./pages/AddExercise";
 import { WorkoutProvider } from "./context/WorkoutContext";
+import Layout from "./Layout";
+import Home from "./pages/Home";
+import AddExercise from "./pages/AddExercise";
+import History from "./pages/History";
+import Workout from "./pages/Workout";
 
 export default function App() {
     return (
@@ -10,8 +12,10 @@ export default function App() {
             <WorkoutProvider>
                 <Routes>
                     <Route element={<Layout />}>
-                        <Route path="/" element={<Workout />} />
+                        <Route path="/" element={<Home />} />
                         <Route path="/add-exercise" element={<AddExercise />} />
+                        <Route path="/history" element={<History />} />
+                        <Route path="/history/:id" element={<Workout />} />
                     </Route>
                 </Routes>
             </WorkoutProvider>
