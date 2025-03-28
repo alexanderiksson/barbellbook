@@ -6,7 +6,7 @@ const WorkoutContext = createContext();
 export function WorkoutProvider({ children }) {
     // State for exercises (saved to sessionStorage)
     const [exercises, setExercises] = useState(() => {
-        const storedExercises = sessionStorage.getItem("exercises");
+        const storedExercises = localStorage.getItem("exercises");
         return storedExercises ? JSON.parse(storedExercises) : [];
     });
 
@@ -18,7 +18,7 @@ export function WorkoutProvider({ children }) {
 
     // Save exercises to sessionStorage whenever they change
     useEffect(() => {
-        sessionStorage.setItem("exercises", JSON.stringify(exercises));
+        localStorage.setItem("exercises", JSON.stringify(exercises));
     }, [exercises]);
 
     // Save workouts to localStorage whenever they change
@@ -41,7 +41,7 @@ export function WorkoutProvider({ children }) {
     // Function to clear all exercises
     const clearExercises = () => {
         setExercises([]); // Clear exercises state
-        sessionStorage.removeItem("exercises"); // Remove exercises from sessionStorage
+        localStorage.removeItem("exercises"); // Remove exercises from sessionStorage
     };
 
     // Function to add a workout
