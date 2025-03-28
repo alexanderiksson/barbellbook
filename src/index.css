@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 @import "tailwindcss";
 
 body,
@@ -9,6 +10,7 @@ body,
     min-height: 100dvh;
     box-sizing: border-box;
     overflow-x: hidden;
+    font-family: "Open Sans", sans-serif;
 }
 
 .content {
@@ -16,13 +18,4 @@ body,
     width: 90%;
     margin-left: auto;
     margin-right: auto;
-}
-
-nav#mobile-nav a.active {
-    background-color: #2d2d2d;
-    border-top: 1px solid rgb(147, 147, 147);
-}
-
-nav#desktop-nav a.active {
-    border-bottom: 2px solid rgb(148, 148, 148);
 }

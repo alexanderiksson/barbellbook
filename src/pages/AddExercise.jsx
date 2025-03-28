@@ -43,7 +43,7 @@ export default function AddExercise() {
                 </div>
 
                 <button
-                    className="bg-sky-700 px-4 py-2 rounded inline-flex justify-center items-center gap-2 cursor-pointer tracking-wide"
+                    className="bg-sky-700 px-4 py-2 rounded inline-flex justify-center items-center gap-2 cursor-pointer"
                     onClick={() => {
                         if (reps == 0 || weight <= 0 || weight > 9999) {
                             alert("Enter weight and reps.");
@@ -59,7 +59,7 @@ export default function AddExercise() {
             {sets.length > 0 && <SetTable sets={sets} removeSet={removeSet} />}
 
             <button
-                className="bg-green-700 px-4 py-2 rounded inline-flex justify-center items-center cursor-pointer mt-auto tracking-wide"
+                className="bg-green-700 px-4 py-2 rounded inline-flex justify-center items-center cursor-pointer mt-auto"
                 onClick={() => {
                     if (sets <= 0) {
                         alert("Exercise dosen't have any sets.");

@@ -13,17 +13,13 @@ export default function SetTable({ sets, removeSet }) {
                 </thead>
                 <tbody>
                     {sets.map((set, index) => (
-                        <tr key={index} className="">
-                            <td className="text-center py-2">
-                                Set {index + 1}
-                            </td>
-                            <td className="text-center py-2">
-                                {set.weight} kg
-                            </td>
-                            <td className="text-center py-2">{set.reps}</td>
-                            <td className="flex justify-center py-2">
+                        <tr key={index} className="text-center">
+                            <td>Set {index + 1}</td>
+                            <td>{set.weight} kg</td>
+                            <td>{set.reps}</td>
+                            <td className="flex justify-center">
                                 <button
-                                    className="cursor-pointer"
+                                    className="cursor-pointer p-2"
                                     onClick={() => {
                                         if (
                                             confirm(

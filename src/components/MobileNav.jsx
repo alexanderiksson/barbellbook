@@ -8,32 +8,65 @@ export default function MobileNav() {
     return (
         <nav
             id="mobile-nav"
-            className="sm:hidden bg-neutral-900/50 backdrop-blur-2xl border-t border-white/5 fixed bottom-0 w-full"
+            className="sm:hidden bg-black/20 backdrop-blur-xl border-t border-white/5 fixed bottom-0 w-full py-2"
         >
             <div className="content">
-                <ul className="flex justify-evenly">
+                <ul className="flex justify-around items-center">
                     <li>
                         <NavLink
                             to="/"
-                            className="flex flex-col items-center justify-center text-xs gap-1 py-3 px-5"
+                            className={({ isActive }) =>
+                                `flex flex-col items-center justify-center text-xs ${
+                                    isActive ? "text-[#0284c7]" : "text-white"
+                                }`
+                            }
                         >
-                            <HomeIcon />
+                            {({ isActive }) => (
+                                <>
+                                    <HomeIcon
+                                        color={isActive ? "#0284c7" : "#fff"}
+                                    />
+                                    <span>Home</span>
+                                </>
+                            )}
                         </NavLink>
                     </li>
                     <li>
                         <NavLink
                             to="/add-exercise"
-                            className="flex flex-col items-center justify-center text-xs gap-1 py-3 px-5"
+                            className={({ isActive }) =>
+                                `flex flex-col items-center justify-center text-xs ${
+                                    isActive ? "text-[#0284c7]" : "text-white"
+                                }`
+                            }
                         >
-                            <AddIcon />
+                            {({ isActive }) => (
+                                <>
+                                    <AddIcon
+                                        color={isActive ? "#0284c7" : "#fff"}
+                                    />
+                                    <span>Add exercise</span>
+                                </>
+                            )}
                         </NavLink>
                     </li>
                     <li>
                         <NavLink
                             to="/history"
-                            className="flex flex-col items-center justify-center text-xs gap-1 py-3 px-5"
+                            className={({ isActive }) =>
+                                `flex flex-col items-center justify-center text-xs ${
+                                    isActive ? "text-[#0284c7]" : "text-white"
+                                }`
+                            }
                         >
-                            <HistoryIcon />
+                            {({ isActive }) => (
+                                <>
+                                    <HistoryIcon
+                                        color={isActive ? "#0284c7" : "#fff"}
+                                    />
+                                    <span>History</span>
+                                </>
+                            )}
                         </NavLink>
                     </li>
                 </ul>

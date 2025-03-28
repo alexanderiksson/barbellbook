@@ -31,7 +31,7 @@ export default function History() {
                             <div className="flex justify-between">
                                 <Link
                                     to={`/history/${index + 1}`}
-                                    className="bg-sky-700 px-4 py-2 rounded inline-flex justify-center items-center cursor-pointer tracking-wide"
+                                    className="bg-sky-700 px-4 py-2 rounded inline-flex justify-center items-center cursor-pointer"
                                 >
                                     View workout
                                 </Link>
