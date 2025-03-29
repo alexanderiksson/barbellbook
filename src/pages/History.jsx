@@ -16,7 +16,7 @@ export default function History() {
                     {workouts.map((workout, index) => (
                         <div
                             key={index}
-                            className="p-4 bg-neutral-900 border border-white/10 rounded shadow-2xl"
+                            className="p-4 bg-neutral-900 border border-white/10 rounded-lg shadow-xl"
                         >
                             <div className="flex justify-between items-center mb-8">
                                 <h2 className="text-xl font-semibold">
@@ -31,7 +31,7 @@ export default function History() {
                             <div className="flex justify-between">
                                 <Link
                                     to={`/history/${index + 1}`}
-                                    className="bg-sky-700 px-4 py-2 rounded inline-flex justify-center items-center cursor-pointer"
+                                    className="bg-sky-700 px-4 py-2 rounded-lg inline-flex justify-center items-center cursor-pointer"
                                 >
                                     View workout
                                 </Link>

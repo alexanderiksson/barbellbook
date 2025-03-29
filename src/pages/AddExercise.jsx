@@ -27,7 +27,7 @@ export default function AddExercise() {
 
             <label className="w-full">
                 <input
-                    className="bg-neutral-900 p-2 rounded w-full border border-white/10"
+                    className="bg-neutral-900 p-2 rounded-lg w-full border border-white/10"
                     type="text"
                     placeholder="Exercise name"
                     onChange={(e) => setName(e.target.value)}
@@ -36,14 +36,14 @@ export default function AddExercise() {
             </label>
 
             {/* Add set */}
-            <section className="w-full flex flex-col gap-8 bg-neutral-900 border border-white/10 p-4 rounded">
+            <section className="w-full flex flex-col gap-8 bg-neutral-900 border border-white/10 p-4 rounded-lg">
                 <div className="flex justify-around">
                     <RepCounter reps={reps} setReps={setReps} />
                     <WeightInput weight={weight} setWeight={setWeight} />
                 </div>
 
                 <button
-                    className="bg-sky-700 px-4 py-2 rounded inline-flex justify-center items-center gap-2 cursor-pointer"
+                    className="bg-sky-700 px-4 py-2 rounded-lg inline-flex justify-center items-center gap-2 cursor-pointer"
                     onClick={() => {
                         if (reps == 0 || weight <= 0 || weight > 9999) {
                             alert("Enter weight and reps.");
@@ -59,7 +59,7 @@ export default function AddExercise() {
             {sets.length > 0 && <SetTable sets={sets} removeSet={removeSet} />}
 
             <button
-                className="bg-green-700 px-4 py-2 rounded inline-flex justify-center items-center cursor-pointer mt-auto"
+                className="bg-green-700 px-4 py-2 rounded-lg inline-flex justify-center items-center cursor-pointer mt-auto"
                 onClick={() => {
                     if (sets <= 0) {
                         alert("Exercise dosen't have any sets.");

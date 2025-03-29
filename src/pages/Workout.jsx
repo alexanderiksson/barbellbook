@@ -18,7 +18,7 @@ export default function Workout() {
                 {workout.exercises.map((exercise, index) => (
                     <div
                         key={index}
-                        className="p-4 bg-neutral-900 border border-white/10 rounded"
+                        className="p-4 bg-neutral-900 border border-white/10 rounded-lg shadow-xl"
                     >
                         <h2 className="text-xl font-semibold mb-4">
                             <span className="mr-2 font-normal text-neutral-500">
