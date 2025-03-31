@@ -12,7 +12,7 @@ export default function Workout() {
     return (
         <>
             <div className="content">
-                <h1 className="text-3xl font-semibold mb-6">Today's workout</h1>
+                <h1 className="text-3xl font-semibold mb-6">Today's Workout</h1>
                 <div className="flex justify-between flex-wrap gap-2 mb-12">
                     <Link
                         to="/add-exercise"

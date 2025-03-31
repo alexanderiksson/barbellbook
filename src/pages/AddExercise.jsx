@@ -23,7 +23,7 @@ export default function AddExercise() {
 
     return (
         <div className="content flex flex-col gap-8 flex-1">
-            <h1 className="text-3xl font-semibold">Add exercise</h1>
+            <h1 className="text-3xl font-semibold">Add Exercise</h1>
 
             <label className="w-full">
                 <input
