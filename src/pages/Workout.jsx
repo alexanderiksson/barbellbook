@@ -13,12 +13,12 @@ export default function Workout() {
             <h1 className="text-3xl font-semibold mb-4">
                 {workout.name ? workout.name : `Workout #${id}`}
             </h1>
-            <p className="text-neutral-500">{workout.date}</p>
+            <p className="text-neutral-500 text-sm">{workout.date}</p>
             <section className="flex flex-col gap-4 mt-8">
                 {workout.exercises.map((exercise, index) => (
                     <div
                         key={index}
-                        className="p-4 bg-neutral-900 border border-white/10 rounded-lg shadow-xl"
+                        className="p-4 bg-neutral-900 border border-white/5 rounded-lg shadow-xl"
                     >
                         <h2 className="text-xl font-semibold mb-4">
                             <span className="mr-2 font-normal text-neutral-500">

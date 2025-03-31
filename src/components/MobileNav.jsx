@@ -17,14 +17,16 @@ export default function MobileNav() {
                             to="/"
                             className={({ isActive }) =>
                                 `flex flex-col items-center justify-center text-xs ${
-                                    isActive ? "text-[#0284c7]" : "text-white"
+                                    isActive
+                                        ? "text-emerald-500"
+                                        : "text-neutral-500"
                                 }`
                             }
                         >
                             {({ isActive }) => (
                                 <>
                                     <HomeIcon
-                                        color={isActive ? "#0284c7" : "#fff"}
+                                        color={isActive ? "#10b981" : "#737373"}
                                     />
                                     <span>Home</span>
                                 </>
@@ -36,14 +38,16 @@ export default function MobileNav() {
                             to="/add-exercise"
                             className={({ isActive }) =>
                                 `flex flex-col items-center justify-center text-xs ${
-                                    isActive ? "text-[#0284c7]" : "text-white"
+                                    isActive
+                                        ? "text-emerald-500"
+                                        : "text-neutral-500"
                                 }`
                             }
                         >
                             {({ isActive }) => (
                                 <>
                                     <AddIcon
-                                        color={isActive ? "#0284c7" : "#fff"}
+                                        color={isActive ? "#10b981" : "#737373"}
                                     />
                                     <span>Add exercise</span>
                                 </>
@@ -55,14 +59,16 @@ export default function MobileNav() {
                             to="/history"
                             className={({ isActive }) =>
                                 `flex flex-col items-center justify-center text-xs ${
-                                    isActive ? "text-[#0284c7]" : "text-white"
+                                    isActive
+                                        ? "text-emerald-500"
+                                        : "text-neutral-500"
                                 }`
                             }
                         >
                             {({ isActive }) => (
                                 <>
                                     <HistoryIcon
-                                        color={isActive ? "#0284c7" : "#fff"}
+                                        color={isActive ? "#10b981" : "#737373"}
                                     />
                                     <span>History</span>
                                 </>

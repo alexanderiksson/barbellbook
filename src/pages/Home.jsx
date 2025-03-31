@@ -16,7 +16,7 @@ export default function Workout() {
                 <div className="flex justify-between flex-wrap gap-2 mb-12">
                     <Link
                         to="/add-exercise"
-                        className="bg-green-700 px-4 py-2 rounded-lg inline-flex justify-center items-center gap-2"
+                        className="bg-emerald-700 px-4 py-2 rounded-lg inline-flex justify-center items-center gap-2"
                     >
                         <AddIcon size="18px" /> Add exercise
                     </Link>
@@ -62,7 +62,7 @@ export default function Workout() {
                             {exercises.map((exercise, index) => (
                                 <div
                                     key={index}
-                                    className="p-4 bg-neutral-900 border border-white/10 rounded-lg shadow-xl"
+                                    className="p-4 bg-neutral-900 border border-white/5 rounded-lg shadow-xl"
                                 >
                                     <h2 className="text-xl font-semibold mb-4">
                                         <span className="mr-2 font-normal text-neutral-500">

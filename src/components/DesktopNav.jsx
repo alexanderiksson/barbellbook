@@ -4,7 +4,7 @@ export default function DesktopNav() {
     return (
         <nav
             id="desktop-nav"
-            className="hidden sm:block fixed w-full bg-black/25 backdrop-blur-xl border-b border-white/5 py-4 shadow-xl"
+            className="hidden sm:block fixed w-full bg-neutral-700/25 backdrop-blur-xl border-b border-white/5 py-4 shadow-xl"
         >
             <div className="content">
                 <ul className="flex justify-evenly items-center">
@@ -12,7 +12,7 @@ export default function DesktopNav() {
                         <NavLink
                             to="/"
                             className={({ isActive }) =>
-                                isActive ? "text-[#0284c7]" : "text-white"
+                                isActive ? "text-emerald-500" : "text-white"
                             }
                         >
                             Home
@@ -22,7 +22,7 @@ export default function DesktopNav() {
                         <NavLink
                             to="/add-exercise"
                             className={({ isActive }) =>
-                                isActive ? "text-[#0284c7]" : "text-white"
+                                isActive ? "text-emerald-500" : "text-white"
                             }
                         >
                             Add exercise
@@ -32,7 +32,7 @@ export default function DesktopNav() {
                         <NavLink
                             to="/history"
                             className={({ isActive }) =>
-                                isActive ? "text-[#0284c7]" : "text-white"
+                                isActive ? "text-emerald-500" : "text-white"
                             }
                         >
                             History
