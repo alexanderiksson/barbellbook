@@ -3,31 +3,63 @@ import { useWorkout } from "../context/WorkoutContext";
 import { useParams } from "react-router-dom";
 import StatsIcon from "../assets/icons/StatsIcon";
 import ArrowIcon from "../assets/icons/ArrowIcon";
+import dateConverter from "../utils/dateConverter";
+import GymIcon from "../assets/icons/GymIcon";
+import TrashIcon from "../assets/icons/TrashIcon";
 
 export default function Workout() {
     const { id } = useParams();
-    const { workouts } = useWorkout();
+    const { workouts, removeWorkout } = useWorkout();
 
     const workout = workouts.find((_, index) => index === parseInt(id - 1, 10));
+
+    const index = parseInt(id, 10) - 1;
 
     return (
         <div className="content">
             <Link className="mb-4 inline-flex py-2 text-sky-500" to="/history">
                 <ArrowIcon color="#0ea5e9" />
-                Back
+                History
             </Link>
-            <div className="flex justify-between">
-                <h1 className="text-3xl font-semibold mb-4">
-                    {workout.name ? workout.name : `Workout #${id}`}
-                </h1>
-                <Link
-                    to={`/history/${id}/stats`}
-                    className="bg-neutral-800 w-10 h-10 rounded-lg inline-flex justify-center items-center cursor-pointer"
-                >
-                    <StatsIcon color="#10b981" />
-                </Link>
+            <div className="flex justify-between items-center mb-4">
+                <div className="flex items-center justify-center gap-4">
+                    <div className="bg-emerald-500/10 w-16 h-16 flex justify-center items-center rounded-full">
+                        <GymIcon size="32px" color="#10b981" />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                        <h1 className="text-xl font-semibold">
+                            {workout.name ? workout.name : `Workout #${id}`}
+                        </h1>
+                        <p className="text-neutral-500">
+                            {dateConverter(workout.date)}
+                        </p>
+                    </div>
+                </div>
+
+                <div className="flex gap-2">
+                    <Link
+                        to={`/history/${id}/stats`}
+                        className="bg-neutral-800 w-12 h-12 rounded-lg inline-flex justify-center items-center cursor-pointer"
+                    >
+                        <StatsIcon color="#10b981" size="28px" />
+                    </Link>
+                    <button
+                        className="bg-red-500/20 w-12 h-12 rounded-lg inline-flex justify-center items-center cursor-pointer"
+                        onClick={() => {
+                            if (
+                                confirm(
+                                    "Are you sure you want to remove workout?"
+                                )
+                            ) {
+                                removeWorkout(index);
+                                window.location.href = "/history";
+                            }
+                        }}
+                    >
+                        <TrashIcon />
+                    </button>
+                </div>
             </div>
-            <p className="text-neutral-500 text-sm">{workout.date}</p>
             <section className="flex flex-col gap-4 mt-8">
                 {workout.exercises.map((exercise, index) => (
                     <div

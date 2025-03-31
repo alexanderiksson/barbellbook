@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useWorkout } from "../context/WorkoutContext";
 import { Link } from "react-router-dom";
 import TrashIcon from "../assets/icons/TrashIcon";
+import dateConverter from "../utils/dateConverter";
+import GymIcon from "../assets/icons/GymIcon";
 
 export default function History() {
     const { workouts, removeWorkout } = useWorkout();
@@ -43,45 +45,27 @@ export default function History() {
             {workouts.length === 0 ? (
                 <p className="text-neutral-500">No workouts found.</p>
             ) : (
-                <section className="flex flex-col gap-4">
+                <section className="flex flex-col gap-2">
                     {filteredWorkouts.map((workout, index) => (
-                        <div
-                            key={index}
-                            className="p-4 bg-neutral-900 border border-white/5 rounded-lg shadow-xl"
-                        >
-                            <div className="flex justify-between items-center mb-8">
-                                <h2 className="text-xl font-semibold">
-                                    {workout.name
-                                        ? workout.name
-                                        : `Workout #${workout.id + 1}`}
-                                </h2>
-                                <span className="text-neutral-500 text-xs">
-                                    {workout.date}
+                        <Link to={`/history/${workout.id + 1}`} key={index}>
+                            <div className="p-4 bg-neutral-900 border border-white/5 rounded-lg shadow-xl flex justify-between items-center">
+                                <div className="flex items-center gap-4">
+                                    <div className="bg-emerald-500/10 w-12 h-12 flex justify-center items-center rounded-full">
+                                        <GymIcon size="24px" color="#10b981" />
+                                    </div>
+
+                                    <h2 className="text-lg font-semibold">
+                                        {workout.name
+                                            ? workout.name
+                                            : `Workout #${workout.id + 1}`}
+                                    </h2>
+                                </div>
+
+                                <span className="text-neutral-500 text-sm">
+                                    {dateConverter(workout.date)}
                                 </span>
                             </div>
-                            <div className="flex justify-between">
-                                <Link
-                                    to={`/history/${workout.id + 1}`}
-                                    className="bg-sky-700 px-4 py-2 rounded-lg inline-flex justify-center items-center cursor-pointer"
-                                >
-                                    View workout
-                                </Link>
-                                <button
-                                    className="cursor-pointer flex items-end"
-                                    onClick={() => {
-                                        if (
-                                            confirm(
-                                                "Are you sure you want to remove workout?"
-                                            )
-                                        ) {
-                                            removeWorkout(index);
-                                        }
-                                    }}
-                                >
-                                    <TrashIcon />
-                                </button>
-                            </div>
-                        </div>
+                        </Link>
                     ))}
                 </section>
             )}

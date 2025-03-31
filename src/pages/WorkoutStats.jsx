@@ -46,28 +46,31 @@ export default function WorkoutStats() {
                 to={`/history/${id}`}
             >
                 <ArrowIcon color="#0ea5e9" />
-                Back
+                {workout.name}
             </Link>
             <h1 className="text-3xl font-semibold mb-10">Workout Stats</h1>
 
             <section className="grid grid-cols-2 gap-3">
                 <div className="p-4 bg-neutral-900 border border-white/5 rounded-lg shadow-xl flex flex-col justify-center items-center text-center">
                     <h2 className="mb-2">Exercises</h2>
-                    <span className="text-xl py-4">
+                    <span className="text-2xl py-4">
                         {workout.exercises.length}
                     </span>
                 </div>
                 <div className="p-4 bg-neutral-900 border border-white/5 rounded-lg shadow-xl flex flex-col justify-center items-center text-center">
                     <h2 className="mb-2">Total sets</h2>
-                    <span className="text-xl py-4">{totalSets()}</span>
+                    <span className="text-2xl py-4">{totalSets()}</span>
                 </div>
                 <div className="p-4 bg-neutral-900 border border-white/5 rounded-lg shadow-xl flex flex-col justify-center items-center text-center">
                     <h2 className="mb-2">Total reps</h2>
-                    <span className="text-xl py-4">{totalReps()}</span>
+                    <span className="text-2xl py-4">{totalReps()}</span>
                 </div>
                 <div className="p-4 bg-neutral-900 border border-white/5 rounded-lg shadow-xl flex flex-col justify-center items-center text-center">
                     <h2 className="mb-2">Weight lifted</h2>
-                    <span className="text-xl py-4">{totalWeight()} kg</span>
+                    <span className="text-2xl py-4">
+                        {totalWeight()}{" "}
+                        <span className="text-base text-neutral-500">kg</span>
+                    </span>
                 </div>
             </section>
         </div>

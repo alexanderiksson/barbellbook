@@ -51,6 +51,7 @@ export function WorkoutProvider({ children }) {
 
     // Function to remove a workout by index
     const removeWorkout = (index) => {
+        console.log("removing: " + index);
         setWorkouts((prevWorkouts) =>
             prevWorkouts.filter((_, i) => i !== index)
         );
