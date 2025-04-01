@@ -1,20 +1,24 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
 import { useParams } from "react-router-dom";
+import dateConverter from "../utils/dateConverter";
+import Loader from "../components/common/Loader";
+import Error from "../components/common/Error";
 import StatsIcon from "../assets/icons/StatsIcon";
 import ArrowIcon from "../assets/icons/ArrowIcon";
-import dateConverter from "../utils/dateConverter";
 import GymIcon from "../assets/icons/GymIcon";
 import TrashIcon from "../assets/icons/TrashIcon";
-import { useState } from "react";
-import Error from "../components/common/Error";
-import Loader from "../components/common/Loader";
+import MenuIcon from "../assets/icons/MenuIcon";
+import EditIcon from "../assets/icons/EditIcon";
 
 export default function Workout() {
+    const [loading, setLoading] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+
     const { id } = useParams();
     const { workouts, removeWorkout } = useWorkout();
     const workout = workouts.find((_, index) => index === parseInt(id, 10));
-    const [loading, setLoading] = useState(false);
 
     if (loading) {
         return <Loader />;
@@ -45,29 +49,48 @@ export default function Workout() {
                     </div>
                 </div>
 
-                <div className="flex gap-2">
-                    <Link
-                        to={`/history/${id}/stats`}
-                        className="bg-neutral-800 w-12 h-12 rounded-lg inline-flex justify-center items-center cursor-pointer"
-                    >
-                        <StatsIcon color="#10b981" size="28px" />
-                    </Link>
+                <div className="flex gap-2 relative">
                     <button
-                        className="bg-red-500/20 w-12 h-12 rounded-lg inline-flex justify-center items-center cursor-pointer"
-                        onClick={() => {
-                            if (
-                                confirm(
-                                    "Are you sure you want to remove workout?"
-                                )
-                            ) {
-                                setLoading(true);
-                                removeWorkout(Number(id));
-                                window.location.href = "/history";
-                            }
-                        }}
+                        className="bg-neutral-800 w-12 h-12 rounded-lg inline-flex justify-center items-center cursor-pointer"
+                        onClick={() => setIsOpen((isOpen) => !isOpen)}
                     >
-                        <TrashIcon />
+                        <MenuIcon />
                     </button>
+                    <div
+                        className={`${
+                            isOpen ? "block" : "hidden"
+                        } absolute bg-neutral-800 rounded-lg w-48 right-0 top-13 shadow-xl overflow-hidden`}
+                    >
+                        <ul className="divide-y divide-neutral-700">
+                            <li className="text-center">
+                                <Link
+                                    to={`/history/${id}/stats`}
+                                    className="flex justify-center items-center gap-1 py-2"
+                                >
+                                    <StatsIcon size="20px" /> Stats
+                                </Link>
+                            </li>
+                            {/* <li className="flex justify-center items-center gap-1 text-center py-2 cursor-pointer">
+                                <EditIcon size="16px" /> Edit
+                            </li> */}
+                            <li
+                                className="flex justify-center items-center gap-1 text-center py-2 cursor-pointer text-red-500"
+                                onClick={() => {
+                                    if (
+                                        confirm(
+                                            "Are you sure you want to remove workout?"
+                                        )
+                                    ) {
+                                        setLoading(true);
+                                        removeWorkout(Number(id));
+                                        window.location.href = "/history";
+                                    }
+                                }}
+                            >
+                                <TrashIcon size="20px" /> Delete
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <section className="flex flex-col gap-4 mt-8">
