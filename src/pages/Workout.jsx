@@ -7,8 +7,8 @@ import dateConverter from "../utils/dateConverter";
 import GymIcon from "../assets/icons/GymIcon";
 import TrashIcon from "../assets/icons/TrashIcon";
 import { useState } from "react";
-import Error from "../components/Error";
-import Loader from "../components/Loader";
+import Error from "../components/common/Error";
+import Loader from "../components/common/Loader";
 
 export default function Workout() {
     const { id } = useParams();

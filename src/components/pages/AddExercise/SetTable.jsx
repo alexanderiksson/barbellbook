@@ -1,4 +1,4 @@
-import TrashIcon from "../assets/icons/TrashIcon";
+import TrashIcon from "../../../assets/icons/TrashIcon";
 
 export default function SetTable({ sets, removeSet }) {
     return (

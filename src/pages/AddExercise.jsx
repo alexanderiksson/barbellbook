@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useWorkout } from "../context/WorkoutContext";
-import RepCounter from "../components/RepCounter";
-import WeightInput from "../components/WeightInput";
-import SetTable from "../components/SetTable";
+import RepCounter from "../components/pages/AddExercise/RepCounter";
+import WeightInput from "../components/pages/AddExercise/WeightInput";
+import SetTable from "../components/pages/AddExercise/SetTable";
 import AddIcon from "../assets/icons/AddIcon";
+import { LinkButton, Button } from "../components/common/Buttons";
 
 export default function AddExercise() {
     const { addExercise } = useWorkout();
@@ -42,8 +43,8 @@ export default function AddExercise() {
                     <WeightInput weight={weight} setWeight={setWeight} />
                 </div>
 
-                <button
-                    className="bg-sky-700 px-4 py-2 rounded-lg inline-flex justify-center items-center gap-2 cursor-pointer"
+                <Button
+                    variant={"blue"}
                     onClick={() => {
                         if (reps == 0 || weight <= 0 || weight > 9999) {
                             alert("Enter weight and reps.");
@@ -53,13 +54,14 @@ export default function AddExercise() {
                     }}
                 >
                     <AddIcon size="18px" /> Add set
-                </button>
+                </Button>
             </section>
 
             {sets.length > 0 && <SetTable sets={sets} removeSet={removeSet} />}
 
-            <button
-                className="bg-emerald-700 px-4 py-2 rounded-lg inline-flex justify-center items-center cursor-pointer mt-auto"
+            <Button
+                variant={"green"}
+                className={"mt-auto"}
                 onClick={() => {
                     if (sets <= 0) {
                         alert("Exercise dosen't have any sets.");
@@ -76,7 +78,7 @@ export default function AddExercise() {
                 }}
             >
                 Save exercise
-            </button>
+            </Button>
         </div>
     );
 }

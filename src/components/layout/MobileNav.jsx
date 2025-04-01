@@ -1,8 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import AddIcon from "../assets/icons/AddIcon";
-import HomeIcon from "../assets/icons/HomeIcon";
-import HistoryIcon from "../assets/icons/HistoryIcon";
+import AddIcon from "../../assets/icons/AddIcon";
+import HomeIcon from "../../assets/icons/HomeIcon";
+import HistoryIcon from "../../assets/icons/HistoryIcon";
 
 export default function MobileNav() {
     return (

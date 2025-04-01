@@ -4,6 +4,7 @@ import { useWorkout } from "../context/WorkoutContext";
 import TrashIcon from "../assets/icons/TrashIcon";
 import AddIcon from "../assets/icons/AddIcon";
 import DoneIcon from "../assets/icons/DoneIcon";
+import { LinkButton, Button } from "../components/common/Buttons";
 
 export default function Workout() {
     const { exercises, removeExercise, clearExercises, addWorkout } =
@@ -14,15 +15,13 @@ export default function Workout() {
             <div className="content">
                 <h1 className="text-3xl font-semibold mb-6">Today's Workout</h1>
                 <div className="flex justify-between flex-wrap gap-2 mb-12">
-                    <Link
-                        to="/add-exercise"
-                        className="bg-emerald-700 px-4 py-2 rounded-lg inline-flex justify-center items-center gap-2"
-                    >
+                    <LinkButton to="/add-exercise" variant={"green"}>
                         <AddIcon size="18px" /> Add exercise
-                    </Link>
+                    </LinkButton>
+
                     {exercises.length > 0 && (
-                        <button
-                            className="bg-sky-700 px-4 py-2 rounded-lg inline-flex justify-center items-center cursor-pointer gap-2"
+                        <Button
+                            variant={"blue"}
                             onClick={() => {
                                 if (
                                     confirm(
@@ -48,7 +47,7 @@ export default function Workout() {
                         >
                             <DoneIcon />
                             Finish workout
-                        </button>
+                        </Button>
                     )}
                 </div>
 
@@ -89,6 +88,7 @@ export default function Workout() {
                                             ))}
                                         </tbody>
                                     </table>
+
                                     <button
                                         className="cursor-pointer py-2"
                                         onClick={() => {

@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { useWorkout } from "../context/WorkoutContext";
 import { Link } from "react-router-dom";
-import TrashIcon from "../assets/icons/TrashIcon";
 import dateConverter from "../utils/dateConverter";
 import GymIcon from "../assets/icons/GymIcon";
 
 export default function History() {
-    const { workouts, removeWorkout } = useWorkout();
+    const { workouts } = useWorkout();
     const [initialWorkouts, setInitialWorkouts] = useState([]);
     const [filteredWorkouts, setFilteredWorkouts] = useState([]);
     const [filter, setFilter] = useState("new");
