@@ -47,7 +47,7 @@ export default function History() {
             ) : (
                 <section className="flex flex-col gap-2">
                     {filteredWorkouts.map((workout, index) => (
-                        <Link to={`/history/${workout.id + 1}`} key={index}>
+                        <Link to={`/history/${workout.id}`} key={index}>
                             <div className="p-4 bg-neutral-900 border border-white/5 rounded-lg shadow-xl flex justify-between items-center">
                                 <div className="flex items-center gap-4">
                                     <div className="bg-emerald-500/10 w-12 h-12 flex justify-center items-center rounded-full">
@@ -57,7 +57,7 @@ export default function History() {
                                     <h2 className="text-lg font-semibold">
                                         {workout.name
                                             ? workout.name
-                                            : `Workout #${workout.id + 1}`}
+                                            : "Workout"}
                                     </h2>
                                 </div>
 

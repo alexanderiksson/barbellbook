@@ -6,14 +6,23 @@ import ArrowIcon from "../assets/icons/ArrowIcon";
 import dateConverter from "../utils/dateConverter";
 import GymIcon from "../assets/icons/GymIcon";
 import TrashIcon from "../assets/icons/TrashIcon";
+import { useState } from "react";
+import Error from "../components/Error";
+import Loader from "../components/Loader";
 
 export default function Workout() {
     const { id } = useParams();
     const { workouts, removeWorkout } = useWorkout();
+    const workout = workouts.find((_, index) => index === parseInt(id, 10));
+    const [loading, setLoading] = useState(false);
 
-    const workout = workouts.find((_, index) => index === parseInt(id - 1, 10));
+    if (loading) {
+        return <Loader />;
+    }
 
-    const index = parseInt(id, 10) - 1;
+    if (!workout) {
+        return <Error />;
+    }
 
     return (
         <div className="content">
@@ -28,7 +37,7 @@ export default function Workout() {
                     </div>
                     <div className="flex flex-col gap-1">
                         <h1 className="text-xl font-semibold">
-                            {workout.name ? workout.name : `Workout #${id}`}
+                            {workout.name ? workout.name : "Workout"}
                         </h1>
                         <p className="text-neutral-500">
                             {dateConverter(workout.date)}
@@ -51,7 +60,8 @@ export default function Workout() {
                                     "Are you sure you want to remove workout?"
                                 )
                             ) {
-                                removeWorkout(index);
+                                setLoading(true);
+                                removeWorkout(Number(id));
                                 window.location.href = "/history";
                             }
                         }}
@@ -68,7 +78,7 @@ export default function Workout() {
                     >
                         <h2 className="text-xl font-semibold mb-4">
                             <span className="mr-2 font-normal text-neutral-500">
-                                #{index + 1}
+                                {index + 1}
                             </span>
                             {exercise.name}
                         </h2>

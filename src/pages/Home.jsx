@@ -66,7 +66,7 @@ export default function Workout() {
                                 >
                                     <h2 className="text-xl font-semibold mb-4">
                                         <span className="mr-2 font-normal text-neutral-500">
-                                            #{index + 1}
+                                            {index + 1}
                                         </span>
                                         {exercise.name}
                                     </h2>

@@ -7,7 +7,7 @@ export default function WorkoutStats() {
     const { id } = useParams();
     const { workouts } = useWorkout();
 
-    const workout = workouts.find((_, index) => index === parseInt(id - 1, 10));
+    const workout = workouts.find((_, index) => index === parseInt(id, 10));
 
     const totalSets = () => {
         let sets = 0;
@@ -46,7 +46,7 @@ export default function WorkoutStats() {
                 to={`/history/${id}`}
             >
                 <ArrowIcon color="#0ea5e9" />
-                {workout.name}
+                {workout.name ? workout.name : "Workout"}
             </Link>
             <h1 className="text-3xl font-semibold mb-10">Workout Stats</h1>
 
