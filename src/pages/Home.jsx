@@ -15,13 +15,13 @@ export default function Workout() {
             <div className="content">
                 <h1 className="text-3xl font-semibold mb-6">Today's Workout</h1>
                 <div className="flex justify-between flex-wrap gap-2 mb-12">
-                    <LinkButton to="/add-exercise" variant={"green"}>
+                    <LinkButton to="/add-exercise" variant={"blue"}>
                         <AddIcon size="18px" /> Add exercise
                     </LinkButton>
 
                     {exercises.length > 0 && (
                         <Button
-                            variant={"blue"}
+                            variant={"green"}
                             onClick={() => {
                                 if (
                                     confirm(
@@ -64,8 +64,8 @@ export default function Workout() {
                                     className="p-4 bg-neutral-900 border border-white/5 rounded-lg shadow-xl"
                                 >
                                     <h2 className="text-xl font-semibold mb-4">
-                                        <span className="mr-2 font-normal text-neutral-500">
-                                            {index + 1}
+                                        <span className="mr-2 text-neutral-500">
+                                            #{index + 1}
                                         </span>
                                         {exercise.name}
                                     </h2>

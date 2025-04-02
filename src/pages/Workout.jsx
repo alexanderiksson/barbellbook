@@ -103,6 +103,9 @@ export default function Workout() {
                         className="p-4 bg-neutral-900 border border-white/5 rounded-lg shadow-xl"
                     >
                         <h2 className="text-xl font-semibold mb-4">
+                            <span className="mr-2 text-neutral-500">
+                                #{index + 1}
+                            </span>
                             {exercise.name}
                         </h2>
                         <table className="w-full">
