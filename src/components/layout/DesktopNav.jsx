@@ -15,7 +15,7 @@ export default function DesktopNav() {
                                 isActive ? "text-emerald-500" : "text-white"
                             }
                         >
-                            Home
+                            Start
                         </NavLink>
                     </li>
                     <li>

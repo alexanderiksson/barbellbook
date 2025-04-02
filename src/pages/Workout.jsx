@@ -30,8 +30,11 @@ export default function Workout() {
 
     return (
         <div className="content">
-            <Link className="mb-4 inline-flex py-2 text-sky-500" to="/history">
-                <ArrowIcon color="#0ea5e9" />
+            <Link
+                className="mb-4 inline-flex items-center py-2 text-sky-500"
+                to="/history"
+            >
+                <ArrowIcon color="#0ea5e9" size="32px" />
                 History
             </Link>
             <div className="flex justify-between items-center mb-4">
@@ -51,7 +54,7 @@ export default function Workout() {
 
                 <div className="flex gap-2 relative">
                     <button
-                        className="bg-neutral-800 w-12 h-12 rounded-lg inline-flex justify-center items-center cursor-pointer"
+                        className="bg-neutral-800 w-10 h-10 rounded-lg inline-flex justify-center items-center cursor-pointer"
                         onClick={() => setIsOpen((isOpen) => !isOpen)}
                     >
                         <MenuIcon />
@@ -59,13 +62,13 @@ export default function Workout() {
                     <div
                         className={`${
                             isOpen ? "block" : "hidden"
-                        } absolute bg-neutral-800 rounded-lg w-48 right-0 top-13 shadow-xl overflow-hidden`}
+                        } absolute bg-neutral-800 rounded-lg w-52 right-0 top-11 shadow-xl overflow-hidden`}
                     >
                         <ul className="divide-y divide-neutral-700">
                             <li className="text-center">
                                 <Link
                                     to={`/history/${id}/stats`}
-                                    className="flex justify-center items-center gap-1 py-2"
+                                    className="flex justify-center items-center gap-1 py-3"
                                 >
                                     <StatsIcon size="20px" /> Stats
                                 </Link>
@@ -74,7 +77,7 @@ export default function Workout() {
                                 <EditIcon size="16px" /> Edit
                             </li> */}
                             <li
-                                className="flex justify-center items-center gap-1 text-center py-2 cursor-pointer text-red-500"
+                                className="flex justify-center items-center gap-1 text-center py-3 cursor-pointer text-red-500"
                                 onClick={() => {
                                     if (
                                         confirm(
@@ -100,9 +103,6 @@ export default function Workout() {
                         className="p-4 bg-neutral-900 border border-white/5 rounded-lg shadow-xl"
                     >
                         <h2 className="text-xl font-semibold mb-4">
-                            <span className="mr-2 font-normal text-neutral-500">
-                                {index + 1}
-                            </span>
                             {exercise.name}
                         </h2>
                         <table className="w-full">

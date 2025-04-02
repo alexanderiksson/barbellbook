@@ -42,10 +42,10 @@ export default function WorkoutStats() {
     return (
         <div className="content">
             <Link
-                className="mb-4 inline-flex py-2 text-sky-500"
+                className="mb-4 inline-flex items-center py-2 text-sky-500"
                 to={`/history/${id}`}
             >
-                <ArrowIcon color="#0ea5e9" />
+                <ArrowIcon color="#0ea5e9" size="32px" />
                 {workout.name ? workout.name : "Workout"}
             </Link>
             <h1 className="text-3xl font-semibold mb-10">Workout Stats</h1>

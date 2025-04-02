@@ -3,8 +3,7 @@ import { useWorkout } from "../context/WorkoutContext";
 import RepCounter from "../components/pages/AddExercise/RepCounter";
 import WeightInput from "../components/pages/AddExercise/WeightInput";
 import SetTable from "../components/pages/AddExercise/SetTable";
-import AddIcon from "../assets/icons/AddIcon";
-import { LinkButton, Button } from "../components/common/Buttons";
+import { Button } from "../components/common/Buttons";
 
 export default function AddExercise() {
     const { addExercise } = useWorkout();
@@ -53,7 +52,7 @@ export default function AddExercise() {
                         }
                     }}
                 >
-                    <AddIcon size="18px" /> Add set
+                    Add set
                 </Button>
             </section>
 

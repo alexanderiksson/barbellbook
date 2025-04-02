@@ -8,7 +8,7 @@ export default function MobileNav() {
     return (
         <nav
             id="mobile-nav"
-            className="sm:hidden bg-black/20 backdrop-blur-xl border-t border-white/5 fixed bottom-0 w-full py-2"
+            className="sm:hidden bg-black/20 backdrop-blur-xl border-t border-white/5 fixed bottom-0 w-full py-2 z-20"
         >
             <div className="content">
                 <ul className="flex justify-around items-center">
@@ -28,7 +28,7 @@ export default function MobileNav() {
                                     <HomeIcon
                                         color={isActive ? "#10b981" : "#737373"}
                                     />
-                                    <span>Home</span>
+                                    <span>Start</span>
                                 </>
                             )}
                         </NavLink>
