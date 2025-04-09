@@ -30,10 +30,7 @@ export default function Workout() {
 
     return (
         <div className="content">
-            <Link
-                className="mb-4 inline-flex items-center py-2 text-sky-500"
-                to="/history"
-            >
+            <Link className="mb-4 inline-flex items-center py-2 text-sky-500" to="/history">
                 <ArrowIcon color="#0ea5e9" size="32px" />
                 History
             </Link>
@@ -46,9 +43,7 @@ export default function Workout() {
                         <h1 className="text-xl font-semibold">
                             {workout.name ? workout.name : "Workout"}
                         </h1>
-                        <p className="text-neutral-500">
-                            {dateConverter(workout.date)}
-                        </p>
+                        <p className="text-neutral-500">{dateConverter(workout.date)}</p>
                     </div>
                 </div>
 
@@ -79,11 +74,7 @@ export default function Workout() {
                             <li
                                 className="flex justify-center items-center gap-1 text-center py-3 cursor-pointer text-red-500"
                                 onClick={() => {
-                                    if (
-                                        confirm(
-                                            "Are you sure you want to remove workout?"
-                                        )
-                                    ) {
+                                    if (confirm("Are you sure you want to remove workout?")) {
                                         setLoading(true);
                                         removeWorkout(Number(id));
                                         window.location.href = "/history";
@@ -103,9 +94,7 @@ export default function Workout() {
                         className="p-4 bg-neutral-900 border border-white/5 rounded-lg shadow-xl"
                     >
                         <h2 className="text-xl font-semibold mb-4">
-                            <span className="mr-2 text-neutral-500">
-                                #{index + 1}
-                            </span>
+                            <span className="mr-2 text-neutral-500">#{index + 1}</span>
                             {exercise.name}
                         </h2>
                         <table className="w-full">

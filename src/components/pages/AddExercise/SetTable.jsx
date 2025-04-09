@@ -21,11 +21,7 @@ export default function SetTable({ sets, removeSet }) {
                                 <button
                                     className="cursor-pointer p-2"
                                     onClick={() => {
-                                        if (
-                                            confirm(
-                                                "Are you sure you want to remove set?"
-                                            )
-                                        ) {
+                                        if (confirm("Are you sure you want to remove set?")) {
                                             removeSet(index);
                                         }
                                     }}

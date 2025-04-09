@@ -22,9 +22,7 @@ export default function History() {
 
     useEffect(() => {
         const sortedWorkouts =
-            filter === "new"
-                ? [...initialWorkouts].reverse()
-                : [...initialWorkouts];
+            filter === "new" ? [...initialWorkouts].reverse() : [...initialWorkouts];
         setFilteredWorkouts(sortedWorkouts);
     }, [filter, initialWorkouts]);
 
@@ -54,9 +52,7 @@ export default function History() {
                                     </div>
 
                                     <h2 className="text-lg font-semibold">
-                                        {workout.name
-                                            ? workout.name
-                                            : "Workout"}
+                                        {workout.name ? workout.name : "Workout"}
                                     </h2>
                                 </div>
 

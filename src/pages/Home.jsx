@@ -7,8 +7,7 @@ import DoneIcon from "../assets/icons/DoneIcon";
 import { LinkButton, Button } from "../components/common/Buttons";
 
 export default function Workout() {
-    const { exercises, removeExercise, clearExercises, addWorkout } =
-        useWorkout();
+    const { exercises, removeExercise, clearExercises, addWorkout } = useWorkout();
 
     return (
         <>
@@ -23,16 +22,9 @@ export default function Workout() {
                         <Button
                             variant={"green"}
                             onClick={() => {
-                                if (
-                                    confirm(
-                                        "Do you want to finish & save workout?"
-                                    )
-                                ) {
-                                    const name = prompt(
-                                        "Workout name (optional)"
-                                    );
-                                    const date =
-                                        new Date().toLocaleDateString();
+                                if (confirm("Do you want to finish & save workout?")) {
+                                    const name = prompt("Workout name (optional)");
+                                    const date = new Date().toLocaleDateString();
 
                                     const newWorkout = {
                                         name: name,
@@ -52,9 +44,7 @@ export default function Workout() {
                 </div>
 
                 {exercises.length == 0 ? (
-                    <p className="text-neutral-500">
-                        Get started by adding an exercise.
-                    </p>
+                    <p className="text-neutral-500">Get started by adding an exercise.</p>
                 ) : (
                     <>
                         <section className="flex flex-col gap-4">
@@ -64,9 +54,7 @@ export default function Workout() {
                                     className="p-4 bg-neutral-900 border border-white/5 rounded-lg shadow-xl"
                                 >
                                     <h2 className="text-xl font-semibold mb-4">
-                                        <span className="mr-2 text-neutral-500">
-                                            #{index + 1}
-                                        </span>
+                                        <span className="mr-2 text-neutral-500">#{index + 1}</span>
                                         {exercise.name}
                                     </h2>
 
@@ -93,9 +81,7 @@ export default function Workout() {
                                         className="cursor-pointer py-2"
                                         onClick={() => {
                                             if (
-                                                confirm(
-                                                    "Are you sure you want to remove exercise?"
-                                                )
+                                                confirm("Are you sure you want to remove exercise?")
                                             ) {
                                                 removeExercise(index);
                                             }

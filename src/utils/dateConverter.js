@@ -8,9 +8,7 @@ export default function dateConverter(date) {
 
     if (workoutDate.toLocaleDateString() === today.toLocaleDateString()) {
         daysSince = "Today";
-    } else if (
-        workoutDate.toLocaleDateString() === yesterday.toLocaleDateString()
-    ) {
+    } else if (workoutDate.toLocaleDateString() === yesterday.toLocaleDateString()) {
         daysSince = "Yesterday";
     } else if ((today - workoutDate) / (1000 * 60 * 60 * 24) < 7) {
         daysSince = workoutDate.toLocaleDateString("en-US", {

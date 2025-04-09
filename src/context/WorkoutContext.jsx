@@ -26,9 +26,7 @@ export function WorkoutProvider({ children }) {
     };
 
     const removeExercise = (index) => {
-        setExercises((prevExercises) =>
-            prevExercises.filter((_, i) => i !== index)
-        );
+        setExercises((prevExercises) => prevExercises.filter((_, i) => i !== index));
     };
 
     const clearExercises = () => {
@@ -41,9 +39,7 @@ export function WorkoutProvider({ children }) {
     };
 
     const removeWorkout = (index) => {
-        setWorkouts((prevWorkouts) =>
-            prevWorkouts.filter((_, i) => i !== index)
-        );
+        setWorkouts((prevWorkouts) => prevWorkouts.filter((_, i) => i !== index));
     };
 
     return (

@@ -31,9 +31,7 @@ export default function WorkoutStats() {
         let weight = 0;
         for (let i = 0; i < workout.exercises.length; i++) {
             for (let s = 0; s < workout.exercises[i].sets.length; s++) {
-                weight +=
-                    workout.exercises[i].sets[s].weight *
-                    workout.exercises[i].sets[s].reps;
+                weight += workout.exercises[i].sets[s].weight * workout.exercises[i].sets[s].reps;
             }
         }
         return weight;
@@ -41,10 +39,7 @@ export default function WorkoutStats() {
 
     return (
         <div className="content">
-            <Link
-                className="mb-4 inline-flex items-center py-2 text-sky-500"
-                to={`/history/${id}`}
-            >
+            <Link className="mb-4 inline-flex items-center py-2 text-sky-500" to={`/history/${id}`}>
                 <ArrowIcon color="#0ea5e9" size="32px" />
                 {workout.name ? workout.name : "Workout"}
             </Link>
@@ -53,9 +48,7 @@ export default function WorkoutStats() {
             <section className="grid grid-cols-2 gap-3">
                 <div className="p-4 bg-neutral-900 border border-white/5 rounded-lg shadow-xl flex flex-col justify-center items-center text-center">
                     <h2 className="mb-2">Exercises</h2>
-                    <span className="text-2xl py-4">
-                        {workout.exercises.length}
-                    </span>
+                    <span className="text-2xl py-4">{workout.exercises.length}</span>
                 </div>
                 <div className="p-4 bg-neutral-900 border border-white/5 rounded-lg shadow-xl flex flex-col justify-center items-center text-center">
                     <h2 className="mb-2">Total sets</h2>
@@ -68,8 +61,7 @@ export default function WorkoutStats() {
                 <div className="p-4 bg-neutral-900 border border-white/5 rounded-lg shadow-xl flex flex-col justify-center items-center text-center">
                     <h2 className="mb-2">Weight lifted</h2>
                     <span className="text-2xl py-4">
-                        {totalWeight()}{" "}
-                        <span className="text-base text-neutral-500">kg</span>
+                        {totalWeight()} <span className="text-base text-neutral-500">kg</span>
                     </span>
                 </div>
             </section>
