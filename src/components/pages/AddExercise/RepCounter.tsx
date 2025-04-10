@@ -1,6 +1,9 @@
-import React from "react";
+interface RepCounterProps {
+    reps: number;
+    setReps: (value: number) => void;
+}
 
-export default function RepCounter({ reps, setReps }) {
+export default function RepCounter({ reps, setReps }: RepCounterProps) {
     return (
         <div className="flex flex-col justify-center items-center gap-4">
             <h2 className="font-semibold">Reps</h2>

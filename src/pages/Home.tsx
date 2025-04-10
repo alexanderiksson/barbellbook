@@ -1,13 +1,27 @@
-import React from "react";
-import { Link } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
 import TrashIcon from "../assets/icons/TrashIcon";
 import AddIcon from "../assets/icons/AddIcon";
 import DoneIcon from "../assets/icons/DoneIcon";
 import { LinkButton, Button } from "../components/common/Buttons";
 
+// Define types for Exercise and Set
+interface Set {
+    reps: number;
+    weight: number;
+}
+
+interface Exercise {
+    name: string;
+    sets: Set[];
+}
+
 export default function Workout() {
-    const { exercises, removeExercise, clearExercises, addWorkout } = useWorkout();
+    const { exercises, removeExercise, clearExercises, addWorkout } = useWorkout() as {
+        exercises: Exercise[];
+        removeExercise: (index: number) => void;
+        clearExercises: () => void;
+        addWorkout: (workout: { name?: string; date: string; exercises: Exercise[] }) => void;
+    };
 
     return (
         <>
@@ -27,7 +41,7 @@ export default function Workout() {
                                     const date = new Date().toLocaleDateString();
 
                                     const newWorkout = {
-                                        name: name,
+                                        name: name || undefined,
                                         date: date,
                                         exercises: [...exercises],
                                     };
@@ -43,7 +57,7 @@ export default function Workout() {
                     )}
                 </div>
 
-                {exercises.length == 0 ? (
+                {exercises.length === 0 ? (
                     <p className="text-neutral-500">Get started by adding an exercise.</p>
                 ) : (
                     <>
@@ -67,9 +81,9 @@ export default function Workout() {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {exercise.sets.map((set, index) => (
-                                                <tr key={index}>
-                                                    <td>Set {index + 1}</td>
+                                            {exercise.sets.map((set, setIndex) => (
+                                                <tr key={setIndex}>
+                                                    <td>Set {setIndex + 1}</td>
                                                     <td>{set.reps}</td>
                                                     <td>{set.weight} kg</td>
                                                 </tr>

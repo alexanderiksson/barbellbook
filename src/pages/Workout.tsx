@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
-import { useParams } from "react-router-dom";
 import dateConverter from "../utils/dateConverter";
 import Loader from "../components/common/Loader";
 import Error from "../components/common/Error";
@@ -10,15 +9,34 @@ import ArrowIcon from "../assets/icons/ArrowIcon";
 import GymIcon from "../assets/icons/GymIcon";
 import TrashIcon from "../assets/icons/TrashIcon";
 import MenuIcon from "../assets/icons/MenuIcon";
-import EditIcon from "../assets/icons/EditIcon";
 
-export default function Workout() {
-    const [loading, setLoading] = useState(false);
-    const [isOpen, setIsOpen] = useState(false);
+// Define types for Set and Exercise
+interface Set {
+    reps: number;
+    weight: number;
+}
 
-    const { id } = useParams();
+interface Exercise {
+    name: string;
+    sets: Set[];
+}
+
+// Define type for Workout
+interface Workout {
+    name?: string;
+    date: string;
+    exercises: Exercise[];
+}
+
+export default function WorkoutPage() {
+    const [loading, setLoading] = useState<boolean>(false);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+
+    const { id } = useParams<{ id: string }>();
     const { workouts, removeWorkout } = useWorkout();
-    const workout = workouts.find((_, index) => index === parseInt(id, 10));
+    const workout: Workout | undefined = workouts.find(
+        (_, index) => index === parseInt(id || "", 10)
+    );
 
     if (loading) {
         return <Loader />;
@@ -68,9 +86,7 @@ export default function Workout() {
                                     <StatsIcon size="20px" /> Stats
                                 </Link>
                             </li>
-                            {/* <li className="flex justify-center items-center gap-1 text-center py-2 cursor-pointer">
-                                <EditIcon size="16px" /> Edit
-                            </li> */}
+
                             <li
                                 className="flex justify-center items-center gap-1 text-center py-3 cursor-pointer text-red-500"
                                 onClick={() => {
@@ -106,9 +122,9 @@ export default function Workout() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {exercise.sets.map((set, index) => (
-                                    <tr key={index}>
-                                        <td>Set {index + 1}</td>
+                                {exercise.sets.map((set, setIndex) => (
+                                    <tr key={setIndex}>
+                                        <td>Set {setIndex + 1}</td>
                                         <td>{set.reps}</td>
                                         <td>{set.weight} kg</td>
                                     </tr>

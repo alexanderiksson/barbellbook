@@ -5,15 +5,21 @@ import WeightInput from "../components/pages/AddExercise/WeightInput";
 import SetTable from "../components/pages/AddExercise/SetTable";
 import { Button } from "../components/common/Buttons";
 
+// Define types for a set
+interface Set {
+    reps: number;
+    weight: number;
+}
+
 export default function AddExercise() {
     const { addExercise } = useWorkout();
 
-    const [name, setName] = useState("");
-    const [sets, setSets] = useState([]);
-    const [reps, setReps] = useState(0);
-    const [weight, setWeight] = useState(0);
+    const [name, setName] = useState<string>("");
+    const [sets, setSets] = useState<Set[]>([]);
+    const [reps, setReps] = useState<number>(0);
+    const [weight, setWeight] = useState<number>(0);
 
-    const removeSet = (index) => {
+    const removeSet = (index: number): void => {
         setSets((prevSets) => {
             const newSets = [...prevSets];
             newSets.splice(index, 1);
@@ -45,10 +51,10 @@ export default function AddExercise() {
                 <Button
                     variant={"blue"}
                     onClick={() => {
-                        if (reps == 0 || weight <= 0 || weight > 9999) {
+                        if (reps === 0 || weight <= 0 || weight > 9999) {
                             alert("Enter weight and reps.");
                         } else {
-                            setSets([...sets, { reps: reps, weight: weight }]);
+                            setSets([...sets, { reps, weight }]);
                         }
                     }}
                 >
@@ -62,13 +68,13 @@ export default function AddExercise() {
                 variant={"green"}
                 className={"mt-auto"}
                 onClick={() => {
-                    if (sets <= 0) {
-                        alert("Exercise dosen't have any sets.");
+                    if (sets.length <= 0) {
+                        alert("Exercise doesn't have any sets.");
                     } else if (!name) {
                         alert("Enter exercise name.");
                     } else {
                         const newExercise = {
-                            name: name,
+                            name,
                             sets: [...sets],
                         };
                         addExercise(newExercise);

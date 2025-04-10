@@ -1,40 +1,55 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
-import { useParams } from "react-router-dom";
 import ArrowIcon from "../assets/icons/ArrowIcon";
 
+// Define types for Set, Exercise, and Workout
+interface Set {
+    reps: number;
+    weight: number;
+}
+
+interface Exercise {
+    name: string;
+    sets: Set[];
+}
+
+interface Workout {
+    name?: string;
+    date: string;
+    exercises: Exercise[];
+}
+
 export default function WorkoutStats() {
-    const { id } = useParams();
+    const { id } = useParams<{ id: string }>();
     const { workouts } = useWorkout();
 
-    const workout = workouts.find((_, index) => index === parseInt(id, 10));
+    const workout: Workout | undefined = workouts.find(
+        (_, index) => index === parseInt(id || "", 10)
+    );
 
-    const totalSets = () => {
-        let sets = 0;
-        for (let i = 0; i < workout.exercises.length; i++) {
-            sets += workout.exercises[i].sets.length;
-        }
-        return sets;
+    if (!workout) {
+        return <p className="text-neutral-500">Workout not found.</p>;
+    }
+
+    const totalSets = (): number => {
+        return workout.exercises.reduce((sets, exercise) => sets + exercise.sets.length, 0);
     };
 
-    const totalReps = () => {
-        let reps = 0;
-        for (let i = 0; i < workout.exercises.length; i++) {
-            for (let s = 0; s < workout.exercises[i].sets.length; s++) {
-                reps += workout.exercises[i].sets[s].reps;
-            }
-        }
-        return reps;
+    const totalReps = (): number => {
+        return workout.exercises.reduce(
+            (reps, exercise) =>
+                reps + exercise.sets.reduce((setReps, set) => setReps + set.reps, 0),
+            0
+        );
     };
 
-    const totalWeight = () => {
-        let weight = 0;
-        for (let i = 0; i < workout.exercises.length; i++) {
-            for (let s = 0; s < workout.exercises[i].sets.length; s++) {
-                weight += workout.exercises[i].sets[s].weight * workout.exercises[i].sets[s].reps;
-            }
-        }
-        return weight;
+    const totalWeight = (): number => {
+        return workout.exercises.reduce(
+            (weight, exercise) =>
+                weight +
+                exercise.sets.reduce((setWeight, set) => setWeight + set.weight * set.reps, 0),
+            0
+        );
     };
 
     return (

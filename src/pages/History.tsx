@@ -4,14 +4,25 @@ import { Link } from "react-router-dom";
 import dateConverter from "../utils/dateConverter";
 import GymIcon from "../assets/icons/GymIcon";
 
+// Define types for Workout and FilteredWorkout
+interface Workouts {
+    date: string;
+    exercises: { name: string; sets: { reps: number; weight: number }[] }[];
+    name?: string;
+}
+
+interface FilteredWorkouts extends Workouts {
+    id: number;
+}
+
 export default function History() {
     const { workouts } = useWorkout();
-    const [initialWorkouts, setInitialWorkouts] = useState([]);
-    const [filteredWorkouts, setFilteredWorkouts] = useState([]);
-    const [filter, setFilter] = useState("new");
+    const [initialWorkouts, setInitialWorkouts] = useState<FilteredWorkouts[]>([]);
+    const [filteredWorkouts, setFilteredWorkouts] = useState<FilteredWorkouts[]>([]);
+    const [filter, setFilter] = useState<"new" | "old">("new");
 
     useEffect(() => {
-        const updatedWorkouts = workouts.map((workout, index) => ({
+        const updatedWorkouts: FilteredWorkouts[] = workouts.map((workout, index) => ({
             id: index,
             date: workout.date,
             exercises: workout.exercises,
@@ -32,7 +43,7 @@ export default function History() {
 
             <select
                 className="py-2 w-full text-center border border-white/10 mb-8 rounded-lg bg-neutral-900 text-sm"
-                onChange={(e) => setFilter(e.target.value)}
+                onChange={(e) => setFilter(e.target.value as "new" | "old")}
                 value={filter}
             >
                 <option value="new">New to old</option>
@@ -43,8 +54,8 @@ export default function History() {
                 <p className="text-neutral-500">No workouts found.</p>
             ) : (
                 <section className="flex flex-col gap-2">
-                    {filteredWorkouts.map((workout, index) => (
-                        <Link to={`/history/${workout.id}`} key={index}>
+                    {filteredWorkouts.map((workout) => (
+                        <Link to={`/history/${workout.id}`} key={workout.id}>
                             <div className="p-3 bg-neutral-900 border border-white/5 rounded-lg shadow-xl flex justify-between items-center">
                                 <div className="flex items-center gap-4">
                                     <div className="bg-emerald-500/10 w-12 h-12 flex justify-center items-center rounded-full">

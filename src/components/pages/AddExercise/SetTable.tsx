@@ -1,6 +1,16 @@
 import TrashIcon from "../../../assets/icons/TrashIcon";
 
-export default function SetTable({ sets, removeSet }) {
+interface Set {
+    reps: number;
+    weight: number;
+}
+
+interface SetTableProps {
+    sets: Set[];
+    removeSet: (index: number) => void;
+}
+
+export default function SetTable({ sets, removeSet }: SetTableProps) {
     return (
         <>
             <table className="w-full">

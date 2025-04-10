@@ -1,13 +1,16 @@
-import React from "react";
+interface WeightInputProps {
+    weight: number;
+    setWeight: (value: number) => void;
+}
 
-export default function WeightInput({ weight, setWeight }) {
+export default function WeightInput({ weight, setWeight }: WeightInputProps) {
     return (
         <div className="flex flex-col justify-center items-center gap-4">
             <h2 className="font-semibold">Weight</h2>
             <input
                 className="bg-neutral-800 p-2 rounded-lg w-24 border border-white/5"
                 type="number"
-                onChange={(e) => setWeight(e.target.value)}
+                onChange={(e) => setWeight(Number(e.target.value))}
                 value={weight}
                 step={2.5}
                 min={0}
