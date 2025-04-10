@@ -17,7 +17,7 @@ export default function WorkoutCard({ workout }: { workout: Workout }) {
                         <GymIcon size="24px" color="#10b981" />
                     </div>
 
-                    <h2 className="text-lg font-semibold">
+                    <h2 className="text-lg font-semibold overflow-hidden">
                         {workout.name ? workout.name : "Workout"}
                     </h2>
                 </div>
