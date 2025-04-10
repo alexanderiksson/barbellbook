@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useWorkout } from "../context/WorkoutContext";
 
+import PageHeading from "../components/common/PageHeading";
 import { Button } from "../components/common/Buttons";
 import RepCounter from "../components/pages/AddExercise/RepCounter";
 import WeightInput from "../components/pages/AddExercise/WeightInput";
@@ -28,10 +29,10 @@ export default function AddExercise() {
     };
 
     return (
-        <div className="content flex flex-col gap-8 flex-1">
-            <h1 className="text-3xl font-semibold">Add Exercise</h1>
+        <div className="content flex flex-col flex-1">
+            <PageHeading>Add Exercise</PageHeading>
 
-            <label className="w-full">
+            <div className="flex flex-col gap-8 flex-1 mb-4">
                 <input
                     className="bg-neutral-900 p-2 rounded-lg w-full border border-white/5"
                     type="text"
@@ -39,34 +40,34 @@ export default function AddExercise() {
                     onChange={(e) => setName(e.target.value)}
                     value={name}
                 />
-            </label>
 
-            {/* Add set */}
-            <section className="w-full flex flex-col gap-8 bg-neutral-900 border border-white/5 p-4 rounded-lg">
-                <div className="flex justify-around">
-                    <RepCounter reps={reps} setReps={setReps} />
-                    <WeightInput weight={weight} setWeight={setWeight} />
-                </div>
+                {/* Add set */}
+                <section className="w-full flex flex-col gap-8 bg-neutral-900 border border-white/5 p-4 rounded-lg">
+                    <div className="flex justify-around">
+                        <RepCounter reps={reps} setReps={setReps} />
+                        <WeightInput weight={weight} setWeight={setWeight} />
+                    </div>
 
-                <Button
-                    variant={"blue"}
-                    onClick={() => {
-                        if (reps === 0 || weight <= 0 || weight > 9999) {
-                            alert("Enter weight and reps.");
-                        } else {
-                            setSets([...sets, { reps, weight }]);
-                        }
-                    }}
-                >
-                    Add set
-                </Button>
-            </section>
+                    <Button
+                        variant={"blue"}
+                        onClick={() => {
+                            if (reps === 0 || weight <= 0 || weight > 9999) {
+                                alert("Enter weight and reps.");
+                            } else {
+                                setSets([...sets, { reps, weight }]);
+                            }
+                        }}
+                    >
+                        Add set
+                    </Button>
+                </section>
 
-            {sets.length > 0 && <SetTable sets={sets} removeSet={removeSet} />}
+                {sets.length > 0 && <SetTable sets={sets} removeSet={removeSet} />}
+            </div>
 
             <Button
                 variant={"green"}
-                className={"mt-auto"}
+                className={"mt-auto w-full"}
                 onClick={() => {
                     if (sets.length <= 0) {
                         alert("Exercise doesn't have any sets.");

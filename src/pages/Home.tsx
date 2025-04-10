@@ -1,5 +1,6 @@
 import { useWorkout } from "../context/WorkoutContext";
 
+import PageHeading from "../components/common/PageHeading";
 import { LinkButton, Button } from "../components/common/Buttons";
 import ExerciseCard from "../components/pages/Home/ExerciseCard";
 
@@ -25,56 +26,55 @@ export default function Workout() {
     };
 
     return (
-        <>
-            <div className="content">
-                <h1 className="text-3xl font-semibold mb-6">Today's Workout</h1>
-                <div className="flex justify-between flex-wrap gap-2 mb-12">
-                    <LinkButton to="/add-exercise" variant={"blue"}>
-                        <AddIcon size="18px" /> Add exercise
-                    </LinkButton>
+        <div className="content">
+            <PageHeading>Today's Workout</PageHeading>
 
-                    {exercises.length > 0 && (
-                        <Button
-                            variant={"green"}
-                            onClick={() => {
-                                if (confirm("Do you want to finish & save workout?")) {
-                                    const name = prompt("Workout name (optional)");
-                                    const date = new Date().toLocaleDateString();
+            <div className="flex justify-between flex-wrap gap-2 mb-12">
+                <LinkButton to="/add-exercise" variant={"blue"}>
+                    <AddIcon size="18px" /> Add exercise
+                </LinkButton>
 
-                                    const newWorkout = {
-                                        name: name || undefined,
-                                        date: date,
-                                        exercises: [...exercises],
-                                    };
+                {exercises.length > 0 && (
+                    <Button
+                        variant={"green"}
+                        onClick={() => {
+                            if (confirm("Do you want to finish & save workout?")) {
+                                const name = prompt("Workout name (optional)");
+                                const date = new Date().toLocaleDateString();
 
-                                    addWorkout(newWorkout);
-                                    clearExercises();
-                                }
-                            }}
-                        >
-                            <DoneIcon />
-                            Finish workout
-                        </Button>
-                    )}
-                </div>
+                                const newWorkout = {
+                                    name: name || undefined,
+                                    date: date,
+                                    exercises: [...exercises],
+                                };
 
-                {exercises.length === 0 ? (
-                    <p className="text-neutral-500">Get started by adding an exercise.</p>
-                ) : (
-                    <>
-                        <section className="flex flex-col gap-4">
-                            {exercises.map((exercise, index) => (
-                                <ExerciseCard
-                                    key={index}
-                                    exercise={exercise}
-                                    index={index}
-                                    removeExercise={removeExercise}
-                                />
-                            ))}
-                        </section>
-                    </>
+                                addWorkout(newWorkout);
+                                clearExercises();
+                            }
+                        }}
+                    >
+                        <DoneIcon />
+                        Finish workout
+                    </Button>
                 )}
             </div>
-        </>
+
+            {exercises.length === 0 ? (
+                <p className="text-neutral-500">Get started by adding an exercise.</p>
+            ) : (
+                <>
+                    <section className="flex flex-col gap-4">
+                        {exercises.map((exercise, index) => (
+                            <ExerciseCard
+                                key={index}
+                                exercise={exercise}
+                                index={index}
+                                removeExercise={removeExercise}
+                            />
+                        ))}
+                    </section>
+                </>
+            )}
+        </div>
     );
 }

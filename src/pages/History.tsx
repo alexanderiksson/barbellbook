@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useWorkout } from "../context/WorkoutContext";
+
+import PageHeading from "../components/common/PageHeading";
 import WorkoutCard from "../components/pages/History/WorkoutCard";
 
 interface Workouts {
@@ -36,7 +38,7 @@ export default function History() {
 
     return (
         <div className="content">
-            <h1 className="text-3xl font-semibold mb-6">History</h1>
+            <PageHeading>History</PageHeading>
 
             <select
                 className="py-2 w-full text-center border border-white/10 mb-8 rounded-lg bg-neutral-900 text-sm"

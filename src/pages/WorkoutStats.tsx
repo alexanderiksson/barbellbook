@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
 
+import PageHeading from "../components/common/PageHeading";
 import BackButton from "../components/common/BackButton";
 import StatCard from "../components/pages/WorkoutStats/StatCard";
 
@@ -57,7 +58,7 @@ export default function WorkoutStats() {
         <div className="content">
             <BackButton to={`/history/${id}`} label={workout.name ? workout.name : "Workout"} />
 
-            <h1 className="text-3xl font-semibold mb-10">Workout Stats</h1>
+            <PageHeading>Workout Stats</PageHeading>
 
             <section className="grid grid-cols-2 gap-3">
                 <StatCard label="Exercises" data={workout.exercises.length} />
