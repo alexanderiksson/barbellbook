@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import dateConverter from "../utils/dateConverter";
 import GymIcon from "../assets/icons/GymIcon";
 
-// Define types for Workout and FilteredWorkout
 interface Workouts {
     date: string;
     exercises: { name: string; sets: { reps: number; weight: number }[] }[];

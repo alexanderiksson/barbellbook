@@ -1,6 +1,5 @@
 import { createContext, useState, useContext, useEffect, ReactNode } from "react";
 
-// Define types for Exercise and Workout
 interface Exercise {
     name: string;
     sets: { reps: number; weight: number }[];
@@ -11,7 +10,6 @@ interface Workout {
     exercises: Exercise[];
 }
 
-// Define the context value type
 interface WorkoutContextType {
     exercises: Exercise[];
     addExercise: (exercise: Exercise) => void;
@@ -22,10 +20,8 @@ interface WorkoutContextType {
     removeWorkout: (index: number) => void;
 }
 
-// Create the context with a default value of `undefined`
 const WorkoutContext = createContext<WorkoutContextType | undefined>(undefined);
 
-// Define the provider's props type
 interface WorkoutProviderProps {
     children: ReactNode;
 }
@@ -58,8 +54,8 @@ export function WorkoutProvider({ children }: WorkoutProviderProps) {
     };
 
     const clearExercises = (): void => {
-        setExercises([]); // Clear exercises state
-        localStorage.removeItem("exercises"); // Remove exercises from localStorage
+        setExercises([]);
+        localStorage.removeItem("exercises");
     };
 
     const addWorkout = (workout: Workout): void => {
@@ -87,7 +83,6 @@ export function WorkoutProvider({ children }: WorkoutProviderProps) {
     );
 }
 
-// Custom hook to use the WorkoutContext
 export function useWorkout(): WorkoutContextType {
     const context = useContext(WorkoutContext);
     if (!context) {

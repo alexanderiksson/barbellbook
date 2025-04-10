@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { ReactNode } from "react";
 
-// Define the props for LinkButton
 interface LinkButtonProps {
     children: ReactNode;
     to: string;
@@ -9,7 +8,6 @@ interface LinkButtonProps {
     className?: string;
 }
 
-// Define the props for Button
 interface ButtonProps {
     children: ReactNode;
     variant?: "green" | "blue" | "neutral";

@@ -5,7 +5,6 @@ import WeightInput from "../components/pages/AddExercise/WeightInput";
 import SetTable from "../components/pages/AddExercise/SetTable";
 import { Button } from "../components/common/Buttons";
 
-// Define types for a set
 interface Set {
     reps: number;
     weight: number;

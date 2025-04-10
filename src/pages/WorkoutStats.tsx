@@ -2,7 +2,6 @@ import { Link, useParams } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
 import ArrowIcon from "../assets/icons/ArrowIcon";
 
-// Define types for Set, Exercise, and Workout
 interface Set {
     reps: number;
     weight: number;

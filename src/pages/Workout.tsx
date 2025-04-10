@@ -10,7 +10,6 @@ import GymIcon from "../assets/icons/GymIcon";
 import TrashIcon from "../assets/icons/TrashIcon";
 import MenuIcon from "../assets/icons/MenuIcon";
 
-// Define types for Set and Exercise
 interface Set {
     reps: number;
     weight: number;
@@ -21,7 +20,6 @@ interface Exercise {
     sets: Set[];
 }
 
-// Define type for Workout
 interface Workout {
     name?: string;
     date: string;

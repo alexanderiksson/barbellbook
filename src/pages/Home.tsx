@@ -4,7 +4,6 @@ import AddIcon from "../assets/icons/AddIcon";
 import DoneIcon from "../assets/icons/DoneIcon";
 import { LinkButton, Button } from "../components/common/Buttons";
 
-// Define types for Exercise and Set
 interface Set {
     reps: number;
     weight: number;
