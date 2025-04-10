@@ -2,10 +2,12 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
 import dateConverter from "../utils/dateConverter";
+
 import Loader from "../components/common/Loader";
 import Error from "../components/common/Error";
+import BackButton from "../components/common/BackButton";
+
 import StatsIcon from "../assets/icons/StatsIcon";
-import ArrowIcon from "../assets/icons/ArrowIcon";
 import GymIcon from "../assets/icons/GymIcon";
 import TrashIcon from "../assets/icons/TrashIcon";
 import MenuIcon from "../assets/icons/MenuIcon";
@@ -46,10 +48,8 @@ export default function WorkoutPage() {
 
     return (
         <div className="content">
-            <Link className="mb-4 inline-flex items-center py-2 text-sky-500" to="/history">
-                <ArrowIcon color="#0ea5e9" size="32px" />
-                History
-            </Link>
+            <BackButton to="/history" label="History" />
+
             <div className="flex justify-between items-center mb-4">
                 <div className="flex items-center justify-center gap-4">
                     <div className="bg-emerald-500/10 w-16 h-16 flex justify-center items-center rounded-full">
@@ -103,6 +103,7 @@ export default function WorkoutPage() {
             </div>
             <section className="flex flex-col gap-4 mt-8">
                 {workout.exercises.map((exercise, index) => (
+                    /* Create shared component fron ExerciseCard */
                     <div
                         key={index}
                         className="p-4 bg-neutral-900 border border-white/5 rounded-lg shadow-xl"

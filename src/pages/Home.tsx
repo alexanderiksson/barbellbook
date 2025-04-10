@@ -1,8 +1,10 @@
 import { useWorkout } from "../context/WorkoutContext";
-import AddIcon from "../assets/icons/AddIcon";
-import DoneIcon from "../assets/icons/DoneIcon";
+
 import { LinkButton, Button } from "../components/common/Buttons";
 import ExerciseCard from "../components/pages/Home/ExerciseCard";
+
+import AddIcon from "../assets/icons/AddIcon";
+import DoneIcon from "../assets/icons/DoneIcon";
 
 interface Set {
     reps: number;
@@ -63,6 +65,7 @@ export default function Workout() {
                         <section className="flex flex-col gap-4">
                             {exercises.map((exercise, index) => (
                                 <ExerciseCard
+                                    key={index}
                                     exercise={exercise}
                                     index={index}
                                     removeExercise={removeExercise}

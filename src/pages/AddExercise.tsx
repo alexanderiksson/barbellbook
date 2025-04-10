@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useWorkout } from "../context/WorkoutContext";
+
+import { Button } from "../components/common/Buttons";
 import RepCounter from "../components/pages/AddExercise/RepCounter";
 import WeightInput from "../components/pages/AddExercise/WeightInput";
 import SetTable from "../components/pages/AddExercise/SetTable";
-import { Button } from "../components/common/Buttons";
 
 interface Set {
     reps: number;
