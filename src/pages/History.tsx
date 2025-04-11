@@ -41,7 +41,7 @@ export default function History() {
             <PageHeading>History</PageHeading>
 
             <select
-                className="py-2 w-full text-center border border-white/10 mb-8 rounded-lg bg-neutral-900 text-sm"
+                className="py-2 w-full text-center border border-white/10 mb-8 rounded-xl bg-neutral-900 text-sm"
                 onChange={(e) => setFilter(e.target.value as "new" | "old")}
                 value={filter}
             >
@@ -52,7 +52,7 @@ export default function History() {
             {workouts.length === 0 ? (
                 <p className="text-neutral-500">No workouts found.</p>
             ) : (
-                <section className="flex flex-col gap-2">
+                <section className="flex flex-col gap-3">
                     {filteredWorkouts.map((workout, index) => (
                         <WorkoutCard key={index} workout={workout} />
                     ))}

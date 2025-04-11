@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useWorkout } from "../context/WorkoutContext";
 
 import PageHeading from "../components/common/PageHeading";
@@ -6,6 +6,9 @@ import { Button } from "../components/common/Buttons";
 import RepCounter from "../components/pages/AddExercise/RepCounter";
 import WeightInput from "../components/pages/AddExercise/WeightInput";
 import SetTable from "../components/pages/AddExercise/SetTable";
+import Notice from "../components/common/Notice";
+
+import PlusIcon from "../assets/icons/PlusIcon";
 
 interface Set {
     reps: number;
@@ -18,7 +21,7 @@ export default function AddExercise() {
     const [name, setName] = useState<string>("");
     const [sets, setSets] = useState<Set[]>([]);
     const [reps, setReps] = useState<number>(0);
-    const [weight, setWeight] = useState<number>(0);
+    const [weight, setWeight] = useState<number | "">("");
 
     const removeSet = (index: number): void => {
         setSets((prevSets) => {
@@ -28,13 +31,21 @@ export default function AddExercise() {
         });
     };
 
+    // Trigger to show notice
+    const noticeTriggerRef = useRef<() => void | null>(null);
+
     return (
         <div className="content flex flex-col flex-1">
+            <Notice
+                msg="Set added"
+                registerTrigger={(trigger) => (noticeTriggerRef.current = trigger)}
+            />
+
             <PageHeading>Add Exercise</PageHeading>
 
-            <div className="flex flex-col gap-8 flex-1 mb-4">
+            <div className="flex flex-col gap-6 flex-1 mb-4">
                 <input
-                    className="bg-neutral-900 p-2 rounded-lg w-full border border-white/5"
+                    className="bg-neutral-900 p-3 rounded-xl w-full border border-white/5 shadow placeholder:text-neutral-600"
                     type="text"
                     placeholder="Exercise name"
                     onChange={(e) => setName(e.target.value)}
@@ -42,23 +53,28 @@ export default function AddExercise() {
                 />
 
                 {/* Add set */}
-                <section className="w-full flex flex-col gap-8 bg-neutral-900 border border-white/5 p-4 rounded-lg">
+                <section className="w-full flex flex-col gap-8 bg-neutral-900 border-t border-white/5 p-4 rounded-xl shadow">
                     <div className="flex justify-around">
                         <RepCounter reps={reps} setReps={setReps} />
                         <WeightInput weight={weight} setWeight={setWeight} />
                     </div>
 
                     <Button
-                        variant={"blue"}
+                        variant={"outline"}
                         onClick={() => {
-                            if (reps === 0 || weight <= 0 || weight > 9999) {
+                            if (reps === 0 || weight === "" || weight <= 0 || weight > 9999) {
                                 alert("Enter weight and reps.");
                             } else {
-                                setSets([...sets, { reps, weight }]);
+                                setSets([...sets, { reps, weight: Number(weight) }]);
+
+                                // Trigger the notice
+                                if (noticeTriggerRef.current) {
+                                    noticeTriggerRef.current();
+                                }
                             }
                         }}
                     >
-                        Add set
+                        <PlusIcon /> Add set
                     </Button>
                 </section>
 

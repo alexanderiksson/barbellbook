@@ -13,7 +13,7 @@ interface ExerciseCardProps {
 
 export default function ExerciseCard({ exercise, index, removeExercise }: ExerciseCardProps) {
     return (
-        <div className="p-4 bg-neutral-900 border border-white/5 rounded-lg shadow-xl">
+        <div className="p-4 bg-neutral-900 border border-white/5 rounded-xl shadow-xl">
             <h2 className="text-xl font-semibold mb-4 overflow-hidden">
                 <span className="mr-2 text-neutral-500">#{index + 1}</span>
                 {exercise.name}

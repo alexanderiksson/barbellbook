@@ -65,7 +65,7 @@ export default function WorkoutPage() {
 
                 <div className="flex gap-2 relative">
                     <button
-                        className="bg-neutral-800 w-10 h-10 rounded-lg inline-flex justify-center items-center cursor-pointer"
+                        className="bg-neutral-800 w-11 h-11 rounded-xl inline-flex justify-center items-center cursor-pointer"
                         onClick={() => setIsOpen((isOpen) => !isOpen)}
                     >
                         <MenuIcon />
@@ -73,7 +73,7 @@ export default function WorkoutPage() {
                     <div
                         className={`${
                             isOpen ? "block" : "hidden"
-                        } absolute bg-neutral-800 rounded-lg w-52 right-0 top-11 shadow-xl overflow-hidden`}
+                        } absolute bg-neutral-800 rounded-xl w-52 right-0 top-12 shadow-xl overflow-hidden`}
                     >
                         <ul className="divide-y divide-neutral-700">
                             <li className="text-center">
@@ -106,7 +106,7 @@ export default function WorkoutPage() {
                     /* Create shared component fron ExerciseCard */
                     <div
                         key={index}
-                        className="p-4 bg-neutral-900 border border-white/5 rounded-lg shadow-xl"
+                        className="p-4 bg-neutral-900 border border-white/5 rounded-xl shadow-xl"
                     >
                         <h2 className="text-xl font-semibold mb-4 overflow-hidden">
                             <span className="mr-2 text-neutral-500">#{index + 1}</span>

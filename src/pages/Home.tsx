@@ -1,10 +1,12 @@
+import { useRef } from "react";
 import { useWorkout } from "../context/WorkoutContext";
 
 import PageHeading from "../components/common/PageHeading";
 import { LinkButton, Button } from "../components/common/Buttons";
 import ExerciseCard from "../components/pages/Home/ExerciseCard";
+import Notice from "../components/common/Notice";
 
-import AddIcon from "../assets/icons/AddIcon";
+import PlusIcon from "../assets/icons/PlusIcon";
 import DoneIcon from "../assets/icons/DoneIcon";
 
 interface Set {
@@ -25,13 +27,20 @@ export default function Workout() {
         addWorkout: (workout: { name?: string; date: string; exercises: Exercise[] }) => void;
     };
 
+    // Trigger to show notice
+    const noticeTriggerRef = useRef<() => void | null>(null);
+
     return (
         <div className="content">
+            <Notice
+                msg="Workout saved!"
+                registerTrigger={(trigger) => (noticeTriggerRef.current = trigger)}
+            />
             <PageHeading>Today's Workout</PageHeading>
 
             <div className="flex justify-between flex-wrap gap-2 mb-12">
-                <LinkButton to="/add-exercise" variant={"blue"}>
-                    <AddIcon size="18px" /> Add exercise
+                <LinkButton to="/add-exercise" variant={"outline"}>
+                    <PlusIcon /> Add exercise
                 </LinkButton>
 
                 {exercises.length > 0 && (
@@ -50,11 +59,15 @@ export default function Workout() {
 
                                 addWorkout(newWorkout);
                                 clearExercises();
+                                // Trigger the notice
+                                if (noticeTriggerRef.current) {
+                                    noticeTriggerRef.current();
+                                }
                             }
                         }}
                     >
                         <DoneIcon />
-                        Finish workout
+                        Finish
                     </Button>
                 )}
             </div>
