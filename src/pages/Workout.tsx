@@ -43,7 +43,7 @@ export default function WorkoutPage() {
     }
 
     if (!workout) {
-        return <Error />;
+        return <Error msg="Workout not found" />;
     }
 
     return (

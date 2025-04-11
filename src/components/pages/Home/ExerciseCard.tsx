@@ -5,15 +5,13 @@ interface Exercise {
     sets: { reps: number; weight: number }[];
 }
 
-export default function ExerciseCard({
-    exercise,
-    index,
-    removeExercise,
-}: {
+interface ExerciseCardProps {
     exercise: Exercise;
     index: number;
     removeExercise: (index: number) => void;
-}) {
+}
+
+export default function ExerciseCard({ exercise, index, removeExercise }: ExerciseCardProps) {
     return (
         <div className="p-4 bg-neutral-900 border border-white/5 rounded-lg shadow-xl">
             <h2 className="text-xl font-semibold mb-4 overflow-hidden">

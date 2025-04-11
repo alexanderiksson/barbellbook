@@ -4,18 +4,21 @@ export default function dateConverter(date: string): string {
     const yesterday = new Date();
     yesterday.setDate(today.getDate() - 1);
 
-    let daysSince: string;
+    let daysSince: string = workoutDate.toLocaleDateString();
 
-    if (workoutDate.toLocaleDateString() === today.toLocaleDateString()) {
-        daysSince = "Today";
-    } else if (workoutDate.toLocaleDateString() === yesterday.toLocaleDateString()) {
-        daysSince = "Yesterday";
-    } else if ((today.getTime() - workoutDate.getTime()) / (1000 * 60 * 60 * 24) < 7) {
+    if ((today.getTime() - workoutDate.getTime()) / (1000 * 60 * 60 * 24) < 7) {
         daysSince = workoutDate.toLocaleDateString("en-US", {
             weekday: "long",
         });
-    } else {
-        daysSince = workoutDate.toLocaleDateString();
     }
+
+    if (workoutDate.toLocaleDateString() === today.toLocaleDateString()) {
+        daysSince = "Today";
+    }
+
+    if (workoutDate.toLocaleDateString() === yesterday.toLocaleDateString()) {
+        daysSince = "Yesterday";
+    }
+
     return daysSince;
 }

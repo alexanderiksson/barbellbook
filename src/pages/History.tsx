@@ -53,8 +53,8 @@ export default function History() {
                 <p className="text-neutral-500">No workouts found.</p>
             ) : (
                 <section className="flex flex-col gap-2">
-                    {filteredWorkouts.map((workout) => (
-                        <WorkoutCard workout={workout} />
+                    {filteredWorkouts.map((workout, index) => (
+                        <WorkoutCard key={index} workout={workout} />
                     ))}
                 </section>
             )}

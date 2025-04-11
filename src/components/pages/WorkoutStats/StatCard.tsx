@@ -1,12 +1,10 @@
-export default function StatCard({
-    label,
-    data,
-    suffix,
-}: {
+interface StatCardProps {
     label: string;
     data: number;
     suffix?: string;
-}) {
+}
+
+export default function StatCard({ label, data, suffix }: StatCardProps) {
     return (
         <div className="p-4 bg-neutral-900 border border-white/5 rounded-lg shadow-xl flex flex-col justify-center items-center text-center">
             <h2 className="mb-2">{label}</h2>

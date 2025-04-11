@@ -4,6 +4,7 @@ import { useWorkout } from "../context/WorkoutContext";
 import PageHeading from "../components/common/PageHeading";
 import BackButton from "../components/common/BackButton";
 import StatCard from "../components/pages/WorkoutStats/StatCard";
+import Error from "../components/common/Error";
 
 interface Set {
     reps: number;
@@ -30,7 +31,7 @@ export default function WorkoutStats() {
     );
 
     if (!workout) {
-        return <p className="text-neutral-500">Workout not found.</p>;
+        return <Error msg="Workout not found" />;
     }
 
     const totalSets = (): number => {

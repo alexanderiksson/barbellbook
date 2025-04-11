@@ -15,18 +15,27 @@ interface ButtonProps {
     onClick?: () => void;
 }
 
-export function LinkButton({ children, to, variant = "neutral", className = "" }: LinkButtonProps) {
-    let variantClass = "bg-neutral-700";
+const handleVariant = (variant: string) => {
+    let TWClass = "bg-neutral-700";
+
     if (variant === "green") {
-        variantClass = "bg-emerald-700";
-    } else if (variant === "blue") {
-        variantClass = "bg-sky-700";
+        TWClass = "bg-emerald-700";
     }
 
+    if (variant === "blue") {
+        TWClass = "bg-sky-700";
+    }
+
+    return TWClass;
+};
+
+export function LinkButton({ children, to, variant = "neutral", className = "" }: LinkButtonProps) {
     return (
         <Link
             to={to}
-            className={`${variantClass} px-4 py-2 rounded-lg inline-flex justify-center items-center gap-2 ${className}`}
+            className={`${handleVariant(
+                variant
+            )} px-4 py-2 rounded-lg inline-flex justify-center items-center gap-2 ${className}`}
         >
             {children}
         </Link>
@@ -34,16 +43,11 @@ export function LinkButton({ children, to, variant = "neutral", className = "" }
 }
 
 export function Button({ children, variant = "neutral", className = "", onClick }: ButtonProps) {
-    let variantClass = "bg-neutral-700";
-    if (variant === "green") {
-        variantClass = "bg-emerald-700";
-    } else if (variant === "blue") {
-        variantClass = "bg-sky-700";
-    }
-
     return (
         <button
-            className={`${variantClass} px-4 py-2 rounded-lg inline-flex justify-center items-center cursor-pointer gap-2 ${className}`}
+            className={`${handleVariant(
+                variant
+            )} px-4 py-2 rounded-lg inline-flex justify-center items-center cursor-pointer gap-2 ${className}`}
             onClick={onClick}
         >
             {children}
