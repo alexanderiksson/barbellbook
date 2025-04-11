@@ -1,3 +1,7 @@
+/**
+ * This component will show a spinning loader centered vertically and horizontally on the screen.
+ */
+
 export default function Loader() {
     return (
         <div className="absolute inset-0 flex items-center justify-center">

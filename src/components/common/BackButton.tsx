@@ -1,3 +1,17 @@
+/**
+ * A reusable back button component that navigates to a specified route.
+ *
+ * @param to - The target route to navigate to when the button is clicked.
+ * @param label - The text label displayed next to the arrow icon.
+ *
+ * @returns A styled link component with an arrow icon and label.
+ *
+ * @example
+ * ```tsx
+ * <BackButton to="/home" label="Go Back" />
+ * ```
+ */
+
 import { Link } from "react-router-dom";
 import ArrowIcon from "../../assets/icons/ArrowIcon";
 
