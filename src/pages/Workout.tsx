@@ -11,6 +11,7 @@ import StatsIcon from "../assets/icons/StatsIcon";
 import GymIcon from "../assets/icons/GymIcon";
 import TrashIcon from "../assets/icons/TrashIcon";
 import MenuIcon from "../assets/icons/MenuIcon";
+import EditIcon from "../assets/icons/EditIcon";
 
 interface Set {
     reps: number;
@@ -64,16 +65,24 @@ export default function WorkoutPage() {
                 </div>
 
                 <div className="flex gap-2 relative shrink-0">
-                    <button
-                        className="bg-neutral-800 w-11 h-11 rounded-xl inline-flex justify-center items-center cursor-pointer"
-                        onClick={() => setIsOpen((isOpen) => !isOpen)}
-                    >
-                        <MenuIcon />
-                    </button>
+                    <div className="relative">
+                        <button
+                            className="bg-neutral-800 w-11 h-11 rounded-xl inline-flex justify-center items-center cursor-pointer"
+                            onClick={() => setIsOpen((isOpen) => !isOpen)}
+                        >
+                            <MenuIcon />
+                        </button>
+                        {isOpen && (
+                            <div
+                                className="fixed inset-0 z-10 bg-black/30"
+                                onClick={() => setIsOpen(false)}
+                            ></div>
+                        )}
+                    </div>
                     <div
                         className={`${
                             isOpen ? "block" : "hidden"
-                        } absolute bg-neutral-800 rounded-xl w-52 right-0 top-12 shadow-xl overflow-hidden`}
+                        } absolute bg-neutral-800 rounded-xl w-52 right-0 top-12 shadow-xl overflow-hidden z-20`}
                     >
                         <ul className="divide-y divide-neutral-700">
                             <li className="text-center">
@@ -86,7 +95,7 @@ export default function WorkoutPage() {
                             </li>
 
                             <li
-                                className="text-center py-3 cursor-pointer"
+                                className="flex justify-center items-center gap-1.5 text-center py-3 cursor-pointer"
                                 onClick={() => {
                                     setIsOpen(false);
                                     const newName = prompt("Enter new name");
@@ -95,7 +104,7 @@ export default function WorkoutPage() {
                                     }
                                 }}
                             >
-                                Edit name
+                                <EditIcon size="16px" /> Edit name
                             </li>
 
                             <li
