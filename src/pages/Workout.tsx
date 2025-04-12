@@ -33,7 +33,7 @@ export default function WorkoutPage() {
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const { id } = useParams<{ id: string }>();
-    const { workouts, removeWorkout } = useWorkout();
+    const { workouts, removeWorkout, updateWorkoutName } = useWorkout();
     const workout: Workout | undefined = workouts.find(
         (_, index) => index === parseInt(id || "", 10)
     );
@@ -83,6 +83,19 @@ export default function WorkoutPage() {
                                 >
                                     <StatsIcon size="20px" /> Stats
                                 </Link>
+                            </li>
+
+                            <li
+                                className="text-center py-3 cursor-pointer"
+                                onClick={() => {
+                                    setIsOpen(false);
+                                    const newName = prompt("Enter new name");
+                                    if (newName) {
+                                        updateWorkoutName(Number(id), newName);
+                                    }
+                                }}
+                            >
+                                Edit name
                             </li>
 
                             <li
