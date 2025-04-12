@@ -6,11 +6,11 @@ interface Set {
 }
 
 interface SetTableProps {
-    sets: Set[];
-    removeSet: (index: number) => void;
+    currentSets: Set[];
+    removeCurrentSets: (index: number) => void;
 }
 
-export default function SetTable({ sets, removeSet }: SetTableProps) {
+export default function SetTable({ currentSets, removeCurrentSets }: SetTableProps) {
     return (
         <>
             <table className="w-full">
@@ -22,7 +22,7 @@ export default function SetTable({ sets, removeSet }: SetTableProps) {
                     </tr>
                 </thead>
                 <tbody>
-                    {sets.map((set, index) => (
+                    {currentSets.map((set, index) => (
                         <tr key={index} className="text-center">
                             <td>Set {index + 1}</td>
                             <td>{set.weight} kg</td>
@@ -32,7 +32,7 @@ export default function SetTable({ sets, removeSet }: SetTableProps) {
                                     className="cursor-pointer p-2"
                                     onClick={() => {
                                         if (confirm("Are you sure you want to remove set?")) {
-                                            removeSet(index);
+                                            removeCurrentSets(index);
                                         }
                                     }}
                                 >

@@ -10,26 +10,13 @@ import Notice from "../components/common/Notice";
 
 import PlusIcon from "../assets/icons/PlusIcon";
 
-interface Set {
-    reps: number;
-    weight: number;
-}
-
 export default function AddExercise() {
-    const { addExercise } = useWorkout();
+    const { addExercise, currentSets, saveCurrentSets, removeCurrentSets, clearCurrentSets } =
+        useWorkout();
 
     const [name, setName] = useState<string>("");
-    const [sets, setSets] = useState<Set[]>([]);
     const [reps, setReps] = useState<number>(0);
     const [weight, setWeight] = useState<number | "">("");
-
-    const removeSet = (index: number): void => {
-        setSets((prevSets) => {
-            const newSets = [...prevSets];
-            newSets.splice(index, 1);
-            return newSets;
-        });
-    };
 
     // Trigger to show notice
     const noticeTriggerRef = useRef<() => void | null>(null);
@@ -44,6 +31,7 @@ export default function AddExercise() {
             <PageHeading>Add Exercise</PageHeading>
 
             <div className="flex flex-col gap-6 flex-1 mb-4">
+                {/* Name input */}
                 <input
                     className="bg-neutral-900 p-3 rounded-xl w-full border border-white/5 shadow placeholder:text-neutral-600"
                     type="text"
@@ -65,7 +53,10 @@ export default function AddExercise() {
                             if (reps === 0 || weight === "" || weight <= 0 || weight > 9999) {
                                 alert("Enter weight and reps.");
                             } else {
-                                setSets([...sets, { reps, weight: Number(weight) }]);
+                                saveCurrentSets({
+                                    reps: reps,
+                                    weight: weight,
+                                });
 
                                 // Trigger the notice
                                 if (noticeTriggerRef.current) {
@@ -78,23 +69,28 @@ export default function AddExercise() {
                     </Button>
                 </section>
 
-                {sets.length > 0 && <SetTable sets={sets} removeSet={removeSet} />}
+                {/* Sets table */}
+                {currentSets.length > 0 && (
+                    <SetTable currentSets={currentSets} removeCurrentSets={removeCurrentSets} />
+                )}
             </div>
 
+            {/* Save exercise button */}
             <Button
                 variant={"green"}
                 className={"mt-auto w-full"}
                 onClick={() => {
-                    if (sets.length <= 0) {
+                    if (currentSets.length <= 0) {
                         alert("Exercise doesn't have any sets.");
                     } else if (!name) {
                         alert("Enter exercise name.");
                     } else {
                         const newExercise = {
                             name,
-                            sets: [...sets],
+                            sets: [...currentSets],
                         };
                         addExercise(newExercise);
+                        clearCurrentSets();
                         window.location.href = "/";
                     }
                 }}
