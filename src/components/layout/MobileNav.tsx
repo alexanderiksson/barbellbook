@@ -3,7 +3,8 @@ import { NavLink } from "react-router-dom";
 import AddIcon from "../../assets/icons/AddIcon";
 import HomeIcon from "../../assets/icons/HomeIcon";
 import HistoryIcon from "../../assets/icons/HistoryIcon";
-
+/* import HamburgerIcon from "../../assets/icons/HamburgerIcon";
+ */
 export default function MobileNav() {
     return (
         <nav
@@ -16,7 +17,7 @@ export default function MobileNav() {
                         <NavLink
                             to="/"
                             className={({ isActive }) =>
-                                `flex flex-col items-center justify-center text-xs ${
+                                `flex flex-col items-center justify-center text-[10px] ${
                                     isActive ? "text-emerald-500" : "text-neutral-500"
                                 }`
                             }
@@ -33,7 +34,7 @@ export default function MobileNav() {
                         <NavLink
                             to="/add-exercise"
                             className={({ isActive }) =>
-                                `flex flex-col items-center justify-center text-xs ${
+                                `flex flex-col items-center justify-center text-[10px] ${
                                     isActive ? "text-emerald-500" : "text-neutral-500"
                                 }`
                             }
@@ -50,7 +51,7 @@ export default function MobileNav() {
                         <NavLink
                             to="/history"
                             className={({ isActive }) =>
-                                `flex flex-col items-center justify-center text-xs ${
+                                `flex flex-col items-center justify-center text-[10px] ${
                                     isActive ? "text-emerald-500" : "text-neutral-500"
                                 }`
                             }
@@ -63,6 +64,23 @@ export default function MobileNav() {
                             )}
                         </NavLink>
                     </li>
+                    {/* <li>
+                        <NavLink
+                            to="/"
+                            className={({ isActive }) =>
+                                `flex flex-col items-center justify-center text-[10px] ${
+                                    isActive ? "text-emerald-500" : "text-neutral-500"
+                                }`
+                            }
+                        >
+                            {({ isActive }) => (
+                                <>
+                                    <HamburgerIcon color={isActive ? "#10b981" : "#737373"} />
+                                    <span>Menu</span>
+                                </>
+                            )}
+                        </NavLink>
+                    </li> */}
                 </ul>
             </div>
         </nav>
