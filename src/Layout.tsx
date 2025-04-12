@@ -5,7 +5,7 @@ export default function Layout() {
     return (
         <>
             <MobileNav />
-            <main role="main" className="flex-1 flex flex-col justify-start mt-10 mb-28">
+            <main role="main" className="flex-1 flex flex-col justify-start mt-12 mb-28">
                 <Outlet />
             </main>
         </>
