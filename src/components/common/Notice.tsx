@@ -45,8 +45,8 @@ export default function Notice({ registerTrigger, msg }: NoticeProps) {
     return (
         <div
             className={`${
-                notice ? "top-10" : "-top-full"
-            } content text-center p-2 bg-emerald-700/50 border border-white/10 rounded-lg absolute w-full z-20 backdrop-blur-3xl transition-all duration-500`}
+                notice ? "top-1" : "-top-full"
+            } content text-center p-2 bg-emerald-700/50 border border-white/10 rounded-lg absolute w-full z-20 backdrop-blur-3xl transition-all duration-300`}
         >
             {msg}
         </div>

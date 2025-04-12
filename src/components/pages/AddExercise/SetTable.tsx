@@ -14,7 +14,7 @@ export default function SetTable({ sets, removeSet }: SetTableProps) {
     return (
         <>
             <table className="w-full">
-                <thead className="border-b border-white/15 text-lg">
+                <thead className="border-b border-white/15">
                     <tr>
                         <th className="py-2">Set</th>
                         <th className="py-2">Weight</th>
