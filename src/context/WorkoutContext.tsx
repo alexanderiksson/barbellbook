@@ -10,6 +10,11 @@ interface Workout {
     exercises: Exercise[];
 }
 
+interface Set {
+    reps: number;
+    weight: number;
+}
+
 interface WorkoutContextType {
     exercises: Exercise[];
     addExercise: (exercise: Exercise) => void;
@@ -19,6 +24,10 @@ interface WorkoutContextType {
     addWorkout: (workout: Workout) => void;
     removeWorkout: (index: number) => void;
     updateWorkoutName: (index: number, newName: string) => void;
+    currentSets: Set[];
+    saveCurrentSets: (set: Set) => void;
+    removeCurrentSets: (index: number) => void;
+    clearCurrentSets: () => void;
 }
 
 const WorkoutContext = createContext<WorkoutContextType | undefined>(undefined);
@@ -40,6 +49,12 @@ export function WorkoutProvider({ children }: WorkoutProviderProps) {
         return storedWorkouts ? JSON.parse(storedWorkouts) : [];
     });
 
+    // Current sets state
+    const [currentSets, setCurrentSets] = useState<Set[]>(() => {
+        const storedSets = sessionStorage.getItem("currentSets");
+        return storedSets ? JSON.parse(storedSets) : [];
+    });
+
     // Function to save exercises to local storage when a new exercise is added to state
     useEffect(() => {
         localStorage.setItem("exercises", JSON.stringify(exercises));
@@ -49,6 +64,11 @@ export function WorkoutProvider({ children }: WorkoutProviderProps) {
     useEffect(() => {
         localStorage.setItem("workouts", JSON.stringify(workouts));
     }, [workouts]);
+
+    // Function to save current sets to session storage when state is updated
+    useEffect(() => {
+        sessionStorage.setItem("currentSets", JSON.stringify(currentSets));
+    }, [currentSets]);
 
     // Add exercise to new workout
     const addExercise = (exercise: Exercise): void => {
@@ -85,6 +105,22 @@ export function WorkoutProvider({ children }: WorkoutProviderProps) {
         );
     };
 
+    // Save current set to session storage
+    const saveCurrentSets = (set: Set): void => {
+        setCurrentSets((prevSets) => [...prevSets, set]);
+    };
+
+    // Remove set from session storage
+    const removeCurrentSets = (index: number): void => {
+        setCurrentSets((prevSets) => prevSets.filter((_, i) => i !== index));
+    };
+
+    // Remove all sets from session storage
+    const clearCurrentSets = (): void => {
+        setCurrentSets([]);
+        localStorage.removeItem("currentSets");
+    };
+
     return (
         <WorkoutContext.Provider
             value={{
@@ -96,6 +132,10 @@ export function WorkoutProvider({ children }: WorkoutProviderProps) {
                 addWorkout,
                 removeWorkout,
                 updateWorkoutName,
+                currentSets,
+                saveCurrentSets,
+                removeCurrentSets,
+                clearCurrentSets,
             }}
         >
             {children}
