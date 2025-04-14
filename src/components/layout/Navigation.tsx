@@ -34,7 +34,7 @@ export default function Navigation() {
     return (
         <nav
             id="mobile-nav"
-            className="max-w-md bg-neutral-800/50 backdrop-blur-xl border-t border-white/5 fixed bottom-4 w-11/12 py-2 z-20 rounded-full left-1/2 transform -translate-x-1/2"
+            className="max-w-md bg-neutral-800/50 backdrop-blur-xl border-t border-white/5 fixed bottom-3 w-11/12 py-2 z-20 rounded-full left-1/2 transform -translate-x-1/2"
         >
             <div className="content">
                 <ul className="flex justify-around items-center">

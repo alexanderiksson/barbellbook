@@ -24,7 +24,11 @@ export default function Workout() {
         exercises: Exercise[];
         removeExercise: (index: number) => void;
         clearExercises: () => void;
-        addWorkout: (workout: { name?: string; date: string; exercises: Exercise[] }) => void;
+        addWorkout: (workout: {
+            name?: string | null;
+            date: string;
+            exercises: Exercise[];
+        }) => void;
     };
 
     // Trigger to show notice
@@ -52,7 +56,7 @@ export default function Workout() {
                                 const date = new Date().toLocaleDateString();
 
                                 const newWorkout = {
-                                    name: name || undefined,
+                                    name: name || null,
                                     date: date,
                                     exercises: [...exercises],
                                 };
