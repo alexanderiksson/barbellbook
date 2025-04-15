@@ -9,27 +9,8 @@ import Notice from "../components/common/Notice";
 import PlusIcon from "../assets/icons/PlusIcon";
 import DoneIcon from "../assets/icons/DoneIcon";
 
-interface Set {
-    reps: number;
-    weight: number;
-}
-
-interface Exercise {
-    name: string;
-    sets: Set[];
-}
-
 export default function Workout() {
-    const { exercises, removeExercise, clearExercises, addWorkout } = useWorkout() as {
-        exercises: Exercise[];
-        removeExercise: (index: number) => void;
-        clearExercises: () => void;
-        addWorkout: (workout: {
-            name?: string | null;
-            date: string;
-            exercises: Exercise[];
-        }) => void;
-    };
+    const { exercises, removeExercise, clearExercises, addWorkout } = useWorkout();
 
     // Trigger to show notice
     const noticeTriggerRef = useRef<() => void | null>(null);
