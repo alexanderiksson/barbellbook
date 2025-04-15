@@ -1,4 +1,6 @@
 import TrashIcon from "../../../assets/icons/TrashIcon";
+import { ConfirmModal } from "../../common/Modals";
+import { useState } from "react";
 
 interface Set {
     reps: number;
@@ -11,8 +13,23 @@ interface SetTableProps {
 }
 
 export default function SetTable({ currentSets, removeCurrentSets }: SetTableProps) {
+    // Manage modal state
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalText, setModalText] = useState("");
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
+
+    const [removeIndex, setRemoveIndex] = useState(0);
+
     return (
         <>
+            <ConfirmModal
+                text={modalText}
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                action={() => removeCurrentSets(removeIndex)}
+            />
+
             <table className="w-full">
                 <thead className="border-b border-white/15">
                     <tr>
@@ -31,9 +48,9 @@ export default function SetTable({ currentSets, removeCurrentSets }: SetTablePro
                                 <button
                                     className="cursor-pointer p-2"
                                     onClick={() => {
-                                        if (confirm("Are you sure you want to remove set?")) {
-                                            removeCurrentSets(index);
-                                        }
+                                        setModalText("Are you sure you want to remove set?");
+                                        setRemoveIndex(index);
+                                        openModal();
                                     }}
                                 >
                                     <TrashIcon />
