@@ -51,7 +51,7 @@ export default function AddExercise() {
                     />
 
                     {/* Add set */}
-                    <section className="w-full flex flex-col gap-8 bg-neutral-900 border-t border-white/5 p-4 rounded-xl shadow">
+                    <section className="w-full flex flex-col gap-8 bg-neutral-900 border border-white/5 p-4 rounded-xl shadow">
                         <div className="flex justify-around gap-4 flex-wrap-reverse">
                             <RepCounter reps={reps} setReps={setReps} />
                             <WeightInput weight={weight} setWeight={setWeight} />
