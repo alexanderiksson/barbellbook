@@ -3,12 +3,14 @@ import { Button } from "./Buttons";
 
 interface ModalProps {
     text: string;
+    buttonText?: string;
     isOpen: boolean;
     onClose: () => void;
 }
 
 interface ConfirmModalProps extends ModalProps {
     action: (...args: any[]) => void;
+    buttonVariant?: "green" | "blue" | "neutral" | "outline" | "danger";
 }
 
 interface PromptModalProps extends ModalProps {
@@ -16,7 +18,7 @@ interface PromptModalProps extends ModalProps {
     onSubmit: (...args: any[]) => void;
 }
 
-export function AlertModal({ text, isOpen, onClose }: ModalProps) {
+export function AlertModal({ text, buttonText = "Close", isOpen, onClose }: ModalProps) {
     if (!isOpen) return null;
 
     return (
@@ -24,14 +26,21 @@ export function AlertModal({ text, isOpen, onClose }: ModalProps) {
             <div className="max-w-[90%] w-80 h-40 bg-neutral-700/30 backdrop-blur-lg rounded-xl border border-white/5 p-4 flex flex-col items-center justify-around text-center">
                 <p>{text}</p>
                 <Button variant="blue" onClick={onClose}>
-                    Close
+                    {buttonText}
                 </Button>
             </div>
         </div>
     );
 }
 
-export function ConfirmModal({ text, isOpen, onClose, action }: ConfirmModalProps) {
+export function ConfirmModal({
+    text,
+    buttonText = "Ok",
+    isOpen,
+    onClose,
+    action,
+    buttonVariant = "blue",
+}: ConfirmModalProps) {
     if (!isOpen) return null;
 
     return (
@@ -41,13 +50,13 @@ export function ConfirmModal({ text, isOpen, onClose, action }: ConfirmModalProp
                 <div className="flex gap-4">
                     <Button onClick={onClose}>Cancel</Button>
                     <Button
-                        variant="blue"
+                        variant={buttonVariant}
                         onClick={() => {
                             action();
                             onClose();
                         }}
                     >
-                        Ok
+                        {buttonText}
                     </Button>
                 </div>
             </div>
@@ -55,7 +64,14 @@ export function ConfirmModal({ text, isOpen, onClose, action }: ConfirmModalProp
     );
 }
 
-export function PromptModal({ text, isOpen, onClose, initialValue, onSubmit }: PromptModalProps) {
+export function PromptModal({
+    text,
+    buttonText = "Ok",
+    isOpen,
+    onClose,
+    initialValue,
+    onSubmit,
+}: PromptModalProps) {
     const [inputValue, setInputValue] = useState(initialValue || "");
 
     useEffect(() => {
@@ -85,7 +101,7 @@ export function PromptModal({ text, isOpen, onClose, initialValue, onSubmit }: P
                             onClose();
                         }}
                     >
-                        Ok
+                        {buttonText}
                     </Button>
                 </div>
             </div>
