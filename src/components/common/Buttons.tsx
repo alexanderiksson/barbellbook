@@ -8,13 +8,13 @@ import { Link } from "react-router-dom";
 interface LinkButtonProps {
     children: ReactNode;
     to: string;
-    variant?: "green" | "blue" | "neutral" | "outline";
+    variant?: "green" | "blue" | "neutral" | "outline" | "danger";
     className?: string;
 }
 
 interface ButtonProps {
     children: ReactNode;
-    variant?: "green" | "blue" | "neutral" | "outline";
+    variant?: "green" | "blue" | "neutral" | "outline" | "danger";
     className?: string;
     onClick?: () => void;
 }
@@ -22,17 +22,10 @@ interface ButtonProps {
 const handleVariant = (variant: string) => {
     let TWClass = "bg-neutral-700 border-neutral-700";
 
-    if (variant === "green") {
-        TWClass = "bg-emerald-700 border-emerald-700";
-    }
-
-    if (variant === "blue") {
-        TWClass = "bg-sky-700 border-sky-700";
-    }
-
-    if (variant === "outline") {
-        TWClass = "bg-transparent border-sky-700";
-    }
+    if (variant === "green") TWClass = "bg-emerald-700 border-emerald-700";
+    if (variant === "blue") TWClass = "bg-sky-700 border-sky-700";
+    if (variant === "outline") TWClass = "bg-transparent border-sky-700";
+    if (variant === "danger") TWClass = "bg-red-700 border-red-700";
 
     return TWClass;
 };

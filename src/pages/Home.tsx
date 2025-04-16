@@ -30,6 +30,7 @@ export default function Workout() {
         <>
             <ConfirmModal
                 text="Do you want to finish & save workout?"
+                buttonText="Save"
                 isOpen={isConfirmModalOpen}
                 onClose={closeConfirmModal}
                 action={() => {
@@ -40,6 +41,7 @@ export default function Workout() {
 
             <PromptModal
                 text="Workout name"
+                buttonText="Save"
                 isOpen={isPromptModalOpen}
                 onClose={closePromptModal}
                 onSubmit={(value) => {

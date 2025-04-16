@@ -16,7 +16,6 @@ interface ExerciseCardProps {
 export default function ExerciseCard({ exercise, index, removeExercise }: ExerciseCardProps) {
     // Manage modal state
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [modalText, setModalText] = useState("");
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
 
@@ -25,7 +24,9 @@ export default function ExerciseCard({ exercise, index, removeExercise }: Exerci
     return (
         <>
             <ConfirmModal
-                text={modalText}
+                text="Are you sure you want to delete exercise?"
+                buttonText="Delete"
+                buttonVariant="danger"
                 isOpen={isModalOpen}
                 onClose={closeModal}
                 action={() => removeExercise(removeIndex)}
@@ -59,7 +60,6 @@ export default function ExerciseCard({ exercise, index, removeExercise }: Exerci
                 <button
                     className="cursor-pointer py-2"
                     onClick={() => {
-                        setModalText("Are you sure you want to remove exercise?");
                         setRemoveIndex(index);
                         openModal();
                     }}

@@ -15,7 +15,6 @@ interface SetTableProps {
 export default function SetTable({ currentSets, removeCurrentSets }: SetTableProps) {
     // Manage modal state
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [modalText, setModalText] = useState("");
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
 
@@ -24,7 +23,9 @@ export default function SetTable({ currentSets, removeCurrentSets }: SetTablePro
     return (
         <>
             <ConfirmModal
-                text={modalText}
+                text="Are you sure you want to delete set?"
+                buttonText="Delete"
+                buttonVariant="danger"
                 isOpen={isModalOpen}
                 onClose={closeModal}
                 action={() => removeCurrentSets(removeIndex)}
@@ -48,7 +49,6 @@ export default function SetTable({ currentSets, removeCurrentSets }: SetTablePro
                                 <button
                                     className="cursor-pointer p-2"
                                     onClick={() => {
-                                        setModalText("Are you sure you want to remove set?");
                                         setRemoveIndex(index);
                                         openModal();
                                     }}

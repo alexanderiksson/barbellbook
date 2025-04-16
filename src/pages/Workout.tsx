@@ -67,7 +67,9 @@ export default function WorkoutPage() {
     return (
         <>
             <ConfirmModal
-                text="Are you sure you want to remove workout?"
+                text="Are you sure you want to delete workout?"
+                buttonText="Delete"
+                buttonVariant="danger"
                 isOpen={isConfirmModalOpen}
                 onClose={closeConfirmModal}
                 action={() => {
@@ -79,6 +81,7 @@ export default function WorkoutPage() {
 
             <PromptModal
                 text="Workout name"
+                buttonText="Save"
                 isOpen={isPromptModalOpen}
                 onClose={closePromptModal}
                 initialValue={workoutName}
@@ -98,7 +101,7 @@ export default function WorkoutPage() {
 
             <div className="content">
                 <Notice
-                    msg="Workout name changed"
+                    msg="Workout name saved"
                     registerTrigger={(trigger) => (noticeTriggerRef.current = trigger)}
                 />
 
