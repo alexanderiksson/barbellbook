@@ -178,7 +178,7 @@ export default function WorkoutPage() {
                             key={index}
                             className="p-4 bg-neutral-900 border border-white/5 rounded-xl shadow-xl"
                         >
-                            <h2 className="text-xl font-semibold mb-4 overflow-hidden">
+                            <h2 className="text-xl font-semibold mb-4 truncate">
                                 <span className="mr-2 text-neutral-500">#{index + 1}</span>
                                 {exercise.name}
                             </h2>
