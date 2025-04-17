@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { WorkoutProvider } from "./context/WorkoutContext";
+
 import Layout from "./Layout";
 import Home from "./pages/Home";
 import AddExercise from "./pages/AddExercise";

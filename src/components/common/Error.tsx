@@ -3,7 +3,6 @@
  *
  * @param msg - The error message to display. Defaults to "Something went wrong" if not provided.
  *
- * @returns A styled paragraph element displaying the error message.
  */
 
 export default function Error({ msg = "Something went wrong" }: { msg?: string }) {
