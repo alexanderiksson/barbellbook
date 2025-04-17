@@ -1,6 +1,6 @@
-import TrashIcon from "../../../assets/icons/TrashIcon";
-import { ConfirmModal } from "../../common/Modals";
 import { useState } from "react";
+import { ConfirmModal } from "../../common/Modals";
+import TrashIcon from "../../../assets/icons/TrashIcon";
 
 interface Set {
     reps: number;

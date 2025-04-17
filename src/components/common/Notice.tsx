@@ -2,13 +2,6 @@
  * This component will show a temporary notice message,
  * The notice disappears after 2 seconds.
  *
- * @component
- * @param {Object} props - The props object.
- * @param {(trigger: () => void) => void} props.registerTrigger - A function to register the `showNotice` trigger, allowing external components to control when the notice is displayed.
- * @param {string} props.msg - The message to display in the notice.
- *
- * @returns {JSX.Element} The rendered notice component.
- *
  * @example
  * ```tsx
  * const triggerRef = useRef<() => void>();
