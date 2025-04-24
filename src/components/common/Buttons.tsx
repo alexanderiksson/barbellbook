@@ -36,7 +36,7 @@ export function LinkButton({ children, to, variant = "neutral", className = "" }
             to={to}
             className={`${handleVariant(
                 variant
-            )} px-4 py-2 rounded-full inline-flex justify-center items-center gap-2 border-2 ${className}`}
+            )} px-4 py-2.5 rounded-full inline-flex justify-center items-center gap-2 border-2 ${className}`}
         >
             {children}
         </Link>
@@ -48,7 +48,7 @@ export function Button({ children, variant = "neutral", className = "", onClick 
         <button
             className={`${handleVariant(
                 variant
-            )} px-4 py-2 rounded-full inline-flex justify-center items-center cursor-pointer gap-2 border-2 ${className}`}
+            )} px-4 py-2.5 rounded-full inline-flex justify-center items-center cursor-pointer gap-2 border-2 ${className}`}
             onClick={onClick}
         >
             {children}

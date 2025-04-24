@@ -6,11 +6,14 @@ import { LinkButton, Button } from "../components/common/Buttons";
 import ExerciseCard from "../components/pages/Home/ExerciseCard";
 import Notice from "../components/common/Notice";
 import { ConfirmModal, PromptModal } from "../components/common/Modals";
+import Loader from "../components/common/Loader";
 
 import PlusIcon from "../assets/icons/PlusIcon";
 import DoneIcon from "../assets/icons/DoneIcon";
 
 export default function Workout() {
+    const [loading, setLoading] = useState<boolean>(false);
+
     const { exercises, removeExercise, clearExercises, addWorkout } = useWorkout();
 
     // Trigger to show notice
@@ -25,6 +28,10 @@ export default function Workout() {
     const [isPromptModalOpen, setIsPromptModalOpen] = useState(false);
     const openPromptModal = () => setIsPromptModalOpen(true);
     const closePromptModal = () => setIsPromptModalOpen(false);
+
+    if (loading) {
+        return <Loader />;
+    }
 
     return (
         <>
@@ -45,6 +52,8 @@ export default function Workout() {
                 isOpen={isPromptModalOpen}
                 onClose={closePromptModal}
                 onSubmit={(value) => {
+                    setLoading(true);
+
                     const date = new Date().toLocaleDateString();
 
                     const newWorkout = {
@@ -55,6 +64,8 @@ export default function Workout() {
 
                     addWorkout(newWorkout);
                     clearExercises();
+
+                    setLoading(false);
 
                     // Trigger the notice
                     if (noticeTriggerRef.current) {

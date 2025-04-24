@@ -8,10 +8,13 @@ import WeightInput from "../components/pages/AddExercise/WeightInput";
 import SetTable from "../components/pages/AddExercise/SetTable";
 import Notice from "../components/common/Notice";
 import { AlertModal } from "../components/common/Modals";
+import Loader from "../components/common/Loader";
 
 import PlusIcon from "../assets/icons/PlusIcon";
 
 export default function AddExercise() {
+    const [loading, setLoading] = useState<boolean>(false);
+
     const { addExercise, currentSets, saveCurrentSets, removeCurrentSets, clearCurrentSets } =
         useWorkout();
 
@@ -27,6 +30,10 @@ export default function AddExercise() {
     const [modalText, setModalText] = useState("");
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
+
+    if (loading) {
+        return <Loader />;
+    }
 
     return (
         <>
@@ -103,6 +110,7 @@ export default function AddExercise() {
                             setModalText("Enter exercise name.");
                             openModal();
                         } else {
+                            setLoading(true);
                             const newExercise = {
                                 name,
                                 sets: [...currentSets],
