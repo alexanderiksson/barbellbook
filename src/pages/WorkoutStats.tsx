@@ -8,7 +8,7 @@ import Error from "../components/common/Error";
 
 interface Set {
     reps: number;
-    weight: number;
+    weight: string;
 }
 
 interface Exercise {
@@ -50,7 +50,10 @@ export default function WorkoutStats() {
         return workout.exercises.reduce(
             (weight, exercise) =>
                 weight +
-                exercise.sets.reduce((setWeight, set) => setWeight + set.weight * set.reps, 0),
+                exercise.sets.reduce(
+                    (setWeight, set) => setWeight + parseFloat(set.weight) * set.reps,
+                    0
+                ),
             0
         );
     };

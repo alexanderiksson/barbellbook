@@ -4,7 +4,7 @@ import TrashIcon from "../../../assets/icons/TrashIcon";
 
 interface Set {
     reps: number;
-    weight: number;
+    weight: string;
 }
 
 interface SetTableProps {

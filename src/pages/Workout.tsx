@@ -17,7 +17,7 @@ import EditIcon from "../assets/icons/EditIcon";
 
 interface Set {
     reps: number;
-    weight: number;
+    weight: string;
 }
 
 interface Exercise {

@@ -17,7 +17,7 @@ export default function AddExercise() {
 
     const [name, setName] = useState<string>("");
     const [reps, setReps] = useState<number>(0);
-    const [weight, setWeight] = useState<number | "">("");
+    const [weight, setWeight] = useState<string>("");
 
     // Trigger to show notice
     const noticeTriggerRef = useRef<() => void | null>(null);
@@ -60,7 +60,12 @@ export default function AddExercise() {
                         <Button
                             variant={"outline"}
                             onClick={() => {
-                                if (reps === 0 || weight === "" || weight <= 0 || weight > 9999) {
+                                if (
+                                    reps === 0 ||
+                                    weight === "" ||
+                                    weight <= "0" ||
+                                    weight > "9999"
+                                ) {
                                     setModalText("Enter weight and reps.");
                                     openModal();
                                 } else {

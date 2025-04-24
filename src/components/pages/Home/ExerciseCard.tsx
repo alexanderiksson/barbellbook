@@ -4,7 +4,7 @@ import TrashIcon from "../../../assets/icons/TrashIcon";
 
 interface Exercise {
     name: string;
-    sets: { reps: number; weight: number }[];
+    sets: { reps: number; weight: string }[];
 }
 
 interface ExerciseCardProps {
