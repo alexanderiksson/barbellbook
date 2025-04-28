@@ -8,13 +8,13 @@ import { Link } from "react-router-dom";
 interface LinkButtonProps {
     children: ReactNode;
     to: string;
-    variant?: "green" | "blue" | "neutral" | "outline" | "danger";
+    variant?: string;
     className?: string;
 }
 
 interface ButtonProps {
     children: ReactNode;
-    variant?: "green" | "blue" | "neutral" | "outline" | "danger";
+    variant?: string;
     className?: string;
     onClick?: () => void;
 }

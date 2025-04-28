@@ -10,7 +10,7 @@ interface ModalProps {
 
 interface ConfirmModalProps extends ModalProps {
     action: (...args: any[]) => void;
-    buttonVariant?: "green" | "blue" | "neutral" | "outline" | "danger";
+    buttonVariant?: string;
 }
 
 interface PromptModalProps extends ModalProps {
