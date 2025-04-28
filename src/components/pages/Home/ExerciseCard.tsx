@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ConfirmModal } from "../../common/Modals";
-import TrashIcon from "../../../assets/icons/TrashIcon";
+import { MdDeleteForever } from "react-icons/md";
 
 interface Exercise {
     name: string;
@@ -64,7 +64,7 @@ export default function ExerciseCard({ exercise, index, removeExercise }: Exerci
                         openModal();
                     }}
                 >
-                    <TrashIcon />
+                    <MdDeleteForever color="dc2626" size={24} />
                 </button>
             </div>
         </>

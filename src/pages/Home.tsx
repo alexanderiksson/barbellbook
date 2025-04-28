@@ -8,8 +8,7 @@ import Notice from "../components/common/Notice";
 import { ConfirmModal, PromptModal } from "../components/common/Modals";
 import Loader from "../components/common/Loader";
 
-import PlusIcon from "../assets/icons/PlusIcon";
-import DoneIcon from "../assets/icons/DoneIcon";
+import { IoMdAdd, IoMdCheckmark } from "react-icons/io";
 
 export default function Workout() {
     const [loading, setLoading] = useState<boolean>(false);
@@ -83,7 +82,7 @@ export default function Workout() {
 
                 <div className="flex justify-between flex-wrap gap-2 mb-12">
                     <LinkButton to="/add-exercise" variant={"outline"}>
-                        <PlusIcon /> Add exercise
+                        <IoMdAdd size={20} /> Add exercise
                     </LinkButton>
 
                     {exercises.length > 0 && (
@@ -93,7 +92,7 @@ export default function Workout() {
                                 openConfirmModal();
                             }}
                         >
-                            <DoneIcon />
+                            <IoMdCheckmark size={20} />
                             Finish
                         </Button>
                     )}

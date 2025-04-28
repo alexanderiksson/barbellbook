@@ -1,7 +1,5 @@
 import { NavLink } from "react-router-dom";
-import AddIcon from "../../assets/icons/AddIcon";
-import HomeIcon from "../../assets/icons/HomeIcon";
-import HistoryIcon from "../../assets/icons/HistoryIcon";
+import { IoIosAddCircle, IoIosTime, IoIosHome } from "react-icons/io";
 
 interface TabProps {
     to: string;
@@ -21,7 +19,7 @@ const Tab = ({ to, label, Icon }: TabProps) => {
         >
             {({ isActive }) => (
                 <>
-                    <Icon color={isActive ? "#10b981" : "#737373"} size="26px" />
+                    <Icon color={isActive ? "#10b981" : "#737373"} size={26} />
                     <span>{label}</span>
                 </>
             )}
@@ -38,13 +36,13 @@ export default function Navigation() {
             <div className="content">
                 <ul className="flex justify-around items-center">
                     <li>
-                        <Tab to="/" label="Start" Icon={HomeIcon} />
+                        <Tab to="/" label="Start" Icon={IoIosHome} />
                     </li>
                     <li>
-                        <Tab to="/add-exercise" label="Add exercise" Icon={AddIcon} />
+                        <Tab to="/add-exercise" label="Add exercise" Icon={IoIosAddCircle} />
                     </li>
                     <li>
-                        <Tab to="/history" label="History" Icon={HistoryIcon} />
+                        <Tab to="/history" label="History" Icon={IoIosTime} />
                     </li>
                 </ul>
             </div>

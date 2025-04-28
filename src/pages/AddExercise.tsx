@@ -10,7 +10,7 @@ import Notice from "../components/common/Notice";
 import { AlertModal } from "../components/common/Modals";
 import Loader from "../components/common/Loader";
 
-import PlusIcon from "../assets/icons/PlusIcon";
+import { IoMdAdd } from "react-icons/io";
 
 export default function AddExercise() {
     const [loading, setLoading] = useState<boolean>(false);
@@ -88,7 +88,7 @@ export default function AddExercise() {
                                 }
                             }}
                         >
-                            <PlusIcon /> Add set
+                            <IoMdAdd size={20} /> Add set
                         </Button>
                     </section>
 
