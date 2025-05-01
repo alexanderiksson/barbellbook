@@ -32,12 +32,7 @@ const handleVariant = (variant: string) => {
 
 export function LinkButton({ children, to, variant = "neutral", className = "" }: LinkButtonProps) {
     return (
-        <Link
-            to={to}
-            className={`${handleVariant(
-                variant
-            )} px-4 py-2.5 rounded-full inline-flex justify-center items-center gap-2 border-2 ${className}`}
-        >
+        <Link to={to} className={`${handleVariant(variant)} button ${className}`}>
             {children}
         </Link>
     );
@@ -46,9 +41,7 @@ export function LinkButton({ children, to, variant = "neutral", className = "" }
 export function Button({ children, variant = "neutral", className = "", onClick }: ButtonProps) {
     return (
         <button
-            className={`${handleVariant(
-                variant
-            )} px-4 py-2.5 rounded-full inline-flex justify-center items-center cursor-pointer gap-2 border-2 ${className}`}
+            className={`${handleVariant(variant)} button cursor-pointer ${className}`}
             onClick={onClick}
         >
             {children}
