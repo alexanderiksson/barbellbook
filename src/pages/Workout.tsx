@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
 import dateConverter from "../utils/dateConverter";
 
@@ -8,12 +8,9 @@ import Error from "../components/common/Error";
 import BackButton from "../components/common/BackButton";
 import Notice from "../components/common/Notice";
 import { ConfirmModal, PromptModal } from "../components/common/Modals";
+import WorkoutMenu from "../components/pages/Workout/WorkoutMenu";
 
 import GymIcon from "../assets/icons/GymIcon";
-import { FaPen } from "react-icons/fa";
-import { FaChartSimple } from "react-icons/fa6";
-import { MdDeleteForever } from "react-icons/md";
-
 import { HiDotsHorizontal } from "react-icons/hi";
 
 interface Set {
@@ -122,54 +119,26 @@ export default function WorkoutPage() {
                     </div>
 
                     <div className="flex gap-2 relative shrink-0">
-                        <div className="relative">
-                            <button
-                                className="bg-neutral-800 w-11 h-11 rounded-xl inline-flex justify-center items-center cursor-pointer"
-                                onClick={() => setIsOpen((isOpen) => !isOpen)}
-                            >
-                                <HiDotsHorizontal size={20} />
-                            </button>
-                            {isOpen && (
-                                <div
-                                    className="fixed inset-0 z-10 bg-black/30"
-                                    onClick={() => setIsOpen(false)}
-                                ></div>
-                            )}
-                        </div>
-                        <div
-                            className={`${
-                                isOpen ? "block" : "hidden"
-                            } absolute bg-neutral-800 rounded-xl w-52 right-0 top-12 shadow-xl overflow-hidden z-20`}
+                        <button
+                            className="bg-neutral-800 w-11 h-11 rounded-xl inline-flex justify-center items-center cursor-pointer"
+                            onClick={() => setIsOpen((isOpen) => !isOpen)}
                         >
-                            <ul className="divide-y divide-neutral-700">
-                                <li className="text-center">
-                                    <Link
-                                        to={`/history/${id}/stats`}
-                                        className="flex justify-center items-center gap-1.5 py-3"
-                                    >
-                                        <FaChartSimple size={18} /> Stats
-                                    </Link>
-                                </li>
+                            <HiDotsHorizontal size={20} />
+                        </button>
 
-                                <li
-                                    className="flex justify-center items-center gap-1.5 text-center py-3 cursor-pointer"
-                                    onClick={() => {
-                                        openPromptModal();
-                                    }}
-                                >
-                                    <FaPen size={16} /> Edit name
-                                </li>
+                        {isOpen && (
+                            <div
+                                className="fixed inset-0 z-10 bg-black/30"
+                                onClick={() => setIsOpen(false)}
+                            ></div>
+                        )}
 
-                                <li
-                                    className="flex justify-center items-center gap-1.5 text-center py-3 cursor-pointer text-red-500"
-                                    onClick={() => {
-                                        openConfirmModal();
-                                    }}
-                                >
-                                    <MdDeleteForever color="dc2626" size={22} /> Delete
-                                </li>
-                            </ul>
-                        </div>
+                        <WorkoutMenu
+                            id={id}
+                            isOpen={isOpen}
+                            openConfirmModal={openConfirmModal}
+                            openPromptModal={openPromptModal}
+                        />
                     </div>
                 </div>
                 <section className="flex flex-col gap-4 mt-8">
