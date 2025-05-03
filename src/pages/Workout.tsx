@@ -9,15 +9,16 @@ import BackButton from "../components/common/BackButton";
 import Notice from "../components/common/Notice";
 import { ConfirmModal, PromptModal } from "../components/common/Modals";
 
-import StatsIcon from "../assets/icons/StatsIcon";
 import GymIcon from "../assets/icons/GymIcon";
-import TrashIcon from "../assets/icons/TrashIcon";
-import MenuIcon from "../assets/icons/MenuIcon";
-import EditIcon from "../assets/icons/EditIcon";
+import { FaPen } from "react-icons/fa";
+import { FaChartSimple } from "react-icons/fa6";
+import { MdDeleteForever } from "react-icons/md";
+
+import { HiDotsHorizontal } from "react-icons/hi";
 
 interface Set {
     reps: number;
-    weight: number;
+    weight: string;
 }
 
 interface Exercise {
@@ -126,7 +127,7 @@ export default function WorkoutPage() {
                                 className="bg-neutral-800 w-11 h-11 rounded-xl inline-flex justify-center items-center cursor-pointer"
                                 onClick={() => setIsOpen((isOpen) => !isOpen)}
                             >
-                                <MenuIcon />
+                                <HiDotsHorizontal size={20} />
                             </button>
                             {isOpen && (
                                 <div
@@ -144,9 +145,9 @@ export default function WorkoutPage() {
                                 <li className="text-center">
                                     <Link
                                         to={`/history/${id}/stats`}
-                                        className="flex justify-center items-center gap-1 py-3"
+                                        className="flex justify-center items-center gap-1.5 py-3"
                                     >
-                                        <StatsIcon size="20px" /> Stats
+                                        <FaChartSimple size={18} /> Stats
                                     </Link>
                                 </li>
 
@@ -156,16 +157,16 @@ export default function WorkoutPage() {
                                         openPromptModal();
                                     }}
                                 >
-                                    <EditIcon size="16px" /> Edit name
+                                    <FaPen size={16} /> Edit name
                                 </li>
 
                                 <li
-                                    className="flex justify-center items-center gap-1 text-center py-3 cursor-pointer text-red-500"
+                                    className="flex justify-center items-center gap-1.5 text-center py-3 cursor-pointer text-red-500"
                                     onClick={() => {
                                         openConfirmModal();
                                     }}
                                 >
-                                    <TrashIcon size="20px" /> Delete
+                                    <MdDeleteForever color="dc2626" size={22} /> Delete
                                 </li>
                             </ul>
                         </div>

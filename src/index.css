@@ -14,8 +14,17 @@ body,
 }
 
 .content {
-    max-width: 480px;
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
+    @apply max-w-md w-[90%] mx-auto;
+}
+
+.button {
+    @apply px-4 py-2.5 rounded-full inline-flex justify-center items-center gap-2 border-2;
+}
+
+.modal {
+    @apply max-w-[90%] w-80 h-40 bg-neutral-700/30 backdrop-blur-lg rounded-xl border border-white/5 p-4 flex flex-col items-center justify-around text-center;
+}
+
+.modal-overlay {
+    @apply w-screen h-screen fixed flex justify-center items-center top-0 left-0 bg-black/70 z-30;
 }

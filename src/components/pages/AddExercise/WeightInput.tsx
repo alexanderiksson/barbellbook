@@ -1,6 +1,6 @@
 interface WeightInputProps {
-    weight: number | string;
-    setWeight: (value: number) => void;
+    weight: string;
+    setWeight: (value: string) => void;
 }
 
 export default function WeightInput({ weight, setWeight }: WeightInputProps) {
@@ -10,7 +10,7 @@ export default function WeightInput({ weight, setWeight }: WeightInputProps) {
             <input
                 className="bg-neutral-800 p-2 rounded-lg w-20 border border-white/5"
                 type="number"
-                onChange={(e) => setWeight(Number(e.target.value))}
+                onChange={(e) => setWeight(e.target.value)}
                 value={weight}
                 step={2.5}
                 min={0}

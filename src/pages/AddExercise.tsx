@@ -8,16 +8,19 @@ import WeightInput from "../components/pages/AddExercise/WeightInput";
 import SetTable from "../components/pages/AddExercise/SetTable";
 import Notice from "../components/common/Notice";
 import { AlertModal } from "../components/common/Modals";
+import Loader from "../components/common/Loader";
 
-import PlusIcon from "../assets/icons/PlusIcon";
+import { IoMdAdd } from "react-icons/io";
 
 export default function AddExercise() {
+    const [loading, setLoading] = useState<boolean>(false);
+
     const { addExercise, currentSets, saveCurrentSets, removeCurrentSets, clearCurrentSets } =
         useWorkout();
 
     const [name, setName] = useState<string>("");
     const [reps, setReps] = useState<number>(0);
-    const [weight, setWeight] = useState<number | "">("");
+    const [weight, setWeight] = useState<string>("");
 
     // Trigger to show notice
     const noticeTriggerRef = useRef<() => void | null>(null);
@@ -27,6 +30,10 @@ export default function AddExercise() {
     const [modalText, setModalText] = useState("");
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
+
+    if (loading) {
+        return <Loader />;
+    }
 
     return (
         <>
@@ -60,7 +67,12 @@ export default function AddExercise() {
                         <Button
                             variant={"outline"}
                             onClick={() => {
-                                if (reps === 0 || weight === "" || weight <= 0 || weight > 9999) {
+                                if (
+                                    reps === 0 ||
+                                    weight === "" ||
+                                    weight <= "0" ||
+                                    weight > "9999"
+                                ) {
                                     setModalText("Enter weight and reps.");
                                     openModal();
                                 } else {
@@ -76,7 +88,7 @@ export default function AddExercise() {
                                 }
                             }}
                         >
-                            <PlusIcon /> Add set
+                            <IoMdAdd size={20} /> Add set
                         </Button>
                     </section>
 
@@ -98,6 +110,7 @@ export default function AddExercise() {
                             setModalText("Enter exercise name.");
                             openModal();
                         } else {
+                            setLoading(true);
                             const newExercise = {
                                 name,
                                 sets: [...currentSets],

@@ -6,7 +6,7 @@ import WorkoutCard from "../components/pages/History/WorkoutCard";
 
 interface Workouts {
     date: string;
-    exercises: { name: string; sets: { reps: number; weight: number }[] }[];
+    exercises: { name: string; sets: { reps: number; weight: string }[] }[];
     name?: string;
 }
 

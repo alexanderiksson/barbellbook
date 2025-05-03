@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { ConfirmModal } from "../../common/Modals";
-import TrashIcon from "../../../assets/icons/TrashIcon";
+import { MdDeleteForever } from "react-icons/md";
 
 interface Set {
     reps: number;
-    weight: number;
+    weight: string;
 }
 
 interface SetTableProps {
@@ -53,7 +53,7 @@ export default function SetTable({ currentSets, removeCurrentSets }: SetTablePro
                                         openModal();
                                     }}
                                 >
-                                    <TrashIcon />
+                                    <MdDeleteForever color="dc2626" size={24} />
                                 </button>
                             </td>
                         </tr>

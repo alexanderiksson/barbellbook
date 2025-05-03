@@ -2,7 +2,7 @@ import { createContext, useState, useContext, useEffect, ReactNode } from "react
 
 interface Exercise {
     name: string;
-    sets: { reps: number; weight: number }[];
+    sets: { reps: number; weight: string }[];
 }
 
 interface Workout {
@@ -12,7 +12,7 @@ interface Workout {
 
 interface Set {
     reps: number;
-    weight: number;
+    weight: string;
 }
 
 interface WorkoutContextType {

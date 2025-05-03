@@ -10,7 +10,7 @@ interface ModalProps {
 
 interface ConfirmModalProps extends ModalProps {
     action: (...args: any[]) => void;
-    buttonVariant?: "green" | "blue" | "neutral" | "outline" | "danger";
+    buttonVariant?: string;
 }
 
 interface PromptModalProps extends ModalProps {
@@ -22,8 +22,8 @@ export function AlertModal({ text, buttonText = "Close", isOpen, onClose }: Moda
     if (!isOpen) return null;
 
     return (
-        <div className="w-screen h-screen fixed flex justify-center items-center top-0 left-0 bg-black/70 z-30">
-            <div className="max-w-[90%] w-80 h-40 bg-neutral-700/30 backdrop-blur-lg rounded-xl border border-white/5 p-4 flex flex-col items-center justify-around text-center">
+        <div className="modal-overlay">
+            <div className="modal">
                 <p>{text}</p>
                 <Button variant="blue" onClick={onClose}>
                     {buttonText}
@@ -44,8 +44,8 @@ export function ConfirmModal({
     if (!isOpen) return null;
 
     return (
-        <div className="w-screen h-screen fixed flex justify-center items-center top-0 left-0 bg-black/70 z-30">
-            <div className="max-w-[90%] w-80 h-40 bg-neutral-700/30 backdrop-blur-lg rounded-xl border border-white/5 p-4 flex flex-col items-center justify-around text-center">
+        <div className="modal-overlay">
+            <div className="modal">
                 <p>{text}</p>
                 <div className="flex gap-4">
                     <Button onClick={onClose}>Cancel</Button>
@@ -83,8 +83,8 @@ export function PromptModal({
     if (!isOpen) return null;
 
     return (
-        <div className="w-screen h-screen fixed flex justify-center items-center top-0 left-0 bg-black/70 z-30">
-            <div className="max-w-[90%] w-80 h-56 bg-neutral-700/30 backdrop-blur-lg rounded-xl border border-white/5 p-4 flex flex-col items-center justify-around text-center">
+        <div className="modal-overlay">
+            <div className="modal">
                 <p>{text}</p>
                 <input
                     type="text"
