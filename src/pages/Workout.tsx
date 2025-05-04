@@ -9,6 +9,7 @@ import BackButton from "../components/common/BackButton";
 import Notice from "../components/common/Notice";
 import { ConfirmModal, PromptModal } from "../components/common/Modals";
 import WorkoutMenu from "../components/pages/Workout/WorkoutMenu";
+import ExerciseCard from "../components/pages/Workout/ExerciseCard";
 
 import GymIcon from "../assets/icons/GymIcon";
 import { HiDotsHorizontal } from "react-icons/hi";
@@ -141,36 +142,10 @@ export default function WorkoutPage() {
                         />
                     </div>
                 </div>
+
                 <section className="flex flex-col gap-4 mt-8">
                     {workout.exercises.map((exercise, index) => (
-                        /* Create shared component fron ExerciseCard */
-                        <div
-                            key={index}
-                            className="p-4 bg-neutral-900 border border-white/5 rounded-xl shadow-xl"
-                        >
-                            <h2 className="text-xl font-semibold mb-4 truncate">
-                                <span className="mr-2 text-neutral-500">#{index + 1}</span>
-                                {exercise.name}
-                            </h2>
-                            <table className="w-full">
-                                <thead>
-                                    <tr className="text-left">
-                                        <th>Set</th>
-                                        <th>Reps</th>
-                                        <th>Weight</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {exercise.sets.map((set, setIndex) => (
-                                        <tr key={setIndex}>
-                                            <td>Set {setIndex + 1}</td>
-                                            <td>{set.reps}</td>
-                                            <td>{set.weight} kg</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
+                        <ExerciseCard index={index + 1} exercise={exercise} />
                     ))}
                 </section>
             </div>
