@@ -117,6 +117,7 @@ export function PromptModal({
                     className="w-full border border-white/10 rounded-xl p-2 bg-black/20"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
+                    autoFocus
                 />
                 <div className="w-full flex justify-end gap-4">
                     <Button onClick={onClose}>Cancel</Button>
