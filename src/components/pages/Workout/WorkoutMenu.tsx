@@ -35,7 +35,7 @@ export default function WorkoutMenu({
                         closeMenu();
                     }}
                 >
-                    Log <IoIosList size={20} />
+                    Log <IoIosList size={24} />
                 </li>
 
                 <li className="text-center">
@@ -43,7 +43,7 @@ export default function WorkoutMenu({
                         to={`/history/${id}/stats`}
                         className="flex justify-between items-center gap-1.5 p-4"
                     >
-                        Stats <IoIosStats size={20} />
+                        Stats <IoIosStats size={24} />
                     </Link>
                 </li>
 
@@ -54,7 +54,7 @@ export default function WorkoutMenu({
                         closeMenu();
                     }}
                 >
-                    Edit name <BiSolidEditAlt size={20} />
+                    Edit name <BiSolidEditAlt size={24} />
                 </li>
 
                 <li
@@ -64,7 +64,7 @@ export default function WorkoutMenu({
                         closeMenu();
                     }}
                 >
-                    Delete <MdDeleteForever color="dc2626" size={22} />
+                    Delete <MdDeleteForever color="dc2626" size={24} />
                 </li>
             </ul>
         </div>

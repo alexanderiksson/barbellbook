@@ -57,7 +57,7 @@ export default function Workout() {
 
                     const newWorkout = {
                         name: value || null,
-                        date: date,
+                        date,
                         exercises: [...exercises],
                     };
 

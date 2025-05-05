@@ -3,6 +3,7 @@ import { useWorkout } from "../context/WorkoutContext";
 
 import PageHeading from "../components/common/PageHeading";
 import WorkoutCard from "../components/pages/History/WorkoutCard";
+import Loader from "../components/common/Loader";
 
 interface Workouts {
     date: string;
@@ -15,6 +16,8 @@ interface FilteredWorkouts extends Workouts {
 }
 
 export default function History() {
+    const [loading, setLoading] = useState<boolean>(true);
+
     const { workouts } = useWorkout();
     const [initialWorkouts, setInitialWorkouts] = useState<FilteredWorkouts[]>([]);
     const [filteredWorkouts, setFilteredWorkouts] = useState<FilteredWorkouts[]>([]);
@@ -34,7 +37,12 @@ export default function History() {
         const sortedWorkouts =
             filter === "new" ? [...initialWorkouts].reverse() : [...initialWorkouts];
         setFilteredWorkouts(sortedWorkouts);
+        setLoading(false);
     }, [filter, initialWorkouts]);
+
+    if (loading) {
+        return <Loader />;
+    }
 
     return (
         <div className="content">

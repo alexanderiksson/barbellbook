@@ -52,12 +52,12 @@ export function ConfirmModal({
     return (
         <div className="modal-overlay">
             <div className="modal">
-                <div className="w-full flex justify-between">
+                <div className="w-full flex justify-between gap-2">
                     <h2 className="text-xl font-semibold ml-1">{text}</h2>
                     <IoCloseOutline
                         size={28}
                         color="grey"
-                        className="cursor-pointer"
+                        className="cursor-pointer flex-shrink-0"
                         onClick={() => {
                             onClose();
                         }}
@@ -101,12 +101,12 @@ export function PromptModal({
     return (
         <div className="modal-overlay">
             <div className="modal">
-                <div className="w-full flex justify-between">
+                <div className="w-full flex justify-between gap-2">
                     <h2 className="text-xl font-semibold ml-1">{text}</h2>
                     <IoCloseOutline
                         size={28}
                         color="grey"
-                        className="cursor-pointer"
+                        className="cursor-pointer flex-shrink-0"
                         onClick={() => {
                             onClose();
                         }}
@@ -149,12 +149,12 @@ export function LogModal({ isOpen, onClose, initialValue, onSubmit }: LogModalPr
     return (
         <div className="modal-overlay">
             <div className="modal">
-                <div className="w-full flex justify-between">
+                <div className="w-full flex justify-between gap-2">
                     <h2 className="text-xl font-semibold ml-1">Log</h2>
                     <IoCloseOutline
                         size={28}
                         color="grey"
-                        className="cursor-pointer"
+                        className="cursor-pointer flex-shrink-0"
                         onClick={() => {
                             onSubmit(textareaValue);
                             onClose();

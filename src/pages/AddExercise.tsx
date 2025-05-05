@@ -73,7 +73,7 @@ export default function AddExercise() {
                                     weight <= "0" ||
                                     weight > "9999"
                                 ) {
-                                    setModalText("Enter weight and reps.");
+                                    setModalText("Enter weight and reps");
                                     openModal();
                                 } else {
                                     saveCurrentSets({
@@ -104,10 +104,10 @@ export default function AddExercise() {
                     className={"mt-auto w-full"}
                     onClick={() => {
                         if (currentSets.length <= 0) {
-                            setModalText("Exercise doesn't have any sets.");
+                            setModalText("Exercise doesn't have any sets");
                             openModal();
                         } else if (!name) {
-                            setModalText("Enter exercise name.");
+                            setModalText("Enter exercise name");
                             openModal();
                         } else {
                             setLoading(true);

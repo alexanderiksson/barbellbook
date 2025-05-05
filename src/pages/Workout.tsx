@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
 import dateConverter from "../utils/dateConverter";
@@ -32,7 +32,8 @@ interface Workout {
 }
 
 export default function WorkoutPage() {
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
+
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const closeMenu = () => setIsOpen(false);
 
@@ -64,6 +65,12 @@ export default function WorkoutPage() {
     const [isLogModalOpen, setIsLogModalOpen] = useState(false);
     const openLogModal = () => setIsLogModalOpen(true);
     const closeLogModal = () => setIsLogModalOpen(false);
+
+    useEffect(() => {
+        if (workouts) {
+            setLoading(false);
+        }
+    }, [workouts]);
 
     if (loading) {
         return <Loader />;
