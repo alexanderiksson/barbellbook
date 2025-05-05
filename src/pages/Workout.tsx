@@ -90,7 +90,7 @@ export default function WorkoutPage() {
 
             <PromptModal
                 text="Workout name"
-                buttonText="Save"
+                buttonText="Save changes"
                 isOpen={isPromptModalOpen}
                 onClose={closePromptModal}
                 initialValue={workoutName}
@@ -118,12 +118,6 @@ export default function WorkoutPage() {
 
                     if (value) {
                         saveWorkoutLog(Number(id), value);
-
-                        // Trigger the notice
-                        if (noticeTriggerRef.current) {
-                            setNoticeMsg("Workout log saved");
-                            noticeTriggerRef.current();
-                        }
                     }
                 }}
             />

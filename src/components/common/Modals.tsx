@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "./Buttons";
+import { IoCloseOutline } from "react-icons/io5";
 
 interface ModalProps {
     text?: string;
@@ -29,7 +30,7 @@ export function AlertModal({ text, buttonText = "Close", isOpen, onClose }: Moda
     return (
         <div className="modal-overlay">
             <div className="modal">
-                <p>{text}</p>
+                <h2 className="text-xl font-semibold">{text}</h2>
                 <Button variant="blue" onClick={onClose}>
                     {buttonText}
                 </Button>
@@ -51,8 +52,18 @@ export function ConfirmModal({
     return (
         <div className="modal-overlay">
             <div className="modal">
-                <p>{text}</p>
-                <div className="flex gap-4">
+                <div className="w-full flex justify-between">
+                    <h2 className="text-xl font-semibold ml-1">{text}</h2>
+                    <IoCloseOutline
+                        size={28}
+                        color="grey"
+                        className="cursor-pointer"
+                        onClick={() => {
+                            onClose();
+                        }}
+                    />
+                </div>
+                <div className="w-full flex justify-end gap-4">
                     <Button onClick={onClose}>Cancel</Button>
                     <Button
                         variant={buttonVariant}
@@ -90,14 +101,24 @@ export function PromptModal({
     return (
         <div className="modal-overlay">
             <div className="modal">
-                <p>{text}</p>
+                <div className="w-full flex justify-between">
+                    <h2 className="text-xl font-semibold ml-1">{text}</h2>
+                    <IoCloseOutline
+                        size={28}
+                        color="grey"
+                        className="cursor-pointer"
+                        onClick={() => {
+                            onClose();
+                        }}
+                    />
+                </div>
                 <input
                     type="text"
                     className="w-full border border-white/10 rounded-xl p-2 bg-black/20"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                 />
-                <div className="flex gap-4">
+                <div className="w-full flex justify-end gap-4">
                     <Button onClick={onClose}>Cancel</Button>
                     <Button
                         variant="blue"
@@ -128,25 +149,25 @@ export function LogModal({ isOpen, onClose, initialValue, onSubmit }: LogModalPr
     return (
         <div className="modal-overlay">
             <div className="modal">
-                <p>Log</p>
-                <textarea
-                    className="w-full border border-white/10 rounded-xl p-2 bg-black/20 my-4"
-                    rows={8}
-                    value={textareaValue}
-                    onChange={(e) => setTextareaValue(e.target.value)}
-                ></textarea>
-                <div className="flex gap-4">
-                    <Button onClick={onClose}>Cancel</Button>
-                    <Button
+                <div className="w-full flex justify-between">
+                    <h2 className="text-xl font-semibold ml-1">Log</h2>
+                    <IoCloseOutline
+                        size={28}
+                        color="grey"
+                        className="cursor-pointer"
                         onClick={() => {
                             onSubmit(textareaValue);
                             onClose();
                         }}
-                        variant="blue"
-                    >
-                        Save
-                    </Button>
+                    />
                 </div>
+
+                <textarea
+                    className="w-full border border-white/10 rounded-xl p-2 bg-black/20 mb-2"
+                    rows={10}
+                    value={textareaValue}
+                    onChange={(e) => setTextareaValue(e.target.value)}
+                ></textarea>
             </div>
         </div>
     );
