@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
 import dateConverter from "../utils/dateConverter";
 
@@ -7,13 +7,11 @@ import Loader from "../components/common/Loader";
 import Error from "../components/common/Error";
 import BackButton from "../components/common/BackButton";
 import Notice from "../components/common/Notice";
-import { ConfirmModal, PromptModal } from "../components/common/Modals";
+import { ConfirmModal, PromptModal, LogModal } from "../components/common/Modals";
+import WorkoutMenu from "../components/pages/Workout/WorkoutMenu";
+import ExerciseCard from "../components/pages/Workout/ExerciseCard";
 
 import GymIcon from "../assets/icons/GymIcon";
-import { FaPen } from "react-icons/fa";
-import { FaChartSimple } from "react-icons/fa6";
-import { MdDeleteForever } from "react-icons/md";
-
 import { HiDotsHorizontal } from "react-icons/hi";
 
 interface Set {
@@ -30,19 +28,24 @@ interface Workout {
     name?: string;
     date: string;
     exercises: Exercise[];
+    log?: string;
 }
 
 export default function WorkoutPage() {
     const [loading, setLoading] = useState<boolean>(false);
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const closeMenu = () => setIsOpen(false);
+
+    const [noticeMsg, setNoticeMsg] = useState("");
 
     const { id } = useParams<{ id: string }>();
-    const { workouts, removeWorkout, updateWorkoutName } = useWorkout();
+    const { workouts, removeWorkout, updateWorkoutName, saveWorkoutLog } = useWorkout();
     const workout: Workout | undefined = workouts.find(
         (_, index) => index === parseInt(id || "", 10)
     );
 
     const workoutName = workout?.name || "Workout";
+    const workoutLog = workout?.log;
 
     // Trigger to show notice
     const noticeTriggerRef = useRef<() => void | null>(null);
@@ -56,6 +59,11 @@ export default function WorkoutPage() {
     const [isPromptModalOpen, setIsPromptModalOpen] = useState(false);
     const openPromptModal = () => setIsPromptModalOpen(true);
     const closePromptModal = () => setIsPromptModalOpen(false);
+
+    // Manage LogModal state
+    const [isLogModalOpen, setIsLogModalOpen] = useState(false);
+    const openLogModal = () => setIsLogModalOpen(true);
+    const closeLogModal = () => setIsLogModalOpen(false);
 
     if (loading) {
         return <Loader />;
@@ -94,6 +102,26 @@ export default function WorkoutPage() {
 
                         // Trigger the notice
                         if (noticeTriggerRef.current) {
+                            setNoticeMsg("Workout name saved");
+                            noticeTriggerRef.current();
+                        }
+                    }
+                }}
+            />
+
+            <LogModal
+                isOpen={isLogModalOpen}
+                onClose={closeLogModal}
+                initialValue={workoutLog}
+                onSubmit={(value) => {
+                    setIsOpen(false);
+
+                    if (value) {
+                        saveWorkoutLog(Number(id), value);
+
+                        // Trigger the notice
+                        if (noticeTriggerRef.current) {
+                            setNoticeMsg("Workout log saved");
                             noticeTriggerRef.current();
                         }
                     }
@@ -102,7 +130,7 @@ export default function WorkoutPage() {
 
             <div className="content">
                 <Notice
-                    msg="Workout name saved"
+                    msg={noticeMsg}
                     registerTrigger={(trigger) => (noticeTriggerRef.current = trigger)}
                 />
 
@@ -122,86 +150,34 @@ export default function WorkoutPage() {
                     </div>
 
                     <div className="flex gap-2 relative shrink-0">
-                        <div className="relative">
-                            <button
-                                className="bg-neutral-800 w-11 h-11 rounded-xl inline-flex justify-center items-center cursor-pointer"
-                                onClick={() => setIsOpen((isOpen) => !isOpen)}
-                            >
-                                <HiDotsHorizontal size={20} />
-                            </button>
-                            {isOpen && (
-                                <div
-                                    className="fixed inset-0 z-10 bg-black/30"
-                                    onClick={() => setIsOpen(false)}
-                                ></div>
-                            )}
-                        </div>
-                        <div
-                            className={`${
-                                isOpen ? "block" : "hidden"
-                            } absolute bg-neutral-800 rounded-xl w-52 right-0 top-12 shadow-xl overflow-hidden z-20`}
+                        <button
+                            className="bg-neutral-800 w-11 h-11 rounded-xl inline-flex justify-center items-center cursor-pointer z-20"
+                            onClick={() => setIsOpen((isOpen) => !isOpen)}
                         >
-                            <ul className="divide-y divide-neutral-700">
-                                <li className="text-center">
-                                    <Link
-                                        to={`/history/${id}/stats`}
-                                        className="flex justify-center items-center gap-1.5 py-3"
-                                    >
-                                        <FaChartSimple size={18} /> Stats
-                                    </Link>
-                                </li>
+                            <HiDotsHorizontal size={20} />
+                        </button>
 
-                                <li
-                                    className="flex justify-center items-center gap-1.5 text-center py-3 cursor-pointer"
-                                    onClick={() => {
-                                        openPromptModal();
-                                    }}
-                                >
-                                    <FaPen size={16} /> Edit name
-                                </li>
+                        {isOpen && (
+                            <div
+                                className="fixed inset-0 z-10 bg-black/50 backdrop-blur-xs"
+                                onClick={() => setIsOpen(false)}
+                            ></div>
+                        )}
 
-                                <li
-                                    className="flex justify-center items-center gap-1.5 text-center py-3 cursor-pointer text-red-500"
-                                    onClick={() => {
-                                        openConfirmModal();
-                                    }}
-                                >
-                                    <MdDeleteForever color="dc2626" size={22} /> Delete
-                                </li>
-                            </ul>
-                        </div>
+                        <WorkoutMenu
+                            id={id}
+                            isOpen={isOpen}
+                            closeMenu={closeMenu}
+                            openConfirmModal={openConfirmModal}
+                            openPromptModal={openPromptModal}
+                            openLogModal={openLogModal}
+                        />
                     </div>
                 </div>
+
                 <section className="flex flex-col gap-4 mt-8">
                     {workout.exercises.map((exercise, index) => (
-                        /* Create shared component fron ExerciseCard */
-                        <div
-                            key={index}
-                            className="p-4 bg-neutral-900 border border-white/5 rounded-xl shadow-xl"
-                        >
-                            <h2 className="text-xl font-semibold mb-4 truncate">
-                                <span className="mr-2 text-neutral-500">#{index + 1}</span>
-                                {exercise.name}
-                            </h2>
-                            <table className="w-full">
-                                <thead>
-                                    <tr className="text-left">
-                                        <th>Set</th>
-                                        <th>Reps</th>
-                                        <th>Weight</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {exercise.sets.map((set, setIndex) => (
-                                        <tr key={setIndex}>
-                                            <td>Set {setIndex + 1}</td>
-                                            <td>{set.reps}</td>
-                                            <td>{set.weight} kg</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
+                        <ExerciseCard key={index} index={index + 1} exercise={exercise} />
                     ))}
                 </section>
             </div>

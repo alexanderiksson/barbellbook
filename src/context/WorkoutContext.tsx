@@ -24,6 +24,7 @@ interface WorkoutContextType {
     addWorkout: (workout: Workout) => void;
     removeWorkout: (index: number) => void;
     updateWorkoutName: (index: number, newName: string) => void;
+    saveWorkoutLog: (index: number, log: string) => void;
     currentSets: Set[];
     saveCurrentSets: (set: Set) => void;
     removeCurrentSets: (index: number) => void;
@@ -105,6 +106,13 @@ export function WorkoutProvider({ children }: WorkoutProviderProps) {
         );
     };
 
+    // Save workout log
+    const saveWorkoutLog = (index: number, log: string): void => {
+        setWorkouts((prevWorkouts) =>
+            prevWorkouts.map((workout, i) => (i === index ? { ...workout, log: log } : workout))
+        );
+    };
+
     // Save current set to session storage
     const saveCurrentSets = (set: Set): void => {
         setCurrentSets((prevSets) => [...prevSets, set]);
@@ -132,6 +140,7 @@ export function WorkoutProvider({ children }: WorkoutProviderProps) {
                 addWorkout,
                 removeWorkout,
                 updateWorkoutName,
+                saveWorkoutLog,
                 currentSets,
                 saveCurrentSets,
                 removeCurrentSets,
