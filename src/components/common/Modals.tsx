@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "./Buttons";
 
 interface ModalProps {
-    text: string;
+    text?: string;
     buttonText?: string;
     isOpen: boolean;
     onClose: () => void;
@@ -15,6 +15,11 @@ interface ConfirmModalProps extends ModalProps {
 
 interface PromptModalProps extends ModalProps {
     initialValue?: string;
+    onSubmit: (...args: any[]) => void;
+}
+
+interface LogModalProps extends ModalProps {
+    initialValue: string | undefined;
     onSubmit: (...args: any[]) => void;
 }
 
@@ -102,6 +107,44 @@ export function PromptModal({
                         }}
                     >
                         {buttonText}
+                    </Button>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export function LogModal({ isOpen, onClose, initialValue, onSubmit }: LogModalProps) {
+    const [textareaValue, setTextareaValue] = useState("");
+
+    useEffect(() => {
+        if (initialValue) {
+            setTextareaValue(initialValue);
+        }
+    }, [initialValue]);
+
+    if (!isOpen) return null;
+
+    return (
+        <div className="modal-overlay">
+            <div className="modal">
+                <p>Log</p>
+                <textarea
+                    className="w-full border border-white/10 rounded-xl p-2 bg-black/20 my-4"
+                    rows={8}
+                    value={textareaValue}
+                    onChange={(e) => setTextareaValue(e.target.value)}
+                ></textarea>
+                <div className="flex gap-4">
+                    <Button onClick={onClose}>Cancel</Button>
+                    <Button
+                        onClick={() => {
+                            onSubmit(textareaValue);
+                            onClose();
+                        }}
+                        variant="blue"
+                    >
+                        Save
                     </Button>
                 </div>
             </div>

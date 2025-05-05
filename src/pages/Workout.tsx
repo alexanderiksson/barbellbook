@@ -7,7 +7,7 @@ import Loader from "../components/common/Loader";
 import Error from "../components/common/Error";
 import BackButton from "../components/common/BackButton";
 import Notice from "../components/common/Notice";
-import { ConfirmModal, PromptModal } from "../components/common/Modals";
+import { ConfirmModal, PromptModal, LogModal } from "../components/common/Modals";
 import WorkoutMenu from "../components/pages/Workout/WorkoutMenu";
 import ExerciseCard from "../components/pages/Workout/ExerciseCard";
 
@@ -28,19 +28,24 @@ interface Workout {
     name?: string;
     date: string;
     exercises: Exercise[];
+    log?: string;
 }
 
 export default function WorkoutPage() {
     const [loading, setLoading] = useState<boolean>(false);
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const closeMenu = () => setIsOpen(false);
+
+    const [noticeMsg, setNoticeMsg] = useState("");
 
     const { id } = useParams<{ id: string }>();
-    const { workouts, removeWorkout, updateWorkoutName } = useWorkout();
+    const { workouts, removeWorkout, updateWorkoutName, saveWorkoutLog } = useWorkout();
     const workout: Workout | undefined = workouts.find(
         (_, index) => index === parseInt(id || "", 10)
     );
 
     const workoutName = workout?.name || "Workout";
+    const workoutLog = workout?.log;
 
     // Trigger to show notice
     const noticeTriggerRef = useRef<() => void | null>(null);
@@ -54,6 +59,11 @@ export default function WorkoutPage() {
     const [isPromptModalOpen, setIsPromptModalOpen] = useState(false);
     const openPromptModal = () => setIsPromptModalOpen(true);
     const closePromptModal = () => setIsPromptModalOpen(false);
+
+    // Manage LogModal state
+    const [isLogModalOpen, setIsLogModalOpen] = useState(false);
+    const openLogModal = () => setIsLogModalOpen(true);
+    const closeLogModal = () => setIsLogModalOpen(false);
 
     if (loading) {
         return <Loader />;
@@ -92,6 +102,26 @@ export default function WorkoutPage() {
 
                         // Trigger the notice
                         if (noticeTriggerRef.current) {
+                            setNoticeMsg("Workout name saved");
+                            noticeTriggerRef.current();
+                        }
+                    }
+                }}
+            />
+
+            <LogModal
+                isOpen={isLogModalOpen}
+                onClose={closeLogModal}
+                initialValue={workoutLog}
+                onSubmit={(value) => {
+                    setIsOpen(false);
+
+                    if (value) {
+                        saveWorkoutLog(Number(id), value);
+
+                        // Trigger the notice
+                        if (noticeTriggerRef.current) {
+                            setNoticeMsg("Workout log saved");
                             noticeTriggerRef.current();
                         }
                     }
@@ -100,7 +130,7 @@ export default function WorkoutPage() {
 
             <div className="content">
                 <Notice
-                    msg="Workout name saved"
+                    msg={noticeMsg}
                     registerTrigger={(trigger) => (noticeTriggerRef.current = trigger)}
                 />
 
@@ -121,7 +151,7 @@ export default function WorkoutPage() {
 
                     <div className="flex gap-2 relative shrink-0">
                         <button
-                            className="bg-neutral-800 w-11 h-11 rounded-xl inline-flex justify-center items-center cursor-pointer"
+                            className="bg-neutral-800 w-11 h-11 rounded-xl inline-flex justify-center items-center cursor-pointer z-20"
                             onClick={() => setIsOpen((isOpen) => !isOpen)}
                         >
                             <HiDotsHorizontal size={20} />
@@ -129,7 +159,7 @@ export default function WorkoutPage() {
 
                         {isOpen && (
                             <div
-                                className="fixed inset-0 z-10 bg-black/30"
+                                className="fixed inset-0 z-10 bg-black/50 backdrop-blur-xs"
                                 onClick={() => setIsOpen(false)}
                             ></div>
                         )}
@@ -137,15 +167,17 @@ export default function WorkoutPage() {
                         <WorkoutMenu
                             id={id}
                             isOpen={isOpen}
+                            closeMenu={closeMenu}
                             openConfirmModal={openConfirmModal}
                             openPromptModal={openPromptModal}
+                            openLogModal={openLogModal}
                         />
                     </div>
                 </div>
 
                 <section className="flex flex-col gap-4 mt-8">
                     {workout.exercises.map((exercise, index) => (
-                        <ExerciseCard index={index + 1} exercise={exercise} />
+                        <ExerciseCard key={index} index={index + 1} exercise={exercise} />
                     ))}
                 </section>
             </div>
