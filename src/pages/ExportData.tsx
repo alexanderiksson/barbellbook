@@ -25,7 +25,6 @@ export default function ExportData() {
                 <Button variant="blue" onClick={handleExport}>
                     Export
                 </Button>
-                <Button>Import</Button>
             </div>
         </div>
     );
