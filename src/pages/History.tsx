@@ -81,7 +81,7 @@ export default function History() {
                         menuItems={[
                             {
                                 type: "link",
-                                label: "Migrate data",
+                                label: "Export data",
                                 icon: TbFileExport,
                                 to: "/export",
                             },
@@ -89,6 +89,7 @@ export default function History() {
                                 type: "link",
                                 label: "Stats",
                                 icon: IoIosStats,
+                                to: "/stats",
                             },
                         ]}
                     />
