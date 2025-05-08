@@ -1,32 +1,18 @@
 import { createContext, useState, useContext, useEffect, ReactNode } from "react";
-
-interface Exercise {
-    name: string;
-    sets: { reps: number; weight: string }[];
-}
-
-interface Workout {
-    date: string;
-    exercises: Exercise[];
-}
-
-interface Set {
-    reps: number;
-    weight: string;
-}
+import { WorkoutType, ExerciseType, SetType } from "../types/workout";
 
 interface WorkoutContextType {
-    exercises: Exercise[];
-    addExercise: (exercise: Exercise) => void;
+    exercises: ExerciseType[];
+    addExercise: (exercise: ExerciseType) => void;
     removeExercise: (index: number) => void;
     clearExercises: () => void;
-    workouts: Workout[];
-    addWorkout: (workout: Workout) => void;
+    workouts: WorkoutType[];
+    addWorkout: (workout: WorkoutType) => void;
     removeWorkout: (index: number) => void;
     updateWorkoutName: (index: number, newName: string) => void;
     saveWorkoutLog: (index: number, log: string) => void;
-    currentSets: Set[];
-    saveCurrentSets: (set: Set) => void;
+    currentSets: SetType[];
+    saveCurrentSets: (set: SetType) => void;
     removeCurrentSets: (index: number) => void;
     clearCurrentSets: () => void;
 }
@@ -39,19 +25,19 @@ interface WorkoutProviderProps {
 
 export function WorkoutProvider({ children }: WorkoutProviderProps) {
     // Exercises state
-    const [exercises, setExercises] = useState<Exercise[]>(() => {
+    const [exercises, setExercises] = useState<ExerciseType[]>(() => {
         const storedExercises = localStorage.getItem("exercises");
         return storedExercises ? JSON.parse(storedExercises) : [];
     });
 
     // Workouts state
-    const [workouts, setWorkouts] = useState<Workout[]>(() => {
+    const [workouts, setWorkouts] = useState<WorkoutType[]>(() => {
         const storedWorkouts = localStorage.getItem("workouts");
         return storedWorkouts ? JSON.parse(storedWorkouts) : [];
     });
 
     // Current sets state
-    const [currentSets, setCurrentSets] = useState<Set[]>(() => {
+    const [currentSets, setCurrentSets] = useState<SetType[]>(() => {
         const storedSets = sessionStorage.getItem("currentSets");
         return storedSets ? JSON.parse(storedSets) : [];
     });
@@ -72,7 +58,7 @@ export function WorkoutProvider({ children }: WorkoutProviderProps) {
     }, [currentSets]);
 
     // Add exercise to new workout
-    const addExercise = (exercise: Exercise): void => {
+    const addExercise = (exercise: ExerciseType): void => {
         setExercises((prevExercises) => [...prevExercises, exercise]);
     };
 
@@ -88,7 +74,7 @@ export function WorkoutProvider({ children }: WorkoutProviderProps) {
     };
 
     // Save workout
-    const addWorkout = (workout: Workout): void => {
+    const addWorkout = (workout: WorkoutType): void => {
         setWorkouts((prevWorkouts) => [...prevWorkouts, workout]);
     };
 
@@ -114,7 +100,7 @@ export function WorkoutProvider({ children }: WorkoutProviderProps) {
     };
 
     // Save current set to session storage
-    const saveCurrentSets = (set: Set): void => {
+    const saveCurrentSets = (set: SetType): void => {
         setCurrentSets((prevSets) => [...prevSets, set]);
     };
 

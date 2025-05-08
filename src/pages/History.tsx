@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useWorkout } from "../context/WorkoutContext";
+import { WorkoutType } from "../types/workout";
 
 import PageHeading from "../components/common/PageHeading";
 import WorkoutCard from "../components/pages/History/WorkoutCard";
@@ -10,13 +11,7 @@ import Menu from "../components/common/Menu";
 import { TbFileExport } from "react-icons/tb";
 import { IoIosStats } from "react-icons/io";
 
-interface Workouts {
-    date: string;
-    exercises: { name: string; sets: { reps: number; weight: string }[] }[];
-    name?: string;
-}
-
-interface FilteredWorkouts extends Workouts {
+interface FilteredWorkouts extends WorkoutType {
     id: number;
 }
 

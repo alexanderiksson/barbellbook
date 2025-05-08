@@ -1,10 +1,12 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useWorkout } from "../context/WorkoutContext";
+import { WorkoutType } from "../types/workout";
 
 import PageHeading from "../components/common/PageHeading";
 import { Button } from "../components/common/Buttons";
 import BackButton from "../components/common/BackButton";
 import Notice from "../components/common/Notice";
+import { ConfirmModal } from "../components/common/Modals";
 
 import { TbFileExport } from "react-icons/tb";
 import { TbFileImport } from "react-icons/tb";
@@ -12,8 +14,15 @@ import { TbFileImport } from "react-icons/tb";
 export default function ExportData() {
     const { workouts, addWorkout } = useWorkout();
 
+    // Manage ConfirmModal state
+    const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+    const openConfirmModal = () => setIsConfirmModalOpen(true);
+    const closeConfirmModal = () => setIsConfirmModalOpen(false);
+
     // Trigger to show notice
     const noticeTriggerRef = useRef<() => void | null>(null);
+
+    const [importedWorkouts, setImportedWorkouts] = useState<WorkoutType[] | null>(null);
 
     const handleExport = (): void => {
         const data: string = JSON.stringify(workouts);
@@ -37,19 +46,11 @@ export default function ExportData() {
             const file = (e.target as HTMLInputElement).files?.[0];
             if (!file) return;
 
-            const text = await file.text();
-            try {
-                const importedWorkouts = JSON.parse(text);
-                if (Array.isArray(importedWorkouts)) {
-                    importedWorkouts.forEach((workout) => addWorkout(workout));
+            const data = await file.text();
 
-                    // Trigger the notice
-                    if (noticeTriggerRef.current) {
-                        noticeTriggerRef.current();
-                    }
-                } else {
-                    console.error("Invalid file format");
-                }
+            try {
+                setImportedWorkouts(JSON.parse(data));
+                openConfirmModal();
             } catch (error) {
                 console.error("Error parsing JSON file", error);
             }
@@ -58,23 +59,50 @@ export default function ExportData() {
         input.click();
     };
 
+    const importData = () => {
+        if (importedWorkouts && Array.isArray(importedWorkouts)) {
+            importedWorkouts.forEach((workout) => addWorkout(workout));
+
+            // Trigger the notice
+            if (noticeTriggerRef.current) {
+                noticeTriggerRef.current();
+            }
+        } else {
+            console.error("Invalid file format");
+        }
+    };
+
     return (
-        <div className="content">
-            <Notice
-                msg="Data imported successfully"
-                registerTrigger={(trigger) => (noticeTriggerRef.current = trigger)}
+        <>
+            <ConfirmModal
+                text="Are you sure you want to import data?"
+                buttonText="Import"
+                isOpen={isConfirmModalOpen}
+                onClose={closeConfirmModal}
+                action={() => {
+                    closeConfirmModal();
+                    importData();
+                }}
             />
 
-            <BackButton to="/history" label="Back" />
-            <PageHeading>Export data</PageHeading>
-            <div className="flex gap-4 mt-8">
-                <Button onClick={handleExport}>
-                    <TbFileExport size={20} /> Export
-                </Button>
-                <Button onClick={handleImport} variant="blue">
-                    <TbFileImport size={20} /> Import
-                </Button>
+            <div className="content">
+                <Notice
+                    msg="Data imported successfully"
+                    registerTrigger={(trigger) => (noticeTriggerRef.current = trigger)}
+                />
+
+                <BackButton to="/history" label="Back" />
+                <PageHeading>Export data</PageHeading>
+
+                <div className="flex gap-4 mt-8">
+                    <Button onClick={handleExport}>
+                        <TbFileExport size={20} /> Export
+                    </Button>
+                    <Button onClick={handleImport} variant="blue">
+                        <TbFileImport size={20} /> Import
+                    </Button>
+                </div>
             </div>
-        </div>
+        </>
     );
 }

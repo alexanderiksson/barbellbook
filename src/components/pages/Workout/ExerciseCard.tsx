@@ -1,16 +1,8 @@
-interface Set {
-    reps: number;
-    weight: string;
-}
-
-interface Exercise {
-    name: string;
-    sets: Set[];
-}
+import { ExerciseType } from "../../../types/workout";
 
 interface ExerciseCardProps {
     index: number;
-    exercise: Exercise;
+    exercise: ExerciseType;
 }
 
 export default function ExerciseCard({ index, exercise }: ExerciseCardProps) {

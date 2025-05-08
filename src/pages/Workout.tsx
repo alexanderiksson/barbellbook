@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
+import { WorkoutType } from "../types/workout";
 import dateConverter from "../utils/dateConverter";
 
 import Loader from "../components/common/Loader";
@@ -19,23 +20,6 @@ import { IoIosList } from "react-icons/io";
 import { BiSolidEditAlt } from "react-icons/bi";
 import { MdDeleteForever } from "react-icons/md";
 
-interface Set {
-    reps: number;
-    weight: string;
-}
-
-interface Exercise {
-    name: string;
-    sets: Set[];
-}
-
-interface Workout {
-    name?: string;
-    date: string;
-    exercises: Exercise[];
-    log?: string;
-}
-
 export default function WorkoutPage() {
     const [loading, setLoading] = useState<boolean>(true);
 
@@ -46,7 +30,7 @@ export default function WorkoutPage() {
 
     const { id } = useParams<{ id: string }>();
     const { workouts, removeWorkout, updateWorkoutName, saveWorkoutLog } = useWorkout();
-    const workout: Workout | undefined = workouts.find(
+    const workout: WorkoutType | undefined = workouts.find(
         (_, index) => index === parseInt(id || "", 10)
     );
 
