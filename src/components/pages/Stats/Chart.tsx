@@ -14,7 +14,11 @@ export default function Chart({ data }: ChartProps) {
                     <YAxis allowDecimals={false} />
                     <Tooltip />
                     <Bar
-                        dataKey={Object.keys(data[0]).find((key) => key !== "month") || "Data"}
+                        dataKey={
+                            data[0]
+                                ? Object.keys(data[0]).find((key) => key !== "month") || "Data"
+                                : "Data"
+                        }
                         fill="#0369a1"
                     />
                 </BarChart>
