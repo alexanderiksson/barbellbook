@@ -1,14 +1,10 @@
 import { useState } from "react";
+import { ExerciseType } from "../../../types/workout";
 import { ConfirmModal } from "../../common/Modals";
 import { MdDeleteForever } from "react-icons/md";
 
-interface Exercise {
-    name: string;
-    sets: { reps: number; weight: string }[];
-}
-
 interface ExerciseCardProps {
-    exercise: Exercise;
+    exercise: ExerciseType;
     index: number;
     removeExercise: (index: number) => void;
 }

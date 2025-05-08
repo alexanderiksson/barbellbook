@@ -1,14 +1,10 @@
 import { useState } from "react";
+import { SetType } from "../../../types/workout";
 import { ConfirmModal } from "../../common/Modals";
 import { MdDeleteForever } from "react-icons/md";
 
-interface Set {
-    reps: number;
-    weight: string;
-}
-
 interface SetTableProps {
-    currentSets: Set[];
+    currentSets: SetType[];
     removeCurrentSets: (index: number) => void;
 }
 

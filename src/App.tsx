@@ -8,6 +8,7 @@ import History from "./pages/History";
 import Workout from "./pages/Workout";
 import WorkoutStats from "./pages/WorkoutStats";
 import ExportData from "./pages/ExportData";
+import Stats from "./pages/Stats";
 
 export default function App() {
     return (
@@ -21,6 +22,7 @@ export default function App() {
                         <Route path="/history/:id" element={<Workout />} />
                         <Route path="/history/:id/stats" element={<WorkoutStats />} />
                         <Route path="/export" element={<ExportData />} />
+                        <Route path="/stats" element={<Stats />} />
                     </Route>
                 </Routes>
             </WorkoutProvider>

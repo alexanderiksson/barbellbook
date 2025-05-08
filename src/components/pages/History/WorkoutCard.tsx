@@ -2,13 +2,13 @@ import { Link } from "react-router-dom";
 import dateConverter from "../../../utils/dateConverter";
 import GymIcon from "../../../assets/icons/GymIcon";
 
-interface Workout {
+interface WorkoutProps {
     id: number;
     name?: string;
     date: string;
 }
 
-export default function WorkoutCard({ workout }: { workout: Workout }) {
+export default function WorkoutCard({ workout }: { workout: WorkoutProps }) {
     return (
         <Link to={`/history/${workout.id}`}>
             <div className="px-4 py-3 bg-neutral-900 border border-white/5 rounded-xl shadow flex justify-between items-center gap-2">

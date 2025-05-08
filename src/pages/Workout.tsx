@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
+import { WorkoutType } from "../types/workout";
 import dateConverter from "../utils/dateConverter";
 
 import Loader from "../components/common/Loader";
@@ -10,26 +11,14 @@ import Notice from "../components/common/Notice";
 import { ConfirmModal, PromptModal, LogModal } from "../components/common/Modals";
 import WorkoutMenu from "../components/pages/Workout/WorkoutMenu";
 import ExerciseCard from "../components/pages/Workout/ExerciseCard";
+import MenuButton from "../components/common/MenuButton";
+import Menu from "../components/common/Menu";
 
 import GymIcon from "../assets/icons/GymIcon";
-import { HiDotsHorizontal } from "react-icons/hi";
-
-interface Set {
-    reps: number;
-    weight: string;
-}
-
-interface Exercise {
-    name: string;
-    sets: Set[];
-}
-
-interface Workout {
-    name?: string;
-    date: string;
-    exercises: Exercise[];
-    log?: string;
-}
+import { IoIosStats } from "react-icons/io";
+import { IoIosList } from "react-icons/io";
+import { BiSolidEditAlt } from "react-icons/bi";
+import { MdDeleteForever } from "react-icons/md";
 
 export default function WorkoutPage() {
     const [loading, setLoading] = useState<boolean>(true);
@@ -41,7 +30,7 @@ export default function WorkoutPage() {
 
     const { id } = useParams<{ id: string }>();
     const { workouts, removeWorkout, updateWorkoutName, saveWorkoutLog } = useWorkout();
-    const workout: Workout | undefined = workouts.find(
+    const workout: WorkoutType | undefined = workouts.find(
         (_, index) => index === parseInt(id || "", 10)
     );
 
@@ -150,13 +139,8 @@ export default function WorkoutPage() {
                         </div>
                     </div>
 
-                    <div className="flex gap-2 relative shrink-0">
-                        <button
-                            className="bg-neutral-800 w-11 h-11 rounded-xl inline-flex justify-center items-center cursor-pointer z-20"
-                            onClick={() => setIsOpen((isOpen) => !isOpen)}
-                        >
-                            <HiDotsHorizontal size={20} />
-                        </button>
+                    <div className="flex relative shrink-0">
+                        <MenuButton onClick={() => setIsOpen((isOpen) => !isOpen)} />
 
                         {isOpen && (
                             <div
@@ -165,14 +149,48 @@ export default function WorkoutPage() {
                             ></div>
                         )}
 
-                        <WorkoutMenu
+                        <Menu
+                            isOpen={isOpen}
+                            closeMenu={closeMenu}
+                            menuItems={[
+                                {
+                                    type: "function",
+                                    label: "Log",
+                                    icon: IoIosList,
+                                    onClick: openLogModal,
+                                },
+                                {
+                                    type: "link",
+                                    label: "Stats",
+                                    icon: IoIosStats,
+                                    to: `/history/${id}/stats`,
+                                },
+                                {
+                                    type: "function",
+                                    label: "Edit name",
+                                    icon: BiSolidEditAlt,
+                                    onClick: openPromptModal,
+                                },
+                                {
+                                    type: "function",
+                                    label: "Delete",
+                                    icon: MdDeleteForever,
+                                    onClick: openConfirmModal,
+                                    danger: true,
+                                },
+                            ]}
+                        />
+
+                        {/* UNUSED COMPONENT */}
+
+                        {/* <WorkoutMenu
                             id={id}
                             isOpen={isOpen}
                             closeMenu={closeMenu}
                             openConfirmModal={openConfirmModal}
                             openPromptModal={openPromptModal}
                             openLogModal={openLogModal}
-                        />
+                        /> */}
                     </div>
                 </div>
 

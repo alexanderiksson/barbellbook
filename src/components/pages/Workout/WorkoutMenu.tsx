@@ -1,3 +1,5 @@
+/* THIS COMPONENT IS UNUSED */
+
 import { Link } from "react-router-dom";
 import { BiSolidEditAlt } from "react-icons/bi";
 import { IoIosStats } from "react-icons/io";

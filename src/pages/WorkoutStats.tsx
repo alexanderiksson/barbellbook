@@ -1,32 +1,17 @@
 import { useParams } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
+import { WorkoutType } from "../types/workout";
 
 import PageHeading from "../components/common/PageHeading";
 import BackButton from "../components/common/BackButton";
 import StatCard from "../components/pages/WorkoutStats/StatCard";
 import Error from "../components/common/Error";
 
-interface Set {
-    reps: number;
-    weight: string;
-}
-
-interface Exercise {
-    name: string;
-    sets: Set[];
-}
-
-interface Workout {
-    name?: string;
-    date: string;
-    exercises: Exercise[];
-}
-
 export default function WorkoutStats() {
     const { id } = useParams<{ id: string }>();
     const { workouts } = useWorkout();
 
-    const workout: Workout | undefined = workouts.find(
+    const workout: WorkoutType | undefined = workouts.find(
         (_, index) => index === parseInt(id || "", 10)
     );
 
