@@ -79,15 +79,15 @@ export default function History() {
                         menuItems={[
                             {
                                 type: "link",
-                                label: "Export data",
-                                icon: TbFileExport,
-                                to: "/export",
-                            },
-                            {
-                                type: "link",
                                 label: "Stats",
                                 icon: IoIosStats,
                                 to: "/stats",
+                            },
+                            {
+                                type: "link",
+                                label: "Export data",
+                                icon: TbFileExport,
+                                to: "/export",
                             },
                         ]}
                     />
