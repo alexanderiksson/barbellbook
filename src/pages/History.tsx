@@ -37,8 +37,11 @@ export default function History() {
     }, [workouts]);
 
     useEffect(() => {
-        const sortedWorkouts =
-            filter === "new" ? [...initialWorkouts].reverse() : [...initialWorkouts];
+        const sortedWorkouts = [...initialWorkouts].sort((a, b) => {
+            const dateA = new Date(a.date).getTime();
+            const dateB = new Date(b.date).getTime();
+            return filter === "new" ? dateB - dateA : dateA - dateB;
+        });
         setFilteredWorkouts(sortedWorkouts);
         setLoading(false);
     }, [filter, initialWorkouts]);
