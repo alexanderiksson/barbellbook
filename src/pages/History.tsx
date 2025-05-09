@@ -84,23 +84,25 @@ export default function History() {
                 </div>
             </div>
 
-            <select
-                className="py-2 w-full text-center border border-white/10 rounded-xl bg-neutral-900 text-sm mb-4"
-                onChange={(e) => setFilter(e.target.value as "new" | "old")}
-                value={filter}
-            >
-                <option value="new">New to old</option>
-                <option value="old">Old to new</option>
-            </select>
-
             {workouts.length === 0 ? (
                 <p className="text-neutral-500">No workouts found.</p>
             ) : (
-                <section className="flex flex-col gap-3">
-                    {filteredWorkouts.map((workout, index) => (
-                        <WorkoutCard key={index} workout={workout} />
-                    ))}
-                </section>
+                <>
+                    <select
+                        className="py-2 w-full text-center border border-white/10 rounded-xl bg-neutral-900 text-sm mb-4"
+                        onChange={(e) => setFilter(e.target.value as "new" | "old")}
+                        value={filter}
+                    >
+                        <option value="new">New to old</option>
+                        <option value="old">Old to new</option>
+                    </select>
+
+                    <section className="flex flex-col gap-3">
+                        {filteredWorkouts.map((workout, index) => (
+                            <WorkoutCard key={index} workout={workout} />
+                        ))}
+                    </section>
+                </>
             )}
         </div>
     );

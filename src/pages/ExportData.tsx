@@ -94,12 +94,12 @@ export default function ExportData() {
                 <BackButton to="/history" label="Workout history" />
                 <PageHeading>Export data</PageHeading>
 
-                <div className="flex gap-4 mt-8">
-                    <Button onClick={handleExport}>
-                        <TbFileExport size={20} /> Export
+                <div className="flex gap-4 mt-8 flex-wrap">
+                    <Button onClick={handleExport} variant="blue">
+                        <TbFileExport size={20} /> Export workouts
                     </Button>
-                    <Button onClick={handleImport} variant="blue">
-                        <TbFileImport size={20} /> Import
+                    <Button onClick={handleImport}>
+                        <TbFileImport size={20} /> Import workouts
                     </Button>
                 </div>
             </div>

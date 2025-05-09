@@ -54,7 +54,7 @@ export default function Stats() {
     return (
         <div className="content">
             <BackButton to="/history" label="Workout history" />
-            <PageHeading>Stats</PageHeading>
+            <PageHeading>Your stats</PageHeading>
 
             {workouts.length <= 0 ? (
                 <p className="text-neutral-500">No workouts found.</p>
