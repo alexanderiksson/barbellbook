@@ -61,7 +61,7 @@ export default function Stats() {
             ) : (
                 <>
                     <select
-                        className="py-2 w-full text-center border border-white/10 rounded-xl bg-neutral-900 text-sm mb-4"
+                        className="py-2 w-full text-center border border-white/10 rounded-xl bg-neutral-900 text-sm mb-4 mt-4"
                         value={selectedYear}
                         onChange={(e) => setSelectedYear(e.target.value)}
                     >
@@ -71,7 +71,7 @@ export default function Stats() {
                             </option>
                         ))}
                     </select>
-                    <section className="flex flex-col gap-6 pt-4">
+                    <section className="flex flex-col gap-6">
                         <div className="bg-neutral-800/50 p-4 rounded-xl border border-white/5">
                             <h2 className="text-lg font-semibold mb-4 text-neutral-400">
                                 Workouts

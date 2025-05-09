@@ -52,20 +52,10 @@ export default function History() {
 
     return (
         <div className="content relative">
-            <PageHeading>History</PageHeading>
-
-            <div className="flex gap-2 mb-8">
-                <select
-                    className="py-2 w-full text-center border border-white/10 rounded-xl bg-neutral-900 text-sm"
-                    onChange={(e) => setFilter(e.target.value as "new" | "old")}
-                    value={filter}
-                >
-                    <option value="new">New to old</option>
-                    <option value="old">Old to new</option>
-                </select>
+            <div className="flex justify-between mb-8">
+                <PageHeading>Workout history</PageHeading>
                 <div className="flex relative shrink-0">
                     <MenuButton onClick={() => setIsOpen((isOpen) => !isOpen)} />
-
                     {isOpen && (
                         <div
                             className="fixed inset-0 z-10 bg-black/50 backdrop-blur-xs"
@@ -93,6 +83,15 @@ export default function History() {
                     />
                 </div>
             </div>
+
+            <select
+                className="py-2 w-full text-center border border-white/10 rounded-xl bg-neutral-900 text-sm mb-4"
+                onChange={(e) => setFilter(e.target.value as "new" | "old")}
+                value={filter}
+            >
+                <option value="new">New to old</option>
+                <option value="old">Old to new</option>
+            </select>
 
             {workouts.length === 0 ? (
                 <p className="text-neutral-500">No workouts found.</p>
