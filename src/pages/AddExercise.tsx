@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { useWorkout } from "../context/WorkoutContext";
+import exercises from "../data/exercises.json";
 
 import PageHeading from "../components/common/PageHeading";
 import { Button } from "../components/common/Buttons";
@@ -17,6 +18,8 @@ export default function AddExercise() {
 
     const { addExercise, currentSets, saveCurrentSets, removeCurrentSets, clearCurrentSets } =
         useWorkout();
+
+    const [nameListOpen, setNameListOpen] = useState(false);
 
     const [name, setName] = useState<string>("");
     const [reps, setReps] = useState<number>(0);
@@ -48,14 +51,45 @@ export default function AddExercise() {
                 <PageHeading>Add Exercise</PageHeading>
 
                 <div className="flex flex-col gap-6 flex-1 mb-4">
-                    {/* Name input */}
-                    <input
-                        className="bg-neutral-900 p-3 rounded-xl w-full border border-white/5 shadow placeholder:text-neutral-600"
-                        type="text"
-                        placeholder="Exercise name"
-                        onChange={(e) => setName(e.target.value)}
-                        value={name}
-                    />
+                    <div className="relative">
+                        <input
+                            className="bg-neutral-900 p-3 rounded-xl w-full border border-white/5 shadow placeholder:text-neutral-600"
+                            type="text"
+                            placeholder="Search exercise"
+                            value={name}
+                            onChange={(e) => {
+                                setName(e.target.value);
+
+                                if (e.target.value.length > 0) {
+                                    setNameListOpen(true);
+                                } else {
+                                    setNameListOpen(false);
+                                }
+                            }}
+                        />
+                        {nameListOpen && (
+                            <ul
+                                className={`absolute bg-neutral-800/80 backdrop-blur-xl rounded-xl shadow-xl w-full mt-2 max-h-64 overflow-y-auto z-10 divide-y divide-white/10`}
+                            >
+                                {exercises
+                                    .filter((exercise) =>
+                                        exercise.toLowerCase().includes(name.toLowerCase())
+                                    )
+                                    .map((exercise, index) => (
+                                        <li
+                                            key={index}
+                                            className="p-3 hover:bg-neutral-700 cursor-pointer transition-all duration-100"
+                                            onClick={() => {
+                                                setName(exercise);
+                                                setNameListOpen(false);
+                                            }}
+                                        >
+                                            {exercise}
+                                        </li>
+                                    ))}
+                            </ul>
+                        )}
+                    </div>
 
                     {/* Add set */}
                     <section className="w-full flex flex-col gap-8 bg-neutral-900 border border-white/5 p-4 rounded-xl shadow">
