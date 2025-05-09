@@ -53,7 +53,7 @@ export default function Stats() {
 
     return (
         <div className="content">
-            <BackButton to="/history" label="Back" />
+            <BackButton to="/history" label="Workout history" />
             <PageHeading>Stats</PageHeading>
 
             {workouts.length <= 0 ? (

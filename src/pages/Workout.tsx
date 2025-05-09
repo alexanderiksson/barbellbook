@@ -124,7 +124,7 @@ export default function WorkoutPage() {
                     registerTrigger={(trigger) => (noticeTriggerRef.current = trigger)}
                 />
 
-                <BackButton to="/history" label="History" />
+                <BackButton to="/history" label="Workout history" />
 
                 <div className="flex justify-between items-center mb-4 gap-2">
                     <div className="flex items-center justify-center gap-4 shrink overflow-hidden">

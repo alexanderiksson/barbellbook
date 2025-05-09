@@ -91,7 +91,7 @@ export default function ExportData() {
                     registerTrigger={(trigger) => (noticeTriggerRef.current = trigger)}
                 />
 
-                <BackButton to="/history" label="Back" />
+                <BackButton to="/history" label="Workout history" />
                 <PageHeading>Export data</PageHeading>
 
                 <div className="flex gap-4 mt-8">
