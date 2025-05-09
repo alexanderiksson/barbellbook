@@ -78,9 +78,19 @@ export default function Workout() {
                     msg="Workout saved!"
                     registerTrigger={(trigger) => (noticeTriggerRef.current = trigger)}
                 />
-                <PageHeading>Today's Workout</PageHeading>
 
-                <div className="flex justify-between flex-wrap gap-2 mb-12">
+                <PageHeading>
+                    Today's Workout
+                    <span className="text-base font-normal block text-neutral-400 mt-2">
+                        {new Date().toLocaleDateString("en-US", {
+                            weekday: "long",
+                            month: "long",
+                            day: "numeric",
+                        })}
+                    </span>
+                </PageHeading>
+
+                <div className="flex justify-between flex-wrap gap-2 mb-8 mt-8">
                     <LinkButton to="/add-exercise" variant={"outline"}>
                         <IoMdAdd size={20} /> Add exercise
                     </LinkButton>
@@ -98,21 +108,17 @@ export default function Workout() {
                     )}
                 </div>
 
-                {exercises.length === 0 ? (
-                    <p className="text-neutral-500">Get started by adding an exercise.</p>
-                ) : (
-                    <>
-                        <section className="flex flex-col gap-4">
-                            {exercises.map((exercise, index) => (
-                                <ExerciseCard
-                                    key={index}
-                                    exercise={exercise}
-                                    index={index}
-                                    removeExercise={removeExercise}
-                                />
-                            ))}
-                        </section>
-                    </>
+                {exercises.length > 0 && (
+                    <section className="flex flex-col gap-4">
+                        {exercises.map((exercise, index) => (
+                            <ExerciseCard
+                                key={index}
+                                exercise={exercise}
+                                index={index}
+                                removeExercise={removeExercise}
+                            />
+                        ))}
+                    </section>
                 )}
             </div>
         </>
