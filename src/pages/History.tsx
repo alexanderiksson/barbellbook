@@ -89,7 +89,7 @@ export default function History() {
             ) : (
                 <>
                     <select
-                        className="py-2 w-full text-center border border-white/10 rounded-xl bg-neutral-900 text-sm mb-4"
+                        className="py-2 w-full text-center border border-white/10 rounded-2xl bg-zinc-900 text-sm mb-4"
                         onChange={(e) => setFilter(e.target.value as "new" | "old")}
                         value={filter}
                     >

@@ -28,7 +28,7 @@ export default function ExerciseCard({ exercise, index, removeExercise }: Exerci
                 action={() => removeExercise(removeIndex)}
             />
 
-            <div className="p-4 bg-neutral-900 border border-white/5 rounded-xl shadow-xl">
+            <div className="p-4 bg-zinc-900 border border-white/5 rounded-2xl shadow-xl">
                 <h2 className="text-xl font-semibold mb-4 truncate">
                     <span className="mr-2 text-neutral-500">#{index + 1}</span>
                     {exercise.name}

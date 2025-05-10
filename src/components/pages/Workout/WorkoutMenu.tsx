@@ -27,7 +27,7 @@ export default function WorkoutMenu({
         <div
             className={`${
                 isOpen ? "block" : "hidden"
-            } absolute bg-neutral-800/75 backdrop-blur-lg rounded-xl w-52 right-0 top-12 shadow-xl overflow-hidden z-20`}
+            } absolute bg-zinc-800/75 backdrop-blur-lg rounded-xl w-52 right-0 top-12 shadow-xl overflow-hidden z-20`}
         >
             <ul className="divide-y divide-neutral-700">
                 <li

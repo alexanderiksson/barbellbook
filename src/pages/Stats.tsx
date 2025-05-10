@@ -64,7 +64,7 @@ export default function Stats() {
             ) : (
                 <>
                     <select
-                        className="py-2 w-full text-center border border-white/10 rounded-xl bg-neutral-900 text-sm mb-4 mt-4"
+                        className="py-2 w-full text-center border border-white/10 rounded-2xl bg-zinc-900 text-sm mb-4 mt-4"
                         value={selectedYear}
                         onChange={(e) => setSelectedYear(e.target.value)}
                     >
@@ -75,26 +75,26 @@ export default function Stats() {
                         ))}
                     </select>
                     <section className="flex flex-col gap-6">
-                        <div className="bg-neutral-800/50 p-4 rounded-xl border border-white/5">
+                        <div className="bg-zinc-800/50 p-4 rounded-2xl border border-white/5">
                             <h2 className="text-lg font-semibold mb-4 text-neutral-400">
                                 Workouts
                             </h2>
                             <Chart data={sessions} />
                         </div>
 
-                        <div className="bg-neutral-800/50 p-4 rounded-xl border border-white/5">
+                        <div className="bg-zinc-800/50 p-4 rounded-2xl border border-white/5">
                             <h2 className="text-lg font-semibold mb-4 text-neutral-400">
                                 Exercises
                             </h2>
                             <Chart data={exercises} />
                         </div>
 
-                        <div className="bg-neutral-800/50 p-4 rounded-xl border border-white/5">
+                        <div className="bg-zinc-800/50 p-4 rounded-2xl border border-white/5">
                             <h2 className="text-lg font-semibold mb-4 text-neutral-400">Sets</h2>
                             <Chart data={sets} />
                         </div>
 
-                        <div className="bg-neutral-800/50 p-4 rounded-xl border border-white/5">
+                        <div className="bg-zinc-800/50 p-4 rounded-2xl border border-white/5">
                             <h2 className="text-lg font-semibold mb-4 text-neutral-400">Reps</h2>
                             <Chart data={reps} />
                         </div>
