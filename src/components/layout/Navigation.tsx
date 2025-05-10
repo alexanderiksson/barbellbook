@@ -19,7 +19,7 @@ const Tab = ({ to, label, Icon }: TabProps) => {
         >
             {({ isActive }) => (
                 <>
-                    <Icon color={isActive ? "#10b981" : "#737373"} size={26} />
+                    <Icon color={isActive ? "#10b981" : "#737373"} size={28} />
                     <span>{label}</span>
                 </>
             )}
