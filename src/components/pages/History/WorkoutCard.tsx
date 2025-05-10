@@ -11,7 +11,7 @@ interface WorkoutProps {
 export default function WorkoutCard({ workout }: { workout: WorkoutProps }) {
     return (
         <Link to={`/history/${workout.id}`}>
-            <div className="px-4 py-3 bg-neutral-900 border border-white/5 rounded-xl shadow flex justify-between items-center gap-2">
+            <div className="px-4 py-3 bg-zinc-900 border border-white/5 rounded-2xl shadow flex justify-between items-center gap-2">
                 <div className="flex items-center gap-2 overflow-hidden">
                     <div className="bg-emerald-500/10 min-w-10 min-h-10 flex justify-center items-center rounded-full">
                         <GymIcon size="20px" color="#10b981" />

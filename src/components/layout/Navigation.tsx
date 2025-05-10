@@ -19,7 +19,7 @@ const Tab = ({ to, label, Icon }: TabProps) => {
         >
             {({ isActive }) => (
                 <>
-                    <Icon color={isActive ? "#10b981" : "#737373"} size={26} />
+                    <Icon color={isActive ? "#10b981" : "#737373"} size={28} />
                     <span>{label}</span>
                 </>
             )}
@@ -31,7 +31,7 @@ export default function Navigation() {
     return (
         <nav
             id="mobile-nav"
-            className="content bg-neutral-800/50 backdrop-blur-xl border border-white/5 fixed bottom-3 py-2 z-20 rounded-full left-1/2 transform -translate-x-1/2 shadow-2xl"
+            className="content bg-zinc-800/80 backdrop-blur-xl border border-white/5 fixed bottom-3 py-2 z-20 rounded-full left-1/2 transform -translate-x-1/2 shadow-2xl"
         >
             <div className="content">
                 <ul className="flex justify-around items-center">
