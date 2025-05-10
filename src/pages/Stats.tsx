@@ -20,7 +20,7 @@ export default function Stats() {
     const [selectedYear, setSelectedYear] = useState<string>(initialSelectedYear);
 
     // Function to calculate stats data
-    const calculateData = (key: "sessions" | "sets" | "reps") => {
+    const calculateData = (key: "sessions" | "sets" | "reps" | "exercises") => {
         return Array.from(
             workouts.reduce((acc, workout) => {
                 const workoutDate = new Date(workout.date);
@@ -28,6 +28,8 @@ export default function Stats() {
                     const month = workoutDate.toLocaleString("default", { month: "short" });
                     if (key === "sessions") {
                         acc.set(month, (acc.get(month) || 0) + 1);
+                    } else if (key === "exercises") {
+                        acc.set(month, (acc.get(month) || 0) + workout.exercises.length);
                     } else {
                         workout.exercises.forEach((exercise) => {
                             if (key === "sets") {
@@ -48,6 +50,7 @@ export default function Stats() {
     };
 
     const sessions = useMemo(() => calculateData("sessions"), [workouts, selectedYear]);
+    const exercises = useMemo(() => calculateData("exercises"), [workouts, selectedYear]);
     const sets = useMemo(() => calculateData("sets"), [workouts, selectedYear]);
     const reps = useMemo(() => calculateData("reps"), [workouts, selectedYear]);
 
@@ -77,6 +80,13 @@ export default function Stats() {
                                 Workouts
                             </h2>
                             <Chart data={sessions} />
+                        </div>
+
+                        <div className="bg-neutral-800/50 p-4 rounded-xl border border-white/5">
+                            <h2 className="text-lg font-semibold mb-4 text-neutral-400">
+                                Exercises
+                            </h2>
+                            <Chart data={exercises} />
                         </div>
 
                         <div className="bg-neutral-800/50 p-4 rounded-xl border border-white/5">
