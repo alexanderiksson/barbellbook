@@ -25,7 +25,7 @@ export default function Stats() {
             workouts.reduce((acc, workout) => {
                 const workoutDate = new Date(workout.date);
                 if (workoutDate.getFullYear().toString() === selectedYear) {
-                    const month = workoutDate.toLocaleString("default", { month: "short" });
+                    const month = workoutDate.toLocaleString("en-US", { month: "short" });
                     if (key === "sessions") {
                         acc.set(month, (acc.get(month) || 0) + 1);
                     } else if (key === "exercises") {

@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
 import exercises from "../data/exercises.json";
 
@@ -14,6 +15,7 @@ import Loader from "../components/common/Loader";
 import { IoMdAdd } from "react-icons/io";
 
 export default function AddExercise() {
+    const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(false);
 
     const { addExercise, currentSets, saveCurrentSets, removeCurrentSets, clearCurrentSets } =
@@ -151,7 +153,7 @@ export default function AddExercise() {
                             };
                             addExercise(newExercise);
                             clearCurrentSets();
-                            window.location.href = "/";
+                            navigate("/");
                         }
                     }}
                 >

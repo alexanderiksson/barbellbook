@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
 import { WorkoutType } from "../types/workout";
 import dateConverter from "../utils/dateConverter";
@@ -20,6 +20,7 @@ import { BiSolidEditAlt } from "react-icons/bi";
 import { MdDeleteForever } from "react-icons/md";
 
 export default function WorkoutPage() {
+    const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(true);
 
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -79,7 +80,8 @@ export default function WorkoutPage() {
                 action={() => {
                     setLoading(true);
                     removeWorkout(Number(id));
-                    window.location.href = "/history";
+                    closeConfirmModal();
+                    navigate("/history");
                 }}
             />
 
