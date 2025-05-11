@@ -9,7 +9,6 @@ import Error from "../components/common/Error";
 import BackButton from "../components/common/BackButton";
 import Notice from "../components/common/Notice";
 import { ConfirmModal, PromptModal, LogModal } from "../components/common/Modals";
-import WorkoutMenu from "../components/pages/Workout/WorkoutMenu";
 import ExerciseCard from "../components/pages/Workout/ExerciseCard";
 import MenuButton from "../components/common/MenuButton";
 import Menu from "../components/common/Menu";
