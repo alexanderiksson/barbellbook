@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "./Buttons";
 import { IoCloseOutline } from "react-icons/io5";
+import { IoAlertCircleOutline } from "react-icons/io5";
 
 interface ModalProps {
     text?: string;
@@ -53,7 +54,9 @@ export function ConfirmModal({
         <div className="modal-overlay">
             <div className="modal">
                 <div className="w-full flex justify-between gap-2">
-                    <h2 className="text-xl font-semibold ml-1">{text}</h2>
+                    <h2 className="text-xl font-semibold ml-1 flex gap-2">
+                        <IoAlertCircleOutline size={28} className="translate-y-0.5" /> {text}
+                    </h2>
                     <IoCloseOutline
                         size={28}
                         color="grey"

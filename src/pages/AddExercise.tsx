@@ -11,6 +11,7 @@ import SetTable from "../components/pages/AddExercise/SetTable";
 import Notice from "../components/common/Notice";
 import { AlertModal } from "../components/common/Modals";
 import Loader from "../components/common/Loader";
+import { TextInput } from "../components/common/Inputs";
 
 import { IoMdAdd } from "react-icons/io";
 
@@ -54,10 +55,8 @@ export default function AddExercise() {
 
                 <div className="flex flex-col gap-4 flex-1 mb-4">
                     <div className="relative">
-                        <input
-                            className="bg-zinc-900 p-3 rounded-2xl w-full border border-white/5 shadow placeholder:text-neutral-600"
-                            type="text"
-                            placeholder="Search exercise"
+                        <TextInput
+                            placeholder="Search exercise..."
                             value={name}
                             onChange={(e) => {
                                 setName(e.target.value);
@@ -94,7 +93,7 @@ export default function AddExercise() {
                     </div>
 
                     {/* Add set */}
-                    <section className="w-full flex flex-col gap-8 bg-zinc-900 border border-white/5 p-4 rounded-2xl shadow">
+                    <section className="w-full flex flex-col gap-8 bg-zinc-900 border border-white/3 p-4 rounded-2xl shadow">
                         <div className="flex justify-around gap-4 flex-wrap-reverse">
                             <RepCounter reps={reps} setReps={setReps} />
                             <WeightInput weight={weight} setWeight={setWeight} />

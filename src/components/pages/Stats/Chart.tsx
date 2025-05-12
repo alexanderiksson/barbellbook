@@ -9,7 +9,7 @@ export default function Chart({ data }: ChartProps) {
         <div className="w-full h-64">
             <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={data} margin={{ top: 0, right: 10, left: -20, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" />
+                    <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.3} />
                     <XAxis dataKey="month" />
                     <YAxis allowDecimals={false} />
                     <Tooltip />

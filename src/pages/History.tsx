@@ -7,9 +7,10 @@ import WorkoutCard from "../components/pages/History/WorkoutCard";
 import Loader from "../components/common/Loader";
 import MenuButton from "../components/common/MenuButton";
 import Menu from "../components/common/Menu";
+import { Select } from "../components/common/Inputs";
 
 import { TbFileExport } from "react-icons/tb";
-import { IoIosStats } from "react-icons/io";
+import { IoIosStats, IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 interface FilteredWorkouts extends WorkoutType {
     id: number;
@@ -46,12 +47,21 @@ export default function History() {
         setLoading(false);
     }, [filter, initialWorkouts]);
 
+    // Pagination
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const itemsPerPage = 20;
+    const paginatedWorkouts = filteredWorkouts.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
+    const totalPages = Math.ceil(filteredWorkouts.length / itemsPerPage);
+
     if (loading) {
         return <Loader />;
     }
 
     return (
-        <div className="content relative">
+        <div className="content relative flex flex-col flex-1">
             <div className="flex justify-between mb-8">
                 <PageHeading>Workout history</PageHeading>
                 <div className="flex relative shrink-0">
@@ -88,19 +98,40 @@ export default function History() {
                 <p className="text-neutral-500">No workouts found.</p>
             ) : (
                 <>
-                    <select
-                        className="py-2 w-full text-center border border-white/10 rounded-2xl bg-zinc-900 text-sm mb-4"
+                    <Select
                         onChange={(e) => setFilter(e.target.value as "new" | "old")}
                         value={filter}
                     >
-                        <option value="new">New to old</option>
-                        <option value="old">Old to new</option>
-                    </select>
+                        <option value="new">Sort by: Latest</option>
+                        <option value="old">Sort by: Oldest</option>
+                    </Select>
 
-                    <section className="flex flex-col gap-3">
-                        {filteredWorkouts.map((workout, index) => (
+                    <section className="flex flex-col gap-3 flex-1">
+                        {paginatedWorkouts.map((workout, index) => (
                             <WorkoutCard key={index} workout={workout} />
                         ))}
+
+                        {totalPages > 1 && (
+                            <div className="flex justify-center items-center mt-auto pt-4 mb-4 gap-6">
+                                <button
+                                    className="bg-zinc-800 p-3 rounded-full cursor-pointer"
+                                    disabled={currentPage === 1}
+                                    onClick={() => setCurrentPage((prev) => prev - 1)}
+                                >
+                                    <IoIosArrowBack size={16} />
+                                </button>
+                                <span className="text-neutral-300">
+                                    Page {currentPage} of {totalPages}
+                                </span>
+                                <button
+                                    className="bg-zinc-800 p-3 rounded-full cursor-pointer"
+                                    disabled={currentPage === totalPages}
+                                    onClick={() => setCurrentPage((prev) => prev + 1)}
+                                >
+                                    <IoIosArrowForward size={16} />
+                                </button>
+                            </div>
+                        )}
                     </section>
                 </>
             )}

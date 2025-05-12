@@ -14,8 +14,7 @@ import MenuButton from "../components/common/MenuButton";
 import Menu from "../components/common/Menu";
 
 import GymIcon from "../assets/icons/GymIcon";
-import { IoIosStats } from "react-icons/io";
-import { IoIosList } from "react-icons/io";
+import { IoIosStats, IoIosList, IoIosCalendar } from "react-icons/io";
 import { BiSolidEditAlt } from "react-icons/bi";
 import { MdDeleteForever } from "react-icons/md";
 
@@ -134,9 +133,10 @@ export default function WorkoutPage() {
                         </div>
                         <div className="flex flex-col gap-1 overflow-hidden">
                             <h1 className="text-xl font-semibold truncate">{workoutName}</h1>
-                            <p className="text-neutral-500 truncate">
+                            <span className="text-neutral-500 truncate flex items-center gap-1">
+                                <IoIosCalendar size={16} className="-translate-y-0.25" />
                                 {dateConverter(workout.date)}
-                            </p>
+                            </span>
                         </div>
                     </div>
 

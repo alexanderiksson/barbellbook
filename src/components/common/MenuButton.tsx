@@ -1,12 +1,12 @@
-import { HiDotsHorizontal } from "react-icons/hi";
+import { HiDotsVertical } from "react-icons/hi";
 
 export default function MenuButton({ onClick }: { onClick: () => void }) {
     return (
         <button
-            className="bg-zinc-800 w-10 h-10 rounded-xl inline-flex justify-center items-center cursor-pointer z-20"
+            className="bg-zinc-900 w-10 h-10 rounded-xl inline-flex justify-center items-center cursor-pointer z-20"
             onClick={onClick}
         >
-            <HiDotsHorizontal size={20} />
+            <HiDotsVertical size={24} />
         </button>
     );
 }

@@ -31,16 +31,17 @@ export default function SetTable({ currentSets, removeCurrentSets }: SetTablePro
                 <thead className="border-b border-white/15">
                     <tr>
                         <th className="py-2">Set</th>
-                        <th className="py-2">Weight</th>
+
                         <th className="py-2">Reps</th>
+                        <th className="py-2">Weight</th>
                     </tr>
                 </thead>
                 <tbody>
                     {currentSets.map((set, index) => (
                         <tr key={index} className="text-center">
                             <td>Set {index + 1}</td>
-                            <td>{set.weight} kg</td>
                             <td>{set.reps}</td>
+                            <td>{set.weight} kg</td>
                             <td className="flex justify-center">
                                 <button
                                     className="cursor-pointer p-2"

@@ -3,6 +3,7 @@ import { useWorkout } from "../context/WorkoutContext";
 import PageHeading from "../components/common/PageHeading";
 import BackButton from "../components/common/BackButton";
 import Chart from "../components/pages/Stats/Chart";
+import { Select } from "../components/common/Inputs";
 
 export default function Stats() {
     const { workouts } = useWorkout();
@@ -63,39 +64,36 @@ export default function Stats() {
                 <p className="text-neutral-500">No workouts found.</p>
             ) : (
                 <>
-                    <select
-                        className="py-2 w-full text-center border border-white/10 rounded-2xl bg-zinc-900 text-sm mb-4 mt-4"
-                        value={selectedYear}
-                        onChange={(e) => setSelectedYear(e.target.value)}
-                    >
+                    <Select value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
                         {years.map((year, index) => (
                             <option key={index} value={year}>
-                                {year}
+                                Year: {year}
                             </option>
                         ))}
-                    </select>
+                    </Select>
+
                     <section className="flex flex-col gap-6">
-                        <div className="bg-zinc-800/50 p-4 rounded-2xl border border-white/5">
-                            <h2 className="text-lg font-semibold mb-4 text-neutral-400">
+                        <div className="bg-zinc-800/50 p-4 rounded-2xl border border-white/3">
+                            <h2 className="text-lg font-semibold mb-6 text-neutral-400">
                                 Workouts
                             </h2>
                             <Chart data={sessions} />
                         </div>
 
-                        <div className="bg-zinc-800/50 p-4 rounded-2xl border border-white/5">
-                            <h2 className="text-lg font-semibold mb-4 text-neutral-400">
+                        <div className="bg-zinc-800/50 p-4 rounded-2xl border border-white/3">
+                            <h2 className="text-lg font-semibold mb-6 text-neutral-400">
                                 Exercises
                             </h2>
                             <Chart data={exercises} />
                         </div>
 
-                        <div className="bg-zinc-800/50 p-4 rounded-2xl border border-white/5">
-                            <h2 className="text-lg font-semibold mb-4 text-neutral-400">Sets</h2>
+                        <div className="bg-zinc-800/50 p-4 rounded-2xl border border-white/3">
+                            <h2 className="text-lg font-semibold mb-6 text-neutral-400">Sets</h2>
                             <Chart data={sets} />
                         </div>
 
-                        <div className="bg-zinc-800/50 p-4 rounded-2xl border border-white/5">
-                            <h2 className="text-lg font-semibold mb-4 text-neutral-400">Reps</h2>
+                        <div className="bg-zinc-800/50 p-4 rounded-2xl border border-white/3">
+                            <h2 className="text-lg font-semibold mb-6 text-neutral-400">Reps</h2>
                             <Chart data={reps} />
                         </div>
                     </section>
