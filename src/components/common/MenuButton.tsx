@@ -6,7 +6,7 @@ export default function MenuButton({ onClick }: { onClick: () => void }) {
             className="bg-zinc-900 w-10 h-10 rounded-xl inline-flex justify-center items-center cursor-pointer z-20"
             onClick={onClick}
         >
-            <HiDotsVertical size={24} />
+            <HiDotsVertical size={20} />
         </button>
     );
 }

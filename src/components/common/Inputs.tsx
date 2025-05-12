@@ -17,9 +17,12 @@ export function Select({ onChange, value, children }: SelectProps) {
     return (
         <div className="relative mb-4 w-full">
             <select
-                className="appearance-none py-3 w-full text-center border-2 border-zinc-500/10 rounded-2xl bg-zinc-900/50 text-sm"
+                className="appearance-none py-3 w-full border-2 border-zinc-500/10 rounded-2xl bg-zinc-900/50 text-sm text-center last"
                 onChange={onChange}
                 value={value}
+                style={{
+                    textAlignLast: "center",
+                }}
             >
                 {children}
             </select>
