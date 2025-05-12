@@ -15,7 +15,10 @@ import { IoIosArrowBack } from "react-icons/io";
 
 export default function BackButton({ to, label }: { to: string; label: string }) {
     return (
-        <Link className="mb-4 inline-flex items-center py-2 text-sky-500 max-w-full" to={to}>
+        <Link
+            className="mb-4 inline-flex items-center py-2 text-sky-500 max-w-full -translate-x-2"
+            to={to}
+        >
             <span>
                 <IoIosArrowBack color="#0ea5e9" size={28} />
             </span>

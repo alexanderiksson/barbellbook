@@ -134,7 +134,7 @@ export default function WorkoutPage() {
                         <div className="flex flex-col gap-1 overflow-hidden">
                             <h1 className="text-xl font-semibold truncate">{workoutName}</h1>
                             <span className="text-neutral-500 truncate flex items-center gap-1">
-                                <IoIosCalendar size={16} className="-translate-y-0.25" />
+                                <IoIosCalendar size={16} />
                                 {dateConverter(workout.date)}
                             </span>
                         </div>
@@ -181,17 +181,6 @@ export default function WorkoutPage() {
                                 },
                             ]}
                         />
-
-                        {/* UNUSED COMPONENT */}
-
-                        {/* <WorkoutMenu
-                            id={id}
-                            isOpen={isOpen}
-                            closeMenu={closeMenu}
-                            openConfirmModal={openConfirmModal}
-                            openPromptModal={openPromptModal}
-                            openLogModal={openLogModal}
-                        /> */}
                     </div>
                 </div>
 
