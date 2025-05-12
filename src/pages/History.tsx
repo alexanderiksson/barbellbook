@@ -9,7 +9,7 @@ import MenuButton from "../components/common/MenuButton";
 import Menu from "../components/common/Menu";
 
 import { TbFileExport } from "react-icons/tb";
-import { IoIosStats } from "react-icons/io";
+import { IoIosStats, IoIosArrowDown } from "react-icons/io";
 
 interface FilteredWorkouts extends WorkoutType {
     id: number;
@@ -88,14 +88,20 @@ export default function History() {
                 <p className="text-neutral-500">No workouts found.</p>
             ) : (
                 <>
-                    <select
-                        className="py-2 w-full text-center border border-white/10 rounded-2xl bg-zinc-900 text-sm mb-4"
-                        onChange={(e) => setFilter(e.target.value as "new" | "old")}
-                        value={filter}
-                    >
-                        <option value="new">New to old</option>
-                        <option value="old">Old to new</option>
-                    </select>
+                    <div className="relative w-full mb-4">
+                        <select
+                            className="appearance-none py-3 w-full text-center border-2 border-zinc-500/10 rounded-2xl bg-zinc-900/50 text-sm"
+                            onChange={(e) => setFilter(e.target.value as "new" | "old")}
+                            value={filter}
+                        >
+                            <option value="new">New to old</option>
+                            <option value="old">Old to new</option>
+                        </select>
+
+                        <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-zinc-400">
+                            <IoIosArrowDown size={16} />
+                        </div>
+                    </div>
 
                     <section className="flex flex-col gap-3">
                         {filteredWorkouts.map((workout, index) => (

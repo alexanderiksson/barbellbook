@@ -55,9 +55,9 @@ export default function AddExercise() {
                 <div className="flex flex-col gap-4 flex-1 mb-4">
                     <div className="relative">
                         <input
-                            className="bg-zinc-900 p-3 rounded-2xl w-full border border-white/5 shadow placeholder:text-neutral-600"
+                            className="bg-zinc-900/50 p-3 rounded-2xl w-full border-2 border-zinc-500/10 shadow placeholder:text-neutral-600"
                             type="text"
-                            placeholder="Search exercise"
+                            placeholder="Search exercise..."
                             value={name}
                             onChange={(e) => {
                                 setName(e.target.value);
@@ -94,7 +94,7 @@ export default function AddExercise() {
                     </div>
 
                     {/* Add set */}
-                    <section className="w-full flex flex-col gap-8 bg-zinc-900 border border-white/5 p-4 rounded-2xl shadow">
+                    <section className="w-full flex flex-col gap-8 bg-zinc-900 border border-white/3 p-4 rounded-2xl shadow">
                         <div className="flex justify-around gap-4 flex-wrap-reverse">
                             <RepCounter reps={reps} setReps={setReps} />
                             <WeightInput weight={weight} setWeight={setWeight} />
