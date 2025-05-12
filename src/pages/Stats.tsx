@@ -67,7 +67,7 @@ export default function Stats() {
                     <Select value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
                         {years.map((year, index) => (
                             <option key={index} value={year}>
-                                {year}
+                                Year: {year}
                             </option>
                         ))}
                     </Select>

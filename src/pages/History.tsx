@@ -102,8 +102,8 @@ export default function History() {
                         onChange={(e) => setFilter(e.target.value as "new" | "old")}
                         value={filter}
                     >
-                        <option value="new">New to old</option>
-                        <option value="old">Old to new</option>
+                        <option value="new">Sort by: Latest</option>
+                        <option value="old">Sort by: Oldest</option>
                     </Select>
 
                     <section className="flex flex-col gap-3 flex-1">
@@ -114,21 +114,21 @@ export default function History() {
                         {totalPages > 1 && (
                             <div className="flex justify-center items-center mt-auto pt-4 mb-4 gap-6">
                                 <button
-                                    className="bg-zinc-800 p-2 rounded-full cursor-pointer"
+                                    className="bg-zinc-800 p-3 rounded-full cursor-pointer"
                                     disabled={currentPage === 1}
                                     onClick={() => setCurrentPage((prev) => prev - 1)}
                                 >
-                                    <IoIosArrowBack size={24} />
+                                    <IoIosArrowBack size={16} />
                                 </button>
                                 <span className="text-neutral-300">
                                     Page {currentPage} of {totalPages}
                                 </span>
                                 <button
-                                    className="bg-zinc-800 p-2 rounded-full cursor-pointer"
+                                    className="bg-zinc-800 p-3 rounded-full cursor-pointer"
                                     disabled={currentPage === totalPages}
                                     onClick={() => setCurrentPage((prev) => prev + 1)}
                                 >
-                                    <IoIosArrowForward size={24} />
+                                    <IoIosArrowForward size={16} />
                                 </button>
                             </div>
                         )}
