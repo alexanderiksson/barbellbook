@@ -2,8 +2,9 @@ import { useState, useMemo } from "react";
 import { useWorkout } from "../context/WorkoutContext";
 import PageHeading from "../components/common/PageHeading";
 import BackButton from "../components/common/BackButton";
-import Chart from "../components/pages/Stats/Chart";
+import Chart from "../components/pages/Stats/BarChart";
 import { Select } from "../components/common/Inputs";
+import { Link } from "react-router-dom";
 
 export default function Stats() {
     const { workouts } = useWorkout();
@@ -21,7 +22,7 @@ export default function Stats() {
     const [selectedYear, setSelectedYear] = useState<string>(initialSelectedYear);
 
     // Function to calculate stats data
-    const calculateData = (key: "sessions" | "sets" | "reps" | "exercises") => {
+    const calculateData = (key: "sessions" | "exercises") => {
         return Array.from(
             workouts.reduce((acc, workout) => {
                 const workoutDate = new Date(workout.date);
@@ -31,18 +32,6 @@ export default function Stats() {
                         acc.set(month, (acc.get(month) || 0) + 1);
                     } else if (key === "exercises") {
                         acc.set(month, (acc.get(month) || 0) + workout.exercises.length);
-                    } else {
-                        workout.exercises.forEach((exercise) => {
-                            if (key === "sets") {
-                                acc.set(month, (acc.get(month) || 0) + exercise.sets.length);
-                            } else if (key === "reps") {
-                                acc.set(
-                                    month,
-                                    (acc.get(month) || 0) +
-                                        exercise.sets.reduce((sum, set) => sum + set.reps, 0)
-                                );
-                            }
-                        });
                     }
                 }
                 return acc;
@@ -52,8 +41,21 @@ export default function Stats() {
 
     const sessions = useMemo(() => calculateData("sessions"), [workouts, selectedYear]);
     const exercises = useMemo(() => calculateData("exercises"), [workouts, selectedYear]);
-    const sets = useMemo(() => calculateData("sets"), [workouts, selectedYear]);
-    const reps = useMemo(() => calculateData("reps"), [workouts, selectedYear]);
+
+    console.log(sessions);
+
+    const allExercises = useMemo(() => {
+        const exerciseCount = workouts.reduce((acc, workout) => {
+            workout.exercises.forEach((exercise) => {
+                acc[exercise.name] = (acc[exercise.name] || 0) + 1;
+            });
+            return acc;
+        }, {} as Record<string, number>);
+
+        return Object.entries(exerciseCount)
+            .sort((a, b) => b[1] - a[1])
+            .map(([name, count]) => ({ name, count }));
+    }, [workouts]);
 
     return (
         <div className="content">
@@ -72,7 +74,7 @@ export default function Stats() {
                         ))}
                     </Select>
 
-                    <section className="flex flex-col gap-6">
+                    <section className="flex flex-col gap-6 mb-8">
                         <div className="bg-zinc-800/50 p-4 rounded-2xl border border-white/3">
                             <h2 className="text-lg font-semibold mb-6 text-neutral-400">
                                 Workouts
@@ -86,15 +88,24 @@ export default function Stats() {
                             </h2>
                             <Chart data={exercises} />
                         </div>
+                    </section>
 
-                        <div className="bg-zinc-800/50 p-4 rounded-2xl border border-white/3">
-                            <h2 className="text-lg font-semibold mb-6 text-neutral-400">Sets</h2>
-                            <Chart data={sets} />
-                        </div>
-
-                        <div className="bg-zinc-800/50 p-4 rounded-2xl border border-white/3">
-                            <h2 className="text-lg font-semibold mb-6 text-neutral-400">Reps</h2>
-                            <Chart data={reps} />
+                    <section>
+                        <h2 className="text-xl font-semibold mb-4">Stats per exercise</h2>
+                        <div className="flex flex-col gap-4">
+                            {allExercises.map((exercise, index) => (
+                                <Link to={`/stats/${exercise.name}`}>
+                                    <div
+                                        key={index}
+                                        className="px-5 py-3 bg-zinc-800/50 rounded-2xl border border-white/3 flex justify-between gap-4"
+                                    >
+                                        <h3 className="truncate">{exercise.name}</h3>
+                                        <span className="text-neutral-500 shrink-0">
+                                            {exercise.count} times
+                                        </span>
+                                    </div>
+                                </Link>
+                            ))}
                         </div>
                     </section>
                 </>
