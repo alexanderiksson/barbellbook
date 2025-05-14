@@ -1,10 +1,11 @@
 import { useState, useMemo } from "react";
+import { Link } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
+
 import PageHeading from "../components/common/PageHeading";
 import BackButton from "../components/common/BackButton";
 import Chart from "../components/pages/Stats/BarChart";
 import { Select } from "../components/common/Inputs";
-import { Link } from "react-router-dom";
 
 export default function Stats() {
     const { workouts } = useWorkout();
@@ -42,8 +43,6 @@ export default function Stats() {
     const sessions = useMemo(() => calculateData("sessions"), [workouts, selectedYear]);
     const exercises = useMemo(() => calculateData("exercises"), [workouts, selectedYear]);
 
-    console.log(sessions);
-
     const allExercises = useMemo(() => {
         const exerciseCount = workouts.reduce((acc, workout) => {
             workout.exercises.forEach((exercise) => {
@@ -76,29 +75,22 @@ export default function Stats() {
 
                     <section className="flex flex-col gap-6 mb-8">
                         <div className="bg-zinc-800/50 p-4 rounded-2xl border border-white/3">
-                            <h2 className="text-lg font-semibold mb-6 text-neutral-400">
-                                Workouts
-                            </h2>
+                            <h2 className="font-medium mb-6 text-neutral-400">Workouts</h2>
                             <Chart data={sessions} />
                         </div>
 
                         <div className="bg-zinc-800/50 p-4 rounded-2xl border border-white/3">
-                            <h2 className="text-lg font-semibold mb-6 text-neutral-400">
-                                Exercises
-                            </h2>
+                            <h2 className="font-medium mb-6 text-neutral-400">Exercises</h2>
                             <Chart data={exercises} />
                         </div>
                     </section>
 
                     <section>
-                        <h2 className="text-xl font-semibold mb-4">Stats per exercise</h2>
-                        <div className="flex flex-col gap-4">
+                        <h2 className="text-xl font-semibold mb-4">Most common exercises</h2>
+                        <div className="flex flex-col gap-3">
                             {allExercises.map((exercise, index) => (
-                                <Link to={`/stats/${exercise.name}`}>
-                                    <div
-                                        key={index}
-                                        className="px-5 py-3 bg-zinc-800/50 rounded-2xl border border-white/3 flex justify-between gap-4"
-                                    >
+                                <Link key={index} to={`/stats/${exercise.name}`}>
+                                    <div className="px-5 py-3 bg-zinc-900 rounded-2xl border border-white/3 shadow flex justify-between gap-4">
                                         <h3 className="truncate">{exercise.name}</h3>
                                         <span className="text-neutral-500 shrink-0">
                                             {exercise.count} times

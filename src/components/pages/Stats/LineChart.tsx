@@ -16,10 +16,14 @@ export default function Chart({ data }: ChartProps) {
     return (
         <div className="w-full h-64">
             <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={data} margin={{ top: 0, right: 10, left: -20, bottom: 0 }}>
+                <LineChart data={data} margin={{ top: 0, right: 10, left: -25, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.3} />
-                    <XAxis dataKey="date" />
-                    <YAxis allowDecimals={false} />
+                    <XAxis dataKey="date" fontSize={12} />
+                    <YAxis
+                        allowDecimals={false}
+                        domain={["dataMin - 10", "dataMax + 10"]}
+                        fontSize={12}
+                    />
                     <Tooltip
                         contentStyle={{
                             backgroundColor: "#0f0f0f",

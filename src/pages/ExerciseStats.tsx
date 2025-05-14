@@ -23,15 +23,13 @@ export default function ExerciseStats() {
         })
         .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
-    console.log(data);
-
     return (
         <div className="content">
             <BackButton label="Stats" to="/stats" />
             <PageHeading>{exercise}</PageHeading>
 
             <div className="bg-zinc-800/50 p-4 rounded-2xl border border-white/3">
-                <h2 className="text-lg font-semibold mb-6 text-neutral-400">Top weight (kg)</h2>
+                <h2 className="font-medium mb-6 text-neutral-400">Highest weight (kg)</h2>
                 <Chart data={data} />
             </div>
         </div>
