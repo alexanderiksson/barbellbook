@@ -11,6 +11,7 @@ interface WorkoutContextType {
     removeWorkout: (index: number) => void;
     updateWorkoutName: (index: number, newName: string) => void;
     saveWorkoutLog: (index: number, log: string) => void;
+    clearWorkouts: () => void;
     currentSets: SetType[];
     saveCurrentSets: (set: SetType) => void;
     removeCurrentSets: (index: number) => void;
@@ -99,6 +100,12 @@ export function WorkoutProvider({ children }: WorkoutProviderProps) {
         );
     };
 
+    // Remove all exercises from workout
+    const clearWorkouts = (): void => {
+        setWorkouts([]);
+        localStorage.removeItem("workouts");
+    };
+
     // Save current set to session storage
     const saveCurrentSets = (set: SetType): void => {
         setCurrentSets((prevSets) => [...prevSets, set]);
@@ -127,6 +134,7 @@ export function WorkoutProvider({ children }: WorkoutProviderProps) {
                 removeWorkout,
                 updateWorkoutName,
                 saveWorkoutLog,
+                clearWorkouts,
                 currentSets,
                 saveCurrentSets,
                 removeCurrentSets,

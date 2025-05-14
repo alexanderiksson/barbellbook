@@ -8,11 +8,11 @@ import BackButton from "../components/common/BackButton";
 import Notice from "../components/common/Notice";
 import { ConfirmModal } from "../components/common/Modals";
 
-import { TbFileExport } from "react-icons/tb";
-import { TbFileImport } from "react-icons/tb";
+import { TbFileExport, TbFileImport } from "react-icons/tb";
+import { MdOutlineDangerous } from "react-icons/md";
 
 export default function ExportData() {
-    const { workouts, addWorkout } = useWorkout();
+    const { workouts, addWorkout, clearWorkouts } = useWorkout();
 
     // Manage ConfirmModal state
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
@@ -100,6 +100,17 @@ export default function ExportData() {
                     </Button>
                     <Button onClick={handleImport}>
                         <TbFileImport size={20} /> Import workouts
+                    </Button>
+                    <Button
+                        variant="danger"
+                        onClick={() => {
+                            if (confirm("Clear data?")) {
+                                clearWorkouts();
+                            }
+                        }}
+                    >
+                        <MdOutlineDangerous size={20} />
+                        Clear data
                     </Button>
                 </div>
             </div>
