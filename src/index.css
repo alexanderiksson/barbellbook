@@ -22,7 +22,7 @@ body,
 }
 
 .modal {
-    @apply max-w-md w-[90%] min-h-32 bg-zinc-700/30 backdrop-blur-lg rounded-2xl border border-white/5 p-4 flex flex-col items-center justify-between gap-6;
+    @apply max-w-md w-[90%] min-h-32 max-h-full bg-zinc-700/30 backdrop-blur-lg rounded-2xl border border-white/5 p-4 flex flex-col items-center justify-between gap-6;
 }
 
 .modal-overlay {

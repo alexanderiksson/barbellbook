@@ -61,7 +61,10 @@ export default function ExerciseStats() {
             </Select>
 
             <div className="bg-zinc-800/50 p-4 rounded-2xl border border-white/3">
-                <h2 className="font-medium mb-6 text-neutral-400">Highest weight (kg)</h2>
+                <div className="flex justify-between items-center gap-x-4 gap-y-2 flex-wrap mb-6">
+                    <h2 className="font-medium  text-neutral-400">Highest weight (kg)</h2>
+                    <p className="text-neutral-500 text-sm">{filteredData.length} sessions</p>
+                </div>
                 <Chart data={filteredData} />
             </div>
         </div>

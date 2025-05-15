@@ -33,19 +33,17 @@ export default function Navigation() {
             id="mobile-nav"
             className="content bg-zinc-800/70 backdrop-blur-xl border border-white/5 fixed bottom-2 py-2 z-20 rounded-full left-1/2 transform -translate-x-1/2 shadow-2xl"
         >
-            <div className="content">
-                <ul className="flex justify-around items-center">
-                    <li>
-                        <Tab to="/" label="Start" Icon={IoIosHome} />
-                    </li>
-                    <li>
-                        <Tab to="/add-exercise" label="Add exercise" Icon={IoIosAddCircle} />
-                    </li>
-                    <li>
-                        <Tab to="/history" label="History" Icon={IoIosTime} />
-                    </li>
-                </ul>
-            </div>
+            <ul className="flex justify-around items-center px-4">
+                <li>
+                    <Tab to="/" label="Start" Icon={IoIosHome} />
+                </li>
+                <li>
+                    <Tab to="/add-exercise" label="Add exercise" Icon={IoIosAddCircle} />
+                </li>
+                <li>
+                    <Tab to="/history" label="History" Icon={IoIosTime} />
+                </li>
+            </ul>
         </nav>
     );
 }

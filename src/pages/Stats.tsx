@@ -7,6 +7,8 @@ import BackButton from "../components/common/BackButton";
 import Chart from "../components/pages/Stats/BarChart";
 import { Select } from "../components/common/Inputs";
 
+import { IoIosArrowForward } from "react-icons/io";
+
 export default function Stats() {
     const { workouts } = useWorkout();
 
@@ -86,15 +88,18 @@ export default function Stats() {
                     </section>
 
                     <section>
-                        <h2 className="text-xl font-semibold mb-4">Most common exercises</h2>
+                        <h2 className="text-xl font-semibold mb-4">Your favorite exercises</h2>
                         <div className="flex flex-col gap-3">
                             {allExercises.map((exercise, index) => (
                                 <Link key={index} to={`/stats/${exercise.name}`}>
-                                    <div className="px-5 py-3 bg-zinc-900 rounded-2xl border border-white/3 shadow flex justify-between gap-4">
-                                        <h3 className="truncate">{exercise.name}</h3>
-                                        <span className="text-neutral-500 shrink-0">
-                                            {exercise.count} times
-                                        </span>
+                                    <div className="px-5 py-3 bg-zinc-900 rounded-2xl border border-white/3 shadow flex justify-between items-center gap-4">
+                                        <h3 className="truncate">
+                                            <span className="text-neutral-500 text-lg mr-2">
+                                                {index + 1}.
+                                            </span>
+                                            {exercise.name}
+                                        </h3>
+                                        <IoIosArrowForward size={20} color="gray" />
                                     </div>
                                 </Link>
                             ))}
