@@ -4,7 +4,7 @@ import Navigation from "./components/layout/Navigation";
 export default function Layout() {
     return (
         <>
-            <main role="main" className="flex-1 flex flex-col justify-start mt-8 mb-20">
+            <main role="main" className="flex-1 flex flex-col justify-start pt-8 pb-20">
                 <Outlet />
             </main>
             <Navigation />
