@@ -17,12 +17,12 @@ export default function WorkoutCard({ workout }: { workout: WorkoutProps }) {
                         <GymIcon size="24px" color="#10b981" />
                     </div>
 
-                    <h2 className="text-lg font-semibold truncate">
+                    <h2 className="text-lg font-medium truncate">
                         {workout.name ? workout.name : "Workout"}
                     </h2>
                 </div>
 
-                <span className="text-neutral-500 text-sm flex items-center gap-1">
+                <span className="text-neutral-500 text-xs flex items-center gap-1">
                     <IoIosCalendar size={16} />
                     {dateConverter(workout.date)}
                 </span>

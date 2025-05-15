@@ -114,21 +114,35 @@ export default function History() {
                         {totalPages > 1 && (
                             <div className="flex justify-center items-center mt-auto pt-4 mb-4 gap-6">
                                 <button
-                                    className="bg-zinc-800 p-3 rounded-full cursor-pointer"
+                                    className={`${
+                                        currentPage === 1
+                                            ? "bg-zinc-900 cursor-not-allowed"
+                                            : "bg-zinc-800 cursor-pointer"
+                                    } p-3 rounded-full `}
                                     disabled={currentPage === 1}
                                     onClick={() => setCurrentPage((prev) => prev - 1)}
                                 >
-                                    <IoIosArrowBack size={16} />
+                                    <IoIosArrowBack
+                                        size={20}
+                                        color={currentPage === 1 ? "gray" : "white"}
+                                    />
                                 </button>
                                 <span className="text-neutral-300">
                                     Page {currentPage} of {totalPages}
                                 </span>
                                 <button
-                                    className="bg-zinc-800 p-3 rounded-full cursor-pointer"
+                                    className={`${
+                                        currentPage === totalPages
+                                            ? "bg-zinc-900 cursor-not-allowed"
+                                            : "bg-zinc-800 cursor-pointer"
+                                    } p-3 rounded-full `}
                                     disabled={currentPage === totalPages}
                                     onClick={() => setCurrentPage((prev) => prev + 1)}
                                 >
-                                    <IoIosArrowForward size={16} />
+                                    <IoIosArrowForward
+                                        size={20}
+                                        color={currentPage === totalPages ? "gray" : "white"}
+                                    />
                                 </button>
                             </div>
                         )}

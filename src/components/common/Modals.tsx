@@ -168,7 +168,7 @@ export function LogModal({ isOpen, onClose, initialValue, onSubmit }: LogModalPr
 
                 <textarea
                     className="w-full border border-white/10 rounded-xl p-2 bg-black/20 mb-2"
-                    rows={10}
+                    rows={15}
                     value={textareaValue}
                     onChange={(e) => setTextareaValue(e.target.value)}
                 ></textarea>
