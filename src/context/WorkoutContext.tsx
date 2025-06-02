@@ -39,7 +39,7 @@ export function WorkoutProvider({ children }: WorkoutProviderProps) {
 
     // Current sets state
     const [currentSets, setCurrentSets] = useState<SetType[]>(() => {
-        const storedSets = sessionStorage.getItem("currentSets");
+        const storedSets = localStorage.getItem("currentSets");
         return storedSets ? JSON.parse(storedSets) : [];
     });
 
@@ -55,7 +55,7 @@ export function WorkoutProvider({ children }: WorkoutProviderProps) {
 
     // Function to save current sets to session storage when state is updated
     useEffect(() => {
-        sessionStorage.setItem("currentSets", JSON.stringify(currentSets));
+        localStorage.setItem("currentSets", JSON.stringify(currentSets));
     }, [currentSets]);
 
     // Add exercise to new workout

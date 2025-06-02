@@ -1,34 +1,42 @@
 {
-  "name": "gym-log",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@tailwindcss/vite": "^4.0.16",
-    "@types/react": "^19.1.0",
-    "@types/react-dom": "^19.1.2",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-icons": "^5.5.0",
-    "react-router-dom": "^7.4.0",
-    "recharts": "^2.15.3",
-    "tailwindcss": "^4.0.16",
-    "typescript": "^5.8.3",
-    "typescript-eslint": "^8.29.1"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.21.0",
-    "@vitejs/plugin-react": "^4.3.4",
-    "eslint": "^9.21.0",
-    "eslint-plugin-react-hooks": "^5.1.0",
-    "eslint-plugin-react-refresh": "^0.4.19",
-    "globals": "^15.15.0",
-    "vite": "^6.2.0"
-  }
+    "name": "gym-log",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "lint": "eslint .",
+        "preview": "vite preview",
+        "ios:build": "npm run build && npx cap sync ios && cd ios/App && pod install && xcodebuild -workspace App.xcworkspace -scheme App -configuration Debug -sdk iphonesimulator -derivedDataPath build",
+        "ios:open": "npx cap sync ios && open ios/App/App.xcworkspace",
+        "android:build": "npm run build && npx cap sync android && cd android && ./gradlew assembleDebug",
+        "android:open": "npx cap open android"
+    },
+    "dependencies": {
+        "@capacitor/android": "^7.2.0",
+        "@capacitor/cli": "^7.2.0",
+        "@capacitor/core": "^7.2.0",
+        "@capacitor/ios": "^7.2.0",
+        "@tailwindcss/vite": "^4.0.16",
+        "@types/react": "^19.1.0",
+        "@types/react-dom": "^19.1.2",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "react-icons": "^5.5.0",
+        "react-router-dom": "^7.4.0",
+        "recharts": "^2.15.3",
+        "tailwindcss": "^4.0.16",
+        "typescript": "^5.8.3",
+        "typescript-eslint": "^8.29.1"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.21.0",
+        "@vitejs/plugin-react": "^4.3.4",
+        "eslint": "^9.21.0",
+        "eslint-plugin-react-hooks": "^5.1.0",
+        "eslint-plugin-react-refresh": "^0.4.19",
+        "globals": "^15.15.0",
+        "vite": "^6.2.0"
+    }
 }
