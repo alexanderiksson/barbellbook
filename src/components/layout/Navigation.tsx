@@ -30,8 +30,8 @@ const Tab = ({ to, label, Icon }: TabProps) => {
 export default function Navigation() {
     return (
         <nav
-            className="bg-zinc-800/70 backdrop-blur-xl border border-white/5 fixed z-20 shadow-2xl w-full bottom-0 left-0 py-2 h-16
-            lg:top-0 lg:left-0 lg:bottom-0 lg:w-52 lg:h-full lg:py-12 lg:flex lg:flex-col lg:px-2"
+            className="bg-zinc-800/70 backdrop-blur-xl border-t border-white/5 fixed z-20 shadow-2xl w-full bottom-0 left-0 py-2 h-16
+            lg:top-0 lg:left-0 lg:bottom-0 lg:w-52 lg:h-full lg:py-12 lg:flex lg:flex-col lg:px-2 lg:border-r"
         >
             <ul
                 className="flex justify-around items-center px-4 flex-row h-full
