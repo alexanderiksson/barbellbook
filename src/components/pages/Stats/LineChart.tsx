@@ -32,16 +32,8 @@ export default function Chart({ data }: ChartProps) {
                             color: "lightgray",
                         }}
                     />
-                    <Line
-                        type="monotone"
-                        dataKey={
-                            data[0]
-                                ? Object.keys(data[0]).find((key) => key !== "date") || "Data"
-                                : "Data"
-                        }
-                        stroke="#0369a1"
-                        strokeWidth={2}
-                    />
+                    <Line type="monotone" dataKey="Weight" stroke="#0ea5e9" strokeWidth={2} />
+                    <Line type="monotone" dataKey="Reps" stroke="#10b981" strokeWidth={2} />
                 </LineChart>
             </ResponsiveContainer>
         </div>

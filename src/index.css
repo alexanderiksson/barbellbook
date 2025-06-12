@@ -14,7 +14,7 @@ body,
 }
 
 .content {
-    @apply max-w-lg w-[90%] mx-auto;
+    @apply max-w-2xl w-[90%] mx-auto;
 }
 
 .button {

@@ -15,18 +15,23 @@ export default function ExerciseStats() {
         .filter((workout) => workout.exercises.some((ex) => ex.name === exercise))
         .map((workout) => {
             const exerciseData = workout.exercises.find((ex) => ex.name === exercise);
-            const maxWeight = exerciseData
-                ? Math.max(...exerciseData.sets.map((set) => Number(set.weight)))
-                : 0;
+            const maxWeightSet = exerciseData
+                ? exerciseData.sets.reduce((maxSet, currentSet) =>
+                      Number(currentSet.weight) > Number(maxSet.weight) ? currentSet : maxSet
+                  )
+                : { weight: 0, reps: 0 };
             return {
                 date: workout.date,
-                Weight: maxWeight,
+                Weight: Number(maxWeightSet.weight),
+                Reps: Number(maxWeightSet.reps),
             };
         })
         .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
     const [selectedYear, setSelectedYear] = useState<string>("all");
-    const [filteredData, setFilteredData] = useState<{ date: string; Weight: number }[]>([]);
+    const [filteredData, setFilteredData] = useState<
+        { date: string; Weight: number; Reps: number }[]
+    >([]);
 
     const years = useMemo(
         () =>
