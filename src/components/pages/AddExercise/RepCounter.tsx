@@ -15,6 +15,8 @@ export default function RepCounter({ reps, setReps }: RepCounterProps) {
                     className="flex justify-center items-center text-3xl w-12 h-12 bg-zinc-800 rounded-full cursor-pointer border border-white/5"
                     onClick={() => setReps(reps + 1)}
                     disabled={reps >= 99}
+                    aria-label="Increase reps"
+                    title="Increase reps"
                 >
                     <IoMdAdd size={20} />
                 </button>
@@ -23,6 +25,8 @@ export default function RepCounter({ reps, setReps }: RepCounterProps) {
                     className="flex justify-center items-center text-3xl w-12 h-12 bg-zinc-800 rounded-full cursor-pointer border border-white/5"
                     onClick={() => setReps(reps - 1)}
                     disabled={reps <= 0}
+                    aria-label="Decrease reps"
+                    title="Decrease reps"
                 >
                     <IoMdRemove size={18} />
                 </button>

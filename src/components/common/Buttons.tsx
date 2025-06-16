@@ -32,7 +32,7 @@ const handleVariant = (variant: string) => {
 
 export function LinkButton({ children, to, variant = "neutral", className = "" }: LinkButtonProps) {
     return (
-        <Link to={to} className={`${handleVariant(variant)} button ${className}`}>
+        <Link to={to} className={`${handleVariant(variant)} button ${className}`} role="button">
             {children}
         </Link>
     );

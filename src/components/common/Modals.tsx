@@ -30,7 +30,7 @@ export function AlertModal({ text, buttonText = "Close", isOpen, onClose }: Moda
 
     return (
         <div className="modal-overlay">
-            <div className="modal">
+            <div className="modal" role="dialog" aria-modal="true">
                 <h2 className="text-xl font-semibold">{text}</h2>
                 <Button variant="blue" onClick={onClose}>
                     {buttonText}
@@ -52,7 +52,7 @@ export function ConfirmModal({
 
     return (
         <div className="modal-overlay">
-            <div className="modal">
+            <div className="modal" role="dialog" aria-modal="true">
                 <div className="w-full flex justify-between gap-2">
                     <h2 className="text-xl font-semibold ml-1 flex gap-2">
                         <IoAlertCircleOutline size={28} className="translate-y-0.5" /> {text}
@@ -103,7 +103,7 @@ export function PromptModal({
 
     return (
         <div className="modal-overlay">
-            <div className="modal">
+            <div className="modal" role="dialog" aria-modal="true">
                 <div className="w-full flex justify-between gap-2">
                     <h2 className="text-xl font-semibold ml-1">{text}</h2>
                     <IoCloseOutline
@@ -152,7 +152,7 @@ export function LogModal({ isOpen, onClose, initialValue, onSubmit }: LogModalPr
 
     return (
         <div className="modal-overlay">
-            <div className="modal">
+            <div className="modal" role="dialog" aria-modal="true">
                 <div className="w-full flex justify-between gap-2">
                     <h2 className="text-xl font-semibold ml-1">Log</h2>
                     <IoCloseOutline

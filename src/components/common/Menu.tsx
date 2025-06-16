@@ -57,6 +57,8 @@ export default function Menu({ isOpen, closeMenu, menuItems }: MenuProps) {
             className={`${
                 isOpen ? "block" : "hidden"
             } absolute bg-zinc-800/75 backdrop-blur-lg rounded-2xl w-52 right-0 top-12 shadow-xl overflow-hidden z-20`}
+            role="menu"
+            aria-hidden={!isOpen}
         >
             <ul className="divide-y divide-neutral-700">
                 {menuItems.map((item, index) => {
