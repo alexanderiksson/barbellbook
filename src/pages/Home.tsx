@@ -109,7 +109,7 @@ export default function Workout() {
                 </div>
 
                 {exercises.length > 0 && (
-                    <section className="flex flex-col gap-4">
+                    <section className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                         {exercises.map((exercise, index) => (
                             <ExerciseCard
                                 key={index}

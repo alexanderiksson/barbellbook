@@ -128,7 +128,7 @@ export default function WorkoutPage() {
 
                 <div className="flex justify-between items-center mb-4 gap-2">
                     <div className="flex items-center justify-center gap-4 shrink overflow-hidden">
-                        <div className="bg-emerald-500/10 w-16 h-16 flex justify-center items-center rounded-full flex-shrink-0">
+                        <div className="bg-emerald-500/10 flex justify-center items-center rounded-full flex-shrink-0 aspect-square w-16">
                             <GymIcon size="32px" color="#10b981" />
                         </div>
                         <div className="flex flex-col gap-1 overflow-hidden">
@@ -184,7 +184,7 @@ export default function WorkoutPage() {
                     </div>
                 </div>
 
-                <section className="flex flex-col gap-4 mt-8">
+                <section className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-8">
                     {workout.exercises.map((exercise, index) => (
                         <ExerciseCard key={index} index={index + 1} exercise={exercise} />
                     ))}

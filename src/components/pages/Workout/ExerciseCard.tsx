@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { ExerciseType } from "../../../types/workout";
 
 interface ExerciseCardProps {
@@ -8,9 +9,9 @@ interface ExerciseCardProps {
 export default function ExerciseCard({ index, exercise }: ExerciseCardProps) {
     return (
         <div className="p-4 bg-zinc-900 border border-white/3 rounded-2xl shadow-xl">
-            <h2 className="text-lg font-medium mb-4 truncate">
+            <h2 className="text-lg font-medium mb-6 truncate">
                 <span className="mr-2 text-neutral-500">#{index}</span>
-                {exercise.name}
+                <Link to={`/stats/${exercise.name}`}>{exercise.name}</Link>
             </h2>
             <table className="w-full">
                 <thead>

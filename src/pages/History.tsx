@@ -106,47 +106,47 @@ export default function History() {
                         <option value="old">Sort by: Oldest</option>
                     </Select>
 
-                    <section className="flex flex-col gap-3 flex-1">
+                    <section className="grid grid-cols-1 lg:grid-cols-2 gap-3">
                         {paginatedWorkouts.map((workout, index) => (
                             <WorkoutCard key={index} workout={workout} />
                         ))}
-
-                        {totalPages > 1 && (
-                            <div className="flex justify-center items-center mt-auto pt-4 mb-4 gap-6">
-                                <button
-                                    className={`${
-                                        currentPage === 1
-                                            ? "bg-zinc-900 cursor-not-allowed"
-                                            : "bg-zinc-800 cursor-pointer"
-                                    } p-3 rounded-full `}
-                                    disabled={currentPage === 1}
-                                    onClick={() => setCurrentPage((prev) => prev - 1)}
-                                >
-                                    <IoIosArrowBack
-                                        size={20}
-                                        color={currentPage === 1 ? "gray" : "white"}
-                                    />
-                                </button>
-                                <span className="text-neutral-300">
-                                    Page {currentPage} of {totalPages}
-                                </span>
-                                <button
-                                    className={`${
-                                        currentPage === totalPages
-                                            ? "bg-zinc-900 cursor-not-allowed"
-                                            : "bg-zinc-800 cursor-pointer"
-                                    } p-3 rounded-full `}
-                                    disabled={currentPage === totalPages}
-                                    onClick={() => setCurrentPage((prev) => prev + 1)}
-                                >
-                                    <IoIosArrowForward
-                                        size={20}
-                                        color={currentPage === totalPages ? "gray" : "white"}
-                                    />
-                                </button>
-                            </div>
-                        )}
                     </section>
+
+                    {totalPages > 1 && (
+                        <div className="flex justify-center items-center mt-auto pt-4 mb-4 gap-6">
+                            <button
+                                className={`${
+                                    currentPage === 1
+                                        ? "bg-zinc-900 cursor-not-allowed"
+                                        : "bg-zinc-800 cursor-pointer"
+                                } p-3 rounded-full `}
+                                disabled={currentPage === 1}
+                                onClick={() => setCurrentPage((prev) => prev - 1)}
+                            >
+                                <IoIosArrowBack
+                                    size={20}
+                                    color={currentPage === 1 ? "gray" : "white"}
+                                />
+                            </button>
+                            <span className="text-neutral-300">
+                                Page {currentPage} of {totalPages}
+                            </span>
+                            <button
+                                className={`${
+                                    currentPage === totalPages
+                                        ? "bg-zinc-900 cursor-not-allowed"
+                                        : "bg-zinc-800 cursor-pointer"
+                                } p-3 rounded-full `}
+                                disabled={currentPage === totalPages}
+                                onClick={() => setCurrentPage((prev) => prev + 1)}
+                            >
+                                <IoIosArrowForward
+                                    size={20}
+                                    color={currentPage === totalPages ? "gray" : "white"}
+                                />
+                            </button>
+                        </div>
+                    )}
                 </>
             )}
         </div>
