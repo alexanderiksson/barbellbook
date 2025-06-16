@@ -65,7 +65,7 @@ export default function ExerciseStats() {
                 ))}
             </Select>
 
-            <section className="flex flex-col gap-6 mb-8">
+            <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                 <div className="bg-zinc-800/50 p-4 rounded-2xl border border-white/3">
                     <div className="flex justify-between items-center gap-x-4 gap-y-2 flex-wrap mb-6">
                         <h2 className="font-medium  text-neutral-400">Highest weight (kg)</h2>
@@ -73,7 +73,7 @@ export default function ExerciseStats() {
                             {filteredData.length} sessions
                         </span>
                     </div>
-                    <Chart data={filteredData} label="Weight" lineColor="#0ea5e9" />
+                    <Chart data={filteredData} label="Weight" />
                 </div>
 
                 <div className="bg-zinc-800/50 p-4 rounded-2xl border border-white/3">
@@ -83,7 +83,7 @@ export default function ExerciseStats() {
                             {filteredData.length} sessions
                         </span>
                     </div>
-                    <Chart data={filteredData} label="Reps" lineColor="#10b981" />
+                    <Chart data={filteredData} label="Reps" color="#10b981" />
                 </div>
             </section>
         </div>

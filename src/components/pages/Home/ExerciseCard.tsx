@@ -29,10 +29,21 @@ export default function ExerciseCard({ exercise, index, removeExercise }: Exerci
             />
 
             <div className="p-4 bg-zinc-900 border border-white/3 rounded-2xl shadow-xl">
-                <h2 className="text-lg font-medium mb-4 truncate">
-                    <span className="mr-2 text-neutral-500">#{index + 1}</span>
-                    {exercise.name}
-                </h2>
+                <div className="flex items-center justify-between gap-2 mb-6">
+                    <h2 className="text-lg font-medium truncate">
+                        <span className="mr-2 text-neutral-500">#{index + 1}</span>
+                        {exercise.name}
+                    </h2>
+                    <button
+                        className="cursor-pointer"
+                        onClick={() => {
+                            setRemoveIndex(index);
+                            openModal();
+                        }}
+                    >
+                        <MdDeleteForever color="#dc2626" size={24} />
+                    </button>
+                </div>
 
                 <table className="w-full mb-4">
                     <thead>
@@ -52,16 +63,6 @@ export default function ExerciseCard({ exercise, index, removeExercise }: Exerci
                         ))}
                     </tbody>
                 </table>
-
-                <button
-                    className="cursor-pointer py-2"
-                    onClick={() => {
-                        setRemoveIndex(index);
-                        openModal();
-                    }}
-                >
-                    <MdDeleteForever color="dc2626" size={24} />
-                </button>
             </div>
         </>
     );

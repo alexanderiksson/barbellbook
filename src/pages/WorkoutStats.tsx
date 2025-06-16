@@ -58,7 +58,7 @@ export default function WorkoutStats() {
 
             <PageHeading>Workout Stats</PageHeading>
 
-            <section className="grid grid-cols-2 gap-3">
+            <section className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 <StatCard label="Exercises" data={workout.exercises.length} />
                 <StatCard label="Total sets" data={totalSets} />
                 <StatCard label="Total reps" data={totalReps} />
