@@ -10,9 +10,11 @@ import {
 
 interface ChartProps {
     data: Array<{ date: string; [key: string]: number | string }>;
+    label: string;
+    lineColor: string;
 }
 
-export default function Chart({ data }: ChartProps) {
+export default function Chart({ data, label, lineColor }: ChartProps) {
     return (
         <div className="w-full h-64">
             <ResponsiveContainer width="100%" height="100%">
@@ -32,8 +34,7 @@ export default function Chart({ data }: ChartProps) {
                             color: "lightgray",
                         }}
                     />
-                    <Line type="monotone" dataKey="Weight" stroke="#0ea5e9" strokeWidth={2} />
-                    <Line type="monotone" dataKey="Reps" stroke="#10b981" strokeWidth={2} />
+                    <Line type="monotone" dataKey={label} stroke={lineColor} strokeWidth={2} />
                 </LineChart>
             </ResponsiveContainer>
         </div>
