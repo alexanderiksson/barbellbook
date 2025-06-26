@@ -95,7 +95,7 @@ export default function History() {
             </div>
 
             {workouts.length === 0 ? (
-                <p className="text-neutral-500">No workouts found.</p>
+                <p className="text-text-grey">No workouts found.</p>
             ) : (
                 <>
                     <Select
@@ -117,8 +117,8 @@ export default function History() {
                             <button
                                 className={`${
                                     currentPage === 1
-                                        ? "bg-zinc-900 cursor-not-allowed"
-                                        : "bg-zinc-800 cursor-pointer"
+                                        ? "bg-secondary cursor-not-allowed"
+                                        : "bg-secondary-bright cursor-pointer"
                                 } p-3 rounded-full `}
                                 disabled={currentPage === 1}
                                 onClick={() => setCurrentPage((prev) => prev - 1)}
@@ -128,14 +128,14 @@ export default function History() {
                                     color={currentPage === 1 ? "gray" : "white"}
                                 />
                             </button>
-                            <span className="text-neutral-300">
+                            <span className="text-text-grey">
                                 Page {currentPage} of {totalPages}
                             </span>
                             <button
                                 className={`${
                                     currentPage === totalPages
-                                        ? "bg-zinc-900 cursor-not-allowed"
-                                        : "bg-zinc-800 cursor-pointer"
+                                        ? "bg-secondary cursor-not-allowed"
+                                        : "bg-secondary-bright cursor-pointer"
                                 } p-3 rounded-full `}
                                 disabled={currentPage === totalPages}
                                 onClick={() => setCurrentPage((prev) => prev + 1)}

@@ -70,7 +70,7 @@ export default function AddExercise() {
                         />
                         {nameListOpen && (
                             <ul
-                                className={`absolute bg-zinc-800/70 backdrop-blur-xl rounded-2xl shadow-xl w-full mt-2 max-h-64 overflow-y-auto z-10 divide-y divide-white/10`}
+                                className={`absolute bg-secondary-bright/70 backdrop-blur-xl rounded-2xl shadow-xl w-full mt-2 max-h-64 overflow-y-auto z-10 divide-y divide-white/10`}
                             >
                                 {exercises
                                     .filter((exercise) =>
@@ -79,7 +79,7 @@ export default function AddExercise() {
                                     .map((exercise, index) => (
                                         <li
                                             key={index}
-                                            className="p-3 hover:bg-zinc-700/50 cursor-pointer transition-all duration-100"
+                                            className="p-3 hover:bg-secondary-bright cursor-pointer transition-all duration-100"
                                             onClick={() => {
                                                 setName(exercise);
                                                 setNameListOpen(false);
@@ -93,7 +93,7 @@ export default function AddExercise() {
                     </div>
 
                     {/* Add set */}
-                    <section className="w-full flex flex-col gap-8 bg-zinc-900 border border-white/3 rounded-2xl p-4">
+                    <section className="w-full flex flex-col gap-8 bg-secondary border border-border/20 rounded-2xl p-4">
                         <div className="flex justify-around gap-6 flex-wrap-reverse">
                             <RepCounter reps={reps} setReps={setReps} />
                             <WeightInput weight={weight} setWeight={setWeight} />

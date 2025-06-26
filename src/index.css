@@ -13,6 +13,21 @@ body,
     font-family: "Inter", sans-serif;
 }
 
+@theme {
+    --color-primary: #0369a1;
+    --color-primary-bright: #0ea5e9;
+    --color-accent: #047857;
+    --color-accent-bright: #10b981;
+    --color-background: #0f0f11;
+    --color-secondary: #18181b;
+    --color-secondary-bright: #27272a;
+    --color-text: #ffffff;
+    --color-text-grey: #737373;
+    --color-border: rgba(113, 113, 122, 0.5);
+    --color-danger: #b91c1c;
+    --color-danger-bright: #ef4444;
+}
+
 .content {
     @apply max-w-4xl w-[90%] mx-auto;
 }

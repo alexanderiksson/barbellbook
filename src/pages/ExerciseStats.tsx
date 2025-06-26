@@ -66,24 +66,30 @@ export default function ExerciseStats() {
             </Select>
 
             <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-                <div className="bg-zinc-800/50 p-4 rounded-2xl border border-white/3">
+                <div className="bg-secondary p-4 rounded-2xl border border-border/20">
                     <div className="flex justify-between items-center gap-x-4 gap-y-2 flex-wrap mb-6">
-                        <h2 className="font-medium  text-neutral-400">Highest weight (kg)</h2>
-                        <span className="text-neutral-500 text-sm">
+                        <h2 className="font-medium text-text-grey">Highest weight (kg)</h2>
+                        <span className="text-text-grey text-sm">
                             {filteredData.length} sessions
                         </span>
                     </div>
                     <Chart data={filteredData} label="Weight" />
                 </div>
 
-                <div className="bg-zinc-800/50 p-4 rounded-2xl border border-white/3">
+                <div className="bg-secondary p-4 rounded-2xl border border-border/20">
                     <div className="flex justify-between items-center gap-x-4 gap-y-2 flex-wrap mb-6">
-                        <h2 className="font-medium  text-neutral-400">Reps (top set)</h2>
-                        <span className="text-neutral-500 text-sm">
+                        <h2 className="font-medium text-text-grey">Reps (top set)</h2>
+                        <span className="text-text-grey text-sm">
                             {filteredData.length} sessions
                         </span>
                     </div>
-                    <Chart data={filteredData} label="Reps" color="#10b981" />
+                    <Chart
+                        data={filteredData}
+                        label="Reps"
+                        color={getComputedStyle(document.documentElement).getPropertyValue(
+                            "--color-accent-bright"
+                        )}
+                    />
                 </div>
             </section>
         </div>

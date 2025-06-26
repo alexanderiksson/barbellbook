@@ -28,10 +28,10 @@ export default function ExerciseCard({ exercise, index, removeExercise }: Exerci
                 action={() => removeExercise(removeIndex)}
             />
 
-            <div className="p-4 bg-zinc-900 border border-white/3 rounded-2xl shadow-xl">
+            <div className="p-4 bg-secondary border border-border/20 rounded-2xl shadow-xl">
                 <div className="flex items-center justify-between gap-2 mb-6">
                     <h2 className="text-lg font-medium truncate">
-                        <span className="mr-2 text-neutral-500">#{index + 1}</span>
+                        <span className="mr-2 text-text-grey">#{index + 1}</span>
                         {exercise.name}
                     </h2>
                     <button
@@ -41,7 +41,12 @@ export default function ExerciseCard({ exercise, index, removeExercise }: Exerci
                             openModal();
                         }}
                     >
-                        <MdDeleteForever color="#dc2626" size={24} />
+                        <MdDeleteForever
+                            color={getComputedStyle(document.documentElement).getPropertyValue(
+                                "--color-danger"
+                            )}
+                            size={24}
+                        />
                     </button>
                 </div>
 

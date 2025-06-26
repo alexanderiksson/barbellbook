@@ -28,7 +28,7 @@ export default function SetTable({ currentSets, removeCurrentSets }: SetTablePro
             />
 
             <table className="w-full">
-                <thead className="border-b border-white/15">
+                <thead className="border-b border-border">
                     <tr>
                         <th className="py-2">Set</th>
 
@@ -50,7 +50,12 @@ export default function SetTable({ currentSets, removeCurrentSets }: SetTablePro
                                         openModal();
                                     }}
                                 >
-                                    <MdDeleteForever color="dc2626" size={24} />
+                                    <MdDeleteForever
+                                        color={getComputedStyle(
+                                            document.documentElement
+                                        ).getPropertyValue("--color-danger")}
+                                        size={24}
+                                    />
                                 </button>
                             </td>
                         </tr>

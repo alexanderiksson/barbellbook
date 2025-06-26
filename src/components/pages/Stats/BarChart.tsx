@@ -6,7 +6,11 @@ interface ChartProps {
     color?: string;
 }
 
-export default function Chart({ data, label, color = "#0ea5e9" }: ChartProps) {
+export default function Chart({
+    data,
+    label,
+    color = getComputedStyle(document.documentElement).getPropertyValue("--color-primary-bright"),
+}: ChartProps) {
     return (
         <div className="w-full h-64">
             <ResponsiveContainer width="100%" height="100%">

@@ -20,14 +20,14 @@ interface ButtonProps {
 }
 
 const handleVariant = (variant: string) => {
-    let TWClass = "bg-neutral-700 border-neutral-700";
+    let color = "bg-neutral-700 border-neutral-700";
 
-    if (variant === "green") TWClass = "bg-emerald-700 border-emerald-700";
-    if (variant === "blue") TWClass = "bg-sky-700 border-sky-700";
-    if (variant === "outline") TWClass = "bg-transparent border-sky-700";
-    if (variant === "danger") TWClass = "bg-red-700 border-red-700";
+    if (variant === "green") color = "bg-accent border-accent";
+    if (variant === "blue") color = "bg-primary border-primary";
+    if (variant === "outline") color = "bg-transparent border-primary";
+    if (variant === "danger") color = "bg-danger border-danger";
 
-    return TWClass;
+    return color;
 };
 
 export function LinkButton({ children, to, variant = "neutral", className = "" }: LinkButtonProps) {

@@ -35,8 +35,17 @@ const Item = ({ onClick, label, Icon, danger }: ItemProps) => {
             className="flex justify-between items-center gap-1.5 p-4 cursor-pointer"
             onClick={onClick}
         >
-            <span className={danger ? "text-red-500" : ""}>{label}</span>{" "}
-            <Icon size={24} color={danger ? "#dc2626" : ""} />
+            <span className={danger ? "text-danger-bright" : ""}>{label}</span>{" "}
+            <Icon
+                size={24}
+                color={
+                    danger
+                        ? getComputedStyle(document.documentElement).getPropertyValue(
+                              "--color-danger"
+                          )
+                        : ""
+                }
+            />
         </li>
     );
 };
@@ -56,11 +65,11 @@ export default function Menu({ isOpen, closeMenu, menuItems }: MenuProps) {
         <div
             className={`${
                 isOpen ? "block" : "hidden"
-            } absolute bg-zinc-800/75 backdrop-blur-lg rounded-2xl w-52 right-0 top-12 shadow-xl overflow-hidden z-20`}
+            } absolute bg-secondary backdrop-blur-lg rounded-2xl w-52 right-0 top-12 shadow-xl overflow-hidden z-20`}
             role="menu"
             aria-hidden={!isOpen}
         >
-            <ul className="divide-y divide-neutral-700">
+            <ul className="divide-y divide-border">
                 {menuItems.map((item, index) => {
                     return item.type === "link" ? (
                         <LinkItem
