@@ -17,7 +17,7 @@ export function Select({ onChange, value, children }: SelectProps) {
     return (
         <div className="relative mb-4 w-full">
             <select
-                className="appearance-none py-3 w-full border-2 border-zinc-500/10 rounded-2xl bg-zinc-900/50 text-sm text-center last"
+                className="appearance-none py-3 w-full border-2 border-border/20 rounded-2xl bg-secondary/50 text-sm text-center last"
                 onChange={onChange}
                 value={value}
                 style={{
@@ -27,7 +27,7 @@ export function Select({ onChange, value, children }: SelectProps) {
                 {children}
             </select>
 
-            <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-zinc-400">
+            <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-text-grey">
                 <IoIosArrowDown size={16} />
             </div>
         </div>
@@ -37,7 +37,7 @@ export function Select({ onChange, value, children }: SelectProps) {
 export function TextInput({ placeholder, value, onChange }: TextInputProps) {
     return (
         <input
-            className="bg-zinc-900/50 p-3 rounded-2xl w-full border-2 border-zinc-500/10 shadow placeholder:text-neutral-600"
+            className="bg-secondary/50 p-3 rounded-2xl w-full border-2 border-border/20 shadow placeholder:text-text-grey/50"
             type="text"
             placeholder={placeholder}
             value={value}

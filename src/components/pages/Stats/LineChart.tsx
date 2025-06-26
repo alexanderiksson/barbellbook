@@ -14,7 +14,11 @@ interface ChartProps {
     color?: string;
 }
 
-export default function Chart({ data, label, color = "#0ea5e9" }: ChartProps) {
+export default function Chart({
+    data,
+    label,
+    color = getComputedStyle(document.documentElement).getPropertyValue("--color-primary-bright"),
+}: ChartProps) {
     return (
         <div className="w-full h-64">
             <ResponsiveContainer width="100%" height="100%">
@@ -28,7 +32,9 @@ export default function Chart({ data, label, color = "#0ea5e9" }: ChartProps) {
                     />
                     <Tooltip
                         contentStyle={{
-                            backgroundColor: "#0f0f0f",
+                            backgroundColor: getComputedStyle(
+                                document.documentElement
+                            ).getPropertyValue("--color-background"),
                             borderRadius: "16px",
                             border: "none",
                             color: "lightgray",

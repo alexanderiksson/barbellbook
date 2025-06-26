@@ -76,14 +76,20 @@ export default function Stats() {
                     </Select>
 
                     <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-                        <div className="bg-zinc-800/50 p-4 rounded-2xl border border-white/3">
-                            <h2 className="font-medium mb-6 text-neutral-400">Workouts</h2>
+                        <div className="bg-secondary p-4 rounded-2xl border border-border/20">
+                            <h2 className="font-medium mb-6 text-text-grey">Workouts</h2>
                             <Chart data={sessions} label="Sessions" />
                         </div>
 
-                        <div className="bg-zinc-800/50 p-4 rounded-2xl border border-white/3">
-                            <h2 className="font-medium mb-6 text-neutral-400">Exercises</h2>
-                            <Chart data={exercises} label="Exercises" color="#10b981" />
+                        <div className="bg-secondary p-4 rounded-2xl border border-border/20">
+                            <h2 className="font-medium mb-6 text-text-grey">Exercises</h2>
+                            <Chart
+                                data={exercises}
+                                label="Exercises"
+                                color={getComputedStyle(document.documentElement).getPropertyValue(
+                                    "--color-accent-bright"
+                                )}
+                            />
                         </div>
                     </section>
 
@@ -92,9 +98,9 @@ export default function Stats() {
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
                             {allExercises.map((exercise, index) => (
                                 <Link key={index} to={`/stats/${exercise.name}`}>
-                                    <div className="px-5 py-3 bg-zinc-900 rounded-2xl border border-white/3 shadow flex justify-between items-center gap-4">
+                                    <div className="px-5 py-3 bg-secondary rounded-2xl border border-border/20 shadow flex justify-between items-center gap-4">
                                         <h3 className="truncate">
-                                            <span className="text-neutral-500 text-lg mr-2">
+                                            <span className="text-text-grey text-lg mr-2">
                                                 {index + 1}.
                                             </span>
                                             {exercise.name}
