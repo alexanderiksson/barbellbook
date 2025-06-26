@@ -10,7 +10,7 @@ export default function WeightInput({ weight, setWeight }: WeightInputProps) {
             <input
                 className="bg-zinc-800 p-2 h-12 rounded-xl w-18 border border-white/5"
                 type="number"
-                inputMode="numeric"
+                inputMode="decimal"
                 onChange={(e) => setWeight(e.target.value)}
                 value={weight}
                 step={2.5}
