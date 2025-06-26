@@ -1,31 +1,46 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @import "tailwindcss";
 
+:root {
+    --primary: #0369a1;
+    --primary-bright: #0ea5e9;
+    --accent: #047857;
+    --accent-bright: #10b981;
+    --background: #0f0f11;
+    --secondary: #18181b;
+    --secondary-bright: #27272a;
+    --text: #ffffff;
+    --text-grey: #737373;
+    --border: rgba(113, 113, 122, 0.5);
+    --danger: #b91c1c;
+    --danger-bright: #ef4444;
+}
+
+@theme {
+    --color-primary: var(--primary);
+    --color-primary-bright: var(--primary-bright);
+    --color-accent: var(--accent);
+    --color-accent-bright: var(--accent-bright);
+    --color-background: var(--background);
+    --color-secondary: var(--secondary);
+    --color-secondary-bright: var(--secondary-bright);
+    --color-text: var(--text);
+    --color-text-grey: var(--text-grey);
+    --color-border: var(--border);
+    --color-danger: var(--danger);
+    --color-danger-bright: var(--danger-bright);
+}
+
 body,
 #root {
-    background-color: #0f0f11;
-    color: white;
+    background-color: var(--background);
+    color: var(--text);
     display: flex;
     flex-direction: column;
     min-height: 100dvh;
     box-sizing: border-box;
     overflow-x: hidden;
     font-family: "Inter", sans-serif;
-}
-
-@theme {
-    --color-primary: #0369a1;
-    --color-primary-bright: #0ea5e9;
-    --color-accent: #047857;
-    --color-accent-bright: #10b981;
-    --color-background: #0f0f11;
-    --color-secondary: #18181b;
-    --color-secondary-bright: #27272a;
-    --color-text: #ffffff;
-    --color-text-grey: #737373;
-    --color-border: rgba(113, 113, 122, 0.5);
-    --color-danger: #b91c1c;
-    --color-danger-bright: #ef4444;
 }
 
 .content {
