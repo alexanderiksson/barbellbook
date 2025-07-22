@@ -52,11 +52,11 @@ export default function ExerciseStats() {
     }, [selectedYear]);
 
     const calculate1RM = useMemo(() => {
-        return (data: { date: string; Weight: number; Reps: number }[]): string => {
+        return (filteredData: { date: string; Weight: number; Reps: number }[]): string => {
             const threeMonthsAgo = new Date();
             threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
 
-            const recentData = data.filter((item) => new Date(item.date) >= threeMonthsAgo);
+            const recentData = filteredData.filter((item) => new Date(item.date) >= threeMonthsAgo);
 
             if (recentData.length < 3) {
                 return "-";
@@ -67,10 +67,15 @@ export default function ExerciseStats() {
                 return Weight * (1 + Reps / 30);
             });
 
-            const maxOneRepMax = Math.max(...oneRepMaxes);
-            return `${Math.round(maxOneRepMax * 10) / 10} kg`;
+            const topThreeOneRepMaxes = oneRepMaxes.sort((a, b) => b - a).slice(0, 3);
+
+            const averageTopThree =
+                topThreeOneRepMaxes.reduce((sum, value) => sum + value, 0) /
+                topThreeOneRepMaxes.length;
+
+            return `${Math.round(averageTopThree * 10) / 10} kg`;
         };
-    }, [data]);
+    }, [filteredData]);
 
     return (
         <div className="content">
@@ -87,20 +92,20 @@ export default function ExerciseStats() {
             </Select>
 
             <section className="grid grid-cols-2 gap-4 mb-4">
-                <div className="bg-secondary p-4 rounded-2xl border border-border/20 flex flex-col items-center">
-                    <h2 className="font-medium text-text-grey">Personal best</h2>
-                    <span>{Math.max(...data.map((item) => item.Weight))} kg</span>
+                <div className="bg-secondary p-4 rounded-2xl border border-border/20 flex flex-col items-center text-center gap-1">
+                    <h2 className="text-text-grey text-sm">Personal best</h2>
+                    <span>{Math.max(...filteredData.map((item) => item.Weight))} kg</span>
                 </div>
-                <div className="bg-secondary p-4 rounded-2xl border border-border/20 flex flex-col items-center">
-                    <h2 className="font-medium text-text-grey">Projected 1RM</h2>
-                    <span>{calculate1RM(data)}</span>
+                <div className="bg-secondary p-4 rounded-2xl border border-border/20 flex flex-col items-center text-center gap-1">
+                    <h2 className="text-text-grey text-sm">Estimated 1RM</h2>
+                    <span>{calculate1RM(filteredData)}</span>
                 </div>
             </section>
 
             <section className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8">
                 <div className="bg-secondary p-4 rounded-2xl border border-border/20">
                     <div className="flex justify-between items-center gap-x-4 gap-y-2 flex-wrap mb-6">
-                        <h2 className="font-medium text-text-grey">Highest weight (kg)</h2>
+                        <h2 className="text-text-grey text-sm">Highest weight (kg)</h2>
                         <span className="text-text-grey text-sm">
                             {filteredData.length} sessions
                         </span>
@@ -110,7 +115,7 @@ export default function ExerciseStats() {
 
                 <div className="bg-secondary p-4 rounded-2xl border border-border/20">
                     <div className="flex justify-between items-center gap-x-4 gap-y-2 flex-wrap mb-6">
-                        <h2 className="font-medium text-text-grey">Reps (top set)</h2>
+                        <h2 className="text-text-grey text-sm">Reps (top set)</h2>
                         <span className="text-text-grey text-sm">
                             {filteredData.length} sessions
                         </span>
