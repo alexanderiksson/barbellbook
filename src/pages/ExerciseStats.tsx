@@ -51,7 +51,7 @@ export default function ExerciseStats() {
         }
     }, [selectedYear]);
 
-    const calculateProjected1RM = useMemo(() => {
+    const calculate1RM = useMemo(() => {
         return (data: { date: string; Weight: number; Reps: number }[]): string => {
             const threeMonthsAgo = new Date();
             threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
@@ -93,7 +93,7 @@ export default function ExerciseStats() {
                 </div>
                 <div className="bg-secondary p-4 rounded-2xl border border-border/20 flex flex-col items-center">
                     <h2 className="font-medium text-text-grey">Projected 1RM</h2>
-                    <span>{calculateProjected1RM(data)}</span>
+                    <span>{calculate1RM(data)}</span>
                 </div>
             </section>
 
