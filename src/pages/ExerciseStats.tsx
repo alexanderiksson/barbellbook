@@ -51,6 +51,27 @@ export default function ExerciseStats() {
         }
     }, [selectedYear]);
 
+    const calculateProjected1RM = useMemo(() => {
+        return (data: { date: string; Weight: number; Reps: number }[]): string => {
+            const threeMonthsAgo = new Date();
+            threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+
+            const recentData = data.filter((item) => new Date(item.date) >= threeMonthsAgo);
+
+            if (recentData.length < 3) {
+                return "-";
+            }
+
+            const oneRepMaxes = recentData.map((item) => {
+                const { Weight, Reps } = item;
+                return Weight * (1 + Reps / 30);
+            });
+
+            const maxOneRepMax = Math.max(...oneRepMaxes);
+            return `${Math.round(maxOneRepMax * 10) / 10} kg`;
+        };
+    }, [data]);
+
     return (
         <div className="content">
             <BackButton label="Stats" to="/stats" />
@@ -65,7 +86,18 @@ export default function ExerciseStats() {
                 ))}
             </Select>
 
-            <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <section className="grid grid-cols-2 gap-4 mb-4">
+                <div className="bg-secondary p-4 rounded-2xl border border-border/20 flex flex-col items-center">
+                    <h2 className="font-medium text-text-grey">Personal best</h2>
+                    <span>{Math.max(...data.map((item) => item.Weight))} kg</span>
+                </div>
+                <div className="bg-secondary p-4 rounded-2xl border border-border/20 flex flex-col items-center">
+                    <h2 className="font-medium text-text-grey">Projected 1RM</h2>
+                    <span>{calculateProjected1RM(data)}</span>
+                </div>
+            </section>
+
+            <section className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8">
                 <div className="bg-secondary p-4 rounded-2xl border border-border/20">
                     <div className="flex justify-between items-center gap-x-4 gap-y-2 flex-wrap mb-6">
                         <h2 className="font-medium text-text-grey">Highest weight (kg)</h2>
