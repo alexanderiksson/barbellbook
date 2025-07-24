@@ -67,13 +67,8 @@ export default function ExerciseStats() {
                 return Weight * (1 + Reps / 30);
             });
 
-            const topThreeOneRepMaxes = oneRepMaxes.sort((a, b) => b - a).slice(0, 3);
-
-            const averageTopThree =
-                topThreeOneRepMaxes.reduce((sum, value) => sum + value, 0) /
-                topThreeOneRepMaxes.length;
-
-            return `${Math.round(averageTopThree * 10) / 10} kg`;
+            const maxOneRepMax = Math.max(...oneRepMaxes);
+            return `${Math.round(maxOneRepMax * 10) / 10} kg`;
         };
     }, [filteredData]);
 
