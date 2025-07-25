@@ -1,9 +1,11 @@
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
+import exercisesData from "../data/exercises.json";
 
 import PageHeading from "../components/common/PageHeading";
 import BackButton from "../components/common/BackButton";
+import { Button } from "../components/common/Buttons";
 import Chart from "../components/pages/Stats/BarChart";
 import { Select } from "../components/common/Inputs";
 
@@ -11,6 +13,7 @@ import { IoIosArrowForward } from "react-icons/io";
 
 export default function Stats() {
     const { workouts } = useWorkout();
+    const [showAllExercises, setShowAllExercises] = useState(false);
 
     // Function to handle year filter
     const years = useMemo(
@@ -58,6 +61,31 @@ export default function Stats() {
             .map(([name, count]) => ({ name, count }));
     }, [workouts]);
 
+    const mostTrainedBodyParts = useMemo(() => {
+        const bodyPartCount = workouts.reduce((acc, workout) => {
+            const workoutDate = new Date(workout.date);
+            if (workoutDate.getFullYear().toString() === selectedYear) {
+                workout.exercises.forEach((exercise) => {
+                    const exerciseData = exercisesData.find((e) => e.name === exercise.name);
+                    if (exerciseData) {
+                        const bodyPart = exerciseData["body-part"];
+                        acc[bodyPart] = (acc[bodyPart] || 0) + 1;
+                    }
+                });
+            }
+            return acc;
+        }, {} as Record<string, number>);
+
+        const total = Object.values(bodyPartCount).reduce((sum, count) => sum + count, 0);
+
+        return Object.entries(bodyPartCount)
+            .sort((a, b) => b[1] - a[1])
+            .map(([name, count]) => ({
+                name,
+                percentage: total > 0 ? Math.round((count / total) * 100) : 0,
+            }));
+    }, [workouts, selectedYear]);
+
     return (
         <div className="content">
             <BackButton to="/history" label="Workout history" />
@@ -75,7 +103,7 @@ export default function Stats() {
                         ))}
                     </Select>
 
-                    <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                    <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                         <div className="bg-secondary p-4 rounded-2xl border border-border/20">
                             <h2 className="mb-6 text-text-grey text-sm">Workouts</h2>
                             <Chart data={sessions} label="Sessions" />
@@ -91,24 +119,49 @@ export default function Stats() {
                                 )}
                             />
                         </div>
-                    </section>
 
-                    <section>
-                        <h2 className="text-xl font-semibold mb-4">Your favorite exercises</h2>
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-                            {allExercises.map((exercise, index) => (
-                                <Link key={index} to={`/stats/${exercise.name}`}>
-                                    <div className="px-5 py-3 bg-secondary rounded-2xl border border-border/20 shadow flex justify-between items-center gap-4">
-                                        <h3 className="truncate text-base">
-                                            <span className="text-text-grey text-lg mr-2">
+                        <div className="bg-secondary p-4 rounded-2xl border border-border/20">
+                            <h2 className="mb-6 text-text-grey text-sm">Most trained body parts</h2>
+                            <div className="flex flex-col divide-y divide-border">
+                                {mostTrainedBodyParts.map((item, index) => (
+                                    <div className="flex justify-between items-center gap-4 py-2">
+                                        <h3 className="truncate">
+                                            <span className="text-text-grey mr-2">
                                                 {index + 1}.
                                             </span>
-                                            {exercise.name}
+                                            {item.name}
                                         </h3>
-                                        <IoIosArrowForward size={20} color="gray" />
+                                        <span>{item.percentage} %</span>
                                     </div>
-                                </Link>
-                            ))}
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="bg-secondary p-4 rounded-2xl border border-border/20">
+                            <h2 className="mb-6 text-text-grey text-sm">Top exercises</h2>
+                            <div className="flex flex-col mb-4 divide-y divide-border">
+                                {(showAllExercises ? allExercises : allExercises.slice(0, 3)).map(
+                                    (exercise, index) => (
+                                        <Link key={index} to={`/stats/${exercise.name}`}>
+                                            <div className="flex justify-between items-center gap-4 py-4">
+                                                <h3 className="truncate">
+                                                    <span className="text-text-grey mr-2">
+                                                        {index + 1}.
+                                                    </span>
+                                                    {exercise.name}
+                                                </h3>
+                                                <IoIosArrowForward size={20} color="gray" />
+                                            </div>
+                                        </Link>
+                                    )
+                                )}
+                            </div>
+                            <Button
+                                variant="blue"
+                                onClick={() => setShowAllExercises((prev) => !prev)}
+                            >
+                                {showAllExercises ? "Show less" : "Show all"}
+                            </Button>
                         </div>
                     </section>
                 </>

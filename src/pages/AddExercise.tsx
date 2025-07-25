@@ -74,18 +74,18 @@ export default function AddExercise() {
                             >
                                 {exercises
                                     .filter((exercise) =>
-                                        exercise.toLowerCase().includes(name.toLowerCase())
+                                        exercise.name.toLowerCase().includes(name.toLowerCase())
                                     )
                                     .map((exercise, index) => (
                                         <li
                                             key={index}
                                             className="p-3 hover:bg-secondary-bright cursor-pointer transition-all duration-100"
                                             onClick={() => {
-                                                setName(exercise);
+                                                setName(exercise.name);
                                                 setNameListOpen(false);
                                             }}
                                         >
-                                            {exercise}
+                                            {exercise.name}
                                         </li>
                                     ))}
                             </ul>

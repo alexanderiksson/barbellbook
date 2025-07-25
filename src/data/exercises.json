@@ -1,85 +1,417 @@
 [
-    "Benchpress (Barbell)",
-    "Incline Benchpress (Barbell)",
-    "Benchpress (Dumbbell)",
-    "Incline Benchpress (Dumbbell)",
-    "Benchpress (Smith Machine)",
-    "Incline Benchpress (Smith Machine)",
-    "Close-Grip Benchpress",
-    "Pause Benchpress",
-    "Barbell Row",
-    "Chest Supported Row",
-    "Cable Row",
-    "Bicep Curl (Barbell)",
-    "Bicep Curl (Dumbbell)",
-    "Bicep Curl (Cable)",
-    "Preacher Curl",
-    "Hammer Curl",
-    "Concentration Curl",
-    "Tricep Pushdown",
-    "Overhead Tricep Extension",
-    "Skullcrusher",
-    "Lat Pulldown",
-    "Pull-ups",
-    "Chin-ups",
-    "Muscle-ups",
-    "Squat (Barbell)",
-    "Squat (Dumbbell)",
-    "Squat (Smith Machine)",
-    "Front Squat",
-    "Goblet Squat",
-    "Box Squat",
-    "Pause Squat",
-    "Hack Squat",
-    "Deadlift",
-    "Romanian Deadlift",
-    "Romanian Deadlift (Smith Machine)",
-    "Sumo Deadlift",
-    "Deficit Deadlift",
-    "Trap Bar Deadlift",
-    "Good Mornings",
-    "Leg Curl",
-    "Seated Leg Curl",
-    "Lying Leg Curl",
-    "Leg Extension",
-    "Leg Press",
-    "Calf Raise",
-    "Standing Calf Raise",
-    "Seated Calf Raise",
-    "Hip Thrust",
-    "Cable Kickback",
-    "Glute Bridge",
-    "Face Pull",
-    "Lateral Raise",
-    "Front Raise",
-    "Rear Delt Fly",
-    "Overhead Press (Barbell)",
-    "Shoulder Press (Dumbbell)",
-    "Shoulder Press (Smith Machine)",
-    "Arnold Press",
-    "Cable Lateral Raise",
-    "Shrugs",
-    "Cable Fly",
-    "Pec Deck Fly",
-    "Incline Cable Fly",
-    "Machine Chest Press",
-    "Machine Row",
-    "Machine Shoulder Press",
-    "T-Bar Row",
-    "Landmine Press",
-    "Zercher Squat",
-    "Sissy Squat",
-    "Bulgarian Split Squat",
-    "Step-ups",
-    "Walking Lunges",
-    "Cable Crunch",
-    "Hanging Leg Raise",
-    "Plank",
-    "Russian Twist",
-    "Ab Wheel Rollout",
-    "Decline Sit-up",
-    "Dips",
-    "Snatch",
-    "Clean & Jerk",
-    "Clean & Press"
+    {
+        "name": "Benchpress (Barbell)",
+        "muscle": "Pectorals",
+        "body-part": "Chest"
+    },
+    {
+        "name": "Incline Benchpress (Barbell)",
+        "muscle": "Pectorals",
+        "body-part": "Chest"
+    },
+    {
+        "name": "Benchpress (Dumbbell)",
+        "muscle": "Pectorals",
+        "body-part": "Chest"
+    },
+    {
+        "name": "Incline Benchpress (Dumbbell)",
+        "muscle": "Pectorals",
+        "body-part": "Chest"
+    },
+    {
+        "name": "Benchpress (Smith Machine)",
+        "muscle": "Pectorals",
+        "body-part": "Chest"
+    },
+    {
+        "name": "Incline Benchpress (Smith Machine)",
+        "muscle": "Pectorals",
+        "body-part": "Chest"
+    },
+    {
+        "name": "Close-Grip Benchpress",
+        "muscle": "Triceps",
+        "body-part": "Chest"
+    },
+    {
+        "name": "Pause Benchpress",
+        "muscle": "Pectorals",
+        "body-part": "Chest"
+    },
+    {
+        "name": "Barbell Row",
+        "muscle": "Lats",
+        "body-part": "Back"
+    },
+    {
+        "name": "Chest Supported Row",
+        "muscle": "Lats",
+        "body-part": "Back"
+    },
+    {
+        "name": "Cable Row",
+        "muscle": "Lats",
+        "body-part": "Back"
+    },
+    {
+        "name": "Bicep Curl (Barbell)",
+        "muscle": "Biceps",
+        "body-part": "Arms"
+    },
+    {
+        "name": "Bicep Curl (Dumbbell)",
+        "muscle": "Biceps",
+        "body-part": "Arms"
+    },
+    {
+        "name": "Bicep Curl (Cable)",
+        "muscle": "Biceps",
+        "body-part": "Arms"
+    },
+    {
+        "name": "Preacher Curl",
+        "muscle": "Biceps",
+        "body-part": "Arms"
+    },
+    {
+        "name": "Hammer Curl",
+        "muscle": "Biceps",
+        "body-part": "Arms"
+    },
+    {
+        "name": "Concentration Curl",
+        "muscle": "Biceps",
+        "body-part": "Arms"
+    },
+    {
+        "name": "Tricep Pushdown",
+        "muscle": "Triceps",
+        "body-part": "Arms"
+    },
+    {
+        "name": "Overhead Tricep Extension",
+        "muscle": "Triceps",
+        "body-part": "Arms"
+    },
+    {
+        "name": "Skullcrusher",
+        "muscle": "Triceps",
+        "body-part": "Arms"
+    },
+    {
+        "name": "Lat Pulldown",
+        "muscle": "Lats",
+        "body-part": "Back"
+    },
+    {
+        "name": "Pull-ups",
+        "muscle": "Lats",
+        "body-part": "Back"
+    },
+    {
+        "name": "Chin-ups",
+        "muscle": "Biceps",
+        "body-part": "Back"
+    },
+    {
+        "name": "Muscle-ups",
+        "muscle": "Lats",
+        "body-part": "Back"
+    },
+    {
+        "name": "Squat (Barbell)",
+        "muscle": "Quadriceps",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Squat (Dumbbell)",
+        "muscle": "Quadriceps",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Squat (Smith Machine)",
+        "muscle": "Quadriceps",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Front Squat",
+        "muscle": "Quadriceps",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Goblet Squat",
+        "muscle": "Quadriceps",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Box Squat",
+        "muscle": "Quadriceps",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Pause Squat",
+        "muscle": "Quadriceps",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Hack Squat",
+        "muscle": "Quadriceps",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Deadlift",
+        "muscle": "Hamstrings",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Romanian Deadlift",
+        "muscle": "Hamstrings",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Romanian Deadlift (Smith Machine)",
+        "muscle": "Hamstrings",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Sumo Deadlift",
+        "muscle": "Hamstrings",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Deficit Deadlift",
+        "muscle": "Hamstrings",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Trap Bar Deadlift",
+        "muscle": "Hamstrings",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Good Mornings",
+        "muscle": "Hamstrings",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Leg Curl",
+        "muscle": "Hamstrings",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Seated Leg Curl",
+        "muscle": "Hamstrings",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Lying Leg Curl",
+        "muscle": "Hamstrings",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Leg Extension",
+        "muscle": "Quadriceps",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Leg Press",
+        "muscle": "Quadriceps",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Calf Raise",
+        "muscle": "Calves",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Standing Calf Raise",
+        "muscle": "Calves",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Seated Calf Raise",
+        "muscle": "Calves",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Hip Thrust",
+        "muscle": "Glutes",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Cable Kickback",
+        "muscle": "Glutes",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Glute Bridge",
+        "muscle": "Glutes",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Face Pull",
+        "muscle": "Rear Delts",
+        "body-part": "Shoulders"
+    },
+    {
+        "name": "Lateral Raise",
+        "muscle": "Lateral Delts",
+        "body-part": "Shoulders"
+    },
+    {
+        "name": "Front Raise",
+        "muscle": "Front Delts",
+        "body-part": "Shoulders"
+    },
+    {
+        "name": "Rear Delt Fly",
+        "muscle": "Rear Delts",
+        "body-part": "Shoulders"
+    },
+    {
+        "name": "Overhead Press (Barbell)",
+        "muscle": "Delts",
+        "body-part": "Shoulders"
+    },
+    {
+        "name": "Shoulder Press (Dumbbell)",
+        "muscle": "Delts",
+        "body-part": "Shoulders"
+    },
+    {
+        "name": "Shoulder Press (Smith Machine)",
+        "muscle": "Delts",
+        "body-part": "Shoulders"
+    },
+    {
+        "name": "Arnold Press",
+        "muscle": "Delts",
+        "body-part": "Shoulders"
+    },
+    {
+        "name": "Cable Lateral Raise",
+        "muscle": "Lateral Delts",
+        "body-part": "Shoulders"
+    },
+    {
+        "name": "Shrugs",
+        "muscle": "Traps",
+        "body-part": "Shoulders"
+    },
+    {
+        "name": "Cable Fly",
+        "muscle": "Pectorals",
+        "body-part": "Chest"
+    },
+    {
+        "name": "Pec Deck Fly",
+        "muscle": "Pectorals",
+        "body-part": "Chest"
+    },
+    {
+        "name": "Incline Cable Fly",
+        "muscle": "Pectorals",
+        "body-part": "Chest"
+    },
+    {
+        "name": "Machine Chest Press",
+        "muscle": "Pectorals",
+        "body-part": "Chest"
+    },
+    {
+        "name": "Machine Row",
+        "muscle": "Lats",
+        "body-part": "Back"
+    },
+    {
+        "name": "Machine Shoulder Press",
+        "muscle": "Delts",
+        "body-part": "Shoulders"
+    },
+    {
+        "name": "T-Bar Row",
+        "muscle": "Lats",
+        "body-part": "Back"
+    },
+    {
+        "name": "Landmine Press",
+        "muscle": "Delts",
+        "body-part": "Shoulders"
+    },
+    {
+        "name": "Zercher Squat",
+        "muscle": "Quadriceps",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Sissy Squat",
+        "muscle": "Quadriceps",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Bulgarian Split Squat",
+        "muscle": "Quadriceps",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Step-ups",
+        "muscle": "Quadriceps",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Walking Lunges",
+        "muscle": "Quadriceps",
+        "body-part": "Legs"
+    },
+    {
+        "name": "Cable Crunch",
+        "muscle": "Abs",
+        "body-part": "Core"
+    },
+    {
+        "name": "Hanging Leg Raise",
+        "muscle": "Abs",
+        "body-part": "Core"
+    },
+    {
+        "name": "Plank",
+        "muscle": "Abs",
+        "body-part": "Core"
+    },
+    {
+        "name": "Russian Twist",
+        "muscle": "Obliques",
+        "body-part": "Core"
+    },
+    {
+        "name": "Ab Wheel Rollout",
+        "muscle": "Abs",
+        "body-part": "Core"
+    },
+    {
+        "name": "Decline Sit-up",
+        "muscle": "Abs",
+        "body-part": "Core"
+    },
+    {
+        "name": "Dips",
+        "muscle": "Triceps",
+        "body-part": "Chest"
+    },
+    {
+        "name": "Snatch",
+        "muscle": "Full Body",
+        "body-part": "Full Body"
+    },
+    {
+        "name": "Clean & Jerk",
+        "muscle": "Full Body",
+        "body-part": "Full Body"
+    },
+    {
+        "name": "Clean & Press",
+        "muscle": "Full Body",
+        "body-part": "Full Body"
+    }
 ]

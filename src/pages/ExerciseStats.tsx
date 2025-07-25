@@ -109,7 +109,7 @@ export default function ExerciseStats() {
                 </div>
             </section>
 
-            <section className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8">
+            <section className="grid grid-cols-1 gap-4 mb-8">
                 <div className="bg-secondary p-4 rounded-2xl border border-border/20">
                     <div className="flex justify-between items-center gap-x-4 gap-y-2 flex-wrap mb-6">
                         <h2 className="text-text-grey text-sm">Weight progress (kg)</h2>
@@ -119,22 +119,6 @@ export default function ExerciseStats() {
                     </div>
                     <Chart data={filteredData} label="Weight" />
                 </div>
-
-                {/* <div className="bg-secondary p-4 rounded-2xl border border-border/20">
-                    <div className="flex justify-between items-center gap-x-4 gap-y-2 flex-wrap mb-6">
-                        <h2 className="text-text-grey text-sm">Reps (top set)</h2>
-                        <span className="text-text-grey text-sm">
-                            {filteredData.length} sessions
-                        </span>
-                    </div>
-                    <Chart
-                        data={filteredData}
-                        label="Reps"
-                        color={getComputedStyle(document.documentElement).getPropertyValue(
-                            "--color-accent-bright"
-                        )}
-                    />
-                </div> */}
             </section>
 
             <p className="text-xs text-text-grey">
