@@ -64,7 +64,19 @@ export default function ExerciseStats() {
 
             const oneRepMaxes = recentData.map((item) => {
                 const { Weight, Reps } = item;
-                return Weight * (1 + Reps / 30);
+                if (Reps === 1) {
+                    // Direct 1RM
+                    return Weight;
+                } else if (Reps >= 2 && Reps <= 10) {
+                    // Epley formula
+                    return Weight * (1 + Reps / 30);
+                } else if (Reps > 10 && Reps <= 20) {
+                    // Lombardi formula
+                    return Weight * Math.pow(Reps, 0.1);
+                } else {
+                    // Brzycki formula
+                    return Weight * (36 / (37 - Reps));
+                }
             });
 
             const maxOneRepMax = Math.max(...oneRepMaxes);
@@ -92,7 +104,7 @@ export default function ExerciseStats() {
                     <span>{Math.max(...filteredData.map((item) => item.Weight))} kg</span>
                 </div>
                 <div className="bg-secondary p-4 rounded-2xl border border-border/20 flex flex-col items-center text-center gap-1">
-                    <h2 className="text-text-grey text-sm">Estimated 1RM</h2>
+                    <h2 className="text-text-grey text-sm">Estimated 1RM *</h2>
                     <span>{calculate1RM(filteredData)}</span>
                 </div>
             </section>
@@ -100,7 +112,7 @@ export default function ExerciseStats() {
             <section className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8">
                 <div className="bg-secondary p-4 rounded-2xl border border-border/20">
                     <div className="flex justify-between items-center gap-x-4 gap-y-2 flex-wrap mb-6">
-                        <h2 className="text-text-grey text-sm">Highest weight (kg)</h2>
+                        <h2 className="text-text-grey text-sm">Weight progress (kg)</h2>
                         <span className="text-text-grey text-sm">
                             {filteredData.length} sessions
                         </span>
@@ -108,7 +120,7 @@ export default function ExerciseStats() {
                     <Chart data={filteredData} label="Weight" />
                 </div>
 
-                <div className="bg-secondary p-4 rounded-2xl border border-border/20">
+                {/* <div className="bg-secondary p-4 rounded-2xl border border-border/20">
                     <div className="flex justify-between items-center gap-x-4 gap-y-2 flex-wrap mb-6">
                         <h2 className="text-text-grey text-sm">Reps (top set)</h2>
                         <span className="text-text-grey text-sm">
@@ -122,8 +134,12 @@ export default function ExerciseStats() {
                             "--color-accent-bright"
                         )}
                     />
-                </div>
+                </div> */}
             </section>
+
+            <p className="text-xs text-text-grey">
+                * Estimated 1RM is calculated from your best results in the last 3 months.
+            </p>
         </div>
     );
 }
