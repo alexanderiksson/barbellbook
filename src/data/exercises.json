@@ -1,415 +1,498 @@
 [
     {
+        "id": 1,
         "name": "Benchpress (Barbell)",
         "muscle": "Pectorals",
         "body-part": "Chest"
     },
     {
+        "id": 2,
         "name": "Incline Benchpress (Barbell)",
         "muscle": "Pectorals",
         "body-part": "Chest"
     },
     {
+        "id": 3,
         "name": "Benchpress (Dumbbell)",
         "muscle": "Pectorals",
         "body-part": "Chest"
     },
     {
+        "id": 4,
         "name": "Incline Benchpress (Dumbbell)",
         "muscle": "Pectorals",
         "body-part": "Chest"
     },
     {
+        "id": 5,
         "name": "Benchpress (Smith Machine)",
         "muscle": "Pectorals",
         "body-part": "Chest"
     },
     {
+        "id": 6,
         "name": "Incline Benchpress (Smith Machine)",
         "muscle": "Pectorals",
         "body-part": "Chest"
     },
     {
+        "id": 7,
         "name": "Close-Grip Benchpress",
         "muscle": "Triceps",
         "body-part": "Chest"
     },
     {
+        "id": 8,
         "name": "Pause Benchpress",
         "muscle": "Pectorals",
         "body-part": "Chest"
     },
     {
+        "id": 9,
         "name": "Barbell Row",
         "muscle": "Lats",
         "body-part": "Back"
     },
     {
+        "id": 10,
         "name": "Chest Supported Row",
         "muscle": "Lats",
         "body-part": "Back"
     },
     {
+        "id": 11,
         "name": "Cable Row",
         "muscle": "Lats",
         "body-part": "Back"
     },
     {
+        "id": 12,
         "name": "Bicep Curl (Barbell)",
         "muscle": "Biceps",
         "body-part": "Arms"
     },
     {
+        "id": 13,
         "name": "Bicep Curl (Dumbbell)",
         "muscle": "Biceps",
         "body-part": "Arms"
     },
     {
+        "id": 14,
         "name": "Bicep Curl (Cable)",
         "muscle": "Biceps",
         "body-part": "Arms"
     },
     {
+        "id": 15,
         "name": "Preacher Curl",
         "muscle": "Biceps",
         "body-part": "Arms"
     },
     {
+        "id": 16,
         "name": "Hammer Curl",
         "muscle": "Biceps",
         "body-part": "Arms"
     },
     {
+        "id": 17,
         "name": "Concentration Curl",
         "muscle": "Biceps",
         "body-part": "Arms"
     },
     {
+        "id": 18,
         "name": "Tricep Pushdown",
         "muscle": "Triceps",
         "body-part": "Arms"
     },
     {
+        "id": 19,
         "name": "Overhead Tricep Extension",
         "muscle": "Triceps",
         "body-part": "Arms"
     },
     {
+        "id": 20,
         "name": "Skullcrusher",
         "muscle": "Triceps",
         "body-part": "Arms"
     },
     {
+        "id": 21,
         "name": "Lat Pulldown",
         "muscle": "Lats",
         "body-part": "Back"
     },
     {
+        "id": 22,
         "name": "Pull-ups",
         "muscle": "Lats",
         "body-part": "Back"
     },
     {
+        "id": 23,
         "name": "Chin-ups",
         "muscle": "Biceps",
         "body-part": "Back"
     },
     {
+        "id": 24,
         "name": "Muscle-ups",
         "muscle": "Lats",
         "body-part": "Back"
     },
     {
+        "id": 25,
         "name": "Squat (Barbell)",
         "muscle": "Quadriceps",
         "body-part": "Legs"
     },
     {
+        "id": 26,
         "name": "Squat (Dumbbell)",
         "muscle": "Quadriceps",
         "body-part": "Legs"
     },
     {
+        "id": 27,
         "name": "Squat (Smith Machine)",
         "muscle": "Quadriceps",
         "body-part": "Legs"
     },
     {
+        "id": 28,
         "name": "Front Squat",
         "muscle": "Quadriceps",
         "body-part": "Legs"
     },
     {
+        "id": 29,
         "name": "Goblet Squat",
         "muscle": "Quadriceps",
         "body-part": "Legs"
     },
     {
+        "id": 30,
         "name": "Box Squat",
         "muscle": "Quadriceps",
         "body-part": "Legs"
     },
     {
+        "id": 31,
         "name": "Pause Squat",
         "muscle": "Quadriceps",
         "body-part": "Legs"
     },
     {
+        "id": 32,
         "name": "Hack Squat",
         "muscle": "Quadriceps",
         "body-part": "Legs"
     },
     {
+        "id": 33,
         "name": "Deadlift",
         "muscle": "Hamstrings",
         "body-part": "Legs"
     },
     {
+        "id": 34,
         "name": "Romanian Deadlift",
         "muscle": "Hamstrings",
         "body-part": "Legs"
     },
     {
+        "id": 35,
         "name": "Romanian Deadlift (Smith Machine)",
         "muscle": "Hamstrings",
         "body-part": "Legs"
     },
     {
+        "id": 36,
         "name": "Sumo Deadlift",
         "muscle": "Hamstrings",
         "body-part": "Legs"
     },
     {
+        "id": 37,
         "name": "Deficit Deadlift",
         "muscle": "Hamstrings",
         "body-part": "Legs"
     },
     {
+        "id": 38,
         "name": "Trap Bar Deadlift",
         "muscle": "Hamstrings",
         "body-part": "Legs"
     },
     {
+        "id": 39,
         "name": "Good Mornings",
         "muscle": "Hamstrings",
         "body-part": "Legs"
     },
     {
+        "id": 40,
         "name": "Leg Curl",
         "muscle": "Hamstrings",
         "body-part": "Legs"
     },
     {
+        "id": 41,
         "name": "Seated Leg Curl",
         "muscle": "Hamstrings",
         "body-part": "Legs"
     },
     {
+        "id": 42,
         "name": "Lying Leg Curl",
         "muscle": "Hamstrings",
         "body-part": "Legs"
     },
     {
+        "id": 43,
         "name": "Leg Extension",
         "muscle": "Quadriceps",
         "body-part": "Legs"
     },
     {
+        "id": 44,
         "name": "Leg Press",
         "muscle": "Quadriceps",
         "body-part": "Legs"
     },
     {
+        "id": 45,
         "name": "Calf Raise",
         "muscle": "Calves",
         "body-part": "Legs"
     },
     {
+        "id": 46,
         "name": "Standing Calf Raise",
         "muscle": "Calves",
         "body-part": "Legs"
     },
     {
+        "id": 47,
         "name": "Seated Calf Raise",
         "muscle": "Calves",
         "body-part": "Legs"
     },
     {
+        "id": 48,
         "name": "Hip Thrust",
         "muscle": "Glutes",
         "body-part": "Legs"
     },
     {
+        "id": 49,
         "name": "Cable Kickback",
         "muscle": "Glutes",
         "body-part": "Legs"
     },
     {
+        "id": 50,
         "name": "Glute Bridge",
         "muscle": "Glutes",
         "body-part": "Legs"
     },
     {
+        "id": 51,
         "name": "Face Pull",
         "muscle": "Rear Delts",
         "body-part": "Shoulders"
     },
     {
+        "id": 52,
         "name": "Lateral Raise",
         "muscle": "Lateral Delts",
         "body-part": "Shoulders"
     },
     {
+        "id": 53,
         "name": "Front Raise",
         "muscle": "Front Delts",
         "body-part": "Shoulders"
     },
     {
+        "id": 54,
         "name": "Rear Delt Fly",
         "muscle": "Rear Delts",
         "body-part": "Shoulders"
     },
     {
+        "id": 55,
         "name": "Overhead Press (Barbell)",
         "muscle": "Delts",
         "body-part": "Shoulders"
     },
     {
+        "id": 56,
         "name": "Shoulder Press (Dumbbell)",
         "muscle": "Delts",
         "body-part": "Shoulders"
     },
     {
+        "id": 57,
         "name": "Shoulder Press (Smith Machine)",
         "muscle": "Delts",
         "body-part": "Shoulders"
     },
     {
+        "id": 58,
         "name": "Arnold Press",
         "muscle": "Delts",
         "body-part": "Shoulders"
     },
     {
+        "id": 59,
         "name": "Cable Lateral Raise",
         "muscle": "Lateral Delts",
         "body-part": "Shoulders"
     },
     {
+        "id": 60,
         "name": "Shrugs",
         "muscle": "Traps",
         "body-part": "Shoulders"
     },
     {
+        "id": 61,
         "name": "Cable Fly",
         "muscle": "Pectorals",
         "body-part": "Chest"
     },
     {
+        "id": 62,
         "name": "Pec Deck Fly",
         "muscle": "Pectorals",
         "body-part": "Chest"
     },
     {
+        "id": 63,
         "name": "Incline Cable Fly",
         "muscle": "Pectorals",
         "body-part": "Chest"
     },
     {
+        "id": 64,
         "name": "Machine Chest Press",
         "muscle": "Pectorals",
         "body-part": "Chest"
     },
     {
+        "id": 65,
         "name": "Machine Row",
         "muscle": "Lats",
         "body-part": "Back"
     },
     {
+        "id": 66,
         "name": "Machine Shoulder Press",
         "muscle": "Delts",
         "body-part": "Shoulders"
     },
     {
+        "id": 67,
         "name": "T-Bar Row",
         "muscle": "Lats",
         "body-part": "Back"
     },
     {
+        "id": 68,
         "name": "Landmine Press",
         "muscle": "Delts",
         "body-part": "Shoulders"
     },
     {
+        "id": 69,
         "name": "Zercher Squat",
         "muscle": "Quadriceps",
         "body-part": "Legs"
     },
     {
+        "id": 70,
         "name": "Sissy Squat",
         "muscle": "Quadriceps",
         "body-part": "Legs"
     },
     {
+        "id": 71,
         "name": "Bulgarian Split Squat",
         "muscle": "Quadriceps",
         "body-part": "Legs"
     },
     {
+        "id": 72,
         "name": "Step-ups",
         "muscle": "Quadriceps",
         "body-part": "Legs"
     },
     {
+        "id": 73,
         "name": "Walking Lunges",
         "muscle": "Quadriceps",
         "body-part": "Legs"
     },
     {
+        "id": 74,
         "name": "Cable Crunch",
         "muscle": "Abs",
         "body-part": "Core"
     },
     {
+        "id": 75,
         "name": "Hanging Leg Raise",
         "muscle": "Abs",
         "body-part": "Core"
     },
     {
+        "id": 76,
         "name": "Plank",
         "muscle": "Abs",
         "body-part": "Core"
     },
     {
+        "id": 77,
         "name": "Russian Twist",
         "muscle": "Obliques",
         "body-part": "Core"
     },
     {
+        "id": 78,
         "name": "Ab Wheel Rollout",
         "muscle": "Abs",
         "body-part": "Core"
     },
     {
+        "id": 79,
         "name": "Decline Sit-up",
         "muscle": "Abs",
         "body-part": "Core"
     },
     {
+        "id": 80,
         "name": "Dips",
         "muscle": "Triceps",
         "body-part": "Chest"
     },
     {
+        "id": 81,
         "name": "Snatch",
         "muscle": "Full Body",
         "body-part": "Full Body"
     },
     {
+        "id": 82,
         "name": "Clean & Jerk",
         "muscle": "Full Body",
         "body-part": "Full Body"
     },
     {
+        "id": 83,
         "name": "Clean & Press",
         "muscle": "Full Body",
         "body-part": "Full Body"

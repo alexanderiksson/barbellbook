@@ -24,7 +24,7 @@ export default function App() {
                         <Route path="/history/:id/stats" element={<WorkoutStats />} />
                         <Route path="/export" element={<ExportData />} />
                         <Route path="/stats" element={<Stats />} />
-                        <Route path="/stats/:exercise" element={<ExerciseStats />} />
+                        <Route path="/stats/:id" element={<ExerciseStats />} />
                     </Route>
                 </Routes>
             </WorkoutProvider>

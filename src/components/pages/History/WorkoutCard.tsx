@@ -11,25 +11,25 @@ interface WorkoutProps extends WorkoutType {
 export default function WorkoutCard({ workout }: { workout: WorkoutProps }) {
     return (
         <Link to={`/history/${workout.id}`}>
-            <div className="px-5 py-3 bg-secondary border border-border/20 rounded-2xl shadow flex justify-between gap-4">
+            <div className="px-4 py-3 bg-secondary border border-border/20 rounded-2xl shadow flex justify-between gap-4">
                 <div className="flex items-center gap-3 overflow-hidden">
-                    <div className="bg-accent-bright/10 min-w-12 min-h-12 flex justify-center items-center rounded-full">
+                    <div className="bg-accent-bright/10 min-w-10 min-h-10 flex justify-center items-center rounded-full">
                         <GymIcon
-                            size="24px"
+                            size="20px"
                             color={getComputedStyle(document.documentElement).getPropertyValue(
                                 "--color-accent-bright"
                             )}
                         />
                     </div>
 
-                    <h2 className="text-lg font-medium truncate">
+                    <h2 className="font-medium truncate">
                         {workout.name ? workout.name : "Workout"}
                     </h2>
                 </div>
 
                 <span className="text-text-grey text-xs flex items-center gap-1">
-                    <IoIosCalendar size={16} />
                     {dateConverter(workout.date)}
+                    <IoIosCalendar size={14} />
                 </span>
             </div>
         </Link>
