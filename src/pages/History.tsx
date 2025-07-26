@@ -10,7 +10,7 @@ import Menu from "../components/common/Menu";
 import { Select } from "../components/common/Inputs";
 
 import { TbFileExport } from "react-icons/tb";
-import { IoIosStats, IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 interface FilteredWorkouts extends WorkoutType {
     id: number;
@@ -79,12 +79,6 @@ export default function History() {
                         isOpen={isOpen}
                         closeMenu={closeMenu}
                         menuItems={[
-                            {
-                                type: "link",
-                                label: "Stats",
-                                icon: IoIosStats,
-                                to: "/stats",
-                            },
                             {
                                 type: "link",
                                 label: "Export data",

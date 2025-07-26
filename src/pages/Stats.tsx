@@ -4,7 +4,6 @@ import { useWorkout } from "../context/WorkoutContext";
 import exercisesData from "../data/exercises.json";
 
 import PageHeading from "../components/common/PageHeading";
-import BackButton from "../components/common/BackButton";
 import { Button } from "../components/common/Buttons";
 import Chart from "../components/pages/Stats/BarChart";
 import { Select } from "../components/common/Inputs";
@@ -97,7 +96,6 @@ export default function Stats() {
 
     return (
         <div className="content">
-            <BackButton to="/history" label="Workout history" />
             <PageHeading>Your stats</PageHeading>
 
             {workouts.length <= 0 ? (
