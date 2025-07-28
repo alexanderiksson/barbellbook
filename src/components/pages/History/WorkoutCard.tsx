@@ -12,7 +12,7 @@ export default function WorkoutCard({ workout }: { workout: WorkoutProps }) {
     return (
         <Link to={`/history/${workout.id}`}>
             <div className="px-4 py-3 bg-secondary border border-border/20 rounded-2xl shadow flex justify-between gap-4">
-                <div className="flex items-center gap-3 overflow-hidden">
+                <div className="flex items-center gap-2 overflow-hidden">
                     <div className="bg-accent-bright/10 min-w-10 min-h-10 flex justify-center items-center rounded-full">
                         <GymIcon
                             size="20px"

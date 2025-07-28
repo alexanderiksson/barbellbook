@@ -1,7 +1,9 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
 import exercises from "../data/exercises.json";
+import { SetType } from "../types/workout";
+import { motion, AnimatePresence } from "framer-motion";
 
 import PageHeading from "../components/common/PageHeading";
 import { Button } from "../components/common/Buttons";
@@ -13,20 +15,52 @@ import { AlertModal } from "../components/common/Modals";
 import Loader from "../components/common/Loader";
 import { TextInput } from "../components/common/Inputs";
 
-import { IoMdAdd } from "react-icons/io";
+import { IoMdAdd, IoIosArrowDown } from "react-icons/io";
 
 export default function AddExercise() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(false);
 
-    const { addExercise, currentSets, saveCurrentSets, removeCurrentSets, clearCurrentSets } =
-        useWorkout();
+    const {
+        addExercise,
+        currentSets,
+        saveCurrentSets,
+        removeCurrentSets,
+        clearCurrentSets,
+        workouts,
+    } = useWorkout();
 
     const [nameListOpen, setNameListOpen] = useState(false);
 
-    const [name, setName] = useState<string>("");
+    const [search, setSearch] = useState<string>("");
+    const [exercise, setExercise] = useState<{ id: number; name: string }>();
     const [reps, setReps] = useState<number>(0);
     const [weight, setWeight] = useState<string>("");
+    const [lastSessionSets, setLastSessionSets] = useState<SetType[] | null>(null);
+    const [lastSessionOpen, setLastSessionOpen] = useState(false);
+
+    // Find previously logged sets
+    useEffect(() => {
+        if (!exercise) {
+            setLastSessionSets(null);
+            return;
+        }
+
+        const sortedWorkouts = [...workouts].sort(
+            (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+        );
+        const lastWorkoutWithExercise = sortedWorkouts.find((workout) =>
+            workout.exercises.some((ex) => ex.name === exercise.name)
+        );
+        if (lastWorkoutWithExercise) {
+            const foundExercise = lastWorkoutWithExercise.exercises.find(
+                (ex) => ex.name === exercise.name
+            );
+            setLastSessionSets(foundExercise ? foundExercise.sets : null);
+        } else {
+            setLastSessionSets(null);
+        }
+    }, [exercise, workouts]);
 
     // Trigger to show notice
     const noticeTriggerRef = useRef<() => void | null>(null);
@@ -57,9 +91,9 @@ export default function AddExercise() {
                     <div className="relative">
                         <TextInput
                             placeholder="Search exercise..."
-                            value={name}
+                            value={search}
                             onChange={(e) => {
-                                setName(e.target.value);
+                                setSearch(e.target.value);
 
                                 if (e.target.value.length > 0) {
                                     setNameListOpen(true);
@@ -74,14 +108,18 @@ export default function AddExercise() {
                             >
                                 {exercises
                                     .filter((exercise) =>
-                                        exercise.name.toLowerCase().includes(name.toLowerCase())
+                                        exercise.name.toLowerCase().includes(search.toLowerCase())
                                     )
-                                    .map((exercise, index) => (
+                                    .map((exercise) => (
                                         <li
-                                            key={index}
+                                            key={exercise.id}
                                             className="p-3 hover:bg-secondary-bright cursor-pointer transition-all duration-100"
                                             onClick={() => {
-                                                setName(exercise.name);
+                                                setSearch(exercise.name);
+                                                setExercise({
+                                                    id: exercise.id,
+                                                    name: exercise.name,
+                                                });
                                                 setNameListOpen(false);
                                             }}
                                         >
@@ -127,6 +165,56 @@ export default function AddExercise() {
                         </Button>
                     </section>
 
+                    {exercise && lastSessionSets && (
+                        <section className="bg-secondary border border-border/20 rounded-2xl p-4 text-sm">
+                            <div
+                                className="flex justify-between items-center cursor-pointer"
+                                onClick={() => setLastSessionOpen(!lastSessionOpen)}
+                            >
+                                <h2 className="text-text-grey text-sm">Previous session</h2>
+                                <IoIosArrowDown
+                                    size={20}
+                                    color="grey"
+                                    className={`transition-all ${
+                                        !lastSessionOpen ? "-rotate-90" : ""
+                                    }`}
+                                />
+                            </div>
+                            <AnimatePresence initial={false}>
+                                {lastSessionOpen && (
+                                    <motion.div
+                                        key="last-session-table"
+                                        initial={{ maxHeight: 0 }}
+                                        animate={{ maxHeight: 300 }}
+                                        exit={{ maxHeight: 0 }}
+                                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                                        style={{ overflow: "hidden" }}
+                                        className="last-session-table-wrapper"
+                                    >
+                                        <table className="w-full mt-4">
+                                            <thead>
+                                                <tr className="text-left">
+                                                    <th>Set</th>
+                                                    <th>Reps</th>
+                                                    <th>Weight</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {lastSessionSets.map((set, index) => (
+                                                    <tr key={index}>
+                                                        <td>Set {index + 1}</td>
+                                                        <td>{set.reps}</td>
+                                                        <td>{set.weight}</td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </section>
+                    )}
+
                     {/* Sets table */}
                     {currentSets.length > 0 && (
                         <SetTable currentSets={currentSets} removeCurrentSets={removeCurrentSets} />
@@ -141,13 +229,14 @@ export default function AddExercise() {
                         if (currentSets.length <= 0) {
                             setModalText("Exercise doesn't have any sets");
                             openModal();
-                        } else if (!name) {
-                            setModalText("Enter exercise name");
+                        } else if (!exercise) {
+                            setModalText("Select exercise");
                             openModal();
                         } else {
                             setLoading(true);
                             const newExercise = {
-                                name,
+                                id: exercise.id,
+                                name: exercise.name,
                                 sets: [...currentSets],
                             };
                             addExercise(newExercise);
