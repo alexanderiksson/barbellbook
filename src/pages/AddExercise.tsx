@@ -189,7 +189,6 @@ export default function AddExercise() {
                                         exit={{ maxHeight: 0 }}
                                         transition={{ duration: 0.3, ease: "easeInOut" }}
                                         style={{ overflow: "hidden" }}
-                                        className="last-session-table-wrapper"
                                     >
                                         <table className="w-full mt-4">
                                             <thead>
