@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
+import exercisesData from "../data/exercises.json";
 
 import PageHeading from "../components/common/PageHeading";
 import BackButton from "../components/common/BackButton";
@@ -8,9 +9,29 @@ import Chart from "../components/pages/Stats/LineChart";
 import { Select } from "../components/common/Inputs";
 
 export default function ExerciseStats() {
-    const { exercise } = useParams<{ exercise: string }>();
+    const { id } = useParams<{ id: string }>();
     const { workouts } = useWorkout();
 
+    // Find the exercise from the param
+    const exercise = useMemo(() => {
+        const isNumeric = !isNaN(Number(id));
+        const exerciseEntry = isNumeric
+            ? exercisesData.find((ex) => ex.id === Number(id))
+            : exercisesData.find((ex) => ex.name.toLowerCase() === id?.toLowerCase());
+
+        if (exerciseEntry) {
+            return exerciseEntry.name;
+        }
+
+        // Fallback to user-entered exercises in workouts
+        const userExercise = workouts
+            .flatMap((workout) => workout.exercises)
+            .find((ex) => ex.name.toLowerCase() === id?.toLowerCase());
+
+        return userExercise ? userExercise.name : "Unknown Exercise";
+    }, [id, workouts]);
+
+    // Find logged data from the exercise
     const data = workouts
         .filter((workout) => workout.exercises.some((ex) => ex.name === exercise))
         .map((workout) => {
@@ -33,6 +54,7 @@ export default function ExerciseStats() {
         { date: string; Weight: number; Reps: number }[]
     >([]);
 
+    // Find the years from the logged data
     const years = useMemo(
         () =>
             Array.from(new Set(data.map((item) => new Date(item.date).getFullYear()))).sort(
@@ -41,6 +63,7 @@ export default function ExerciseStats() {
         [workouts]
     );
 
+    // Filter the data based on what year is selected
     useEffect(() => {
         if (selectedYear === "all") {
             setFilteredData(data);
@@ -51,6 +74,7 @@ export default function ExerciseStats() {
         }
     }, [selectedYear]);
 
+    // Calculate 1RM from the filtered data
     const calculate1RM = useMemo(() => {
         return (filteredData: { date: string; Weight: number; Reps: number }[]): string => {
             const threeMonthsAgo = new Date();

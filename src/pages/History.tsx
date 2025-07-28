@@ -10,7 +10,7 @@ import Menu from "../components/common/Menu";
 import { Select } from "../components/common/Inputs";
 
 import { TbFileExport } from "react-icons/tb";
-import { IoIosStats, IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 interface FilteredWorkouts extends WorkoutType {
     id: number;
@@ -27,6 +27,7 @@ export default function History() {
     const [filteredWorkouts, setFilteredWorkouts] = useState<FilteredWorkouts[]>([]);
     const [filter, setFilter] = useState<"new" | "old">("new");
 
+    // Get all the workouts from storage
     useEffect(() => {
         const updatedWorkouts: FilteredWorkouts[] = workouts.map((workout, index) => ({
             id: index,
@@ -37,6 +38,7 @@ export default function History() {
         setInitialWorkouts(updatedWorkouts);
     }, [workouts]);
 
+    // Sort workouts based on sort filter
     useEffect(() => {
         const sortedWorkouts = [...initialWorkouts].sort((a, b) => {
             const dateA = new Date(a.date).getTime();
@@ -62,7 +64,7 @@ export default function History() {
 
     return (
         <div className="content relative flex flex-col flex-1">
-            <div className="flex justify-between mb-8">
+            <div className="flex justify-between mb-6">
                 <PageHeading>Workout history</PageHeading>
                 <div className="flex relative shrink-0">
                     <MenuButton onClick={() => setIsOpen((isOpen) => !isOpen)} />
@@ -77,12 +79,6 @@ export default function History() {
                         isOpen={isOpen}
                         closeMenu={closeMenu}
                         menuItems={[
-                            {
-                                type: "link",
-                                label: "Stats",
-                                icon: IoIosStats,
-                                to: "/stats",
-                            },
                             {
                                 type: "link",
                                 label: "Export data",

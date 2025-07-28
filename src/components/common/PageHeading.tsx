@@ -9,5 +9,5 @@
 import { ReactNode } from "react";
 
 export default function PageHeading({ children }: { children: ReactNode }) {
-    return <h1 className="text-2xl font-semibold mb-4 truncate">{children}</h1>;
+    return <h1 className="text-xl font-semibold mb-4 truncate">{children}</h1>;
 }

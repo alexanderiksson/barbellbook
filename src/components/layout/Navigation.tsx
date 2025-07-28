@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { IoIosAddCircle, IoIosTime, IoIosHome } from "react-icons/io";
+import { IoIosAddCircle, IoIosTime, IoIosHome, IoIosStats } from "react-icons/io";
 
 interface TabProps {
     to: string;
@@ -55,6 +55,9 @@ export default function Navigation() {
                 </li>
                 <li>
                     <Tab to="/history" label="History" Icon={IoIosTime} />
+                </li>
+                <li>
+                    <Tab to="/stats" label="Stats" Icon={IoIosStats} />
                 </li>
             </ul>
         </nav>

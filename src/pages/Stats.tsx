@@ -4,7 +4,6 @@ import { useWorkout } from "../context/WorkoutContext";
 import exercisesData from "../data/exercises.json";
 
 import PageHeading from "../components/common/PageHeading";
-import BackButton from "../components/common/BackButton";
 import { Button } from "../components/common/Buttons";
 import Chart from "../components/pages/Stats/BarChart";
 import { Select } from "../components/common/Inputs";
@@ -15,7 +14,7 @@ export default function Stats() {
     const { workouts } = useWorkout();
     const [showAllExercises, setShowAllExercises] = useState(false);
 
-    // Function to handle year filter
+    // Find years from the logged workouts
     const years = useMemo(
         () =>
             Array.from(
@@ -27,7 +26,7 @@ export default function Stats() {
     const initialSelectedYear = years.length > 0 ? years[0].toString() : "";
     const [selectedYear, setSelectedYear] = useState<string>(initialSelectedYear);
 
-    // Function to calculate stats data
+    // Calculate chart data
     const calculateData = (key: "Sessions" | "Exercises") => {
         return Array.from(
             workouts.reduce((acc, workout) => {
@@ -48,6 +47,7 @@ export default function Stats() {
     const sessions = useMemo(() => calculateData("Sessions"), [workouts, selectedYear]);
     const exercises = useMemo(() => calculateData("Exercises"), [workouts, selectedYear]);
 
+    // Calculate favorite exercises
     const allExercises = useMemo(() => {
         const exerciseCount = workouts.reduce((acc, workout) => {
             workout.exercises.forEach((exercise) => {
@@ -58,9 +58,17 @@ export default function Stats() {
 
         return Object.entries(exerciseCount)
             .sort((a, b) => b[1] - a[1])
-            .map(([name, count]) => ({ name, count }));
+            .map(([name, count]) => {
+                const exerciseData = exercisesData.find((e) => e.name === name);
+                return {
+                    id: exerciseData ? exerciseData.id : name,
+                    name,
+                    count,
+                };
+            });
     }, [workouts]);
 
+    // Calculate most trained body parts
     const mostTrainedBodyParts = useMemo(() => {
         const bodyPartCount = workouts.reduce((acc, workout) => {
             const workoutDate = new Date(workout.date);
@@ -88,7 +96,6 @@ export default function Stats() {
 
     return (
         <div className="content">
-            <BackButton to="/history" label="Workout history" />
             <PageHeading>Your stats</PageHeading>
 
             {workouts.length <= 0 ? (
@@ -98,12 +105,12 @@ export default function Stats() {
                     <Select value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
                         {years.map((year, index) => (
                             <option key={index} value={year}>
-                                Year: {year}
+                                {year === new Date().getFullYear() ? "This year" : year}
                             </option>
                         ))}
                     </Select>
 
-                    <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <section className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
                         <div className="bg-secondary p-4 rounded-2xl border border-border/20">
                             <h2 className="mb-6 text-text-grey text-sm">Workouts</h2>
                             <Chart data={sessions} label="Sessions" />
@@ -122,9 +129,12 @@ export default function Stats() {
 
                         <div className="bg-secondary p-4 rounded-2xl border border-border/20">
                             <h2 className="mb-6 text-text-grey text-sm">Most trained body parts</h2>
-                            <div className="flex flex-col divide-y divide-border">
+                            <div className="flex flex-col divide-y divide-border/50">
                                 {mostTrainedBodyParts.map((item, index) => (
-                                    <div className="flex justify-between items-center gap-4 py-2">
+                                    <div
+                                        key={index}
+                                        className="flex justify-between items-center gap-4 py-2"
+                                    >
                                         <h3 className="truncate">
                                             <span className="text-text-grey mr-2">
                                                 {index + 1}.
@@ -138,12 +148,12 @@ export default function Stats() {
                         </div>
 
                         <div className="bg-secondary p-4 rounded-2xl border border-border/20">
-                            <h2 className="mb-6 text-text-grey text-sm">Top exercises</h2>
-                            <div className="flex flex-col mb-4 divide-y divide-border">
+                            <h2 className="mb-6 text-text-grey text-sm">Favorite exercises</h2>
+                            <div className="flex flex-col mb-6 gap-4">
                                 {(showAllExercises ? allExercises : allExercises.slice(0, 3)).map(
                                     (exercise, index) => (
-                                        <Link key={index} to={`/stats/${exercise.name}`}>
-                                            <div className="flex justify-between items-center gap-4 py-4">
+                                        <Link key={index} to={`/stats/${exercise.id}`}>
+                                            <div className="flex justify-between items-center gap-4 py-2 px-4 bg-secondary-bright rounded-full border border-border/20">
                                                 <h3 className="truncate">
                                                     <span className="text-text-grey mr-2">
                                                         {index + 1}.
@@ -157,7 +167,7 @@ export default function Stats() {
                                 )}
                             </div>
                             <Button
-                                variant="blue"
+                                variant="outline"
                                 onClick={() => setShowAllExercises((prev) => !prev)}
                             >
                                 {showAllExercises ? "Show less" : "Show all"}
