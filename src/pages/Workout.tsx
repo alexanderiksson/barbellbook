@@ -127,10 +127,10 @@ export default function WorkoutPage() {
                 <BackButton to="/history" label="Workout history" />
 
                 <div className="flex justify-between items-center mb-4 gap-2">
-                    <div className="flex items-center justify-center gap-4 shrink overflow-hidden">
-                        <div className="bg-accent-bright/10 flex justify-center items-center rounded-full flex-shrink-0 aspect-square w-16">
+                    <div className="flex items-center justify-center gap-2 shrink overflow-hidden">
+                        <div className="bg-accent-bright/10 flex justify-center items-center rounded-full flex-shrink-0 aspect-square w-14">
                             <GymIcon
-                                size="32px"
+                                size="28px"
                                 color={getComputedStyle(document.documentElement).getPropertyValue(
                                     "--color-accent-bright"
                                 )}
@@ -138,8 +138,8 @@ export default function WorkoutPage() {
                         </div>
                         <div className="flex flex-col gap-1 overflow-hidden">
                             <h1 className="text-xl font-semibold truncate">{workoutName}</h1>
-                            <span className="text-text-grey truncate flex items-center gap-1">
-                                <IoIosCalendar size={16} />
+                            <span className="text-sm text-text-grey truncate flex items-center gap-1">
+                                <IoIosCalendar size={14} />
                                 {dateConverter(workout.date)}
                             </span>
                         </div>

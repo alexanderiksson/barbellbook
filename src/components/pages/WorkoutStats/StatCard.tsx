@@ -6,11 +6,11 @@ interface StatCardProps {
 
 export default function StatCard({ label, data, suffix }: StatCardProps) {
     return (
-        <div className="p-4 bg-secondary border border-border/20 rounded-2xl shadow-xl flex flex-col justify-center items-center text-center">
-            <h2 className="mb-2 text-text-grey">{label}</h2>
-            <span className="text-2xl py-4">
+        <div className="bg-secondary p-4 rounded-2xl border border-border/20 flex flex-col items-center text-center gap-1">
+            <h2 className="text-text-grey text-sm">{label}</h2>
+            <span>
                 {data}
-                {suffix && <span className="ml-1 text-base text-text-grey">{suffix}</span>}
+                {suffix && <span className="ml-1 text-text-grey">{suffix}</span>}
             </span>
         </div>
     );
