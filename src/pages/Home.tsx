@@ -53,7 +53,7 @@ export default function Workout() {
                 onSubmit={(value) => {
                     setLoading(true);
 
-                    const date = new Date().toLocaleDateString();
+                    const date = new Date().toLocaleString();
 
                     const newWorkout = {
                         name: value || null,
