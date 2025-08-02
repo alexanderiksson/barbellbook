@@ -63,7 +63,9 @@ export default function ExerciseCard({ exercise, index, removeExercise }: Exerci
                             <tr key={setIndex}>
                                 <td>Set {setIndex + 1}</td>
                                 <td>{set.reps}</td>
-                                <td>{set.weight} kg</td>
+                                <td>
+                                    {set.weight} <span className="text-text-grey">kg</span>
+                                </td>
                             </tr>
                         ))}
                     </tbody>

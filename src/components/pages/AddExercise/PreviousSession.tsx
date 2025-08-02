@@ -46,7 +46,9 @@ export default function PreviousSession({ sets }: PreviousSessionProps) {
                                     <tr key={index}>
                                         <td>Set {index + 1}</td>
                                         <td>{set.reps}</td>
-                                        <td>{set.weight}</td>
+                                        <td>
+                                            {set.weight} <span className="text-text-grey">kg</span>
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>

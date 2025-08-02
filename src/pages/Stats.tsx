@@ -152,7 +152,7 @@ export default function Stats() {
                             <div className="flex flex-col mb-6 gap-4">
                                 {(showAllExercises ? allExercises : allExercises.slice(0, 3)).map(
                                     (exercise, index) => (
-                                        <Link key={index} to={`/stats/${exercise.id}`}>
+                                        <Link key={index} to={`/stats/exercise/${exercise.id}`}>
                                             <div className="flex justify-between items-center gap-4 py-2 px-4 bg-secondary-bright rounded-full border border-border/20">
                                                 <h3 className="truncate">
                                                     <span className="text-text-grey mr-2">
