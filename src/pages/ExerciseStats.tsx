@@ -42,7 +42,7 @@ export default function ExerciseStats() {
                   )
                 : { weight: 0, reps: 0 };
             return {
-                date: workout.date,
+                date: new Date(workout.date).toLocaleDateString(),
                 Weight: Number(maxWeightSet.weight),
                 Reps: Number(maxWeightSet.reps),
             };

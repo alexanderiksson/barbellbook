@@ -41,7 +41,9 @@ export default function SetTable({ currentSets, removeCurrentSets }: SetTablePro
                         <tr key={index} className="text-center">
                             <td>Set {index + 1}</td>
                             <td>{set.reps}</td>
-                            <td>{set.weight} kg</td>
+                            <td>
+                                {set.weight} <span className="text-text-grey">kg</span>
+                            </td>
                             <td className="flex justify-center">
                                 <button
                                     className="cursor-pointer p-2"

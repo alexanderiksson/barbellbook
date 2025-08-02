@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
 import exercises from "../data/exercises.json";
 import { SetType } from "../types/workout";
-import { motion, AnimatePresence } from "framer-motion";
 
 import PageHeading from "../components/common/PageHeading";
 import { Button } from "../components/common/Buttons";
@@ -14,8 +13,9 @@ import Notice from "../components/common/Notice";
 import { AlertModal } from "../components/common/Modals";
 import Loader from "../components/common/Loader";
 import { TextInput } from "../components/common/Inputs";
+import PreviousSession from "../components/pages/AddExercise/PreviousSession";
 
-import { IoMdAdd, IoIosArrowDown } from "react-icons/io";
+import { IoMdAdd } from "react-icons/io";
 
 export default function AddExercise() {
     const navigate = useNavigate();
@@ -37,7 +37,6 @@ export default function AddExercise() {
     const [reps, setReps] = useState<number>(0);
     const [weight, setWeight] = useState<string>("");
     const [lastSessionSets, setLastSessionSets] = useState<SetType[] | null>(null);
-    const [lastSessionOpen, setLastSessionOpen] = useState(false);
 
     // Find previously logged sets
     useEffect(() => {
@@ -165,54 +164,7 @@ export default function AddExercise() {
                         </Button>
                     </section>
 
-                    {exercise && lastSessionSets && (
-                        <section className="bg-secondary border border-border/20 rounded-2xl p-4 text-sm">
-                            <div
-                                className="flex justify-between items-center cursor-pointer"
-                                onClick={() => setLastSessionOpen(!lastSessionOpen)}
-                            >
-                                <h2 className="text-text-grey text-sm">Previous session</h2>
-                                <IoIosArrowDown
-                                    size={20}
-                                    color="grey"
-                                    className={`transition-all ${
-                                        !lastSessionOpen ? "-rotate-90" : ""
-                                    }`}
-                                />
-                            </div>
-                            <AnimatePresence initial={false}>
-                                {lastSessionOpen && (
-                                    <motion.div
-                                        key="last-session-table"
-                                        initial={{ maxHeight: 0 }}
-                                        animate={{ maxHeight: 300 }}
-                                        exit={{ maxHeight: 0 }}
-                                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                                        style={{ overflow: "hidden" }}
-                                    >
-                                        <table className="w-full mt-4">
-                                            <thead>
-                                                <tr className="text-left">
-                                                    <th>Set</th>
-                                                    <th>Reps</th>
-                                                    <th>Weight</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {lastSessionSets.map((set, index) => (
-                                                    <tr key={index}>
-                                                        <td>Set {index + 1}</td>
-                                                        <td>{set.reps}</td>
-                                                        <td>{set.weight}</td>
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </section>
-                    )}
+                    {lastSessionSets && <PreviousSession sets={lastSessionSets} />}
 
                     {/* Sets table */}
                     {currentSets.length > 0 && (
