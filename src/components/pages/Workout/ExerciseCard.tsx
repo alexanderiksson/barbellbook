@@ -1,3 +1,4 @@
+import { useSettings } from "../../../context/SettingsContext";
 import { ExerciseType } from "../../../types/workout";
 
 interface ExerciseCardProps {
@@ -6,6 +7,8 @@ interface ExerciseCardProps {
 }
 
 export default function ExerciseCard({ index, exercise }: ExerciseCardProps) {
+    const { weightUnit } = useSettings();
+
     return (
         <div className="p-4 bg-secondary border border-border/20 rounded-2xl shadow-xl">
             <h2 className="text-lg font-medium mb-6 truncate">
@@ -26,7 +29,7 @@ export default function ExerciseCard({ index, exercise }: ExerciseCardProps) {
                             <td>Set {setIndex + 1}</td>
                             <td>{set.reps}</td>
                             <td>
-                                {set.weight} <span className="text-text-grey">kg</span>
+                                {set.weight} <span className="text-text-grey">{weightUnit}</span>
                             </td>
                         </tr>
                     ))}

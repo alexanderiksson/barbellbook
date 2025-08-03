@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useSettings } from "../../../context/SettingsContext";
 import { SetType } from "../../../types/workout";
+
 import { ConfirmModal } from "../../common/Modals";
 import { MdDeleteForever } from "react-icons/md";
 
@@ -9,6 +11,8 @@ interface SetTableProps {
 }
 
 export default function SetTable({ currentSets, removeCurrentSets }: SetTableProps) {
+    const { weightUnit } = useSettings();
+
     // Manage modal state
     const [isModalOpen, setIsModalOpen] = useState(false);
     const openModal = () => setIsModalOpen(true);
@@ -42,7 +46,7 @@ export default function SetTable({ currentSets, removeCurrentSets }: SetTablePro
                             <td>Set {index + 1}</td>
                             <td>{set.reps}</td>
                             <td>
-                                {set.weight} <span className="text-text-grey">kg</span>
+                                {set.weight} <span className="text-text-grey">{weightUnit}</span>
                             </td>
                             <td className="flex justify-center">
                                 <button

@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
+import { useSettings } from "../context/SettingsContext";
 import { WorkoutType } from "../types/workout";
 
 import PageHeading from "../components/common/PageHeading";
@@ -12,6 +13,7 @@ import exercisesData from "../data/exercises.json";
 export default function WorkoutStats() {
     const { id } = useParams<{ id: string }>();
     const { workouts } = useWorkout();
+    const { weightUnit } = useSettings();
 
     const workout: WorkoutType | undefined = useMemo(() => {
         const workoutId = parseInt(id || "", 10);
@@ -91,7 +93,7 @@ export default function WorkoutStats() {
                     <StatCard label="Exercises" data={workout.exercises.length} />
                     <StatCard label="Total sets" data={totalSets} />
                     <StatCard label="Total reps" data={totalReps} />
-                    <StatCard label="Weight lifted" data={totalWeight} suffix="kg" />
+                    <StatCard label="Weight lifted" data={totalWeight} suffix={weightUnit} />
                 </section>
 
                 <section className="bg-secondary p-4 rounded-2xl border border-border/20">

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSettings } from "../../../context/SettingsContext";
 import { ExerciseType } from "../../../types/workout";
 import { ConfirmModal } from "../../common/Modals";
 import { MdDeleteForever } from "react-icons/md";
@@ -10,6 +11,8 @@ interface ExerciseCardProps {
 }
 
 export default function ExerciseCard({ exercise, index, removeExercise }: ExerciseCardProps) {
+    const { weightUnit } = useSettings();
+
     // Manage modal state
     const [isModalOpen, setIsModalOpen] = useState(false);
     const openModal = () => setIsModalOpen(true);
@@ -64,7 +67,8 @@ export default function ExerciseCard({ exercise, index, removeExercise }: Exerci
                                 <td>Set {setIndex + 1}</td>
                                 <td>{set.reps}</td>
                                 <td>
-                                    {set.weight} <span className="text-text-grey">kg</span>
+                                    {set.weight}{" "}
+                                    <span className="text-text-grey">{weightUnit}</span>
                                 </td>
                             </tr>
                         ))}

@@ -1,18 +1,20 @@
-import { useRef, useState } from "react";
+import { useState, useRef } from "react";
 import { useWorkout } from "../context/WorkoutContext";
+import { useSettings } from "../context/SettingsContext";
 import { WorkoutType } from "../types/workout";
 
 import PageHeading from "../components/common/PageHeading";
+import { Select } from "../components/common/Inputs";
 import { Button } from "../components/common/Buttons";
-import BackButton from "../components/common/BackButton";
 import Notice from "../components/common/Notice";
 import { ConfirmModal } from "../components/common/Modals";
 
 import { TbFileExport, TbFileImport } from "react-icons/tb";
 import { MdOutlineDangerous } from "react-icons/md";
 
-export default function ExportData() {
+export default function Settings() {
     const { workouts, addWorkout, clearWorkouts } = useWorkout();
+    const { weightUnit, setWeightUnit } = useSettings();
 
     // Manage ConfirmModal state
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
@@ -91,28 +93,43 @@ export default function ExportData() {
                     registerTrigger={(trigger) => (noticeTriggerRef.current = trigger)}
                 />
 
-                <BackButton to="/history" label="Workout history" />
-                <PageHeading>Export data</PageHeading>
+                <PageHeading>Settings</PageHeading>
 
-                <div className="flex gap-4 mt-8 flex-wrap">
-                    <Button onClick={handleExport} variant="blue">
-                        <TbFileExport size={20} /> Export workouts
-                    </Button>
-                    <Button onClick={handleImport}>
-                        <TbFileImport size={20} /> Import workouts
-                    </Button>
-                    <Button
-                        variant="danger"
-                        onClick={() => {
-                            if (confirm("Clear data?")) {
-                                clearWorkouts();
-                            }
-                        }}
-                    >
-                        <MdOutlineDangerous size={20} />
-                        Clear data
-                    </Button>
-                </div>
+                <section className="mt-8 flex flex-col gap-4">
+                    <div className="flex flex-col gap-2">
+                        <label className="text-sm">Weight unit</label>
+                        <Select
+                            value={weightUnit}
+                            onChange={(e) => setWeightUnit(e.target.value as "kg" | "lb")}
+                        >
+                            <option value="kg">kg</option>
+                            <option value="lb">lb</option>
+                        </Select>
+                    </div>
+
+                    <div className="p-4 bg-secondary rounded-2xl border border-border/20">
+                        <h2 className="mb-6 text-text-grey text-sm">Your data</h2>
+                        <div className="flex gap-4 flex-wrap">
+                            <Button onClick={handleExport} variant="blue">
+                                <TbFileExport size={20} /> Export workouts
+                            </Button>
+                            <Button onClick={handleImport}>
+                                <TbFileImport size={20} /> Import workouts
+                            </Button>
+                            <Button
+                                variant="danger"
+                                onClick={() => {
+                                    if (confirm("Clear data?")) {
+                                        clearWorkouts();
+                                    }
+                                }}
+                            >
+                                <MdOutlineDangerous size={20} />
+                                Clear data
+                            </Button>
+                        </div>
+                    </div>
+                </section>
             </div>
         </>
     );

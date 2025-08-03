@@ -1,6 +1,7 @@
+import { useState } from "react";
+import { useSettings } from "../../../context/SettingsContext";
 import { SetType } from "../../../types/workout";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 
 interface PreviousSessionProps {
@@ -8,6 +9,8 @@ interface PreviousSessionProps {
 }
 
 export default function PreviousSession({ sets }: PreviousSessionProps) {
+    const { weightUnit } = useSettings();
+
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -47,7 +50,8 @@ export default function PreviousSession({ sets }: PreviousSessionProps) {
                                         <td>Set {index + 1}</td>
                                         <td>{set.reps}</td>
                                         <td>
-                                            {set.weight} <span className="text-text-grey">kg</span>
+                                            {set.weight}{" "}
+                                            <span className="text-text-grey">{weightUnit}</span>
                                         </td>
                                     </tr>
                                 ))}
