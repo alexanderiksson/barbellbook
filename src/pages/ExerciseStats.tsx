@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
+import { useSettings } from "../context/SettingsContext";
 import exercisesData from "../data/exercises.json";
 
 import PageHeading from "../components/common/PageHeading";
@@ -11,6 +12,7 @@ import { Select } from "../components/common/Inputs";
 export default function ExerciseStats() {
     const { id } = useParams<{ id: string }>();
     const { workouts } = useWorkout();
+    const { weightUnit } = useSettings();
 
     // Find the exercise from the param
     const exercise = useMemo(() => {
@@ -104,7 +106,7 @@ export default function ExerciseStats() {
             });
 
             const maxOneRepMax = Math.max(...oneRepMaxes);
-            return `${Math.round(maxOneRepMax * 10) / 10} kg`;
+            return `${Math.round(maxOneRepMax * 10) / 10} ${weightUnit}`;
         };
     }, [filteredData]);
 
@@ -125,7 +127,9 @@ export default function ExerciseStats() {
             <section className="grid grid-cols-2 gap-4 mb-4">
                 <div className="bg-secondary p-4 rounded-2xl border border-border/20 flex flex-col items-center text-center gap-1">
                     <h2 className="text-text-grey text-sm">Personal best</h2>
-                    <span>{Math.max(...filteredData.map((item) => item.Weight))} kg</span>
+                    <span>
+                        {Math.max(...filteredData.map((item) => item.Weight))} {weightUnit}
+                    </span>
                 </div>
                 <div className="bg-secondary p-4 rounded-2xl border border-border/20 flex flex-col items-center text-center gap-1">
                     <h2 className="text-text-grey text-sm">Estimated 1RM *</h2>
@@ -136,7 +140,7 @@ export default function ExerciseStats() {
             <section className="grid grid-cols-1 gap-4 mb-8">
                 <div className="bg-secondary p-4 rounded-2xl border border-border/20">
                     <div className="flex justify-between items-center gap-x-4 gap-y-2 flex-wrap mb-6">
-                        <h2 className="text-text-grey text-sm">Weight progress (kg)</h2>
+                        <h2 className="text-text-grey text-sm">Weight progress ({weightUnit})</h2>
                         <span className="text-text-grey text-sm">
                             {filteredData.length} sessions
                         </span>

@@ -1,9 +1,13 @@
+import { useSettings } from "../../../context/SettingsContext";
+
 interface WeightInputProps {
     weight: string;
     setWeight: (value: string) => void;
 }
 
 export default function WeightInput({ weight, setWeight }: WeightInputProps) {
+    const { weightUnit } = useSettings();
+
     return (
         <div className="flex flex-col justify-center items-center gap-4">
             <h2>Weight</h2>
@@ -18,7 +22,7 @@ export default function WeightInput({ weight, setWeight }: WeightInputProps) {
                     min={0}
                     max={9999}
                 />
-                <span className="absolute right-2 top-3 text-text-grey">kg</span>
+                <span className="absolute right-2 top-3 text-text-grey">{weightUnit}</span>
             </div>
         </div>
     );

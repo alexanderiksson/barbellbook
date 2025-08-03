@@ -5,11 +5,8 @@ import { WorkoutType } from "../types/workout";
 import PageHeading from "../components/common/PageHeading";
 import WorkoutCard from "../components/pages/History/WorkoutCard";
 import Loader from "../components/common/Loader";
-import MenuButton from "../components/common/MenuButton";
-import Menu from "../components/common/Menu";
 import { Select } from "../components/common/Inputs";
 
-import { TbFileExport } from "react-icons/tb";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 interface FilteredWorkouts extends WorkoutType {
@@ -18,9 +15,6 @@ interface FilteredWorkouts extends WorkoutType {
 
 export default function History() {
     const [loading, setLoading] = useState<boolean>(true);
-
-    const [isOpen, setIsOpen] = useState<boolean>(false);
-    const closeMenu = () => setIsOpen(false);
 
     const { workouts } = useWorkout();
     const [initialWorkouts, setInitialWorkouts] = useState<FilteredWorkouts[]>([]);
@@ -64,31 +58,7 @@ export default function History() {
 
     return (
         <div className="content relative flex flex-col flex-1">
-            <div className="flex justify-between mb-6">
-                <PageHeading>Workout history</PageHeading>
-                <div className="flex relative shrink-0">
-                    <MenuButton onClick={() => setIsOpen((isOpen) => !isOpen)} />
-                    {isOpen && (
-                        <div
-                            className="fixed inset-0 z-10 bg-black/50 backdrop-blur-xs"
-                            onClick={() => setIsOpen(false)}
-                        ></div>
-                    )}
-
-                    <Menu
-                        isOpen={isOpen}
-                        closeMenu={closeMenu}
-                        menuItems={[
-                            {
-                                type: "link",
-                                label: "Export data",
-                                icon: TbFileExport,
-                                to: "/export",
-                            },
-                        ]}
-                    />
-                </div>
-            </div>
+            <PageHeading>Workout history</PageHeading>
 
             {workouts.length === 0 ? (
                 <p className="text-text-grey">No workouts found.</p>
