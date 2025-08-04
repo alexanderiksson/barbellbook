@@ -30,6 +30,7 @@ const handleVariant = (variant: string) => {
     return color;
 };
 
+// Link button
 export function LinkButton({ children, to, variant = "neutral", className = "" }: LinkButtonProps) {
     return (
         <Link to={to} className={`${handleVariant(variant)} button ${className}`} role="button">
@@ -38,6 +39,7 @@ export function LinkButton({ children, to, variant = "neutral", className = "" }
     );
 }
 
+// Regular button
 export function Button({ children, variant = "neutral", className = "", onClick }: ButtonProps) {
     return (
         <button

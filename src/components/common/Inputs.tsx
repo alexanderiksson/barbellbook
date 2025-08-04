@@ -13,6 +13,7 @@ interface TextInputProps {
     value: any;
 }
 
+// Select input
 export function Select({ onChange, value, children }: SelectProps) {
     return (
         <div className="relative mb-4 w-full">
@@ -34,6 +35,7 @@ export function Select({ onChange, value, children }: SelectProps) {
     );
 }
 
+// Text input
 export function TextInput({ placeholder, value, onChange }: TextInputProps) {
     return (
         <input

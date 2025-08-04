@@ -28,6 +28,7 @@ export default function Workout() {
     const openPromptModal = () => setIsPromptModalOpen(true);
     const closePromptModal = () => setIsPromptModalOpen(false);
 
+    // Show loader if loading
     if (loading) {
         return <Loader />;
     }

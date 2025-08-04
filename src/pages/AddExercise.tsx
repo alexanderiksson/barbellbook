@@ -31,7 +31,6 @@ export default function AddExercise() {
     } = useWorkout();
 
     const [nameListOpen, setNameListOpen] = useState(false);
-
     const [search, setSearch] = useState<string>("");
     const [exercise, setExercise] = useState<{ id: number; name: string }>();
     const [reps, setReps] = useState<number>(0);
@@ -70,6 +69,7 @@ export default function AddExercise() {
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
 
+    // Show loader if loading
     if (loading) {
         return <Loader />;
     }

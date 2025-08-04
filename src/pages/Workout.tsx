@@ -54,16 +54,19 @@ export default function WorkoutPage() {
     const openLogModal = () => setIsLogModalOpen(true);
     const closeLogModal = () => setIsLogModalOpen(false);
 
+    // Disable loader when the workout are found
     useEffect(() => {
-        if (workouts) {
+        if (workout) {
             setLoading(false);
         }
     }, [workouts]);
 
+    // Show loader if loading
     if (loading) {
         return <Loader />;
     }
 
+    // Show error if no workout is found
     if (!workout) {
         return <Error msg="Workout not found" />;
     }
