@@ -94,8 +94,13 @@ export default function Stats() {
             }));
     }, [workouts, selectedYear]);
 
+    //
+    //
     // Calculate average set duration * NOT FINISHED *
     const avgSetDuration = useMemo(() => {}, [workouts, selectedYear]);
+    //
+    //
+    //
 
     return (
         <div className="content">
