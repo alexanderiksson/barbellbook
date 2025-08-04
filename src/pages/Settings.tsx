@@ -24,8 +24,22 @@ export default function Settings() {
     // Trigger to show notice
     const noticeTriggerRef = useRef<() => void | null>(null);
 
+    // Save imported data function
     const [importedWorkouts, setImportedWorkouts] = useState<WorkoutType[] | null>(null);
+    const importData = () => {
+        if (importedWorkouts && Array.isArray(importedWorkouts)) {
+            importedWorkouts.forEach((workout) => addWorkout(workout));
 
+            // Trigger the notice
+            if (noticeTriggerRef.current) {
+                noticeTriggerRef.current();
+            }
+        } else {
+            console.error("Invalid file format");
+        }
+    };
+
+    // Handle data export
     const handleExport = (): void => {
         const data: string = JSON.stringify(workouts);
         const blob = new Blob([data], { type: "application/json" });
@@ -39,6 +53,7 @@ export default function Settings() {
         URL.revokeObjectURL(url);
     };
 
+    // Handle data import
     const handleImport = (): void => {
         const input = document.createElement("input");
         input.type = "file";
@@ -59,19 +74,6 @@ export default function Settings() {
         };
 
         input.click();
-    };
-
-    const importData = () => {
-        if (importedWorkouts && Array.isArray(importedWorkouts)) {
-            importedWorkouts.forEach((workout) => addWorkout(workout));
-
-            // Trigger the notice
-            if (noticeTriggerRef.current) {
-                noticeTriggerRef.current();
-            }
-        } else {
-            console.error("Invalid file format");
-        }
     };
 
     return (
@@ -111,10 +113,10 @@ export default function Settings() {
                         <h2 className="mb-6 text-text-grey text-sm">Your data</h2>
                         <div className="flex gap-4 flex-wrap">
                             <Button onClick={handleExport} variant="blue">
-                                <TbFileExport size={20} /> Export workouts
+                                <TbFileExport size={20} /> Export data
                             </Button>
                             <Button onClick={handleImport}>
-                                <TbFileImport size={20} /> Import workouts
+                                <TbFileImport size={20} /> Import data
                             </Button>
                             <Button
                                 variant="danger"

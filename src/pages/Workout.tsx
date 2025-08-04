@@ -14,7 +14,7 @@ import MenuButton from "../components/common/MenuButton";
 import Menu from "../components/common/Menu";
 
 import GymIcon from "../assets/icons/GymIcon";
-import { IoIosStats, IoIosList, IoIosCalendar } from "react-icons/io";
+import { IoIosStats, IoIosList } from "react-icons/io";
 import { BiSolidEditAlt } from "react-icons/bi";
 import { MdDeleteForever } from "react-icons/md";
 
@@ -36,6 +36,26 @@ export default function WorkoutPage() {
     const workoutName = workout?.name || "Workout";
     const workoutLog = workout?.log;
 
+    // Find workout time
+    const workoutTime = (): string | null => {
+        const firstSet = workout?.exercises[0]?.sets?.[0];
+        const lastExercise = workout?.exercises[workout.exercises.length - 1];
+        const lastSet = lastExercise?.sets?.[lastExercise.sets.length - 1];
+
+        const rawStartTime = firstSet?.time;
+        const rawEndTime = lastSet?.time;
+
+        if (!rawStartTime || !rawEndTime) return null;
+
+        const formatTime = (time: string) => {
+            const [hourStr, minuteStr] = time.split(":");
+            const formattedTime = `${hourStr.padStart(2, "0")}:${minuteStr.padStart(2, "0")}`;
+            return formattedTime;
+        };
+
+        return `${formatTime(rawStartTime)} - ${formatTime(rawEndTime)}`;
+    };
+
     // Trigger to show notice
     const noticeTriggerRef = useRef<() => void | null>(null);
 
@@ -54,16 +74,19 @@ export default function WorkoutPage() {
     const openLogModal = () => setIsLogModalOpen(true);
     const closeLogModal = () => setIsLogModalOpen(false);
 
+    // Disable loader when the workout are found
     useEffect(() => {
-        if (workouts) {
+        if (workout) {
             setLoading(false);
         }
     }, [workouts]);
 
+    // Show loader if loading
     if (loading) {
         return <Loader />;
     }
 
+    // Show error if no workout is found
     if (!workout) {
         return <Error msg="Workout not found" />;
     }
@@ -128,19 +151,21 @@ export default function WorkoutPage() {
 
                 <div className="flex justify-between items-center mb-4 gap-2">
                     <div className="flex items-center justify-center gap-2 shrink overflow-hidden">
-                        <div className="bg-accent-bright/10 flex justify-center items-center rounded-full flex-shrink-0 aspect-square w-14">
+                        <div className="bg-accent-bright/10 flex justify-center items-center rounded-full flex-shrink-0 aspect-square w-16">
                             <GymIcon
-                                size="28px"
+                                size="32px"
                                 color={getComputedStyle(document.documentElement).getPropertyValue(
                                     "--color-accent-bright"
                                 )}
                             />
                         </div>
-                        <div className="flex flex-col gap-1 overflow-hidden">
+                        <div className="flex flex-col overflow-hidden">
                             <h1 className="text-xl font-semibold truncate">{workoutName}</h1>
-                            <span className="text-sm text-text-grey truncate flex items-center gap-1">
-                                <IoIosCalendar size={14} />
-                                {dateConverter(workout.date)}
+                            <span className="text-text-grey flex flex-col">
+                                <span className="text-sm truncate">
+                                    {dateConverter(workout.date)}
+                                </span>
+                                <span className="text-xs truncate">{workoutTime()}</span>
                             </span>
                         </div>
                     </div>

@@ -25,6 +25,7 @@ interface LogModalProps extends ModalProps {
     onSubmit: (...args: any[]) => void;
 }
 
+// Alert modal
 export function AlertModal({ text, buttonText = "Close", isOpen, onClose }: ModalProps) {
     if (!isOpen) return null;
 
@@ -40,6 +41,7 @@ export function AlertModal({ text, buttonText = "Close", isOpen, onClose }: Moda
     );
 }
 
+// Confirm modal
 export function ConfirmModal({
     text,
     buttonText = "Ok",
@@ -83,6 +85,7 @@ export function ConfirmModal({
     );
 }
 
+// Prompt modal
 export function PromptModal({
     text,
     buttonText = "Ok",
@@ -139,6 +142,7 @@ export function PromptModal({
     );
 }
 
+// Log modal
 export function LogModal({ isOpen, onClose, initialValue, onSubmit }: LogModalProps) {
     const [textareaValue, setTextareaValue] = useState("");
 
