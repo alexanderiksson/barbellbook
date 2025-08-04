@@ -13,7 +13,7 @@ export default function WeightInput({ weight, setWeight }: WeightInputProps) {
             <h2>Weight</h2>
             <div className="relative">
                 <input
-                    className="bg-secondary-bright p-2 h-12 rounded-xl w-20 border border-border/20 pr-7 no-spinner"
+                    className="bg-secondary-bright p-2 h-12 rounded-xl w-20 lg:w-24 border border-border/20 pr-7 no-spinner"
                     type="number"
                     inputMode="decimal"
                     onChange={(e) => setWeight(e.target.value)}

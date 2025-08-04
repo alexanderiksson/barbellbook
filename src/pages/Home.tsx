@@ -82,7 +82,7 @@ export default function Workout() {
 
                 <PageHeading>
                     Today's Workout
-                    <span className="text-base font-normal block text-text-grey mt-2">
+                    <span className="text-base lg:text-lg font-normal block text-text-grey mt-2">
                         {new Date().toLocaleDateString("en-US", {
                             weekday: "long",
                             month: "long",

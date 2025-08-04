@@ -45,7 +45,7 @@ export default function Navigation() {
         >
             <ul
                 className="flex justify-around items-center px-4 flex-row h-full
-            lg:flex-col lg:justify-start lg:items-start lg:space-y-20 lg:space-x-0 lg:h-auto"
+            lg:flex-col lg:justify-start lg:items-start lg:space-y-16 lg:space-x-0 lg:h-auto"
             >
                 <li>
                     <Tab to="/" label="Start" Icon={IoIosHome} />

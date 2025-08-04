@@ -160,8 +160,10 @@ export default function WorkoutPage() {
                             />
                         </div>
                         <div className="flex flex-col overflow-hidden">
-                            <h1 className="text-xl font-semibold truncate">{workoutName}</h1>
-                            <span className="text-sm text-text-grey flex flex-col">
+                            <h1 className="text-xl lg:text-2xl font-semibold truncate">
+                                {workoutName}
+                            </h1>
+                            <span className="text-sm lg:text-base text-text-grey flex flex-col lg:flex-row lg:gap-2">
                                 <span className="truncate">{dateConverter(workout.date)}</span>
                                 <span className="truncate">{workoutTime()}</span>
                             </span>
