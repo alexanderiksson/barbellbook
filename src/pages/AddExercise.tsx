@@ -151,6 +151,7 @@ export default function AddExercise() {
                                     saveCurrentSets({
                                         reps: reps,
                                         weight: weight,
+                                        time: new Date().toLocaleTimeString(),
                                     });
 
                                     // Trigger the notice
