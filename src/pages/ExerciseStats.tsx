@@ -8,6 +8,7 @@ import PageHeading from "../components/common/PageHeading";
 import BackButton from "../components/common/BackButton";
 import Chart from "../components/pages/Stats/LineChart";
 import { Select } from "../components/common/Inputs";
+import Error from "../components/common/Error";
 
 export default function ExerciseStats() {
     const { id } = useParams<{ id: string }>();
@@ -30,7 +31,7 @@ export default function ExerciseStats() {
             .flatMap((workout) => workout.exercises)
             .find((ex) => ex.name.toLowerCase() === id?.toLowerCase());
 
-        return userExercise ? userExercise.name : "Unknown Exercise";
+        return userExercise ? userExercise.name : null;
     }, [id, workouts]);
 
     // Find logged data from the exercise
@@ -109,6 +110,8 @@ export default function ExerciseStats() {
             return `${Math.round(maxOneRepMax * 10) / 10} ${weightUnit}`;
         };
     }, [filteredData]);
+
+    if (!exercise) return <Error msg="Exercise not found" />;
 
     return (
         <div className="content">

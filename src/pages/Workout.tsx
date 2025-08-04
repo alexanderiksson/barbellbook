@@ -151,9 +151,9 @@ export default function WorkoutPage() {
 
                 <div className="flex justify-between items-center mb-4 gap-2">
                     <div className="flex items-center justify-center gap-2 shrink overflow-hidden">
-                        <div className="bg-accent-bright/10 flex justify-center items-center rounded-full flex-shrink-0 aspect-square w-16">
+                        <div className="bg-accent-bright/10 flex justify-center items-center rounded-full flex-shrink-0 aspect-square w-14">
                             <GymIcon
-                                size="32px"
+                                size="28px"
                                 color={getComputedStyle(document.documentElement).getPropertyValue(
                                     "--color-accent-bright"
                                 )}
@@ -161,11 +161,9 @@ export default function WorkoutPage() {
                         </div>
                         <div className="flex flex-col overflow-hidden">
                             <h1 className="text-xl font-semibold truncate">{workoutName}</h1>
-                            <span className="text-text-grey flex flex-col">
-                                <span className="text-sm truncate">
-                                    {dateConverter(workout.date)}
-                                </span>
-                                <span className="text-xs truncate">{workoutTime()}</span>
+                            <span className="text-sm text-text-grey flex flex-col">
+                                <span className="truncate">{dateConverter(workout.date)}</span>
+                                <span className="truncate">{workoutTime()}</span>
                             </span>
                         </div>
                     </div>

@@ -94,6 +94,14 @@ export default function Stats() {
             }));
     }, [workouts, selectedYear]);
 
+    //
+    //
+    // Calculate average set duration * NOT FINISHED *
+    const avgSetDuration = useMemo(() => {}, [workouts, selectedYear]);
+    //
+    //
+    //
+
     return (
         <div className="content">
             <PageHeading>Your stats</PageHeading>
@@ -173,6 +181,18 @@ export default function Stats() {
                                 {showAllExercises ? "Show less" : "Show all"}
                             </Button>
                         </div>
+
+                        {/* <section className="grid grid-cols-2 gap-4 mb-4">
+                            <div className="bg-secondary p-4 rounded-2xl border border-border/20 flex flex-col items-center text-center gap-1">
+                                <h2 className="text-text-grey text-sm">Avg. set duration</h2>
+                                <span></span>
+                            </div>
+
+                            <div className="bg-secondary p-4 rounded-2xl border border-border/20 flex flex-col items-center text-center gap-1">
+                                <h2 className="text-text-grey text-sm">Avg. rest time</h2>
+                                <span></span>
+                            </div>
+                        </section> */}
                     </section>
                 </>
             )}
