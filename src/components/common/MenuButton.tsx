@@ -8,7 +8,7 @@ export default function MenuButton({ onClick }: { onClick: () => void }) {
             aria-label="Open menu"
             title="Open menu"
         >
-            <HiDotsVertical size={20} />
+            <HiDotsVertical size={18} />
         </button>
     );
 }
