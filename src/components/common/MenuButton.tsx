@@ -1,4 +1,4 @@
-import { HiDotsVertical } from "react-icons/hi";
+import { IoIosMore } from "react-icons/io";
 
 export default function MenuButton({ onClick }: { onClick: () => void }) {
     return (
@@ -8,7 +8,7 @@ export default function MenuButton({ onClick }: { onClick: () => void }) {
             aria-label="Open menu"
             title="Open menu"
         >
-            <HiDotsVertical size={18} />
+            <IoIosMore size={20} />
         </button>
     );
 }
