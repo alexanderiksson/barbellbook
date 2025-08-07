@@ -10,7 +10,7 @@ import Loader from "../components/common/Loader";
 
 import { IoMdAdd, IoMdCheckmark } from "react-icons/io";
 
-export default function Workout() {
+export default function Home() {
     const [loading, setLoading] = useState<boolean>(false);
 
     const { exercises, removeExercise, clearExercises, addWorkout } = useWorkout();
