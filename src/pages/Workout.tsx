@@ -12,9 +12,10 @@ import { ConfirmModal, PromptModal, LogModal } from "../components/common/Modals
 import ExerciseCard from "../components/pages/Workout/ExerciseCard";
 import MenuButton from "../components/common/MenuButton";
 import Menu from "../components/common/Menu";
+import Stats from "../components/pages/Workout/Stats";
 
 import GymIcon from "../assets/icons/GymIcon";
-import { IoIosStats, IoIosList } from "react-icons/io";
+import { IoIosList } from "react-icons/io";
 import { BiSolidEditAlt } from "react-icons/bi";
 import { MdDeleteForever } from "react-icons/md";
 
@@ -149,7 +150,7 @@ export default function WorkoutPage() {
 
                 <BackButton to="/history" label="Workout history" />
 
-                <div className="flex justify-between items-center mb-4 gap-2">
+                <div className="flex justify-between items-center mb-6 gap-2">
                     <div className="flex items-center justify-center gap-2 shrink overflow-hidden">
                         <div className="bg-accent-bright/10 flex justify-center items-center rounded-full flex-shrink-0 aspect-square w-14">
                             <GymIcon
@@ -191,12 +192,6 @@ export default function WorkoutPage() {
                                     onClick: openLogModal,
                                 },
                                 {
-                                    type: "link",
-                                    label: "Stats",
-                                    icon: IoIosStats,
-                                    to: `/history/${id}/stats`,
-                                },
-                                {
                                     type: "function",
                                     label: "Edit name",
                                     icon: BiSolidEditAlt,
@@ -214,7 +209,11 @@ export default function WorkoutPage() {
                     </div>
                 </div>
 
-                <section className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-8">
+                <section id="details">
+                    <Stats id={id} />
+                </section>
+
+                <section className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4" id="exercises">
                     {workout.exercises.map((exercise, index) => (
                         <ExerciseCard key={index} index={index + 1} exercise={exercise} />
                     ))}
