@@ -10,7 +10,7 @@ export default function Stats({ id }: { id: string | undefined }) {
     const { workouts } = useWorkout();
     const { weightUnit } = useSettings();
 
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(true);
 
     const workout: WorkoutType | undefined = useMemo(() => {
         const workoutId = parseInt(id || "", 10);
@@ -83,7 +83,7 @@ export default function Stats({ id }: { id: string | undefined }) {
                 className="flex justify-between items-center cursor-pointer"
                 onClick={() => setIsOpen(!isOpen)}
             >
-                <h2 className="text-sm text-text-grey">Workout details</h2>
+                <h2 className="text-text-grey">Workout details</h2>
                 <IoIosArrowDown
                     size={20}
                     color="grey"
@@ -99,9 +99,10 @@ export default function Stats({ id }: { id: string | undefined }) {
                         exit={{ maxHeight: 0 }}
                         transition={{ duration: 0.3, ease: "easeInOut" }}
                         style={{ overflow: "hidden" }}
+                        className="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-8"
                     >
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-8 mb-8">
-                            <div className="flex flex-col justify-center">
+                        <div className="grid grid-cols-2 gap-2">
+                            <div>
                                 <h3 className="text-text-grey text-sm">Total sets</h3>
                                 <span>{totalSets}</span>
                             </div>

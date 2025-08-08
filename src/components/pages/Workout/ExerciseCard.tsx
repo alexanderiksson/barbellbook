@@ -11,13 +11,13 @@ export default function ExerciseCard({ index, exercise }: ExerciseCardProps) {
 
     return (
         <div className="p-4 lg:px-6 bg-secondary border border-border/20 rounded-2xl shadow-xl">
-            <h2 className="text-lg font-medium mb-6 truncate">
+            <h2 className="font-medium mb-4 truncate">
                 <span className="mr-2 text-text-grey">#{index}</span>
                 {exercise.name}
             </h2>
             <table className="w-full">
                 <thead>
-                    <tr className="text-left">
+                    <tr className="text-left text-sm">
                         <th>Set</th>
                         <th>Reps</th>
                         <th>Weight</th>

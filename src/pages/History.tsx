@@ -73,7 +73,7 @@ export default function History() {
                         <option value="old">Sort by: Oldest</option>
                     </Select>
 
-                    <section className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                    <section className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         {paginatedWorkouts.map((workout, index) => (
                             <WorkoutCard key={index} workout={workout} />
                         ))}

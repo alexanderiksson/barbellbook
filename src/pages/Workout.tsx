@@ -213,10 +213,12 @@ export default function WorkoutPage() {
                     <Stats id={id} />
                 </section>
 
-                <section className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4" id="exercises">
-                    {workout.exercises.map((exercise, index) => (
-                        <ExerciseCard key={index} index={index + 1} exercise={exercise} />
-                    ))}
+                <section className="mt-8" id="exercises">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {workout.exercises.map((exercise, index) => (
+                            <ExerciseCard key={index} index={index + 1} exercise={exercise} />
+                        ))}
+                    </div>
                 </section>
             </div>
         </>

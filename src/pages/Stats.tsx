@@ -110,7 +110,7 @@ export default function Stats() {
                         ))}
                     </Select>
 
-                    <section className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+                    <section className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                         <div className="bg-secondary p-4 rounded-2xl border border-border/20">
                             <h2 className="mb-6 text-text-grey text-sm">Workouts</h2>
                             <Chart data={sessions} label="Sessions" />
@@ -153,7 +153,7 @@ export default function Stats() {
                                 {(showAllExercises ? allExercises : allExercises.slice(0, 3)).map(
                                     (exercise, index) => (
                                         <Link key={index} to={`/stats/exercise/${exercise.id}`}>
-                                            <div className="flex justify-between items-center gap-4 py-3 px-4 bg-secondary-bright rounded-full border border-border/20">
+                                            <div className="flex justify-between items-center gap-4 p-3 bg-secondary-bright rounded-xl border border-border/20">
                                                 <h3 className="truncate">
                                                     <span className="text-text-grey mr-2">
                                                         {index + 1}.
