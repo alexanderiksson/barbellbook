@@ -10,7 +10,7 @@ export default function ExerciseCard({ index, exercise }: ExerciseCardProps) {
     const { weightUnit } = useSettings();
 
     return (
-        <div className="p-4 bg-secondary border border-border/20 rounded-2xl shadow-xl">
+        <div className="p-4 lg:px-6 bg-secondary border border-border/20 rounded-2xl shadow-xl">
             <h2 className="text-lg font-medium mb-6 truncate">
                 <span className="mr-2 text-text-grey">#{index}</span>
                 {exercise.name}

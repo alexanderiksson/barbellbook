@@ -55,8 +55,8 @@ export function ConfirmModal({
     return (
         <div className="modal-overlay">
             <div className="modal" role="dialog" aria-modal="true">
-                <div className="w-full flex justify-between gap-2">
-                    <h2 className="font-semibold ml-1 flex gap-3">
+                <div className="w-full flex justify-between items-center gap-2">
+                    <h2 className="font-semibold ml-1 flex items-center gap-3">
                         <IoIosAlert size={40} className="translate-y-0.5" /> {text}
                     </h2>
                     <IoIosClose

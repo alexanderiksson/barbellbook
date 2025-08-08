@@ -10,7 +10,7 @@ import Loader from "../components/common/Loader";
 
 import { IoMdAdd, IoMdCheckmark } from "react-icons/io";
 
-export default function Workout() {
+export default function Home() {
     const [loading, setLoading] = useState<boolean>(false);
 
     const { exercises, removeExercise, clearExercises, addWorkout } = useWorkout();
@@ -82,7 +82,7 @@ export default function Workout() {
 
                 <PageHeading>
                     Today's Workout
-                    <span className="text-base font-normal block text-text-grey mt-2">
+                    <span className="text-base lg:text-lg font-normal block text-text-grey mt-2">
                         {new Date().toLocaleDateString("en-US", {
                             weekday: "long",
                             month: "long",

@@ -94,14 +94,6 @@ export default function Stats() {
             }));
     }, [workouts, selectedYear]);
 
-    //
-    //
-    // Calculate average set duration * NOT FINISHED *
-    const avgSetDuration = useMemo(() => {}, [workouts, selectedYear]);
-    //
-    //
-    //
-
     return (
         <div className="content">
             <PageHeading>Your stats</PageHeading>
@@ -161,7 +153,7 @@ export default function Stats() {
                                 {(showAllExercises ? allExercises : allExercises.slice(0, 3)).map(
                                     (exercise, index) => (
                                         <Link key={index} to={`/stats/exercise/${exercise.id}`}>
-                                            <div className="flex justify-between items-center gap-4 py-2 px-4 bg-secondary-bright rounded-full border border-border/20">
+                                            <div className="flex justify-between items-center gap-4 py-3 px-4 bg-secondary-bright rounded-full border border-border/20">
                                                 <h3 className="truncate">
                                                     <span className="text-text-grey mr-2">
                                                         {index + 1}.
@@ -181,18 +173,6 @@ export default function Stats() {
                                 {showAllExercises ? "Show less" : "Show all"}
                             </Button>
                         </div>
-
-                        {/* <section className="grid grid-cols-2 gap-4 mb-4">
-                            <div className="bg-secondary p-4 rounded-2xl border border-border/20 flex flex-col items-center text-center gap-1">
-                                <h2 className="text-text-grey text-sm">Avg. set duration</h2>
-                                <span></span>
-                            </div>
-
-                            <div className="bg-secondary p-4 rounded-2xl border border-border/20 flex flex-col items-center text-center gap-1">
-                                <h2 className="text-text-grey text-sm">Avg. rest time</h2>
-                                <span></span>
-                            </div>
-                        </section> */}
                     </section>
                 </>
             )}
