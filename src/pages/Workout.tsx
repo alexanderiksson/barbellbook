@@ -9,7 +9,7 @@ import Error from "../components/common/Error";
 import BackButton from "../components/common/BackButton";
 import Notice from "../components/common/Notice";
 import { ConfirmModal, PromptModal, LogModal } from "../components/common/Modals";
-import ExerciseCard from "../components/pages/Workout/ExerciseCard";
+import ExerciseCard from "../components/common/ExerciseCard";
 import MenuButton from "../components/common/MenuButton";
 import Menu from "../components/common/Menu";
 import Stats from "../components/pages/Workout/Stats";
@@ -216,7 +216,12 @@ export default function WorkoutPage() {
                 <section className="mt-8" id="exercises">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {workout.exercises.map((exercise, index) => (
-                            <ExerciseCard key={index} index={index + 1} exercise={exercise} />
+                            <ExerciseCard
+                                key={index}
+                                index={index}
+                                name={exercise.name}
+                                sets={exercise.sets}
+                            />
                         ))}
                     </div>
                 </section>

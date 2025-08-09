@@ -3,7 +3,7 @@ import { useWorkout } from "../context/WorkoutContext";
 
 import PageHeading from "../components/common/PageHeading";
 import { LinkButton, Button } from "../components/common/Buttons";
-import ExerciseCard from "../components/pages/Home/ExerciseCard";
+import ExerciseCard from "../components/common/ExerciseCard";
 import Notice from "../components/common/Notice";
 import { ConfirmModal, PromptModal } from "../components/common/Modals";
 import Loader from "../components/common/Loader";
@@ -114,9 +114,11 @@ export default function Home() {
                         {exercises.map((exercise, index) => (
                             <ExerciseCard
                                 key={index}
-                                exercise={exercise}
                                 index={index}
-                                removeExercise={removeExercise}
+                                name={exercise.name}
+                                sets={exercise.sets}
+                                canDelete
+                                onDelete={removeExercise}
                             />
                         ))}
                     </section>
