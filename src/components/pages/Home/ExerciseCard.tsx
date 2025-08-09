@@ -33,7 +33,7 @@ export default function ExerciseCard({ exercise, index, removeExercise }: Exerci
 
             <div className="p-4 bg-secondary border border-border/20 rounded-2xl shadow-xl">
                 <div className="flex items-center justify-between gap-2 mb-6">
-                    <h2 className="text-lg font-medium truncate">
+                    <h2 className="font-medium truncate">
                         <span className="mr-2 text-text-grey">#{index + 1}</span>
                         {exercise.name}
                     </h2>
@@ -53,7 +53,7 @@ export default function ExerciseCard({ exercise, index, removeExercise }: Exerci
                     </button>
                 </div>
 
-                <table className="w-full mb-4">
+                <table className="w-full mb-4 text-sm">
                     <thead>
                         <tr className="text-left">
                             <th>Set</th>
