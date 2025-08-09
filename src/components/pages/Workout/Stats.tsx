@@ -107,7 +107,44 @@ export default function Stats({ id }: { id: string | undefined }) {
         }
         const avgRestMs = totalRest / (setTimes.length - 1);
         const minutes = Math.round(avgRestMs / 60000);
-        return `${minutes} min`;
+        return minutes;
+    }, [workout]);
+
+    // Calculate workout duration
+    const workoutDuration = useMemo(() => {
+        const setTimes: number[] = [];
+        for (const exercise of workout.exercises) {
+            for (const set of exercise.sets) {
+                if (!set.time) {
+                    return null;
+                }
+                let t = Date.parse(set.time);
+                if (isNaN(t)) {
+                    const parts = set.time.split(":");
+                    if (parts.length === 3) {
+                        const now = new Date();
+                        now.setHours(Number(parts[0]), Number(parts[1]), Number(parts[2]), 0);
+                        t = now.getTime();
+                    } else {
+                        return null;
+                    }
+                }
+                setTimes.push(t);
+            }
+        }
+        if (setTimes.length < 2) return null;
+        setTimes.sort((a, b) => a - b);
+        const durationMs = setTimes[setTimes.length - 1] - setTimes[0];
+        const minutes = Math.round(durationMs / 60000);
+        return minutes;
+    }, [workout]);
+
+    // Calculate average exercise duration
+    const averageExerciseDuration = useMemo(() => {
+        if (!workoutDuration) return null;
+
+        const averageDuration = workoutDuration / workout.exercises.length;
+        return averageDuration;
     }, [workout]);
 
     return (
@@ -136,27 +173,44 @@ export default function Stats({ id }: { id: string | undefined }) {
                     >
                         <div className="grid grid-cols-2 gap-2">
                             <div>
+                                <h3 className="text-text-grey text-sm">Duration</h3>
+                                <span>{workoutDuration ? `${workoutDuration} min` : "-"}</span>
+                            </div>
+
+                            <div>
                                 <h3 className="text-text-grey text-sm">Total sets</h3>
                                 <span>{totalSets}</span>
                             </div>
+
                             <div>
                                 <h3 className="text-text-grey text-sm">Total reps</h3>
                                 <span>{totalReps}</span>
                             </div>
-                            <div>
-                                <h3 className="text-text-grey text-sm">Avg. rest time</h3>
-                                <span>{averageRestTime ?? "-"}</span>
-                            </div>
+
                             <div>
                                 <h3 className="text-text-grey text-sm">Total weight</h3>
                                 <span>
                                     {totalWeight} <span>{weightUnit}</span>
                                 </span>
                             </div>
+
+                            <div>
+                                <h3 className="text-text-grey text-sm">Avg. rest</h3>
+                                <span>{averageRestTime ? `${averageRestTime} min` : "-"}</span>
+                            </div>
+
+                            <div>
+                                <h3 className="text-text-grey text-sm">Avg. time/exercise</h3>
+                                <span>
+                                    {averageExerciseDuration
+                                        ? `${averageExerciseDuration} min`
+                                        : "-"}
+                                </span>
+                            </div>
                         </div>
 
                         <div>
-                            <h3 className="text-text-grey text-sm mb-1">Body-parts trained</h3>
+                            <h3 className="text-text-grey text-sm mb-1">Body-parts</h3>
                             <div className="flex flex-col divide-y divide-border/50">
                                 {bodyPartsTrained.map(({ part, percent }, index) => (
                                     <div

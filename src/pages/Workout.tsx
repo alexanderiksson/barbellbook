@@ -164,7 +164,7 @@ export default function WorkoutPage() {
                             <h1 className="text-xl lg:text-2xl font-semibold truncate">
                                 {workoutName}
                             </h1>
-                            <span className="text-sm lg:text-base text-text-grey flex flex-col lg:flex-row lg:gap-2">
+                            <span className="text-sm text-text-grey flex flex-col lg:flex-row lg:gap-2">
                                 <span className="truncate">{dateConverter(workout.date)}</span>
                                 <span className="truncate">{workoutTime()}</span>
                             </span>
