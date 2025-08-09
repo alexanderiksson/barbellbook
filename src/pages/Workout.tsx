@@ -152,9 +152,9 @@ export default function WorkoutPage() {
 
                 <div className="flex justify-between items-center mb-6 gap-2">
                     <div className="flex items-center justify-center gap-2 shrink overflow-hidden">
-                        <div className="bg-accent-bright/10 flex justify-center items-center rounded-full flex-shrink-0 aspect-square w-14">
+                        <div className="bg-accent-bright/10 flex justify-center items-center rounded-full flex-shrink-0 aspect-square w-16">
                             <GymIcon
-                                size="28px"
+                                size="32px"
                                 color={getComputedStyle(document.documentElement).getPropertyValue(
                                     "--color-accent-bright"
                                 )}

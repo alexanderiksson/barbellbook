@@ -77,6 +77,39 @@ export default function Stats({ id }: { id: string | undefined }) {
             .sort((a, b) => b.percent - a.percent);
     }, [workout]);
 
+    // Calculate average rest time
+    const averageRestTime = useMemo(() => {
+        const setTimes: number[] = [];
+        for (const exercise of workout.exercises) {
+            for (const set of exercise.sets) {
+                if (!set.time) {
+                    return null;
+                }
+                let t = Date.parse(set.time);
+                if (isNaN(t)) {
+                    const parts = set.time.split(":");
+                    if (parts.length === 3) {
+                        const now = new Date();
+                        now.setHours(Number(parts[0]), Number(parts[1]), Number(parts[2]), 0);
+                        t = now.getTime();
+                    } else {
+                        return null;
+                    }
+                }
+                setTimes.push(t);
+            }
+        }
+        setTimes.sort((a, b) => a - b);
+        if (setTimes.length < 2) return null;
+        let totalRest = 0;
+        for (let i = 1; i < setTimes.length; i++) {
+            totalRest += setTimes[i] - setTimes[i - 1];
+        }
+        const avgRestMs = totalRest / (setTimes.length - 1);
+        const minutes = Math.round(avgRestMs / 60000);
+        return `${minutes} min`;
+    }, [workout]);
+
     return (
         <div className="bg-secondary p-4 rounded-2xl border border-border/20 mt-4">
             <div
@@ -112,7 +145,7 @@ export default function Stats({ id }: { id: string | undefined }) {
                             </div>
                             <div>
                                 <h3 className="text-text-grey text-sm">Avg. rest time</h3>
-                                <span>-</span>
+                                <span>{averageRestTime ?? "-"}</span>
                             </div>
                             <div>
                                 <h3 className="text-text-grey text-sm">Total weight</h3>

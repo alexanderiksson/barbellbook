@@ -15,9 +15,9 @@ export default function ExerciseCard({ index, exercise }: ExerciseCardProps) {
                 <span className="mr-2 text-text-grey">#{index}</span>
                 {exercise.name}
             </h2>
-            <table className="w-full">
+            <table className="w-full text-sm">
                 <thead>
-                    <tr className="text-left text-sm">
+                    <tr className="text-left">
                         <th>Set</th>
                         <th>Reps</th>
                         <th>Weight</th>
