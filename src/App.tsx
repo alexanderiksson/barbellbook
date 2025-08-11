@@ -10,6 +10,7 @@ import Workout from "./pages/Workout";
 import Stats from "./pages/Stats";
 import ExerciseStats from "./pages/ExerciseStats";
 import Settings from "./pages/Settings";
+import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 
 export default function App() {
@@ -26,6 +27,7 @@ export default function App() {
                             <Route path="/stats" element={<Stats />} />
                             <Route path="/stats/exercise/:id" element={<ExerciseStats />} />
                             <Route path="/settings" element={<Settings />} />
+                            <Route path="/settings/about" element={<About />} />
                         </Route>
                         <Route path="*" element={<NotFound />} />
                     </Routes>
