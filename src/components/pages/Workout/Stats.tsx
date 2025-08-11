@@ -106,8 +106,8 @@ export default function Stats({ id }: { id: string | undefined }) {
             totalRest += setTimes[i] - setTimes[i - 1];
         }
         const avgRestMs = totalRest / (setTimes.length - 1);
-        const minutes = Math.round(avgRestMs / 60000);
-        return minutes;
+        const minutes = avgRestMs / 60000;
+        return minutes.toFixed(1);
     }, [workout]);
 
     // Calculate workout duration
@@ -144,7 +144,7 @@ export default function Stats({ id }: { id: string | undefined }) {
         if (!workoutDuration) return null;
 
         const averageDuration = workoutDuration / workout.exercises.length;
-        return averageDuration;
+        return averageDuration.toFixed(1);
     }, [workout]);
 
     return (
