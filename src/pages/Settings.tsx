@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { useWorkout } from "../context/WorkoutContext";
 import { useSettings } from "../context/SettingsContext";
 import { WorkoutType } from "../types/workout";
+import { Link } from "react-router-dom";
 
 import PageHeading from "../components/common/PageHeading";
 import { Select } from "../components/common/Inputs";
@@ -11,6 +12,7 @@ import { ConfirmModal } from "../components/common/Modals";
 
 import { TbFileExport, TbFileImport } from "react-icons/tb";
 import { MdOutlineDangerous } from "react-icons/md";
+import { IoIosArrowForward, IoIosInformationCircleOutline } from "react-icons/io";
 
 export default function Settings() {
     const { workouts, addWorkout, clearWorkouts } = useWorkout();
@@ -133,6 +135,18 @@ export default function Settings() {
                             </Button>
                         </div>
                     </div>
+                </section>
+
+                <section className="mt-8">
+                    <Link to="/settings/about">
+                        <div className="p-4 bg-secondary rounded-2xl border border-border/20 flex justify-between items-center">
+                            <div className="flex items-center gap-1">
+                                <IoIosInformationCircleOutline size={20} />
+                                <h2>About this app</h2>
+                            </div>
+                            <IoIosArrowForward size={20} />
+                        </div>
+                    </Link>
                 </section>
             </div>
         </>
