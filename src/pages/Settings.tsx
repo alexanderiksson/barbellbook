@@ -100,17 +100,15 @@ export default function Settings() {
                 <PageHeading>Settings</PageHeading>
 
                 <section className="mt-8 flex flex-col gap-4">
-                    <div className="grid grid-cols-2 gap-6">
-                        <div className="flex flex-col gap-2">
-                            <label className="text-sm">Weight unit</label>
-                            <Select
-                                value={weightUnit}
-                                onChange={(e) => setWeightUnit(e.target.value as "kg" | "lb")}
-                            >
-                                <option value="kg">kg</option>
-                                <option value="lb">lb</option>
-                            </Select>
-                        </div>
+                    <div className="flex flex-col gap-2">
+                        <label className="text-sm">Weight unit</label>
+                        <Select
+                            value={weightUnit}
+                            onChange={(e) => setWeightUnit(e.target.value as "kg" | "lb")}
+                        >
+                            <option value="kg">kg</option>
+                            <option value="lb">lb</option>
+                        </Select>
                     </div>
 
                     <div className="p-4 bg-secondary rounded-2xl border border-border/20">

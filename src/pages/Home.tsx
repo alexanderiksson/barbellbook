@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { useWorkout } from "../context/WorkoutContext";
+import useModal from "../hooks/useModal";
 
 import PageHeading from "../components/common/PageHeading";
 import { LinkButton, Button } from "../components/common/Buttons";
@@ -12,21 +13,14 @@ import { IoMdAdd, IoMdCheckmark } from "react-icons/io";
 
 export default function Home() {
     const [loading, setLoading] = useState<boolean>(false);
-
     const { exercises, removeExercise, clearExercises, addWorkout } = useWorkout();
 
     // Trigger to show notice
     const noticeTriggerRef = useRef<() => void | null>(null);
 
-    // Manage ConfirmModal state
-    const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-    const openConfirmModal = () => setIsConfirmModalOpen(true);
-    const closeConfirmModal = () => setIsConfirmModalOpen(false);
-
-    // Manage PromptModal state
-    const [isPromptModalOpen, setIsPromptModalOpen] = useState(false);
-    const openPromptModal = () => setIsPromptModalOpen(true);
-    const closePromptModal = () => setIsPromptModalOpen(false);
+    // Manage modal state
+    const confirmModal = useModal();
+    const promptModal = useModal();
 
     // Show loader if loading
     if (loading) {
@@ -38,19 +32,19 @@ export default function Home() {
             <ConfirmModal
                 text="Do you want to finish & save workout?"
                 buttonText="Save"
-                isOpen={isConfirmModalOpen}
-                onClose={closeConfirmModal}
+                isOpen={confirmModal.isOpen}
+                onClose={confirmModal.close}
                 action={() => {
-                    closeConfirmModal();
-                    openPromptModal();
+                    confirmModal.close();
+                    promptModal.open();
                 }}
             />
 
             <PromptModal
                 text="Workout name"
                 buttonText="Save"
-                isOpen={isPromptModalOpen}
-                onClose={closePromptModal}
+                isOpen={promptModal.isOpen}
+                onClose={promptModal.close}
                 onSubmit={(value) => {
                     setLoading(true);
 
@@ -97,12 +91,7 @@ export default function Home() {
                     </LinkButton>
 
                     {exercises.length > 0 && (
-                        <Button
-                            variant={"green"}
-                            onClick={() => {
-                                openConfirmModal();
-                            }}
-                        >
+                        <Button variant={"green"} onClick={confirmModal.open}>
                             <IoMdCheckmark size={20} />
                             Finish
                         </Button>
