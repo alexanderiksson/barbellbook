@@ -69,9 +69,7 @@ export default function AddExercise() {
     const [modalText, setModalText] = useState("");
 
     // Show loader if loading
-    if (loading) {
-        return <Loader />;
-    }
+    if (loading) return <Loader />;
 
     return (
         <>

@@ -23,9 +23,7 @@ export default function Home() {
     const promptModal = useModal();
 
     // Show loader if loading
-    if (loading) {
-        return <Loader />;
-    }
+    if (loading) return <Loader />;
 
     return (
         <>
