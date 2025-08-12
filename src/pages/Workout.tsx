@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
 import { WorkoutType } from "../types/workout";
 import dateConverter from "../utils/dateConverter";
+import useModal from "../hooks/useModal";
 
 import Loader from "../components/common/Loader";
 import Error from "../components/common/Error";
@@ -60,20 +61,10 @@ export default function WorkoutPage() {
     // Trigger to show notice
     const noticeTriggerRef = useRef<() => void | null>(null);
 
-    // Manage ConfirmModal state
-    const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-    const openConfirmModal = () => setIsConfirmModalOpen(true);
-    const closeConfirmModal = () => setIsConfirmModalOpen(false);
-
-    // Manage PromptModal state
-    const [isPromptModalOpen, setIsPromptModalOpen] = useState(false);
-    const openPromptModal = () => setIsPromptModalOpen(true);
-    const closePromptModal = () => setIsPromptModalOpen(false);
-
-    // Manage LogModal state
-    const [isLogModalOpen, setIsLogModalOpen] = useState(false);
-    const openLogModal = () => setIsLogModalOpen(true);
-    const closeLogModal = () => setIsLogModalOpen(false);
+    // Manage modal state
+    const confirmModal = useModal();
+    const promptModal = useModal();
+    const logModal = useModal();
 
     // Disable loader when the workout are found
     useEffect(() => {
@@ -98,12 +89,12 @@ export default function WorkoutPage() {
                 text="Are you sure you want to delete workout?"
                 buttonText="Delete"
                 buttonVariant="danger"
-                isOpen={isConfirmModalOpen}
-                onClose={closeConfirmModal}
+                isOpen={confirmModal.isOpen}
+                onClose={confirmModal.close}
                 action={() => {
                     setLoading(true);
                     removeWorkout(Number(id));
-                    closeConfirmModal();
+                    confirmModal.close();
                     navigate("/history");
                 }}
             />
@@ -111,8 +102,8 @@ export default function WorkoutPage() {
             <PromptModal
                 text="Workout name"
                 buttonText="Save changes"
-                isOpen={isPromptModalOpen}
-                onClose={closePromptModal}
+                isOpen={promptModal.isOpen}
+                onClose={promptModal.close}
                 initialValue={workoutName}
                 onSubmit={(value) => {
                     setIsOpen(false);
@@ -130,8 +121,8 @@ export default function WorkoutPage() {
             />
 
             <LogModal
-                isOpen={isLogModalOpen}
-                onClose={closeLogModal}
+                isOpen={logModal.isOpen}
+                onClose={logModal.close}
                 initialValue={workoutLog}
                 onSubmit={(value) => {
                     setIsOpen(false);
@@ -189,19 +180,19 @@ export default function WorkoutPage() {
                                     type: "function",
                                     label: "Log",
                                     icon: IoIosList,
-                                    onClick: openLogModal,
+                                    onClick: logModal.open,
                                 },
                                 {
                                     type: "function",
                                     label: "Edit name",
                                     icon: BiSolidEditAlt,
-                                    onClick: openPromptModal,
+                                    onClick: promptModal.open,
                                 },
                                 {
                                     type: "function",
                                     label: "Delete",
                                     icon: MdDeleteForever,
-                                    onClick: openConfirmModal,
+                                    onClick: confirmModal.open,
                                     danger: true,
                                 },
                             ]}

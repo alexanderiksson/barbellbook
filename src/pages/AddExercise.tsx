@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
 import exercises from "../data/exercises.json";
 import { SetType } from "../types/workout";
+import useModal from "../hooks/useModal";
 
 import PageHeading from "../components/common/PageHeading";
 import { Button } from "../components/common/Buttons";
@@ -64,10 +65,8 @@ export default function AddExercise() {
     const noticeTriggerRef = useRef<() => void | null>(null);
 
     // Manage modal state
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const alertModal = useModal();
     const [modalText, setModalText] = useState("");
-    const openModal = () => setIsModalOpen(true);
-    const closeModal = () => setIsModalOpen(false);
 
     // Show loader if loading
     if (loading) {
@@ -76,7 +75,7 @@ export default function AddExercise() {
 
     return (
         <>
-            <AlertModal text={modalText} isOpen={isModalOpen} onClose={closeModal} />
+            <AlertModal text={modalText} isOpen={alertModal.isOpen} onClose={alertModal.close} />
 
             <div className="content flex flex-col flex-1">
                 <Notice
@@ -146,7 +145,7 @@ export default function AddExercise() {
                                     weight > "9999"
                                 ) {
                                     setModalText("Enter weight and reps");
-                                    openModal();
+                                    alertModal.open();
                                 } else {
                                     saveCurrentSets({
                                         reps: reps,
@@ -180,10 +179,10 @@ export default function AddExercise() {
                     onClick={() => {
                         if (currentSets.length <= 0) {
                             setModalText("Exercise doesn't have any sets");
-                            openModal();
+                            alertModal.open();
                         } else if (!exercise) {
                             setModalText("Select exercise");
-                            openModal();
+                            alertModal.open();
                         } else {
                             setLoading(true);
                             const newExercise = {

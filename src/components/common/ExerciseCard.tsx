@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { useSettings } from "../../context/SettingsContext";
+import useModal from "../../hooks/useModal";
 import { SetType } from "../../types/workout";
 import { ConfirmModal } from "./Modals";
 import { MdDeleteForever } from "react-icons/md";
@@ -22,9 +22,7 @@ export default function ExerciseCard({
     const { weightUnit } = useSettings();
 
     // Manage modal state
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const openModal = () => setIsModalOpen(true);
-    const closeModal = () => setIsModalOpen(false);
+    const confirmModal = useModal();
 
     return (
         <>
@@ -32,8 +30,8 @@ export default function ExerciseCard({
                 text="Are you sure you want to delete exercise?"
                 buttonText="Delete"
                 buttonVariant="danger"
-                isOpen={isModalOpen}
-                onClose={closeModal}
+                isOpen={confirmModal.isOpen}
+                onClose={confirmModal.close}
                 action={() => onDelete?.(index)}
             />
 
@@ -47,7 +45,7 @@ export default function ExerciseCard({
                         <button
                             className="cursor-pointer"
                             onClick={() => {
-                                openModal();
+                                confirmModal.open();
                             }}
                         >
                             <MdDeleteForever

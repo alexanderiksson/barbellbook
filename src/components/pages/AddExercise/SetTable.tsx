@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSettings } from "../../../context/SettingsContext";
 import { SetType } from "../../../types/workout";
+import useModal from "../../../hooks/useModal";
 
 import { ConfirmModal } from "../../common/Modals";
 import { MdDeleteForever } from "react-icons/md";
@@ -14,9 +15,7 @@ export default function SetTable({ currentSets, removeCurrentSets }: SetTablePro
     const { weightUnit } = useSettings();
 
     // Manage modal state
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const openModal = () => setIsModalOpen(true);
-    const closeModal = () => setIsModalOpen(false);
+    const confirmModal = useModal();
 
     const [removeIndex, setRemoveIndex] = useState(0);
 
@@ -26,8 +25,8 @@ export default function SetTable({ currentSets, removeCurrentSets }: SetTablePro
                 text="Are you sure you want to delete set?"
                 buttonText="Delete"
                 buttonVariant="danger"
-                isOpen={isModalOpen}
-                onClose={closeModal}
+                isOpen={confirmModal.isOpen}
+                onClose={confirmModal.close}
                 action={() => removeCurrentSets(removeIndex)}
             />
 
@@ -53,7 +52,7 @@ export default function SetTable({ currentSets, removeCurrentSets }: SetTablePro
                                     className="cursor-pointer p-2"
                                     onClick={() => {
                                         setRemoveIndex(index);
-                                        openModal();
+                                        confirmModal.open();
                                     }}
                                 >
                                     <MdDeleteForever

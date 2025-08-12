@@ -8,12 +8,12 @@ export default function About() {
 
             <PageHeading>About this app</PageHeading>
 
-            <div className="text-sm">
-                <p className="mb-4">
+            <div className="space-y-4">
+                <p>
                     BarbellBook is a web-based workout logger that lets you effortlessly track your
                     sets, reps, and progress.
                 </p>
-                <p className="mb-4">
+                <p>
                     Your data is securely saved locally in your browser, so you stay in control
                     without any sign-ups or cloud storage.
                 </p>
