@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { useWorkout } from "../context/WorkoutContext";
 import { useSettings } from "../context/SettingsContext";
+import useModal from "../hooks/useModal";
 import { WorkoutType } from "../types/workout";
 import { Link } from "react-router-dom";
 
@@ -18,10 +19,8 @@ export default function Settings() {
     const { workouts, addWorkout, clearWorkouts } = useWorkout();
     const { weightUnit, setWeightUnit } = useSettings();
 
-    // Manage ConfirmModal state
-    const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-    const openConfirmModal = () => setIsConfirmModalOpen(true);
-    const closeConfirmModal = () => setIsConfirmModalOpen(false);
+    // Manage modal state
+    const confirmModal = useModal();
 
     // Trigger to show notice
     const noticeTriggerRef = useRef<() => void | null>(null);
@@ -69,7 +68,7 @@ export default function Settings() {
 
             try {
                 setImportedWorkouts(JSON.parse(data));
-                openConfirmModal();
+                confirmModal.open();
             } catch (error) {
                 console.error("Error parsing JSON file", error);
             }
@@ -83,10 +82,10 @@ export default function Settings() {
             <ConfirmModal
                 text="Are you sure you want to import data?"
                 buttonText="Import"
-                isOpen={isConfirmModalOpen}
-                onClose={closeConfirmModal}
+                isOpen={confirmModal.isOpen}
+                onClose={confirmModal.close}
                 action={() => {
-                    closeConfirmModal();
+                    confirmModal.close();
                     importData();
                 }}
             />

@@ -53,9 +53,7 @@ export default function History() {
     const totalPages = Math.ceil(filteredWorkouts.length / itemsPerPage);
 
     // Show loader if loading
-    if (loading) {
-        return <Loader />;
-    }
+    if (loading) return <Loader />;
 
     return (
         <div className="content relative flex flex-col flex-1">

@@ -13,7 +13,7 @@ import { ConfirmModal, PromptModal, LogModal } from "../components/common/Modals
 import ExerciseCard from "../components/common/ExerciseCard";
 import MenuButton from "../components/common/MenuButton";
 import Menu from "../components/common/Menu";
-import Stats from "../components/pages/Workout/Stats";
+import Stats from "../components/pages/Workout/Details";
 
 import GymIcon from "../assets/icons/GymIcon";
 import { IoIosList } from "react-icons/io";
@@ -35,8 +35,11 @@ export default function WorkoutPage() {
         (_, index) => index === parseInt(id || "", 10)
     );
 
-    const workoutName = workout?.name || "Workout";
-    const workoutLog = workout?.log;
+    // Show error if no workout is found
+    if (!workout) return <Error msg="Workout not found" />;
+
+    const workoutName = workout.name || "Workout";
+    const workoutLog = workout.log;
 
     // Find workout time
     const workoutTime = (): string | null => {
@@ -68,20 +71,11 @@ export default function WorkoutPage() {
 
     // Disable loader when the workout are found
     useEffect(() => {
-        if (workout) {
-            setLoading(false);
-        }
+        if (workout) setLoading(false);
     }, [workouts]);
 
     // Show loader if loading
-    if (loading) {
-        return <Loader />;
-    }
-
-    // Show error if no workout is found
-    if (!workout) {
-        return <Error msg="Workout not found" />;
-    }
+    if (loading) return <Loader />;
 
     return (
         <>
