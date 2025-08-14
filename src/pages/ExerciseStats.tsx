@@ -1,3 +1,5 @@
+/* THIS CODE IS NOT FINISHED, NEED TO BE REWRITTEN */
+
 import { useState, useMemo, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
@@ -34,6 +36,22 @@ export default function ExerciseStats() {
 
         return userExercise ? userExercise.name : null;
     }, [id, workouts]);
+
+    // Finds all logged sets for the current exercise from all workouts
+    const getAllLoggedSets = (exerciseName: string) => {
+        return workouts
+            .filter((workout) => workout.exercises.some((ex) => ex.name === exerciseName))
+            .flatMap((workout) => {
+                const exerciseData = workout.exercises.find((ex) => ex.name === exerciseName);
+                if (exerciseData) {
+                    return exerciseData.sets.map((set) => ({
+                        ...set,
+                        date: workout.date,
+                    }));
+                }
+                return [];
+            });
+    };
 
     // Find logged data from the exercise
     const data = workouts
@@ -171,7 +189,7 @@ export default function ExerciseStats() {
                     <Chart data={filteredData} label="Weight" />
                 </div>
 
-                <div className="bg-secondary p-4 rounded-2xl border border-border/20">
+                {/* <div className="bg-secondary p-4 rounded-2xl border border-border/20">
                     <h2 className="text-text-grey text-sm mb-4">Personal records</h2>
                     <div className="flex flex-col gap-2 divide-y divide-border">
                         {Object.entries(personalRecords(filteredData)).map(
@@ -190,7 +208,7 @@ export default function ExerciseStats() {
                             )
                         )}
                     </div>
-                </div>
+                </div> */}
             </section>
         </div>
     );
