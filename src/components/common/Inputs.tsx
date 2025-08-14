@@ -11,6 +11,7 @@ interface TextInputProps {
     placeholder?: string;
     onChange: (e: ChangeEvent<HTMLInputElement>) => void;
     value: any;
+    className?: string;
 }
 
 // Select input
@@ -36,10 +37,10 @@ export function Select({ onChange, value, children }: SelectProps) {
 }
 
 // Text input
-export function TextInput({ placeholder, value, onChange }: TextInputProps) {
+export function TextInput({ placeholder, value, onChange, className }: TextInputProps) {
     return (
         <input
-            className="bg-secondary/50 p-3 rounded-2xl w-full border-2 border-border/20 shadow placeholder:text-text-grey/50"
+            className={`bg-secondary/50 p-3 rounded-2xl w-full border-2 border-border/20 shadow placeholder:text-text-grey/50 ${className}`}
             type="text"
             placeholder={placeholder}
             value={value}

@@ -32,7 +32,7 @@ export function AlertModal({ text, buttonText = "Close", isOpen, onClose }: Moda
     return (
         <div className="modal-overlay">
             <div className="modal" role="dialog" aria-modal="true">
-                <h2 className="text-xl font-semibold">{text}</h2>
+                <h2 className="text-lg font-semibold text-center">{text}</h2>
                 <Button variant="blue" onClick={onClose}>
                     {buttonText}
                 </Button>
@@ -108,7 +108,7 @@ export function PromptModal({
         <div className="modal-overlay">
             <div className="modal" role="dialog" aria-modal="true">
                 <div className="w-full flex justify-between gap-2">
-                    <h2 className="text-xl font-semibold ml-1">{text}</h2>
+                    <h2 className="text-lg font-semibold ml-1">{text}</h2>
                     <IoIosClose
                         size={32}
                         color="grey"
@@ -158,7 +158,7 @@ export function LogModal({ isOpen, onClose, initialValue, onSubmit }: LogModalPr
         <div className="modal-overlay">
             <div className="modal" role="dialog" aria-modal="true">
                 <div className="w-full flex justify-between gap-2">
-                    <h2 className="text-xl font-semibold ml-1">Log</h2>
+                    <h2 className="text-lg font-semibold ml-1">Log</h2>
                     <IoIosClose
                         size={32}
                         color="grey"
@@ -171,7 +171,7 @@ export function LogModal({ isOpen, onClose, initialValue, onSubmit }: LogModalPr
                 </div>
 
                 <textarea
-                    className="w-full border border-border/50 rounded-xl p-2 bg-black/20 mb-2"
+                    className="w-full border border-border/0 rounded-xl p-4 bg-black/50 mb-2"
                     rows={15}
                     value={textareaValue}
                     onChange={(e) => setTextareaValue(e.target.value)}

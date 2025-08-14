@@ -44,7 +44,7 @@ body,
 }
 
 .content {
-    @apply max-w-4xl w-[90%] mx-auto;
+    @apply max-w-5xl w-[90%] mx-auto;
 }
 
 .button {

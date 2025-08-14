@@ -98,6 +98,7 @@ export default function AddExercise() {
                                 }
                             }}
                         />
+
                         {nameListOpen && (
                             <ul
                                 className={`absolute bg-secondary-bright/70 backdrop-blur-xl rounded-2xl shadow-xl w-full mt-2 max-h-64 overflow-y-auto z-10 divide-y divide-white/10`}
@@ -142,7 +143,9 @@ export default function AddExercise() {
                                     weight <= "0" ||
                                     weight > "9999"
                                 ) {
-                                    setModalText("Enter weight and reps");
+                                    setModalText(
+                                        "Please enter both weight and reps to add your set."
+                                    );
                                     alertModal.open();
                                 } else {
                                     saveCurrentSets({
@@ -176,10 +179,12 @@ export default function AddExercise() {
                     className={"mt-auto w-full"}
                     onClick={() => {
                         if (currentSets.length <= 0) {
-                            setModalText("Exercise doesn't have any sets");
+                            setModalText(
+                                "Please add at least one set before saving your exercise."
+                            );
                             alertModal.open();
                         } else if (!exercise) {
-                            setModalText("Select exercise");
+                            setModalText("Please select an exercise.");
                             alertModal.open();
                         } else {
                             setLoading(true);

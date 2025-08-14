@@ -20,10 +20,12 @@ export default function Settings() {
     const { weightUnit, setWeightUnit } = useSettings();
 
     // Manage modal state
-    const confirmModal = useModal();
+    const importConfirmModal = useModal();
+    const clearDataConfirmModal = useModal();
 
     // Trigger to show notice
     const noticeTriggerRef = useRef<() => void | null>(null);
+    const [noticeMsg, setNoticeMsg] = useState<string>("");
 
     // Save imported data function
     const [importedWorkouts, setImportedWorkouts] = useState<WorkoutType[] | null>(null);
@@ -32,6 +34,7 @@ export default function Settings() {
             importedWorkouts.forEach((workout) => addWorkout(workout));
 
             // Trigger the notice
+            setNoticeMsg("Data imported successfully");
             if (noticeTriggerRef.current) {
                 noticeTriggerRef.current();
             }
@@ -68,7 +71,7 @@ export default function Settings() {
 
             try {
                 setImportedWorkouts(JSON.parse(data));
-                confirmModal.open();
+                importConfirmModal.open();
             } catch (error) {
                 console.error("Error parsing JSON file", error);
             }
@@ -82,17 +85,36 @@ export default function Settings() {
             <ConfirmModal
                 text="Are you sure you want to import data?"
                 buttonText="Import"
-                isOpen={confirmModal.isOpen}
-                onClose={confirmModal.close}
+                isOpen={importConfirmModal.isOpen}
+                onClose={importConfirmModal.close}
                 action={() => {
-                    confirmModal.close();
+                    importConfirmModal.close();
                     importData();
+                }}
+            />
+
+            <ConfirmModal
+                text="This will permanently delete your data, are you sure?"
+                buttonText="Clear data"
+                buttonVariant="danger"
+                isOpen={clearDataConfirmModal.isOpen}
+                onClose={clearDataConfirmModal.close}
+                action={() => {
+                    clearDataConfirmModal.close();
+                    if (confirm("Are you sure?")) {
+                        clearWorkouts();
+
+                        setNoticeMsg("Data cleared");
+                        if (noticeTriggerRef.current) {
+                            noticeTriggerRef.current();
+                        }
+                    }
                 }}
             />
 
             <div className="content">
                 <Notice
-                    msg="Data imported successfully"
+                    msg={noticeMsg}
                     registerTrigger={(trigger) => (noticeTriggerRef.current = trigger)}
                 />
 
@@ -119,14 +141,7 @@ export default function Settings() {
                             <Button onClick={handleImport}>
                                 <TbFileImport size={20} /> Import data
                             </Button>
-                            <Button
-                                variant="danger"
-                                onClick={() => {
-                                    if (confirm("Clear data?")) {
-                                        clearWorkouts();
-                                    }
-                                }}
-                            >
+                            <Button variant="danger" onClick={clearDataConfirmModal.open}>
                                 <MdOutlineDangerous size={20} />
                                 Clear data
                             </Button>
