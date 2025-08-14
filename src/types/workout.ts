@@ -1,7 +1,7 @@
 export interface SetType {
     reps: number;
-    weight: string;
-    time: string;
+    weight: number;
+    time?: string;
 }
 
 export interface ExerciseType {
