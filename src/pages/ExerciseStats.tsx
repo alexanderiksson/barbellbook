@@ -1,4 +1,15 @@
 /* THIS CODE IS NOT FINISHED, NEED TO BE REWRITTEN */
+/*
+
+Måste skriva om all kod för att den ska funka bättre och vara enklare att förstå
+
+Flytta kod till komponenter
+
+All data måste först hämtas och sedan filteras innan den går vidare till olika funktioner för att visa statistik
+
+
+
+*/
 
 import { useState, useMemo, useEffect } from "react";
 import { useParams } from "react-router-dom";
