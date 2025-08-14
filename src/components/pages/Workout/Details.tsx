@@ -45,7 +45,8 @@ export default function Stats({ id }: { id: string | undefined }) {
                 (weight, exercise) =>
                     weight +
                     exercise.sets.reduce(
-                        (setWeight, set) => setWeight + parseFloat(set.weight || "0") * set.reps,
+                        (setWeight, set) =>
+                            setWeight + parseFloat(String(set.weight ?? "0")) * set.reps,
                         0
                     ),
                 0

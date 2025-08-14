@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
 import { useSettings } from "../context/SettingsContext";
 import exercisesData from "../data/exercises.json";
+import { SetType } from "../types/workout";
 
 import PageHeading from "../components/common/PageHeading";
 import BackButton from "../components/common/BackButton";
@@ -111,6 +112,25 @@ export default function ExerciseStats() {
         };
     }, [filteredData]);
 
+    // Find personal records
+    const personalRecords = (data: { date: string; Weight: number; Reps: number }[]) => {
+        const bestResults: {
+            [rep: number]: { weight: number; reps: number; date: string } | null;
+        } = {};
+        for (let rep = 1; rep <= 10; rep++) {
+            let bestSet: SetType | null = null;
+            data.forEach((item) => {
+                if (item.Reps === rep) {
+                    if (!bestSet || item.Weight > bestSet.weight) {
+                        bestSet = { weight: item.Weight, reps: item.Reps };
+                    }
+                }
+            });
+            bestResults[rep] = bestSet;
+        }
+        return bestResults;
+    };
+
     if (!exercise) return <Error msg="Exercise not found" />;
 
     return (
@@ -135,7 +155,7 @@ export default function ExerciseStats() {
                     </span>
                 </div>
                 <div className="bg-secondary p-4 rounded-2xl border border-border/20 flex flex-col items-center text-center gap-1">
-                    <h2 className="text-text-grey text-sm">Estimated 1RM *</h2>
+                    <h2 className="text-text-grey text-sm">Estimated 1RM</h2>
                     <span>{calculate1RM(filteredData)}</span>
                 </div>
             </section>
@@ -150,11 +170,28 @@ export default function ExerciseStats() {
                     </div>
                     <Chart data={filteredData} label="Weight" />
                 </div>
-            </section>
 
-            <p className="text-xs text-text-grey">
-                * Estimated 1RM is calculated from your best results in the last 3 months.
-            </p>
+                <div className="bg-secondary p-4 rounded-2xl border border-border/20">
+                    <h2 className="text-text-grey text-sm mb-4">Personal records</h2>
+                    <div className="flex flex-col gap-2 divide-y divide-border">
+                        {Object.entries(personalRecords(filteredData)).map(
+                            ([rep, record], index) => (
+                                <div key={index} className="flex items-center justify-between py-1">
+                                    <span>{rep} RM</span>
+                                    {record ? (
+                                        <span>
+                                            {record.weight}
+                                            <span className="text-text-grey ml-1">kg</span>
+                                        </span>
+                                    ) : (
+                                        <span>-</span>
+                                    )}
+                                </div>
+                            )
+                        )}
+                    </div>
+                </div>
+            </section>
         </div>
     );
 }

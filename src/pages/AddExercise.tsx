@@ -147,7 +147,7 @@ export default function AddExercise() {
                                 } else {
                                     saveCurrentSets({
                                         reps: reps,
-                                        weight: weight,
+                                        weight: Number(weight),
                                         time: new Date().toLocaleTimeString(),
                                     });
 
