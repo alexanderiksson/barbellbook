@@ -4,8 +4,20 @@ import exercisesData from "../data/exercises.json";
 
 import PageHeading from "../components/common/PageHeading";
 import { LinkButton } from "../components/common/Buttons";
-import Chart from "../components/pages/Stats/BarChart";
 import { Select } from "../components/common/Inputs";
+import {
+    PieChart,
+    Pie,
+    Cell,
+    Legend,
+    Tooltip,
+    ResponsiveContainer,
+    BarChart,
+    Bar,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+} from "recharts";
 
 export default function Stats() {
     const { workouts } = useWorkout();
@@ -109,41 +121,100 @@ export default function Stats() {
                     <section className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                         <div className="bg-secondary p-4 rounded-2xl border border-border/20">
                             <h2 className="mb-6 text-text-grey text-sm">Workouts</h2>
-                            <Chart data={sessions} label="Sessions" />
-                        </div>
-
-                        <div className="bg-secondary p-4 rounded-2xl border border-border/20">
-                            <h2 className="mb-6 text-text-grey text-sm">Exercises</h2>
-                            <Chart
-                                data={exercises}
-                                label="Exercises"
-                                color={getComputedStyle(document.documentElement).getPropertyValue(
-                                    "--color-accent-bright"
-                                )}
-                            />
-                        </div>
-
-                        <div className="bg-secondary p-4 rounded-2xl border border-border/20">
-                            <h2 className="mb-6 text-text-grey text-sm">Most trained body parts</h2>
-                            <div className="flex flex-col divide-y divide-border/50">
-                                {mostTrainedBodyParts.map((item, index) => (
-                                    <div
-                                        key={index}
-                                        className="flex justify-between items-center gap-4 py-2"
+                            <div className="w-full h-64">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <BarChart
+                                        data={sessions}
+                                        margin={{ top: 0, right: 10, left: -25, bottom: 0 }}
                                     >
-                                        <h3 className="truncate">
-                                            <span className="text-text-grey mr-2">
-                                                {index + 1}.
-                                            </span>
-                                            {item.name}
-                                        </h3>
-                                        <span>{item.percentage} %</span>
-                                    </div>
-                                ))}
+                                        <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.3} />
+                                        <XAxis dataKey="month" fontSize={12} />
+                                        <YAxis allowDecimals={false} fontSize={12} />
+                                        <Tooltip />
+                                        <Bar
+                                            dataKey="Sessions"
+                                            fill={getComputedStyle(
+                                                document.documentElement
+                                            ).getPropertyValue("--color-primary-bright")}
+                                        />
+                                    </BarChart>
+                                </ResponsiveContainer>
                             </div>
                         </div>
 
                         <div className="bg-secondary p-4 rounded-2xl border border-border/20">
+                            <h2 className="mb-6 text-text-grey text-sm">Exercises</h2>
+                            <div className="w-full h-64">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <BarChart
+                                        data={exercises}
+                                        margin={{ top: 0, right: 10, left: -25, bottom: 0 }}
+                                    >
+                                        <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.3} />
+                                        <XAxis dataKey="month" fontSize={12} />
+                                        <YAxis allowDecimals={false} fontSize={12} />
+                                        <Tooltip />
+                                        <Bar
+                                            dataKey="Exercises"
+                                            fill={getComputedStyle(
+                                                document.documentElement
+                                            ).getPropertyValue("--color-accent-bright")}
+                                        />
+                                    </BarChart>
+                                </ResponsiveContainer>
+                            </div>
+                        </div>
+
+                        <div className="bg-secondary p-4 rounded-2xl border border-border/20">
+                            <h2 className="mb-6 text-text-grey text-sm">Most trained body parts</h2>
+                            <div className="w-full h-[300px]">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <PieChart margin={{ bottom: 16 }}>
+                                        <Pie
+                                            data={mostTrainedBodyParts}
+                                            dataKey="percentage"
+                                            nameKey="name"
+                                            cx="50%"
+                                            cy="50%"
+                                            outerRadius={90}
+                                            label={({ percentage }) => `${percentage}%`}
+                                        >
+                                            {mostTrainedBodyParts.map((entry, index) => (
+                                                <Cell
+                                                    key={`cell-${entry.name}`}
+                                                    fill={
+                                                        [
+                                                            getComputedStyle(
+                                                                document.documentElement
+                                                            ).getPropertyValue(
+                                                                "--color-primary-bright"
+                                                            ),
+                                                            getComputedStyle(
+                                                                document.documentElement
+                                                            ).getPropertyValue(
+                                                                "--color-accent-bright"
+                                                            ),
+                                                            "#eab308",
+                                                            "#ef4444",
+                                                            "#a855f7",
+                                                            "#84cc16",
+                                                        ][index % 10]
+                                                    }
+                                                />
+                                            ))}
+                                        </Pie>
+                                        <Legend
+                                            layout="horizontal"
+                                            align="center"
+                                            verticalAlign="bottom"
+                                        />
+                                        <Tooltip formatter={(value) => `${value}%`} />
+                                    </PieChart>
+                                </ResponsiveContainer>
+                            </div>
+                        </div>
+
+                        <div className="bg-secondary p-4 rounded-2xl border border-border/20 flex flex-col justify-between">
                             <h2 className="mb-6 text-text-grey text-sm">Your favorite exercises</h2>
                             <div className="flex flex-col mb-6 gap-4">
                                 {allExercises.slice(0, 3).map((exercise, index) => (
