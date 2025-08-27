@@ -81,7 +81,7 @@ export default function LogExercise() {
                     registerTrigger={(trigger) => (noticeTriggerRef.current = trigger)}
                 />
 
-                <PageHeading>Log exercise</PageHeading>
+                <PageHeading>Log Exercise</PageHeading>
 
                 <div className="flex flex-col gap-4 flex-1 mb-4">
                     <div className="relative">
@@ -161,7 +161,7 @@ export default function LogExercise() {
                                 }
                             }}
                         >
-                            <IoMdAdd size={20} /> Add set
+                            <IoMdAdd size={20} /> Add Set
                         </Button>
                     </section>
 
@@ -199,7 +199,7 @@ export default function LogExercise() {
                         }
                     }}
                 >
-                    Save exercise
+                    Save
                 </Button>
             </div>
         </>

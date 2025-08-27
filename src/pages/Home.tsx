@@ -26,22 +26,22 @@ export default function Home() {
         const currentTime = new Date().getHours();
 
         if (currentTime > 5 && currentTime <= 10) {
-            return "Good morning";
+            return "Good Morning";
         }
 
         if (currentTime > 10 && currentTime <= 14) {
-            return "Good day";
+            return "Good Day";
         }
 
         if (currentTime > 14 && currentTime <= 18) {
-            return "Good afternoon";
+            return "Good Afternoon";
         }
 
         if (currentTime > 18 && currentTime <= 22) {
-            return "Good evening";
+            return "Good Evening";
         }
 
-        return "Good night";
+        return "Good Night";
     };
 
     // Show loader if loading
@@ -107,7 +107,7 @@ export default function Home() {
 
                 <div className="flex justify-between flex-wrap gap-2 mb-8 mt-8">
                     <LinkButton to="/log-exercise" variant={"outline"}>
-                        <IoMdAdd size={20} /> Log exercise
+                        <IoMdAdd size={20} /> Log Exercise
                     </LinkButton>
 
                     {exercises.length > 0 && (

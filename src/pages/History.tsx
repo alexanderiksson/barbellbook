@@ -57,7 +57,7 @@ export default function History() {
 
     return (
         <div className="content relative flex flex-col flex-1">
-            <PageHeading>Workout history</PageHeading>
+            <PageHeading>Workout History</PageHeading>
 
             {workouts.length === 0 ? (
                 <p className="text-text-grey">No workouts found.</p>

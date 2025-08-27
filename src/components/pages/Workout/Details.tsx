@@ -154,7 +154,7 @@ export default function Stats({ id }: { id: string | undefined }) {
                 className="flex justify-between items-center cursor-pointer"
                 onClick={() => setIsOpen(!isOpen)}
             >
-                <h2 className="text-text-grey">Workout details</h2>
+                <h2 className="text-text-grey">Workout Details</h2>
                 <IoIosArrowDown
                     size={20}
                     color="grey"
@@ -179,29 +179,29 @@ export default function Stats({ id }: { id: string | undefined }) {
                             </div>
 
                             <div>
-                                <h3 className="text-text-grey text-sm">Total sets</h3>
+                                <h3 className="text-text-grey text-sm">Total Sets</h3>
                                 <span>{totalSets}</span>
                             </div>
 
                             <div>
-                                <h3 className="text-text-grey text-sm">Total reps</h3>
+                                <h3 className="text-text-grey text-sm">Total Reps</h3>
                                 <span>{totalReps}</span>
                             </div>
 
                             <div>
-                                <h3 className="text-text-grey text-sm">Total weight</h3>
+                                <h3 className="text-text-grey text-sm">Total Weight</h3>
                                 <span>
                                     {totalWeight} <span>{weightUnit}</span>
                                 </span>
                             </div>
 
                             <div>
-                                <h3 className="text-text-grey text-sm">Avg. rest</h3>
+                                <h3 className="text-text-grey text-sm">Avg. Rest</h3>
                                 <span>{averageRestTime ? `${averageRestTime} min` : "-"}</span>
                             </div>
 
                             <div>
-                                <h3 className="text-text-grey text-sm">Avg. time/exercise</h3>
+                                <h3 className="text-text-grey text-sm">Avg. Time/Exercise</h3>
                                 <span>
                                     {averageExerciseDuration
                                         ? `${averageExerciseDuration} min`
@@ -211,7 +211,7 @@ export default function Stats({ id }: { id: string | undefined }) {
                         </div>
 
                         <div>
-                            <h3 className="text-text-grey text-sm mb-1">Body-parts</h3>
+                            <h3 className="text-text-grey text-sm mb-1">Muslce Groups</h3>
                             <div className="flex flex-col divide-y divide-border/50">
                                 {bodyPartsTrained.map(({ part, percent }, index) => (
                                     <div

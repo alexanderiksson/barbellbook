@@ -104,7 +104,7 @@ export default function Stats() {
 
     return (
         <div className="content">
-            <PageHeading>Your stats</PageHeading>
+            <PageHeading>Your Stats</PageHeading>
 
             {workouts.length <= 0 ? (
                 <p className="text-neutral-500">No workouts found.</p>
@@ -120,7 +120,7 @@ export default function Stats() {
 
                     <section className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                         <div className="bg-secondary p-4 rounded-2xl border border-border/20">
-                            <h2 className="mb-6 text-text-grey text-sm">Workouts</h2>
+                            <h2 className="mb-6 text-text-grey text-sm">Monthly Workouts</h2>
                             <div className="w-full h-64">
                                 <ResponsiveContainer width="100%" height="100%">
                                     <BarChart
@@ -143,7 +143,7 @@ export default function Stats() {
                         </div>
 
                         <div className="bg-secondary p-4 rounded-2xl border border-border/20">
-                            <h2 className="mb-6 text-text-grey text-sm">Exercises</h2>
+                            <h2 className="mb-6 text-text-grey text-sm">Monthly Exercises</h2>
                             <div className="w-full h-64">
                                 <ResponsiveContainer width="100%" height="100%">
                                     <BarChart
@@ -166,7 +166,9 @@ export default function Stats() {
                         </div>
 
                         <div className="bg-secondary p-4 rounded-2xl border border-border/20">
-                            <h2 className="mb-6 text-text-grey text-sm">Most trained body parts</h2>
+                            <h2 className="mb-6 text-text-grey text-sm">
+                                Most Worked Muscle Groups
+                            </h2>
                             <div className="w-full h-[300px]">
                                 <ResponsiveContainer width="100%" height="100%">
                                     <PieChart margin={{ bottom: 16 }}>
@@ -215,7 +217,7 @@ export default function Stats() {
                         </div>
 
                         <div className="bg-secondary p-4 rounded-2xl border border-border/20 flex flex-col justify-between">
-                            <h2 className="mb-6 text-text-grey text-sm">Your favorite exercises</h2>
+                            <h2 className="mb-6 text-text-grey text-sm">Your Top Exercises</h2>
                             <div className="flex flex-col mb-6 gap-4">
                                 {allExercises.slice(0, 3).map((exercise, index) => (
                                     <div key={index}>
