@@ -22,6 +22,28 @@ export default function Home() {
     const confirmModal = useModal();
     const promptModal = useModal();
 
+    const greeting = () => {
+        const currentTime = new Date().getHours();
+
+        if (currentTime > 5 && currentTime <= 10) {
+            return "Good morning";
+        }
+
+        if (currentTime > 10 && currentTime <= 14) {
+            return "Good day";
+        }
+
+        if (currentTime > 14 && currentTime <= 18) {
+            return "Good afternoon";
+        }
+
+        if (currentTime > 18 && currentTime <= 22) {
+            return "Good evening";
+        }
+
+        return "Good night";
+    };
+
     // Show loader if loading
     if (loading) return <Loader />;
 
@@ -73,7 +95,7 @@ export default function Home() {
                 />
 
                 <PageHeading>
-                    Today's workout
+                    {greeting()}
                     <span className="text-sm lg:text-base font-normal block text-text-grey mt-2">
                         {new Date().toLocaleDateString("en-US", {
                             weekday: "long",
