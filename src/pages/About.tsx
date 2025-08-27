@@ -6,7 +6,7 @@ export default function About() {
         <div className="content">
             <BackButton to="/settings" label="Settings" />
 
-            <PageHeading>About this app</PageHeading>
+            <PageHeading>About This App</PageHeading>
 
             <div className="space-y-4">
                 <p>

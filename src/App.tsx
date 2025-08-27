@@ -4,10 +4,11 @@ import { SettingsProvider } from "./context/SettingsContext";
 
 import Layout from "./Layout";
 import Home from "./pages/Home";
-import AddExercise from "./pages/AddExercise";
+import LogExericse from "./pages/LogExercise";
 import History from "./pages/History";
 import Workout from "./pages/Workout";
 import Stats from "./pages/Stats";
+import Exercises from "./pages/Exercises";
 import ExerciseStats from "./pages/ExerciseStats";
 import Settings from "./pages/Settings";
 import About from "./pages/About";
@@ -21,11 +22,12 @@ export default function App() {
                     <Routes>
                         <Route element={<Layout />}>
                             <Route path="/" element={<Home />} />
-                            <Route path="/add-exercise" element={<AddExercise />} />
+                            <Route path="/log-exercise" element={<LogExericse />} />
                             <Route path="/history" element={<History />} />
                             <Route path="/history/:id" element={<Workout />} />
                             <Route path="/stats" element={<Stats />} />
-                            <Route path="/stats/exercise/:id" element={<ExerciseStats />} />
+                            <Route path="/stats/exercises" element={<Exercises />} />
+                            <Route path="/stats/exercises/:id" element={<ExerciseStats />} />
                             <Route path="/settings" element={<Settings />} />
                             <Route path="/settings/about" element={<About />} />
                         </Route>

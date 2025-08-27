@@ -93,7 +93,7 @@ export default function ExerciseStats() {
 
     return (
         <div className="content">
-            <BackButton label="Stats" to="/stats" />
+            <BackButton label="Exercises" to="/stats/exercises" />
             <PageHeading>{exercise}</PageHeading>
 
             <Select value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
@@ -107,7 +107,7 @@ export default function ExerciseStats() {
 
             <section className="grid grid-cols-1 gap-4 mb-8">
                 <div className="bg-secondary p-4 rounded-2xl border border-border/20">
-                    <h2 className="text-text-grey text-sm mb-6">Personal records</h2>
+                    <h2 className="text-text-grey text-sm mb-6">Personal Records</h2>
                     <div className="flex flex-col gap-2 divide-y divide-border/50">
                         {Object.entries(personalRecords(filteredData)).map(
                             ([rep, record], index) => (
