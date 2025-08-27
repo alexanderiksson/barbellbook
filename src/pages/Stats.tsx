@@ -1,18 +1,14 @@
 import { useState, useMemo } from "react";
-import { Link } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
 import exercisesData from "../data/exercises.json";
 
 import PageHeading from "../components/common/PageHeading";
-import { Button } from "../components/common/Buttons";
+import { LinkButton } from "../components/common/Buttons";
 import Chart from "../components/pages/Stats/BarChart";
 import { Select } from "../components/common/Inputs";
 
-import { IoIosArrowForward } from "react-icons/io";
-
 export default function Stats() {
     const { workouts } = useWorkout();
-    const [showAllExercises, setShowAllExercises] = useState(false);
 
     // Find years from the logged workouts
     const years = useMemo(
@@ -148,30 +144,23 @@ export default function Stats() {
                         </div>
 
                         <div className="bg-secondary p-4 rounded-2xl border border-border/20">
-                            <h2 className="mb-6 text-text-grey text-sm">Favorite exercises</h2>
+                            <h2 className="mb-6 text-text-grey text-sm">Your favorite exercises</h2>
                             <div className="flex flex-col mb-6 gap-4">
-                                {(showAllExercises ? allExercises : allExercises.slice(0, 3)).map(
-                                    (exercise, index) => (
-                                        <Link key={index} to={`/stats/exercise/${exercise.id}`}>
-                                            <div className="flex justify-between items-center gap-4 p-3 bg-secondary-bright rounded-xl border border-border/20">
-                                                <h3 className="truncate">
-                                                    <span className="text-text-grey mr-2">
-                                                        {index + 1}.
-                                                    </span>
-                                                    {exercise.name}
-                                                </h3>
-                                                <IoIosArrowForward size={20} color="gray" />
-                                            </div>
-                                        </Link>
-                                    )
-                                )}
+                                {allExercises.slice(0, 3).map((exercise, index) => (
+                                    <div key={index}>
+                                        <h3 className="truncate">
+                                            <span className="text-text-grey mr-2">
+                                                {index + 1}.
+                                            </span>
+                                            {exercise.name}
+                                        </h3>
+                                    </div>
+                                ))}
                             </div>
-                            <Button
-                                variant="outline"
-                                onClick={() => setShowAllExercises((prev) => !prev)}
-                            >
-                                {showAllExercises ? "Show less" : "Show all"}
-                            </Button>
+
+                            <LinkButton to="/stats/exercises" variant="blue">
+                                Show all
+                            </LinkButton>
                         </div>
                     </section>
                 </>

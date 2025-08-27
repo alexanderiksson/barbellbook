@@ -93,7 +93,7 @@ export default function ExerciseStats() {
 
     return (
         <div className="content">
-            <BackButton label="Stats" to="/stats" />
+            <BackButton label="Exercises" to="/stats/exercises" />
             <PageHeading>{exercise}</PageHeading>
 
             <Select value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
