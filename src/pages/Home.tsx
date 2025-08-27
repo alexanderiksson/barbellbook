@@ -73,7 +73,7 @@ export default function Home() {
                 />
 
                 <PageHeading>
-                    Today's Workout
+                    Today's workout
                     <span className="text-sm lg:text-base font-normal block text-text-grey mt-2">
                         {new Date().toLocaleDateString("en-US", {
                             weekday: "long",
@@ -84,8 +84,8 @@ export default function Home() {
                 </PageHeading>
 
                 <div className="flex justify-between flex-wrap gap-2 mb-8 mt-8">
-                    <LinkButton to="/add-exercise" variant={"outline"}>
-                        <IoMdAdd size={20} /> Add exercise
+                    <LinkButton to="/log-exercise" variant={"outline"}>
+                        <IoMdAdd size={20} /> Log exercise
                     </LinkButton>
 
                     {exercises.length > 0 && (

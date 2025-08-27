@@ -18,7 +18,7 @@ import PreviousSession from "../components/pages/AddExercise/PreviousSession";
 
 import { IoMdAdd } from "react-icons/io";
 
-export default function AddExercise() {
+export default function LogExercise() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -81,7 +81,7 @@ export default function AddExercise() {
                     registerTrigger={(trigger) => (noticeTriggerRef.current = trigger)}
                 />
 
-                <PageHeading>Add Exercise</PageHeading>
+                <PageHeading>Log exercise</PageHeading>
 
                 <div className="flex flex-col gap-4 flex-1 mb-4">
                     <div className="relative">

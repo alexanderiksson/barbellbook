@@ -4,7 +4,7 @@ import { SettingsProvider } from "./context/SettingsContext";
 
 import Layout from "./Layout";
 import Home from "./pages/Home";
-import AddExercise from "./pages/AddExercise";
+import LogExericse from "./pages/LogExercise";
 import History from "./pages/History";
 import Workout from "./pages/Workout";
 import Stats from "./pages/Stats";
@@ -22,7 +22,7 @@ export default function App() {
                     <Routes>
                         <Route element={<Layout />}>
                             <Route path="/" element={<Home />} />
-                            <Route path="/add-exercise" element={<AddExercise />} />
+                            <Route path="/log-exercise" element={<LogExericse />} />
                             <Route path="/history" element={<History />} />
                             <Route path="/history/:id" element={<Workout />} />
                             <Route path="/stats" element={<Stats />} />
