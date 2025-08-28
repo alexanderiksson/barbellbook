@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { useWorkout } from "../context/WorkoutContext";
 import useModal from "../hooks/useModal";
+import greeting from "../utils/greeting";
 
 import PageHeading from "../components/common/PageHeading";
 import { LinkButton, Button } from "../components/common/Buttons";
@@ -21,28 +22,6 @@ export default function Home() {
     // Manage modal state
     const confirmModal = useModal();
     const promptModal = useModal();
-
-    const greeting = () => {
-        const currentTime = new Date().getHours();
-
-        if (currentTime > 5 && currentTime <= 10) {
-            return "Good Morning";
-        }
-
-        if (currentTime > 10 && currentTime <= 14) {
-            return "Good Day";
-        }
-
-        if (currentTime > 14 && currentTime <= 18) {
-            return "Good Afternoon";
-        }
-
-        if (currentTime > 18 && currentTime <= 22) {
-            return "Good Evening";
-        }
-
-        return "Good Night";
-    };
 
     // Show loader if loading
     if (loading) return <Loader />;
