@@ -6,10 +6,6 @@ import PageHeading from "../components/common/PageHeading";
 import { LinkButton } from "../components/common/Buttons";
 import { Select } from "../components/common/Inputs";
 import {
-    PieChart,
-    Pie,
-    Cell,
-    Legend,
     Tooltip,
     ResponsiveContainer,
     BarChart,
@@ -17,6 +13,10 @@ import {
     XAxis,
     YAxis,
     CartesianGrid,
+    RadarChart,
+    PolarGrid,
+    PolarAngleAxis,
+    Radar,
 } from "recharts";
 
 export default function Stats() {
@@ -136,6 +136,7 @@ export default function Stats() {
                                             fill={getComputedStyle(
                                                 document.documentElement
                                             ).getPropertyValue("--color-primary-bright")}
+                                            radius={[4, 4, 0, 0]}
                                         />
                                     </BarChart>
                                 </ResponsiveContainer>
@@ -159,6 +160,7 @@ export default function Stats() {
                                             fill={getComputedStyle(
                                                 document.documentElement
                                             ).getPropertyValue("--color-accent-bright")}
+                                            radius={[4, 4, 0, 0]}
                                         />
                                     </BarChart>
                                 </ResponsiveContainer>
@@ -169,49 +171,28 @@ export default function Stats() {
                             <h2 className="mb-6 text-text-grey text-sm">
                                 Most Worked Muscle Groups
                             </h2>
-                            <div className="w-full h-[300px]">
+                            <div className="w-full h-64">
                                 <ResponsiveContainer width="100%" height="100%">
-                                    <PieChart margin={{ bottom: 16 }}>
-                                        <Pie
-                                            data={mostTrainedBodyParts}
+                                    <RadarChart
+                                        cx="50%"
+                                        cy="50%"
+                                        outerRadius="85%"
+                                        data={mostTrainedBodyParts}
+                                    >
+                                        <PolarGrid opacity={0.5} />
+                                        <PolarAngleAxis dataKey="name" fontSize={12} />
+
+                                        <Radar
                                             dataKey="percentage"
-                                            nameKey="name"
-                                            cx="50%"
-                                            cy="50%"
-                                            outerRadius={90}
-                                            label={({ percentage }) => `${percentage}%`}
-                                        >
-                                            {mostTrainedBodyParts.map((entry, index) => (
-                                                <Cell
-                                                    key={`cell-${entry.name}`}
-                                                    fill={
-                                                        [
-                                                            getComputedStyle(
-                                                                document.documentElement
-                                                            ).getPropertyValue(
-                                                                "--color-primary-bright"
-                                                            ),
-                                                            getComputedStyle(
-                                                                document.documentElement
-                                                            ).getPropertyValue(
-                                                                "--color-accent-bright"
-                                                            ),
-                                                            "#eab308",
-                                                            "#ef4444",
-                                                            "#a855f7",
-                                                            "#84cc16",
-                                                        ][index % 10]
-                                                    }
-                                                />
-                                            ))}
-                                        </Pie>
-                                        <Legend
-                                            layout="horizontal"
-                                            align="center"
-                                            verticalAlign="bottom"
+                                            stroke={getComputedStyle(
+                                                document.documentElement
+                                            ).getPropertyValue("--color-primary-bright")}
+                                            fill={getComputedStyle(
+                                                document.documentElement
+                                            ).getPropertyValue("--color-primary-bright")}
+                                            fillOpacity={0.8}
                                         />
-                                        <Tooltip formatter={(value) => `${value}%`} />
-                                    </PieChart>
+                                    </RadarChart>
                                 </ResponsiveContainer>
                             </div>
                         </div>
