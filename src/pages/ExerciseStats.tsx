@@ -9,6 +9,16 @@ import PageHeading from "../components/common/PageHeading";
 import BackButton from "../components/common/BackButton";
 import { Select } from "../components/common/Inputs";
 import Error from "../components/common/Error";
+import {
+    CartesianGrid,
+    Legend,
+    Line,
+    LineChart,
+    ResponsiveContainer,
+    Tooltip,
+    XAxis,
+    YAxis,
+} from "recharts";
 
 export default function ExerciseStats() {
     const { id } = useParams<{ id: string }>();
@@ -29,12 +39,14 @@ export default function ExerciseStats() {
             return null;
         }
 
-        return exerciseEntry.name;
+        return { name: exerciseEntry.name, category: exerciseEntry["body-part"] };
     }, [id, workouts]);
+
+    if (!exercise) return null;
 
     // Finds all workouts that contains the exercise
     const allWorkouts = workouts.filter((workout) =>
-        workout.exercises.some((ex) => ex.name === exercise)
+        workout.exercises.some((ex) => ex.name === exercise.name)
     );
 
     // Find the years from the logged data
@@ -68,7 +80,7 @@ export default function ExerciseStats() {
             let bestSet: { weight: number; reps: number; date: string } | null = null;
             data.forEach((workout) => {
                 workout.exercises
-                    .filter((ex) => ex.name === exercise)
+                    .filter((ex) => ex.name === exercise.name)
                     .forEach((ex) => {
                         ex.sets.forEach((set) => {
                             if (Number(set.reps) === rep) {
@@ -89,12 +101,29 @@ export default function ExerciseStats() {
         return bestResults;
     };
 
+    const data = filteredData
+        .filter((workout) => workout.exercises.some((ex) => ex.name === exercise.name))
+        .map((workout) => {
+            const exerciseData = workout.exercises.find((ex) => ex.name === exercise.name);
+            const maxWeightSet = exerciseData
+                ? exerciseData.sets.reduce((maxSet, currentSet) =>
+                      Number(currentSet.weight) > Number(maxSet.weight) ? currentSet : maxSet
+                  )
+                : { weight: 0, reps: 0 };
+            return {
+                date: new Date(workout.date).toLocaleDateString(),
+                Weight: Number(maxWeightSet.weight),
+                Reps: Number(maxWeightSet.reps),
+            };
+        })
+        .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
     if (!exercise) return <Error msg="Exercise not found" />;
 
     return (
         <div className="content">
             <BackButton label="Exercises" to="/stats/exercises" />
-            <PageHeading>{exercise}</PageHeading>
+            <PageHeading>{exercise.name}</PageHeading>
 
             <Select value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
                 <option value="all">All time</option>
@@ -106,6 +135,93 @@ export default function ExerciseStats() {
             </Select>
 
             <section className="grid grid-cols-1 gap-4 mb-8">
+                <div className="bg-secondary p-4 rounded-2xl border border-border/20 hidden">
+                    <div className="grid grid-cols-2 gap-2">
+                        <div>
+                            <h3 className="text-text-grey text-sm">Total Sessions</h3>
+                            <span>10</span>
+                        </div>
+
+                        <div>
+                            <h3 className="text-text-grey text-sm">Avg. Sets/Session</h3>
+                            <span>3.1 sets</span>
+                        </div>
+
+                        <div>
+                            <h3 className="text-text-grey text-sm">Avg. Time/Session</h3>
+                            <span>9,5 min</span>
+                        </div>
+
+                        <div>
+                            <h3 className="text-text-grey text-sm">Estimated 1RM</h3>
+                            <span>31,5 kg</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="bg-secondary p-4 rounded-2xl border border-border/20">
+                    <h2 className="text-text-grey text-sm mb-6">Weight Progress</h2>
+                    <div className="w-full h-80 lg:h-96">
+                        <ResponsiveContainer width="100%" height="100%">
+                            <LineChart
+                                data={data}
+                                margin={{
+                                    top: 0,
+                                    right: -42,
+                                    left: -25,
+                                    bottom: 0,
+                                }}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.3} />
+                                <XAxis dataKey="date" fontSize={12} />
+                                <YAxis
+                                    yAxisId="left"
+                                    fontSize={12}
+                                    domain={["dataMin - 1", "dataMax + 1"]}
+                                    allowDecimals={false}
+                                />
+                                <YAxis
+                                    yAxisId="right"
+                                    fontSize={12}
+                                    orientation="right"
+                                    domain={["dataMin - 1", "dataMax + 1"]}
+                                    allowDecimals={false}
+                                />
+                                <Tooltip
+                                    contentStyle={{
+                                        backgroundColor: getComputedStyle(
+                                            document.documentElement
+                                        ).getPropertyValue("--color-background"),
+                                        borderRadius: "16px",
+                                        border: "none",
+                                        color: "lightgray",
+                                    }}
+                                />
+                                <Legend />
+                                <Line
+                                    yAxisId="left"
+                                    type="bump"
+                                    dataKey="Weight"
+                                    stroke={getComputedStyle(
+                                        document.documentElement
+                                    ).getPropertyValue("--color-primary-bright")}
+                                    activeDot={{ r: 8 }}
+                                    strokeWidth={2}
+                                />
+                                <Line
+                                    yAxisId="right"
+                                    type="stepAfter"
+                                    dataKey="Reps"
+                                    stroke={getComputedStyle(
+                                        document.documentElement
+                                    ).getPropertyValue("--color-accent-bright")}
+                                    strokeWidth={2}
+                                />
+                            </LineChart>
+                        </ResponsiveContainer>
+                    </div>
+                </div>
+
                 <div className="bg-secondary p-4 rounded-2xl border border-border/20">
                     <h2 className="text-text-grey text-sm mb-6">Personal Records</h2>
                     <div className="flex flex-col gap-2 divide-y divide-border/50">
