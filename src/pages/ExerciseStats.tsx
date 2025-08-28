@@ -9,6 +9,16 @@ import PageHeading from "../components/common/PageHeading";
 import BackButton from "../components/common/BackButton";
 import { Select } from "../components/common/Inputs";
 import Error from "../components/common/Error";
+import {
+    CartesianGrid,
+    Legend,
+    Line,
+    LineChart,
+    ResponsiveContainer,
+    Tooltip,
+    XAxis,
+    YAxis,
+} from "recharts";
 
 export default function ExerciseStats() {
     const { id } = useParams<{ id: string }>();
@@ -89,6 +99,23 @@ export default function ExerciseStats() {
         return bestResults;
     };
 
+    const data = filteredData
+        .filter((workout) => workout.exercises.some((ex) => ex.name === exercise))
+        .map((workout) => {
+            const exerciseData = workout.exercises.find((ex) => ex.name === exercise);
+            const maxWeightSet = exerciseData
+                ? exerciseData.sets.reduce((maxSet, currentSet) =>
+                      Number(currentSet.weight) > Number(maxSet.weight) ? currentSet : maxSet
+                  )
+                : { weight: 0, reps: 0 };
+            return {
+                date: new Date(workout.date).toLocaleDateString(),
+                Weight: Number(maxWeightSet.weight),
+                Reps: Number(maxWeightSet.reps),
+            };
+        })
+        .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
     if (!exercise) return <Error msg="Exercise not found" />;
 
     return (
@@ -106,6 +133,69 @@ export default function ExerciseStats() {
             </Select>
 
             <section className="grid grid-cols-1 gap-4 mb-8">
+                <div className="bg-secondary p-4 rounded-2xl border border-border/20">
+                    <h2 className="text-text-grey text-sm mb-6">Weight Progress</h2>
+                    <div className="w-full h-80 lg:h-96">
+                        <ResponsiveContainer width="100%" height="100%">
+                            <LineChart
+                                data={data}
+                                margin={{
+                                    top: 0,
+                                    right: -45,
+                                    left: -30,
+                                    bottom: 0,
+                                }}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.3} />
+                                <XAxis dataKey="date" fontSize={12} />
+                                <YAxis
+                                    yAxisId="left"
+                                    fontSize={12}
+                                    domain={["dataMin - 1", "dataMax + 1"]}
+                                    allowDecimals={false}
+                                />
+                                <YAxis
+                                    yAxisId="right"
+                                    fontSize={12}
+                                    orientation="right"
+                                    domain={["dataMin - 1", "dataMax + 1"]}
+                                    allowDecimals={false}
+                                />
+                                <Tooltip
+                                    contentStyle={{
+                                        backgroundColor: getComputedStyle(
+                                            document.documentElement
+                                        ).getPropertyValue("--color-background"),
+                                        borderRadius: "16px",
+                                        border: "none",
+                                        color: "lightgray",
+                                    }}
+                                />
+                                <Legend />
+                                <Line
+                                    yAxisId="left"
+                                    type="bump"
+                                    dataKey="Weight"
+                                    stroke={getComputedStyle(
+                                        document.documentElement
+                                    ).getPropertyValue("--color-primary-bright")}
+                                    activeDot={{ r: 8 }}
+                                    strokeWidth={2}
+                                />
+                                <Line
+                                    yAxisId="right"
+                                    type="stepBefore"
+                                    dataKey="Reps"
+                                    stroke={getComputedStyle(
+                                        document.documentElement
+                                    ).getPropertyValue("--color-accent-bright")}
+                                    strokeWidth={2}
+                                />
+                            </LineChart>
+                        </ResponsiveContainer>
+                    </div>
+                </div>
+
                 <div className="bg-secondary p-4 rounded-2xl border border-border/20">
                     <h2 className="text-text-grey text-sm mb-6">Personal Records</h2>
                     <div className="flex flex-col gap-2 divide-y divide-border/50">

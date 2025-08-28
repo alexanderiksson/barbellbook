@@ -121,7 +121,7 @@ export default function Stats() {
                     <section className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                         <div className="bg-secondary p-4 rounded-2xl border border-border/20">
                             <h2 className="mb-6 text-text-grey text-sm">Monthly Workouts</h2>
-                            <div className="w-full h-64">
+                            <div className="w-full h-72">
                                 <ResponsiveContainer width="100%" height="100%">
                                     <BarChart
                                         data={sessions}
@@ -145,7 +145,7 @@ export default function Stats() {
 
                         <div className="bg-secondary p-4 rounded-2xl border border-border/20">
                             <h2 className="mb-6 text-text-grey text-sm">Monthly Exercises</h2>
-                            <div className="w-full h-64">
+                            <div className="w-full h-72">
                                 <ResponsiveContainer width="100%" height="100%">
                                     <BarChart
                                         data={exercises}
@@ -171,12 +171,12 @@ export default function Stats() {
                             <h2 className="mb-6 text-text-grey text-sm">
                                 Most Worked Muscle Groups
                             </h2>
-                            <div className="w-full h-64">
+                            <div className="w-full h-72 lg:h-96">
                                 <ResponsiveContainer width="100%" height="100%">
                                     <RadarChart
                                         cx="50%"
                                         cy="50%"
-                                        outerRadius="85%"
+                                        outerRadius="90%"
                                         data={mostTrainedBodyParts}
                                     >
                                         <PolarGrid opacity={0.5} />
