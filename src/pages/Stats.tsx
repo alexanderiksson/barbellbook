@@ -190,7 +190,7 @@ export default function Stats() {
                                             fill={getComputedStyle(
                                                 document.documentElement
                                             ).getPropertyValue("--color-primary-bright")}
-                                            fillOpacity={0.8}
+                                            fillOpacity={0.7}
                                         />
                                     </RadarChart>
                                 </ResponsiveContainer>

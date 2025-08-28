@@ -39,12 +39,14 @@ export default function ExerciseStats() {
             return null;
         }
 
-        return exerciseEntry.name;
+        return { name: exerciseEntry.name, category: exerciseEntry["body-part"] };
     }, [id, workouts]);
+
+    if (!exercise) return null;
 
     // Finds all workouts that contains the exercise
     const allWorkouts = workouts.filter((workout) =>
-        workout.exercises.some((ex) => ex.name === exercise)
+        workout.exercises.some((ex) => ex.name === exercise.name)
     );
 
     // Find the years from the logged data
@@ -78,7 +80,7 @@ export default function ExerciseStats() {
             let bestSet: { weight: number; reps: number; date: string } | null = null;
             data.forEach((workout) => {
                 workout.exercises
-                    .filter((ex) => ex.name === exercise)
+                    .filter((ex) => ex.name === exercise.name)
                     .forEach((ex) => {
                         ex.sets.forEach((set) => {
                             if (Number(set.reps) === rep) {
@@ -100,9 +102,9 @@ export default function ExerciseStats() {
     };
 
     const data = filteredData
-        .filter((workout) => workout.exercises.some((ex) => ex.name === exercise))
+        .filter((workout) => workout.exercises.some((ex) => ex.name === exercise.name))
         .map((workout) => {
-            const exerciseData = workout.exercises.find((ex) => ex.name === exercise);
+            const exerciseData = workout.exercises.find((ex) => ex.name === exercise.name);
             const maxWeightSet = exerciseData
                 ? exerciseData.sets.reduce((maxSet, currentSet) =>
                       Number(currentSet.weight) > Number(maxSet.weight) ? currentSet : maxSet
@@ -121,7 +123,7 @@ export default function ExerciseStats() {
     return (
         <div className="content">
             <BackButton label="Exercises" to="/stats/exercises" />
-            <PageHeading>{exercise}</PageHeading>
+            <PageHeading>{exercise.name}</PageHeading>
 
             <Select value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
                 <option value="all">All time</option>
@@ -133,6 +135,30 @@ export default function ExerciseStats() {
             </Select>
 
             <section className="grid grid-cols-1 gap-4 mb-8">
+                <div className="bg-secondary p-4 rounded-2xl border border-border/20 hidden">
+                    <div className="grid grid-cols-2 gap-2">
+                        <div>
+                            <h3 className="text-text-grey text-sm">Total Sessions</h3>
+                            <span>10</span>
+                        </div>
+
+                        <div>
+                            <h3 className="text-text-grey text-sm">Avg. Sets/Session</h3>
+                            <span>3.1 sets</span>
+                        </div>
+
+                        <div>
+                            <h3 className="text-text-grey text-sm">Avg. Time/Session</h3>
+                            <span>9,5 min</span>
+                        </div>
+
+                        <div>
+                            <h3 className="text-text-grey text-sm">Estimated 1RM</h3>
+                            <span>31,5 kg</span>
+                        </div>
+                    </div>
+                </div>
+
                 <div className="bg-secondary p-4 rounded-2xl border border-border/20">
                     <h2 className="text-text-grey text-sm mb-6">Weight Progress</h2>
                     <div className="w-full h-80 lg:h-96">
@@ -141,8 +167,8 @@ export default function ExerciseStats() {
                                 data={data}
                                 margin={{
                                     top: 0,
-                                    right: -45,
-                                    left: -30,
+                                    right: -42,
+                                    left: -25,
                                     bottom: 0,
                                 }}
                             >
@@ -184,7 +210,7 @@ export default function ExerciseStats() {
                                 />
                                 <Line
                                     yAxisId="right"
-                                    type="stepBefore"
+                                    type="stepAfter"
                                     dataKey="Reps"
                                     stroke={getComputedStyle(
                                         document.documentElement
