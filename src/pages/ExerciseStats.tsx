@@ -42,7 +42,7 @@ export default function ExerciseStats() {
         return { name: exerciseEntry.name, category: exerciseEntry["body-part"] };
     }, [id, workouts]);
 
-    if (!exercise) return null;
+    if (!exercise) return <Error msg="Exercise not found" />;
 
     // Finds all workouts that contains the exercise
     const allWorkouts = workouts.filter((workout) =>
@@ -118,7 +118,35 @@ export default function ExerciseStats() {
         })
         .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
-    if (!exercise) return <Error msg="Exercise not found" />;
+    // Calculate estimate 1RM
+    const allOneRM = data.map((item) => {
+        const { Weight, Reps } = item;
+
+        if (Reps === 1) {
+            // Direct 1RM
+            return Weight;
+        } else if (Reps >= 2 && Reps <= 10) {
+            // Epley formula
+            return Weight * (1 + Reps / 30);
+        } else if (Reps > 10 && Reps <= 20) {
+            // Lombardi formula
+            return Weight * Math.pow(Reps, 0.1);
+        } else {
+            // Brzycki formula
+            return Weight * (36 / (37 - Reps));
+        }
+    });
+    const estimatedOneRM = Math.max(...allOneRM).toFixed(1);
+
+    // Find all sets
+    const allSets = filteredData.flatMap((workout) => {
+        const ex = workout.exercises.find((ex) => ex.name === exercise.name);
+        return ex ? ex.sets : [];
+    });
+
+    const allReps = allSets.flatMap((set) => {
+        return set.reps;
+    });
 
     return (
         <div className="content">
@@ -135,26 +163,33 @@ export default function ExerciseStats() {
             </Select>
 
             <section className="grid grid-cols-1 gap-4 mb-8">
-                <div className="bg-secondary p-4 rounded-2xl border border-border/20 hidden">
-                    <div className="grid grid-cols-2 gap-2">
+                <div className="bg-secondary p-4 rounded-2xl border border-border/20">
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
                         <div>
-                            <h3 className="text-text-grey text-sm">Total Sessions</h3>
-                            <span>10</span>
-                        </div>
-
-                        <div>
-                            <h3 className="text-text-grey text-sm">Avg. Sets/Session</h3>
-                            <span>3.1 sets</span>
-                        </div>
-
-                        <div>
-                            <h3 className="text-text-grey text-sm">Avg. Time/Session</h3>
-                            <span>9,5 min</span>
+                            <h3 className="text-text-grey text-sm">Total Workouts</h3>
+                            <span>{filteredData.length}</span>
                         </div>
 
                         <div>
                             <h3 className="text-text-grey text-sm">Estimated 1RM</h3>
-                            <span>31,5 kg</span>
+                            <span>
+                                {estimatedOneRM} {weightUnit}
+                            </span>
+                        </div>
+
+                        <div>
+                            <h3 className="text-text-grey text-sm">Avg. Sets/Workout</h3>
+                            <span>{(allSets.length / filteredData.length).toFixed(1)} sets</span>
+                        </div>
+
+                        <div>
+                            <h3 className="text-text-grey text-sm">Avg. Reps/Set</h3>
+                            <span>
+                                {(
+                                    allReps.reduce((acc, num) => acc + num, 0) / allSets.length
+                                ).toFixed(1)}{" "}
+                                reps
+                            </span>
                         </div>
                     </div>
                 </div>
