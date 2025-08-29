@@ -5,19 +5,9 @@ import exercisesData from "../data/exercises.json";
 import PageHeading from "../components/common/PageHeading";
 import { LinkButton } from "../components/common/Buttons";
 import { Select } from "../components/common/Inputs";
-import {
-    Tooltip,
-    ResponsiveContainer,
-    BarChart,
-    Bar,
-    XAxis,
-    YAxis,
-    CartesianGrid,
-    RadarChart,
-    PolarGrid,
-    PolarAngleAxis,
-    Radar,
-} from "recharts";
+import MonthlyWorkouts from "../components/pages/Stats/MonthlyWorkouts";
+import MostWorkedMuscleGroups from "../components/pages/Stats/MostWorkedMuscleGroups";
+import WorkoutsPerWeekday from "../components/pages/Stats/WorkoutsPerWeekday";
 
 export default function Stats() {
     const { workouts } = useWorkout();
@@ -33,27 +23,6 @@ export default function Stats() {
 
     const initialSelectedYear = years.length > 0 ? years[0].toString() : "";
     const [selectedYear, setSelectedYear] = useState<string>(initialSelectedYear);
-
-    // Calculate chart data
-    const calculateData = (key: "Sessions" | "Exercises") => {
-        return Array.from(
-            workouts.reduce((acc, workout) => {
-                const workoutDate = new Date(workout.date);
-                if (workoutDate.getFullYear().toString() === selectedYear) {
-                    const month = workoutDate.toLocaleString("en-US", { month: "short" });
-                    if (key === "Sessions") {
-                        acc.set(month, (acc.get(month) || 0) + 1);
-                    } else if (key === "Exercises") {
-                        acc.set(month, (acc.get(month) || 0) + workout.exercises.length);
-                    }
-                }
-                return acc;
-            }, new Map<string, number>())
-        ).map(([month, value]) => ({ month, [key]: value }));
-    };
-
-    const sessions = useMemo(() => calculateData("Sessions"), [workouts, selectedYear]);
-    const exercises = useMemo(() => calculateData("Exercises"), [workouts, selectedYear]);
 
     // Calculate favorite exercises
     const allExercises = useMemo(() => {
@@ -76,32 +45,6 @@ export default function Stats() {
             });
     }, [workouts]);
 
-    // Calculate most trained body parts
-    const mostTrainedBodyParts = useMemo(() => {
-        const bodyPartCount = workouts.reduce((acc, workout) => {
-            const workoutDate = new Date(workout.date);
-            if (workoutDate.getFullYear().toString() === selectedYear) {
-                workout.exercises.forEach((exercise) => {
-                    const exerciseData = exercisesData.find((e) => e.name === exercise.name);
-                    if (exerciseData) {
-                        const bodyPart = exerciseData["body-part"];
-                        acc[bodyPart] = (acc[bodyPart] || 0) + 1;
-                    }
-                });
-            }
-            return acc;
-        }, {} as Record<string, number>);
-
-        const total = Object.values(bodyPartCount).reduce((sum, count) => sum + count, 0);
-
-        return Object.entries(bodyPartCount)
-            .sort((a, b) => b[1] - a[1])
-            .map(([name, count]) => ({
-                name,
-                percentage: total > 0 ? Math.round((count / total) * 100) : 0,
-            }));
-    }, [workouts, selectedYear]);
-
     return (
         <div className="content">
             <PageHeading>Your Stats</PageHeading>
@@ -119,83 +62,9 @@ export default function Stats() {
                     </Select>
 
                     <section className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                        <div className="bg-secondary p-4 rounded-2xl border border-border/20">
-                            <h2 className="mb-6 text-text-grey text-sm">Monthly Workouts</h2>
-                            <div className="w-full h-72">
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <BarChart
-                                        data={sessions}
-                                        margin={{ top: 0, right: 10, left: -25, bottom: 0 }}
-                                    >
-                                        <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.3} />
-                                        <XAxis dataKey="month" fontSize={12} />
-                                        <YAxis allowDecimals={false} fontSize={12} />
-                                        <Tooltip />
-                                        <Bar
-                                            dataKey="Sessions"
-                                            fill={getComputedStyle(
-                                                document.documentElement
-                                            ).getPropertyValue("--color-primary-bright")}
-                                            radius={[4, 4, 0, 0]}
-                                        />
-                                    </BarChart>
-                                </ResponsiveContainer>
-                            </div>
-                        </div>
-
-                        <div className="bg-secondary p-4 rounded-2xl border border-border/20">
-                            <h2 className="mb-6 text-text-grey text-sm">Monthly Exercises</h2>
-                            <div className="w-full h-72">
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <BarChart
-                                        data={exercises}
-                                        margin={{ top: 0, right: 10, left: -25, bottom: 0 }}
-                                    >
-                                        <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.3} />
-                                        <XAxis dataKey="month" fontSize={12} />
-                                        <YAxis allowDecimals={false} fontSize={12} />
-                                        <Tooltip />
-                                        <Bar
-                                            dataKey="Exercises"
-                                            fill={getComputedStyle(
-                                                document.documentElement
-                                            ).getPropertyValue("--color-accent-bright")}
-                                            radius={[4, 4, 0, 0]}
-                                        />
-                                    </BarChart>
-                                </ResponsiveContainer>
-                            </div>
-                        </div>
-
-                        <div className="bg-secondary p-4 rounded-2xl border border-border/20">
-                            <h2 className="mb-6 text-text-grey text-sm">
-                                Most Worked Muscle Groups
-                            </h2>
-                            <div className="w-full h-72 lg:h-96">
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <RadarChart
-                                        cx="50%"
-                                        cy="50%"
-                                        outerRadius="90%"
-                                        data={mostTrainedBodyParts}
-                                    >
-                                        <PolarGrid opacity={0.5} />
-                                        <PolarAngleAxis dataKey="name" fontSize={12} />
-
-                                        <Radar
-                                            dataKey="percentage"
-                                            stroke={getComputedStyle(
-                                                document.documentElement
-                                            ).getPropertyValue("--color-primary-bright")}
-                                            fill={getComputedStyle(
-                                                document.documentElement
-                                            ).getPropertyValue("--color-primary-bright")}
-                                            fillOpacity={0.7}
-                                        />
-                                    </RadarChart>
-                                </ResponsiveContainer>
-                            </div>
-                        </div>
+                        <MonthlyWorkouts workouts={workouts} year={selectedYear} />
+                        <WorkoutsPerWeekday workouts={workouts} year={selectedYear} />
+                        <MostWorkedMuscleGroups workouts={workouts} year={selectedYear} />
 
                         <div className="bg-secondary p-4 rounded-2xl border border-border/20 flex flex-col justify-between">
                             <h2 className="mb-6 text-text-grey text-sm">Your Top Exercises</h2>

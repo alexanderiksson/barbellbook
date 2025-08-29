@@ -211,7 +211,7 @@ export default function Stats({ id }: { id: string | undefined }) {
                         </div>
 
                         <div>
-                            <h3 className="text-text-grey text-sm mb-1">Muslce Groups</h3>
+                            <h3 className="text-text-grey text-sm mb-1">Muslce Groups Worked</h3>
                             <div className="flex flex-col divide-y divide-border/50">
                                 {bodyPartsTrained.map(({ part, percent }, index) => (
                                     <div
