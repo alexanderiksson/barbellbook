@@ -74,7 +74,6 @@ export default function Home() {
                 />
 
                 <PageHeading>
-                    {greeting()}
                     <span className="text-sm lg:text-base font-normal block text-text-grey">
                         {new Date().toLocaleDateString("en-US", {
                             weekday: "long",
@@ -82,6 +81,7 @@ export default function Home() {
                             day: "numeric",
                         })}
                     </span>
+                    {greeting()}
                 </PageHeading>
 
                 <div className="flex justify-between flex-wrap gap-2 mb-8 mt-8">
