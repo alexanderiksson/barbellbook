@@ -231,6 +231,12 @@ export default function ExerciseStats() {
                                         border: "none",
                                         color: "lightgray",
                                     }}
+                                    formatter={(value, name) => {
+                                        if (name === "Weight") {
+                                            return `${value} ${weightUnit}`;
+                                        }
+                                        return value;
+                                    }}
                                 />
                                 <Legend />
                                 <Line
