@@ -38,8 +38,8 @@ export default function Notice({ registerTrigger, msg }: NoticeProps) {
     return (
         <div
             className={`${
-                notice ? "top-2" : "-top-full"
-            } content text-center p-3 bg-accent/70 border border-border/50 rounded-lg fixed w-full z-30 backdrop-blur-3xl transition-all duration-300`}
+                notice ? "top-2 standalone:top-20" : "-top-full"
+            } content text-center p-3 bg-accent/70 border border-border/50 rounded-lg fixed w-full z-20 backdrop-blur-3xl transition-all duration-300`}
             role="alert"
         >
             {msg}
