@@ -6,7 +6,7 @@ export default function Layout() {
         <>
             <main
                 role="main"
-                className="flex-1 flex flex-col justify-start pt-8 pb-20 lg:pb-8 lg:ml-52 xl:ml-60 standalone:pt-20"
+                className="flex-1 flex flex-col justify-start pt-8 pb-20 lg:pb-8 lg:ml-52 xl:ml-60 standalone:pt-20 standalone:pb-26"
             >
                 <Outlet />
             </main>
