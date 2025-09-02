@@ -2,7 +2,7 @@ import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { WorkoutProvider } from "./context/WorkoutContext";
 import { SettingsProvider } from "./context/SettingsContext";
 
-import Layout from "./Layout";
+import DefaultLayout from "./layouts/DefaultLayout";
 import Home from "./pages/Home";
 import LogExericse from "./pages/LogExercise";
 import History from "./pages/History";
@@ -20,7 +20,7 @@ export default function App() {
             <SettingsProvider>
                 <WorkoutProvider>
                     <Routes>
-                        <Route element={<Layout />}>
+                        <Route element={<DefaultLayout />}>
                             <Route path="/" element={<Home />} />
                             <Route path="/log-exercise" element={<LogExericse />} />
                             <Route path="/history" element={<History />} />

@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
-import Navigation from "./components/layout/Navigation";
+import Navigation from "../components/layout/Navigation";
 
-export default function Layout() {
+export default function DefaultLayout() {
     return (
         <>
             <div className="hidden standalone:block fixed w-full top-0 standalone:h-16 border-b border-border/20 bg-secondary-bright/50 backdrop-blur-xl z-30"></div>
