@@ -9,17 +9,9 @@ import calculate1RM from "../utils/calculate1RM";
 import PageHeading from "../components/common/PageHeading";
 import BackButton from "../components/common/BackButton";
 import { Select } from "../components/common/Inputs";
+import WeightProgress from "../components/pages/ExerciseStats/WeightProgress";
+import PersonalRecords from "../components/pages/ExerciseStats/PersonalRecords";
 import Error from "../components/common/Error";
-import {
-    CartesianGrid,
-    Legend,
-    Line,
-    LineChart,
-    ResponsiveContainer,
-    Tooltip,
-    XAxis,
-    YAxis,
-} from "recharts";
 
 export default function ExerciseStats() {
     const { id } = useParams<{ id: string }>();
@@ -48,7 +40,18 @@ export default function ExerciseStats() {
     // Finds all workouts that contains the exercise
     const allWorkouts = useMemo(
         () =>
-            workouts.filter((workout) => workout.exercises.some((ex) => ex.name === exercise.name)),
+            workouts
+                .filter((workout) => workout.exercises.some((ex) => ex.name === exercise.name))
+                .map((workout) => {
+                    const exerciseData = workout.exercises.find((ex) => ex.name === exercise.name);
+                    return {
+                        date: workout.date,
+                        name: workout.name,
+                        log: workout.log,
+                        exercises: exerciseData ? [exerciseData] : [],
+                    };
+                })
+                .filter((workout) => workout.exercises.length > 0),
         [workouts, exercise.name]
     );
 
@@ -58,7 +61,7 @@ export default function ExerciseStats() {
             Array.from(new Set(allWorkouts.map((item) => new Date(item.date).getFullYear()))).sort(
                 (a, b) => b - a
             ),
-        [workouts]
+        [allWorkouts]
     );
 
     // Filter the data based on what year is selected
@@ -88,73 +91,22 @@ export default function ExerciseStats() {
         }
     }, [selectedYear, allWorkouts]);
 
-    // Find personal records
-    const personalRecords = (data: WorkoutType[]) => {
-        const bestResults: {
-            [rep: number]: { weight: number; reps: number; date: string } | null;
-        } = {};
-        for (let rep = 1; rep <= 10; rep++) {
-            let bestSet: { weight: number; reps: number; date: string } | null = null;
-            data.forEach((workout) => {
-                workout.exercises
-                    .filter((ex) => ex.name === exercise.name)
-                    .forEach((ex) => {
-                        ex.sets.forEach((set) => {
-                            if (Number(set.reps) === rep) {
-                                const weightNum = Number(set.weight);
-                                if (!bestSet || weightNum > bestSet.weight) {
-                                    bestSet = {
-                                        weight: weightNum,
-                                        reps: Number(set.reps),
-                                        date: workout.date,
-                                    };
-                                }
-                            }
-                        });
-                    });
-            });
-            bestResults[rep] = bestSet;
-        }
-        return bestResults;
-    };
-
-    const data = filteredData
-        .filter((workout) => workout.exercises.some((ex) => ex.name === exercise.name))
-        .map((workout) => {
-            const exerciseData = workout.exercises.find((ex) => ex.name === exercise.name);
-            if (!exerciseData) {
-                return {
-                    date: new Date(workout.date).toLocaleDateString(),
-                    Weight: 0,
-                    Reps: 0,
-                };
-            }
-
-            const maxWeight = Math.max(...exerciseData.sets.map((set) => Number(set.weight)));
-
-            const maxWeightSets = exerciseData.sets.filter(
-                (set) => Number(set.weight) === maxWeight
-            );
-            const maxRepsAtMaxWeight = Math.max(...maxWeightSets.map((set) => Number(set.reps)));
-
-            return {
-                date: new Date(workout.date).toLocaleDateString(),
-                Weight: maxWeight,
-                Reps: maxRepsAtMaxWeight,
-            };
-        })
-        .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-
     // Calculate estimate 1RM
-    const allOneRM = data.map((item) => {
-        const { Weight, Reps } = item;
-        return calculate1RM(Weight, Reps);
+    const allOneRM = filteredData.flatMap((workout) => {
+        const exerciseData = workout.exercises[0];
+        if (!exerciseData) return [];
+
+        return exerciseData.sets.map((set) => {
+            const weight = Number(set.weight);
+            const reps = Number(set.reps);
+            return calculate1RM(weight, reps);
+        });
     });
-    const estimatedOneRM = Math.max(...allOneRM).toFixed(1);
+    const estimatedOneRM = allOneRM.length > 0 ? Math.max(...allOneRM).toFixed(1) : "0";
 
     // Find all sets
     const allSets = filteredData.flatMap((workout) => {
-        const ex = workout.exercises.find((ex) => ex.name === exercise.name);
+        const ex = workout.exercises[0];
         return ex ? ex.sets : [];
     });
 
@@ -178,138 +130,47 @@ export default function ExerciseStats() {
                 ))}
             </Select>
 
-            <section className="grid grid-cols-1 gap-4 mb-8">
-                <div className="bg-secondary p-4 rounded-2xl border border-border/20">
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
-                        <div>
-                            <h3 className="text-text-grey text-sm">Total Workouts</h3>
-                            <span>{filteredData.length}</span>
-                        </div>
+            {filteredData.length === 0 ? (
+                <p className="text-center">No records for this period</p>
+            ) : (
+                <section className="grid grid-cols-1 gap-4 mb-8">
+                    <div className="bg-secondary p-4 rounded-2xl border border-border/20">
+                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+                            <div>
+                                <h3 className="text-text-grey text-sm">Total Workouts</h3>
+                                <span>{filteredData.length}</span>
+                            </div>
 
-                        <div>
-                            <h3 className="text-text-grey text-sm">Estimated 1RM</h3>
-                            <span>
-                                {estimatedOneRM} {weightUnit}
-                            </span>
-                        </div>
+                            <div>
+                                <h3 className="text-text-grey text-sm">Estimated 1RM</h3>
+                                <span>
+                                    {estimatedOneRM} {weightUnit}
+                                </span>
+                            </div>
 
-                        <div>
-                            <h3 className="text-text-grey text-sm">Avg. Sets/Workout</h3>
-                            <span>{(allSets.length / filteredData.length).toFixed(1)} sets</span>
-                        </div>
+                            <div>
+                                <h3 className="text-text-grey text-sm">Avg. Sets/Workout</h3>
+                                <span>
+                                    {(allSets.length / filteredData.length).toFixed(1)} sets
+                                </span>
+                            </div>
 
-                        <div>
-                            <h3 className="text-text-grey text-sm">Avg. Reps/Set</h3>
-                            <span>
-                                {(
-                                    allReps.reduce((acc, num) => acc + num, 0) / allSets.length
-                                ).toFixed(1)}{" "}
-                                reps
-                            </span>
+                            <div>
+                                <h3 className="text-text-grey text-sm">Avg. Reps/Set</h3>
+                                <span>
+                                    {(
+                                        allReps.reduce((acc, num) => acc + num, 0) / allSets.length
+                                    ).toFixed(1)}{" "}
+                                    reps
+                                </span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div className="bg-secondary p-4 rounded-2xl border border-border/20">
-                    <h2 className="text-text-grey text-sm mb-6">Weight Progress</h2>
-                    <div className="w-full h-80 lg:h-96">
-                        <ResponsiveContainer width="100%" height="100%">
-                            <LineChart
-                                data={data}
-                                margin={{
-                                    top: 0,
-                                    right: -42,
-                                    left: -25,
-                                    bottom: 0,
-                                }}
-                            >
-                                <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.3} />
-                                <XAxis dataKey="date" fontSize={12} />
-                                <YAxis
-                                    yAxisId="left"
-                                    fontSize={12}
-                                    domain={["dataMin - 1", "dataMax + 1"]}
-                                    allowDecimals={false}
-                                />
-                                <YAxis
-                                    yAxisId="right"
-                                    fontSize={12}
-                                    orientation="right"
-                                    domain={["dataMin - 1", "dataMax + 1"]}
-                                    allowDecimals={false}
-                                />
-                                <Tooltip
-                                    contentStyle={{
-                                        backgroundColor: getComputedStyle(
-                                            document.documentElement
-                                        ).getPropertyValue("--color-background"),
-                                        borderRadius: "16px",
-                                        border: "none",
-                                        color: "lightgray",
-                                    }}
-                                    formatter={(value, name) => {
-                                        if (name === "Weight") {
-                                            return `${value} ${weightUnit}`;
-                                        }
-                                        return value;
-                                    }}
-                                />
-                                <Legend />
-                                <Line
-                                    yAxisId="left"
-                                    type="bump"
-                                    dataKey="Weight"
-                                    stroke={getComputedStyle(
-                                        document.documentElement
-                                    ).getPropertyValue("--color-primary-bright")}
-                                    activeDot={{ r: 8 }}
-                                    strokeWidth={2}
-                                />
-                                <Line
-                                    yAxisId="right"
-                                    type="stepAfter"
-                                    dataKey="Reps"
-                                    stroke={getComputedStyle(
-                                        document.documentElement
-                                    ).getPropertyValue("--color-accent-bright")}
-                                    strokeWidth={2}
-                                />
-                            </LineChart>
-                        </ResponsiveContainer>
-                    </div>
-                </div>
-
-                <div className="bg-secondary p-4 rounded-2xl border border-border/20">
-                    <h2 className="text-text-grey text-sm mb-6">Personal Records</h2>
-                    <div className="flex flex-col gap-2 divide-y divide-border/50">
-                        {Object.entries(personalRecords(filteredData)).map(
-                            ([rep, record], index) => (
-                                <div key={index} className="flex items-center justify-between py-2">
-                                    <span>{rep} RM</span>
-                                    {record ? (
-                                        <>
-                                            <span>
-                                                {record.weight}
-                                                <span className="text-text-grey ml-1">
-                                                    {weightUnit}
-                                                </span>
-                                            </span>
-                                            <span className="w-24">
-                                                {new Date(record.date).toLocaleDateString()}
-                                            </span>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <span>-</span>
-                                            <span className="text-text-grey w-24">Not logged</span>
-                                        </>
-                                    )}
-                                </div>
-                            )
-                        )}
-                    </div>
-                </div>
-            </section>
+                    <WeightProgress workouts={filteredData} />
+                    <PersonalRecords workouts={filteredData} />
+                </section>
+            )}
         </div>
     );
 }
