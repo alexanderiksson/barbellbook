@@ -4,6 +4,7 @@ import { useWorkout } from "../context/WorkoutContext";
 import { useSettings } from "../context/SettingsContext";
 import exercisesData from "../data/exercises.json";
 import { WorkoutType } from "../types/workout";
+import calculate1RM from "../utils/calculate1RM";
 
 import PageHeading from "../components/common/PageHeading";
 import BackButton from "../components/common/BackButton";
@@ -45,8 +46,10 @@ export default function ExerciseStats() {
     if (!exercise) return <Error msg="Exercise not found" />;
 
     // Finds all workouts that contains the exercise
-    const allWorkouts = workouts.filter((workout) =>
-        workout.exercises.some((ex) => ex.name === exercise.name)
+    const allWorkouts = useMemo(
+        () =>
+            workouts.filter((workout) => workout.exercises.some((ex) => ex.name === exercise.name)),
+        [workouts, exercise.name]
     );
 
     // Find the years from the logged data
@@ -62,6 +65,20 @@ export default function ExerciseStats() {
     useEffect(() => {
         if (selectedYear === "all") {
             setFilteredData(allWorkouts);
+        } else if (selectedYear === "month") {
+            // Filter workouts from the last month
+            const oneMonthAgo = new Date();
+            oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+
+            setFilteredData(allWorkouts.filter((workout) => new Date(workout.date) >= oneMonthAgo));
+        } else if (selectedYear === "3-months") {
+            // Filter workouts from the last 3 months
+            const threeMonthsAgo = new Date();
+            threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+
+            setFilteredData(
+                allWorkouts.filter((workout) => new Date(workout.date) >= threeMonthsAgo)
+            );
         } else {
             setFilteredData(
                 allWorkouts.filter(
@@ -69,7 +86,7 @@ export default function ExerciseStats() {
                 )
             );
         }
-    }, [selectedYear]);
+    }, [selectedYear, allWorkouts]);
 
     // Find personal records
     const personalRecords = (data: WorkoutType[]) => {
@@ -105,15 +122,25 @@ export default function ExerciseStats() {
         .filter((workout) => workout.exercises.some((ex) => ex.name === exercise.name))
         .map((workout) => {
             const exerciseData = workout.exercises.find((ex) => ex.name === exercise.name);
-            const maxWeightSet = exerciseData
-                ? exerciseData.sets.reduce((maxSet, currentSet) =>
-                      Number(currentSet.weight) > Number(maxSet.weight) ? currentSet : maxSet
-                  )
-                : { weight: 0, reps: 0 };
+            if (!exerciseData) {
+                return {
+                    date: new Date(workout.date).toLocaleDateString(),
+                    Weight: 0,
+                    Reps: 0,
+                };
+            }
+
+            const maxWeight = Math.max(...exerciseData.sets.map((set) => Number(set.weight)));
+
+            const maxWeightSets = exerciseData.sets.filter(
+                (set) => Number(set.weight) === maxWeight
+            );
+            const maxRepsAtMaxWeight = Math.max(...maxWeightSets.map((set) => Number(set.reps)));
+
             return {
                 date: new Date(workout.date).toLocaleDateString(),
-                Weight: Number(maxWeightSet.weight),
-                Reps: Number(maxWeightSet.reps),
+                Weight: maxWeight,
+                Reps: maxRepsAtMaxWeight,
             };
         })
         .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
@@ -121,20 +148,7 @@ export default function ExerciseStats() {
     // Calculate estimate 1RM
     const allOneRM = data.map((item) => {
         const { Weight, Reps } = item;
-
-        if (Reps === 1) {
-            // Direct 1RM
-            return Weight;
-        } else if (Reps >= 2 && Reps <= 10) {
-            // Epley formula
-            return Weight * (1 + Reps / 30);
-        } else if (Reps > 10 && Reps <= 20) {
-            // Lombardi formula
-            return Weight * Math.pow(Reps, 0.1);
-        } else {
-            // Brzycki formula
-            return Weight * (36 / (37 - Reps));
-        }
+        return calculate1RM(Weight, Reps);
     });
     const estimatedOneRM = Math.max(...allOneRM).toFixed(1);
 
@@ -155,9 +169,11 @@ export default function ExerciseStats() {
 
             <Select value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
                 <option value="all">All time</option>
+                <option value="month">Last month</option>
+                <option value="3-months">Last 3 months</option>
                 {years.map((year, index) => (
                     <option key={index} value={year}>
-                        {year}
+                        {new Date().getFullYear() == year ? "This year" : year}
                     </option>
                 ))}
             </Select>
