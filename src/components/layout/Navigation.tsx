@@ -39,7 +39,7 @@ const Tab = ({ to, label, Icon }: TabProps) => {
 export default function Navigation() {
     return (
         <nav
-            className="bg-secondary-bright/70 backdrop-blur-xl border-t border-border/20 fixed z-20 shadow-2xl w-full bottom-0 left-0 py-2 h-16
+            className="bg-secondary-bright/50 backdrop-blur-xl border-t border-border/20 fixed z-20 shadow-2xl w-full bottom-0 left-0 py-2 h-16
             lg:top-0 lg:left-0 lg:bottom-0 lg:w-52 xl:w-60 lg:h-full lg:py-12 lg:flex lg:flex-col lg:px-2 xl:px-4 lg:border-r standalone:h-22 standalone:pb-8"
             role="navigation"
         >
