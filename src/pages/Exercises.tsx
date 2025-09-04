@@ -67,13 +67,13 @@ export default function Exercises() {
             <BackButton to="/stats" label="Stats" />
             <PageHeading>Exercises</PageHeading>
 
-            <div className="mb-8 flex flex-col gap-2">
-                <div className="flex gap-2 overflow-auto pb-2">
+            <div className="mb-8 flex flex-col gap-4">
+                <div className="flex gap-2 overflow-auto py-2">
                     {categories.map((category) => (
                         <button
                             key={category}
                             onClick={() => setSelectedCategory(category)}
-                            className={`py-1 px-4 rounded-full border transition-colors ${
+                            className={`py-1 px-4 rounded-full border transition-all duration-200 cursor-pointer ${
                                 selectedCategory === category
                                     ? "bg-primary-bright text-background border-primary-bright"
                                     : "border-primary-bright hover:bg-primary-bright/10"
@@ -89,6 +89,11 @@ export default function Exercises() {
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                 />
+                <p className="text-sm text-text-grey">
+                    {filteredExercises.length > 1
+                        ? `Showing ${filteredExercises.length} exercises`
+                        : `Showing ${filteredExercises.length} exercise`}
+                </p>
             </div>
 
             <section>
@@ -102,7 +107,9 @@ export default function Exercises() {
                                         {exercise.name}
                                     </h3>
                                     <span className="text-xs text-text-grey">
-                                        {exercise.count} workouts
+                                        {exercise.count > 1
+                                            ? `${exercise.count} workouts`
+                                            : `${exercise.count} workout`}
                                     </span>
                                 </div>
 

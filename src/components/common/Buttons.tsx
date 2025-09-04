@@ -20,12 +20,16 @@ interface ButtonProps {
 }
 
 const handleVariant = (variant: string) => {
-    let color = "bg-neutral-700 border-neutral-700";
+    let color =
+        "bg-neutral-700 border-neutral-700 hover:bg-neutral-700/90 hover:border-neutral-700/90";
 
-    if (variant === "green") color = "bg-accent border-accent";
-    if (variant === "blue") color = "bg-primary border-primary";
-    if (variant === "outline") color = "bg-transparent border-primary";
-    if (variant === "danger") color = "bg-danger border-danger";
+    if (variant === "green")
+        color = "bg-accent border-accent hover:bg-accent/90 hover:border-accent/90";
+    if (variant === "blue")
+        color = "bg-primary border-primary hover:bg-primary/90 hover:border-primary/90";
+    if (variant === "outline") color = "bg-transparent border-primary hover:bg-primary/10";
+    if (variant === "danger")
+        color = "bg-danger border-danger hover:bg-danger/90 hover:border-danger/90";
 
     return color;
 };
