@@ -3,11 +3,16 @@ import useModal from "../../hooks/useModal";
 import { SetType } from "../../types/workout";
 import { ConfirmModal } from "./Modals";
 import { MdDeleteForever } from "react-icons/md";
+import Menu from "./Menu";
+import useMenu from "../../hooks/useMenu";
+import { IoIosMore } from "react-icons/io";
+import { BiSolidEditAlt } from "react-icons/bi";
 
 interface ExerciseCardProps {
     index: number;
     name: string;
     sets: SetType[];
+    showMenu?: boolean;
     canDelete?: boolean;
     onDelete?: (index: number) => void;
 }
@@ -16,6 +21,7 @@ export default function ExerciseCard({
     index,
     name,
     sets,
+    showMenu,
     canDelete,
     onDelete,
 }: ExerciseCardProps) {
@@ -23,6 +29,9 @@ export default function ExerciseCard({
 
     // Manage modal state
     const confirmModal = useModal();
+
+    // Manage menu state
+    const menu = useMenu();
 
     return (
         <>
@@ -41,20 +50,39 @@ export default function ExerciseCard({
                         <span className="mr-2 text-text-grey">#{index + 1}</span>
                         {name}
                     </h2>
-                    {canDelete && (
-                        <button
-                            className="cursor-pointer"
-                            onClick={() => {
-                                confirmModal.open();
-                            }}
-                        >
-                            <MdDeleteForever
-                                color={getComputedStyle(document.documentElement).getPropertyValue(
-                                    "--color-danger"
-                                )}
-                                size={24}
+
+                    {showMenu && (
+                        <div className="flex relative">
+                            <button
+                                className="inline-flex justify-center items-center cursor-pointer"
+                                onClick={() => (menu.isOpen ? menu.close() : menu.open())}
+                            >
+                                <IoIosMore size={20} />
+                            </button>
+
+                            <Menu
+                                isOpen={menu.isOpen}
+                                closeMenu={menu.close}
+                                menuItems={[
+                                    /* {
+                                        type: "function" as const,
+                                        label: "Edit",
+                                        icon: BiSolidEditAlt,
+                                    } */
+                                    ...(canDelete
+                                        ? [
+                                              {
+                                                  type: "function" as const,
+                                                  label: "Delete",
+                                                  icon: MdDeleteForever,
+                                                  danger: true,
+                                                  onClick: () => confirmModal.open(),
+                                              },
+                                          ]
+                                        : []),
+                                ]}
                             />
-                        </button>
+                        </div>
                     )}
                 </div>
 

@@ -14,6 +14,7 @@ interface MenuProps {
     closeMenu: () => void;
     menuItems: MenuItem[];
     danger?: boolean;
+    spacingTop?: boolean;
 }
 
 interface ItemProps {
@@ -60,38 +61,45 @@ const LinkItem = ({ to, label, Icon }: LinkItemProps) => {
     );
 };
 
-export default function Menu({ isOpen, closeMenu, menuItems }: MenuProps) {
+export default function Menu({ isOpen, closeMenu, menuItems, spacingTop }: MenuProps) {
     return (
-        <div
-            className={`${
-                isOpen ? "block" : "hidden"
-            } absolute bg-secondary backdrop-blur-lg rounded-2xl w-52 right-0 top-12 shadow-xl overflow-hidden z-20`}
-            role="menu"
-            aria-hidden={!isOpen}
-        >
-            <ul className="divide-y divide-border">
-                {menuItems.map((item, index) => {
-                    return item.type === "link" ? (
-                        <LinkItem
-                            key={index}
-                            to={item.to || "#"}
-                            label={item.label}
-                            Icon={item.icon}
-                        />
-                    ) : (
-                        <Item
-                            key={index}
-                            onClick={() => {
-                                item.onClick?.();
-                                closeMenu();
-                            }}
-                            label={item.label}
-                            Icon={item.icon}
-                            danger={item.danger ?? false}
-                        />
-                    );
-                })}
-            </ul>
-        </div>
+        <>
+            {isOpen && (
+                <div className="fixed inset-0 z-10 bg-black/70" onClick={() => closeMenu()}></div>
+            )}
+
+            <div
+                className={`${
+                    isOpen ? "block" : "hidden"
+                } absolute bg-secondary backdrop-blur-lg rounded-2xl w-52 right-0 shadow-xl overflow-hidden z-20`}
+                role="menu"
+                aria-hidden={!isOpen}
+                style={{ top: spacingTop ? "3rem" : "1.5rem" }}
+            >
+                <ul className="divide-y divide-border">
+                    {menuItems.map((item, index) => {
+                        return item.type === "link" ? (
+                            <LinkItem
+                                key={index}
+                                to={item.to || "#"}
+                                label={item.label}
+                                Icon={item.icon}
+                            />
+                        ) : (
+                            <Item
+                                key={index}
+                                onClick={() => {
+                                    item.onClick?.();
+                                    closeMenu();
+                                }}
+                                label={item.label}
+                                Icon={item.icon}
+                                danger={item.danger ?? false}
+                            />
+                        );
+                    })}
+                </ul>
+            </div>
+        </>
     );
 }
