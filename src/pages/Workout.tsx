@@ -13,6 +13,7 @@ import { ConfirmModal, PromptModal, LogModal } from "../components/common/Modals
 import ExerciseCard from "../components/common/ExerciseCard";
 import MenuButton from "../components/common/MenuButton";
 import Menu from "../components/common/Menu";
+import useMenu from "../hooks/useMenu";
 import Stats from "../components/pages/Workout/Details";
 
 import GymIcon from "../assets/icons/GymIcon";
@@ -23,9 +24,6 @@ import { MdDeleteForever } from "react-icons/md";
 export default function WorkoutPage() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(true);
-
-    const [isOpen, setIsOpen] = useState<boolean>(false);
-    const closeMenu = () => setIsOpen(false);
 
     const [noticeMsg, setNoticeMsg] = useState("");
 
@@ -69,6 +67,9 @@ export default function WorkoutPage() {
     const promptModal = useModal();
     const logModal = useModal();
 
+    // Manage menu state
+    const menu = useMenu();
+
     // Disable loader when the workout are found
     useEffect(() => {
         if (workout) setLoading(false);
@@ -100,7 +101,7 @@ export default function WorkoutPage() {
                 onClose={promptModal.close}
                 initialValue={workoutName}
                 onSubmit={(value) => {
-                    setIsOpen(false);
+                    menu.close();
 
                     if (value) {
                         updateWorkoutName(Number(id), value);
@@ -119,7 +120,7 @@ export default function WorkoutPage() {
                 onClose={logModal.close}
                 initialValue={workoutLog}
                 onSubmit={(value) => {
-                    setIsOpen(false);
+                    menu.close();
 
                     if (value) {
                         saveWorkoutLog(Number(id), value);
@@ -157,18 +158,12 @@ export default function WorkoutPage() {
                     </div>
 
                     <div className="flex relative shrink-0">
-                        <MenuButton onClick={() => setIsOpen((isOpen) => !isOpen)} />
-
-                        {isOpen && (
-                            <div
-                                className="fixed inset-0 z-10 bg-black/50 backdrop-blur-xs"
-                                onClick={() => setIsOpen(false)}
-                            ></div>
-                        )}
+                        <MenuButton onClick={() => (menu.isOpen ? menu.close() : menu.open())} />
 
                         <Menu
-                            isOpen={isOpen}
-                            closeMenu={closeMenu}
+                            isOpen={menu.isOpen}
+                            closeMenu={menu.close}
+                            spacingTop
                             menuItems={[
                                 {
                                     type: "function",

@@ -105,6 +105,7 @@ export default function Home() {
                                 index={index}
                                 name={exercise.name}
                                 sets={exercise.sets}
+                                showMenu
                                 canDelete
                                 onDelete={removeExercise}
                             />
