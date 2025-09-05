@@ -1,21 +1,18 @@
-import { useMemo, useState } from "react";
-import { useWorkout } from "../context/WorkoutContext";
+import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import exercisesData from "../data/exercises.json";
-
-import PageHeading from "../components/common/PageHeading";
-import { TextInput } from "../components/common/Inputs";
-import TabNavigation from "../components/common/TabNavigation";
-
+import { useWorkout } from "../../../context/WorkoutContext";
+import exercisesData from "../../../data/exercises.json";
+import { TextInput } from "../../common/Inputs";
 import { IoIosArrowForward } from "react-icons/io";
 
-export default function Exercises() {
+export default function ExercisesList() {
     const { workouts } = useWorkout();
 
+    // Filters
     const [search, setSearch] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("All");
 
-    // Find the all exercises sorted by most logged
+    // Find all exercises sorted by most logged
     const allExercises = useMemo(() => {
         const exerciseCount = workouts.reduce((acc, workout) => {
             workout.exercises.forEach((exercise) => {
@@ -45,7 +42,7 @@ export default function Exercises() {
         return ["All", ...uniqueCategories.sort()];
     }, [allExercises]);
 
-    // Filters
+    // Filtered exercises
     const filteredExercises = useMemo(() => {
         let filtered = allExercises;
 
@@ -63,16 +60,8 @@ export default function Exercises() {
     }, [allExercises, selectedCategory, search]);
 
     return (
-        <div className="content">
-            <PageHeading>Exercises</PageHeading>
-            <TabNavigation
-                tabs={[
-                    { to: "/stats", label: "Stats", end: true },
-                    { to: "/stats/exercises", label: "Exercises" },
-                ]}
-            />
-
-            <div className="mb-8 flex flex-col gap-4">
+        <>
+            <div className="mb-6 flex flex-col gap-4">
                 <div className="flex gap-2 overflow-auto py-2">
                     {categories.map((category) => (
                         <button
@@ -94,11 +83,6 @@ export default function Exercises() {
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                 />
-                <p className="text-sm text-text-grey">
-                    {filteredExercises.length > 1
-                        ? `Showing ${filteredExercises.length} exercises`
-                        : `Showing ${filteredExercises.length} exercise`}
-                </p>
             </div>
 
             <section>
@@ -124,6 +108,6 @@ export default function Exercises() {
                     ))}
                 </div>
             </section>
-        </div>
+        </>
     );
 }

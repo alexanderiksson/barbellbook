@@ -9,23 +9,25 @@ export default function MostWorkedMuscleGroups({
     workouts: WorkoutType[];
     year: string;
 }) {
-    const data = Array.from(
-        workouts
-            .filter((w) => new Date(w.date).getFullYear().toString() === year)
-            .flatMap((w) => w.exercises)
-            .map((ex) => exercisesData.find((e) => e.name === ex.name)?.["body-part"])
-            .filter(Boolean)
-            .reduce<Map<string, number>>((acc, bodyPart) => {
-                acc.set(bodyPart!, (acc.get(bodyPart!) || 0) + 1);
-                return acc;
-            }, new Map<string, number>())
-    ).map(([name, count], _, arr) => {
-        const total = arr.reduce((sum, [, c]) => sum + c, 0);
-        return {
-            name,
-            percentage: total ? Math.round((count / total) * 100) : 0,
-        };
-    });
+    // Find all muscle groups
+    const allBodyParts = [...new Set(exercisesData.map((ex) => ex["body-part"]))];
+
+    const bodyPartCounts = workouts
+        .filter((w) => new Date(w.date).getFullYear().toString() === year)
+        .flatMap((w) => w.exercises)
+        .map((ex) => exercisesData.find((e) => e.name === ex.name)?.["body-part"])
+        .filter(Boolean)
+        .reduce<Map<string, number>>((acc, bodyPart) => {
+            acc.set(bodyPart!, (acc.get(bodyPart!) || 0) + 1);
+            return acc;
+        }, new Map<string, number>());
+
+    const total = Array.from(bodyPartCounts.values()).reduce((sum, count) => sum + count, 0);
+
+    const data = allBodyParts.map((bodyPart) => ({
+        name: bodyPart,
+        percentage: total ? Math.round(((bodyPartCounts.get(bodyPart) || 0) / total) * 100) : 0,
+    }));
 
     return (
         <div className="bg-secondary p-4 rounded-2xl border border-border/20">
