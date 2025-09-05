@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import exercisesData from "../data/exercises.json";
 
 import PageHeading from "../components/common/PageHeading";
-import BackButton from "../components/common/BackButton";
 import { TextInput } from "../components/common/Inputs";
+import TabNavigation from "../components/common/TabNavigation";
 
 import { IoIosArrowForward } from "react-icons/io";
 
@@ -64,8 +64,13 @@ export default function Exercises() {
 
     return (
         <div className="content">
-            <BackButton to="/stats" label="Stats" />
             <PageHeading>Exercises</PageHeading>
+            <TabNavigation
+                tabs={[
+                    { to: "/stats", label: "Stats", end: true },
+                    { to: "/stats/exercises", label: "Exercises" },
+                ]}
+            />
 
             <div className="mb-8 flex flex-col gap-4">
                 <div className="flex gap-2 overflow-auto py-2">
