@@ -478,23 +478,5 @@
         "name": "Dips",
         "muscle": "Triceps",
         "body-part": "Chest"
-    },
-    {
-        "id": 81,
-        "name": "Snatch",
-        "muscle": "Full Body",
-        "body-part": "Full Body"
-    },
-    {
-        "id": 82,
-        "name": "Clean & Jerk",
-        "muscle": "Full Body",
-        "body-part": "Full Body"
-    },
-    {
-        "id": 83,
-        "name": "Clean & Press",
-        "muscle": "Full Body",
-        "body-part": "Full Body"
     }
 ]

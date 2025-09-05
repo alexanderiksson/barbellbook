@@ -13,8 +13,9 @@ import { ConfirmModal, PromptModal, LogModal } from "../components/common/Modals
 import ExerciseCard from "../components/common/ExerciseCard";
 import MenuButton from "../components/common/MenuButton";
 import Menu from "../components/common/Menu";
+import TabNavigation from "../components/common/TabNavigation";
 import useMenu from "../hooks/useMenu";
-import Stats from "../components/pages/Workout/Details";
+import Details from "../components/pages/Workout/Details";
 
 import GymIcon from "../assets/icons/GymIcon";
 import { IoIosList } from "react-icons/io";
@@ -24,6 +25,7 @@ import { MdDeleteForever } from "react-icons/md";
 export default function WorkoutPage() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(true);
+    const [activeTab, setActiveTab] = useState<"details" | "exercises">("exercises");
 
     const [noticeMsg, setNoticeMsg] = useState("");
 
@@ -74,6 +76,13 @@ export default function WorkoutPage() {
     useEffect(() => {
         if (workout) setLoading(false);
     }, [workouts]);
+
+    // Handle tab change
+    const handleTabChange = (tabId: string) => {
+        if (tabId === "details" || tabId === "exercises") {
+            setActiveTab(tabId);
+        }
+    };
 
     // Show loader if loading
     if (loading) return <Loader />;
@@ -189,22 +198,35 @@ export default function WorkoutPage() {
                     </div>
                 </div>
 
-                <section id="details">
-                    <Stats id={id} />
-                </section>
+                <TabNavigation
+                    tabs={[
+                        { id: "exercises", label: "Exercises" },
+                        { id: "details", label: "Details" },
+                    ]}
+                    activeTab={activeTab}
+                    onTabChange={handleTabChange}
+                />
 
-                <section className="mt-8" id="exercises">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {workout.exercises.map((exercise, index) => (
-                            <ExerciseCard
-                                key={index}
-                                index={index}
-                                name={exercise.name}
-                                sets={exercise.sets}
-                            />
-                        ))}
-                    </div>
-                </section>
+                {activeTab === "exercises" && (
+                    <section id="exercises">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            {workout.exercises.map((exercise, index) => (
+                                <ExerciseCard
+                                    key={index}
+                                    index={index}
+                                    name={exercise.name}
+                                    sets={exercise.sets}
+                                />
+                            ))}
+                        </div>
+                    </section>
+                )}
+
+                {activeTab === "details" && (
+                    <section id="details">
+                        <Details id={id} />
+                    </section>
+                )}
             </div>
         </>
     );
