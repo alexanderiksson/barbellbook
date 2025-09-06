@@ -75,3 +75,10 @@ input.no-spinner {
         @slot;
     }
 }
+
+@media screen and (display-mode: standalone) {
+    body,
+    #root {
+        min-height: 100vh;
+    }
+}

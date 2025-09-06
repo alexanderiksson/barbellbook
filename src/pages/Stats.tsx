@@ -48,20 +48,21 @@ export default function Stats() {
     return (
         <div className="content">
             <PageHeading>Stats</PageHeading>
-            <TabNavigation
-                tabs={[
-                    { id: "stats", label: "Stats" },
-                    { id: "exercises", label: "Exercises" },
-                ]}
-                activeTab={activeTab}
-                onTabChange={handleTabChange}
-            />
 
-            {activeTab === "stats" && (
+            {workouts.length <= 0 ? (
+                <p className="text-neutral-500">No workouts logged yet.</p>
+            ) : (
                 <>
-                    {workouts.length <= 0 ? (
-                        <p className="text-neutral-500">No workouts found.</p>
-                    ) : (
+                    <TabNavigation
+                        tabs={[
+                            { id: "stats", label: "Stats" },
+                            { id: "exercises", label: "Exercises" },
+                        ]}
+                        activeTab={activeTab}
+                        onTabChange={handleTabChange}
+                    />
+
+                    {activeTab === "stats" && (
                         <>
                             <Select
                                 value={selectedYear}
@@ -81,10 +82,10 @@ export default function Stats() {
                             </section>
                         </>
                     )}
+
+                    {activeTab === "exercises" && <ExercisesList />}
                 </>
             )}
-
-            {activeTab === "exercises" && <ExercisesList />}
         </div>
     );
 }

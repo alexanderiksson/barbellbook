@@ -60,7 +60,7 @@ export default function History() {
             <PageHeading>Workout History</PageHeading>
 
             {workouts.length === 0 ? (
-                <p className="text-text-grey">No workouts found.</p>
+                <p className="text-text-grey">No workouts logged yet.</p>
             ) : (
                 <>
                     <Select

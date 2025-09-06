@@ -17,7 +17,7 @@ interface TextInputProps {
 // Select input
 export function Select({ onChange, value, children }: SelectProps) {
     return (
-        <div className="relative mb-4 w-full">
+        <div className="relative mb-4 w-full lg:w-sm">
             <select
                 className="appearance-none py-3 w-full border-2 border-border/20 rounded-2xl bg-secondary/50 text-sm text-center last"
                 onChange={onChange}
