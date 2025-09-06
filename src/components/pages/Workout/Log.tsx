@@ -35,11 +35,13 @@ export default function Log({ workoutId, log }: { workoutId: number; log: string
                 variant="blue"
                 className="w-full lg:w-48"
                 onClick={() => {
-                    saveWorkoutLog(workoutId, textareaValue);
+                    if (textareaValue || (log && !textareaValue)) {
+                        saveWorkoutLog(workoutId, textareaValue);
 
-                    // Trigger the notice
-                    if (noticeTriggerRef.current) {
-                        noticeTriggerRef.current();
+                        // Trigger the notice
+                        if (noticeTriggerRef.current) {
+                            noticeTriggerRef.current();
+                        }
                     }
                 }}
             >
