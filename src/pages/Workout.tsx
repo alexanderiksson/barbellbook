@@ -9,28 +9,28 @@ import Loader from "../components/common/Loader";
 import Error from "../components/common/Error";
 import BackButton from "../components/common/BackButton";
 import Notice from "../components/common/Notice";
-import { ConfirmModal, PromptModal, LogModal } from "../components/common/Modals";
+import { ConfirmModal, PromptModal } from "../components/common/Modals";
 import ExerciseCard from "../components/common/ExerciseCard";
 import MenuButton from "../components/common/MenuButton";
 import Menu from "../components/common/Menu";
 import TabNavigation from "../components/common/TabNavigation";
 import useMenu from "../hooks/useMenu";
 import Details from "../components/pages/Workout/Details";
+import Log from "../components/pages/Workout/Log";
 
 import GymIcon from "../assets/icons/GymIcon";
-import { IoIosList } from "react-icons/io";
 import { BiSolidEditAlt } from "react-icons/bi";
 import { MdDeleteForever } from "react-icons/md";
 
 export default function WorkoutPage() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(true);
-    const [activeTab, setActiveTab] = useState<"details" | "exercises">("exercises");
+    const [activeTab, setActiveTab] = useState<"details" | "exercises" | "log">("exercises");
 
     const [noticeMsg, setNoticeMsg] = useState("");
 
     const { id } = useParams<{ id: string }>();
-    const { workouts, removeWorkout, updateWorkoutName, saveWorkoutLog } = useWorkout();
+    const { workouts, removeWorkout, updateWorkoutName } = useWorkout();
     const workout: WorkoutType | undefined = workouts.find(
         (_, index) => index === parseInt(id || "", 10)
     );
@@ -67,7 +67,6 @@ export default function WorkoutPage() {
     // Manage modal state
     const confirmModal = useModal();
     const promptModal = useModal();
-    const logModal = useModal();
 
     // Manage menu state
     const menu = useMenu();
@@ -79,7 +78,7 @@ export default function WorkoutPage() {
 
     // Handle tab change
     const handleTabChange = (tabId: string) => {
-        if (tabId === "details" || tabId === "exercises") {
+        if (tabId === "details" || tabId === "exercises" || tabId === "log") {
             setActiveTab(tabId);
         }
     };
@@ -124,19 +123,6 @@ export default function WorkoutPage() {
                 }}
             />
 
-            <LogModal
-                isOpen={logModal.isOpen}
-                onClose={logModal.close}
-                initialValue={workoutLog}
-                onSubmit={(value) => {
-                    menu.close();
-
-                    if (value) {
-                        saveWorkoutLog(Number(id), value);
-                    }
-                }}
-            />
-
             <div className="content">
                 <Notice
                     msg={noticeMsg}
@@ -159,7 +145,7 @@ export default function WorkoutPage() {
                             <h1 className="text-xl lg:text-2xl font-semibold truncate">
                                 {workoutName}
                             </h1>
-                            <span className="text-sm text-text-grey flex flex-col lg:flex-row lg:gap-2">
+                            <span className="text-xs text-text-grey flex flex-col lg:flex-row lg:gap-2">
                                 <span className="truncate">{dateConverter(workout.date)}</span>
                                 <span className="truncate">{workoutTime()}</span>
                             </span>
@@ -174,12 +160,6 @@ export default function WorkoutPage() {
                             closeMenu={menu.close}
                             spacingTop
                             menuItems={[
-                                {
-                                    type: "function",
-                                    label: "Log",
-                                    icon: IoIosList,
-                                    onClick: logModal.open,
-                                },
                                 {
                                     type: "function",
                                     label: "Edit name",
@@ -202,6 +182,7 @@ export default function WorkoutPage() {
                     tabs={[
                         { id: "exercises", label: "Exercises" },
                         { id: "details", label: "Details" },
+                        { id: "log", label: "Log" },
                     ]}
                     activeTab={activeTab}
                     onTabChange={handleTabChange}
@@ -225,6 +206,12 @@ export default function WorkoutPage() {
                 {activeTab === "details" && (
                     <section id="details">
                         <Details id={id} />
+                    </section>
+                )}
+
+                {activeTab === "log" && (
+                    <section id="log">
+                        <Log workoutId={Number(id)} log={workoutLog} />
                     </section>
                 )}
             </div>
