@@ -132,24 +132,14 @@ export default function WorkoutPage() {
                 <BackButton to="/history" label="Workout history" />
 
                 <div className="flex justify-between items-center mb-6 gap-2">
-                    <div className="flex items-center justify-center gap-2 shrink overflow-hidden">
-                        <div className="bg-accent-bright/10 flex justify-center items-center rounded-full flex-shrink-0 aspect-square w-16">
-                            <GymIcon
-                                size="32px"
-                                color={getComputedStyle(document.documentElement).getPropertyValue(
-                                    "--color-accent-bright"
-                                )}
-                            />
-                        </div>
-                        <div className="flex flex-col overflow-hidden">
-                            <h1 className="text-xl lg:text-2xl font-semibold truncate">
-                                {workoutName}
-                            </h1>
-                            <span className="text-sm text-text-grey flex flex-col lg:flex-row lg:gap-2">
-                                <span className="truncate">{dateConverter(workout.date)}</span>
-                                <span className="truncate">{workoutTime()}</span>
-                            </span>
-                        </div>
+                    <div className="flex flex-col gap-2 overflow-hidden">
+                        <h1 className="text-xl lg:text-2xl font-semibold truncate">
+                            {workoutName}
+                        </h1>
+                        <span className="text-sm text-text-grey flex flex-col lg:flex-row lg:gap-2">
+                            <span className="truncate">{dateConverter(workout.date)}</span>
+                            <span className="truncate">{workoutTime()}</span>
+                        </span>
                     </div>
 
                     <div className="flex relative shrink-0">
