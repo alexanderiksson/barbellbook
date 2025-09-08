@@ -40,11 +40,11 @@ export default function Navigation() {
     return (
         <nav
             className="bg-secondary-bright/50 backdrop-blur-xl border-t border-border/20 fixed z-20 shadow-2xl w-full bottom-0 left-0 py-2 h-16
-            lg:top-0 lg:left-0 lg:bottom-0 lg:w-52 xl:w-60 lg:h-full lg:py-12 lg:flex lg:flex-col lg:px-2 xl:px-4 lg:border-r standalone:h-22 standalone:pb-8"
+            lg:top-0 lg:left-0 lg:bottom-0 lg:w-52 xl:w-60 lg:h-full lg:py-12 lg:flex lg:flex-col lg:px-6 xl:px-8 lg:border-r standalone:h-22 standalone:pb-8"
             role="navigation"
         >
             <ul
-                className="flex justify-around items-center px-4 flex-row h-full
+                className="flex justify-around items-center px-4 lg:p-0 flex-row h-full
             lg:flex-col lg:justify-start lg:items-start lg:space-y-16 lg:space-x-0 lg:h-auto"
             >
                 <li>

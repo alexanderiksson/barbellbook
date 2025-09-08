@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import { useWorkout } from "../context/WorkoutContext";
 import { useSearchParams } from "react-router-dom";
+import { useTabNavigation } from "../hooks/useTabNavigation";
 
 import PageHeading from "../components/common/PageHeading";
 import { Select } from "../components/common/Inputs";
@@ -14,17 +15,20 @@ export default function Stats() {
     const { workouts } = useWorkout();
     const [searchParams] = useSearchParams();
 
-    // Check active tab
+    // Check active tab from URL
     const tabFromUrl = searchParams.get("tab");
     const initialTab = tabFromUrl === "exercises" ? "exercises" : "stats";
-    const [activeTab, setActiveTab] = useState<"stats" | "exercises">(initialTab);
+
+    // Manage tab changes
+    const validTabs = ["stats", "exercises"] as const;
+    const { activeTab, setActiveTab, handleTabChange } = useTabNavigation(initialTab, validTabs);
 
     useEffect(() => {
         const tabFromUrl = searchParams.get("tab");
         if (tabFromUrl === "exercises" || tabFromUrl === "stats") {
             setActiveTab(tabFromUrl);
         }
-    }, [searchParams]);
+    }, [searchParams, setActiveTab]);
 
     // Find years from the logged workouts
     const years = useMemo(
@@ -37,13 +41,6 @@ export default function Stats() {
 
     const initialSelectedYear = years.length > 0 ? years[0].toString() : "";
     const [selectedYear, setSelectedYear] = useState<string>(initialSelectedYear);
-
-    // Handle tab change
-    const handleTabChange = (tabId: string) => {
-        if (tabId === "stats" || tabId === "exercises") {
-            setActiveTab(tabId);
-        }
-    };
 
     return (
         <div className="content">

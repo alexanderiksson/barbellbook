@@ -14,7 +14,7 @@ export default function RepCounter({ reps, setReps }: RepCounterProps) {
                 <button
                     className="flex justify-center items-center w-10 h-10 bg-secondary-bright rounded-full cursor-pointer border border-border/20"
                     onClick={() => setReps(reps + 1)}
-                    disabled={reps >= 99}
+                    disabled={reps >= 999}
                     aria-label="Increase reps"
                     title="Increase reps"
                 >

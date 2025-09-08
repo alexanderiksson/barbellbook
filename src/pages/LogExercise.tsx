@@ -7,14 +7,14 @@ import useModal from "../hooks/useModal";
 
 import PageHeading from "../components/common/PageHeading";
 import { Button } from "../components/common/Buttons";
-import RepCounter from "../components/pages/AddExercise/RepCounter";
-import WeightInput from "../components/pages/AddExercise/WeightInput";
-import SetTable from "../components/pages/AddExercise/SetTable";
+import RepCounter from "../components/pages/LogExercise/RepCounter";
+import WeightInput from "../components/pages/LogExercise/WeightInput";
+import SetTable from "../components/pages/LogExercise/SetTable";
 import Notice from "../components/common/Notice";
 import { AlertModal } from "../components/common/Modals";
 import Loader from "../components/common/Loader";
 import { TextInput } from "../components/common/Inputs";
-import PreviousSession from "../components/pages/AddExercise/PreviousSession";
+import PreviousSession from "../components/pages/LogExercise/PreviousSession";
 
 import { IoMdAdd } from "react-icons/io";
 

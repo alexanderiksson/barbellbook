@@ -4,6 +4,7 @@ import { useWorkout } from "../context/WorkoutContext";
 import { WorkoutType } from "../types/workout";
 import dateConverter from "../utils/dateConverter";
 import useModal from "../hooks/useModal";
+import { useTabNavigation } from "../hooks/useTabNavigation";
 
 import Loader from "../components/common/Loader";
 import Error from "../components/common/Error";
@@ -25,7 +26,9 @@ export default function WorkoutPage() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(true);
 
-    const [activeTab, setActiveTab] = useState<"details" | "exercises" | "log">("exercises");
+    // Manage tab changes
+    const validTabs = ["details", "exercises", "log"] as const;
+    const { activeTab, handleTabChange } = useTabNavigation("exercises", validTabs);
 
     const [noticeMsg, setNoticeMsg] = useState("");
 
@@ -75,13 +78,6 @@ export default function WorkoutPage() {
     useEffect(() => {
         if (workout) setLoading(false);
     }, [workouts]);
-
-    // Handle tab change
-    const handleTabChange = (tabId: string) => {
-        if (tabId === "details" || tabId === "exercises" || tabId === "log") {
-            setActiveTab(tabId);
-        }
-    };
 
     // Show loader if loading
     if (loading) return <Loader />;
