@@ -33,10 +33,10 @@ export default function SetTable({ currentSets, removeCurrentSets }: SetTablePro
             <table className="w-full">
                 <thead className="border-b border-border">
                     <tr>
-                        <th className="py-2">Set</th>
+                        <th className="py-2 font-normal">Set</th>
 
-                        <th className="py-2">Reps</th>
-                        <th className="py-2">Weight</th>
+                        <th className="py-2 font-normal">Reps</th>
+                        <th className="py-2 font-normal">Weight</th>
                     </tr>
                 </thead>
                 <tbody>

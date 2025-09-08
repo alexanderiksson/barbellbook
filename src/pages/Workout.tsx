@@ -4,6 +4,7 @@ import { useWorkout } from "../context/WorkoutContext";
 import { WorkoutType } from "../types/workout";
 import dateConverter from "../utils/dateConverter";
 import useModal from "../hooks/useModal";
+import { useTabNavigation } from "../hooks/useTabNavigation";
 
 import Loader from "../components/common/Loader";
 import Error from "../components/common/Error";
@@ -18,14 +19,16 @@ import useMenu from "../hooks/useMenu";
 import Details from "../components/pages/Workout/Details";
 import Log from "../components/pages/Workout/Log";
 
-import GymIcon from "../assets/icons/GymIcon";
 import { BiSolidEditAlt } from "react-icons/bi";
 import { MdDeleteForever } from "react-icons/md";
 
 export default function WorkoutPage() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(true);
-    const [activeTab, setActiveTab] = useState<"details" | "exercises" | "log">("exercises");
+
+    // Manage tab changes
+    const validTabs = ["details", "exercises", "log"] as const;
+    const { activeTab, handleTabChange } = useTabNavigation("exercises", validTabs);
 
     const [noticeMsg, setNoticeMsg] = useState("");
 
@@ -76,13 +79,6 @@ export default function WorkoutPage() {
         if (workout) setLoading(false);
     }, [workouts]);
 
-    // Handle tab change
-    const handleTabChange = (tabId: string) => {
-        if (tabId === "details" || tabId === "exercises" || tabId === "log") {
-            setActiveTab(tabId);
-        }
-    };
-
     // Show loader if loading
     if (loading) return <Loader />;
 
@@ -132,24 +128,14 @@ export default function WorkoutPage() {
                 <BackButton to="/history" label="Workout history" />
 
                 <div className="flex justify-between items-center mb-6 gap-2">
-                    <div className="flex items-center justify-center gap-2 shrink overflow-hidden">
-                        <div className="bg-accent-bright/10 flex justify-center items-center rounded-full flex-shrink-0 aspect-square w-16">
-                            <GymIcon
-                                size="32px"
-                                color={getComputedStyle(document.documentElement).getPropertyValue(
-                                    "--color-accent-bright"
-                                )}
-                            />
-                        </div>
-                        <div className="flex flex-col overflow-hidden">
-                            <h1 className="text-xl lg:text-2xl font-semibold truncate">
-                                {workoutName}
-                            </h1>
-                            <span className="text-sm text-text-grey flex flex-col lg:flex-row lg:gap-2">
-                                <span className="truncate">{dateConverter(workout.date)}</span>
-                                <span className="truncate">{workoutTime()}</span>
-                            </span>
-                        </div>
+                    <div className="flex flex-col gap-2 overflow-hidden">
+                        <h1 className="text-xl lg:text-2xl font-semibold truncate">
+                            {workoutName}
+                        </h1>
+                        <span className="text-sm text-text-grey flex flex-col lg:flex-row lg:gap-2">
+                            <span className="truncate">{dateConverter(workout.date)}</span>
+                            <span className="truncate">{workoutTime()}</span>
+                        </span>
                     </div>
 
                     <div className="flex relative shrink-0">

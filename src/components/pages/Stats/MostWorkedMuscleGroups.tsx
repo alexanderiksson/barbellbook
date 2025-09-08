@@ -34,7 +34,7 @@ export default function MostWorkedMuscleGroups({
             <h2 className="mb-6 text-text-grey text-sm">Most Worked Muscle Groups</h2>
             <div className="w-full h-72 lg:h-96">
                 <ResponsiveContainer width="100%" height="100%">
-                    <RadarChart cx="50%" cy="50%" outerRadius="90%" data={data}>
+                    <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
                         <PolarGrid opacity={0.5} />
                         <PolarAngleAxis dataKey="name" fontSize={12} />
 

@@ -3,6 +3,7 @@ import { useWorkout } from "../../../context/WorkoutContext";
 import { useSettings } from "../../../context/SettingsContext";
 import exercisesData from "../../../data/exercises.json";
 import { WorkoutType } from "../../../types/workout";
+import { ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, Radar } from "recharts";
 
 export default function Details({ id }: { id: string | undefined }) {
     const { workouts } = useWorkout();
@@ -51,27 +52,27 @@ export default function Details({ id }: { id: string | undefined }) {
     );
 
     // Calculate body parts trained
+    const allBodyParts = [...new Set(exercisesData.map((ex) => ex["body-part"]))];
+
     const bodyPartsTrained = useMemo(() => {
-        const exerciseToBodyPart: Record<string, string> = {};
-        (exercisesData as Array<{ name: string; [key: string]: any }>).forEach((ex) => {
-            exerciseToBodyPart[ex.name] = ex["body-part"];
-        });
+        const bodyPartCounts = workout.exercises
+            .map((ex) => exercisesData.find((e) => e.name === ex.name)?.["body-part"])
+            .filter(Boolean)
+            .reduce<Map<string, number>>((acc, bodyPart) => {
+                acc.set(bodyPart!, (acc.get(bodyPart!) || 0) + 1);
+                return acc;
+            }, new Map<string, number>());
 
-        const partCount: Record<string, number> = {};
-        workout.exercises.forEach((ex) => {
-            const part = exerciseToBodyPart[ex.name];
-            if (part) {
-                partCount[part] = (partCount[part] || 0) + 1;
-            }
-        });
+        const total = Array.from(bodyPartCounts.values()).reduce((sum, count) => sum + count, 0);
 
-        const total = Object.values(partCount).reduce((sum, n) => sum + n, 0);
-        return Object.entries(partCount)
-            .map(([part, count]) => ({
-                part,
-                percent: total > 0 ? Math.round((count / total) * 100) : 0,
+        return allBodyParts
+            .map((bodyPart) => ({
+                name: bodyPart,
+                percentage: total
+                    ? Math.round(((bodyPartCounts.get(bodyPart) || 0) / total) * 100)
+                    : 0,
             }))
-            .sort((a, b) => b.percent - a.percent);
+            .sort((a, b) => b.percentage - a.percentage);
     }, [workout]);
 
     // Calculate average rest time
@@ -184,19 +185,24 @@ export default function Details({ id }: { id: string | undefined }) {
                 </div>
 
                 <div>
-                    <h3 className="text-text-grey text-sm mb-1">Muslce Groups Worked</h3>
-                    <div className="flex flex-col divide-y divide-border/50">
-                        {bodyPartsTrained.map(({ part, percent }, index) => (
-                            <div
-                                key={index}
-                                className="flex justify-between items-center gap-4 py-1"
-                            >
-                                <h3 className="truncate">
-                                    <span className="text-text-grey">{index + 1}.</span> {part}
-                                </h3>
-                                <span>{percent} %</span>
-                            </div>
-                        ))}
+                    <div className="w-full h-64">
+                        <ResponsiveContainer width="100%" height="100%">
+                            <RadarChart cx="50%" cy="50%" outerRadius="90%" data={bodyPartsTrained}>
+                                <PolarGrid opacity={0.5} />
+                                <PolarAngleAxis dataKey="name" fontSize={12} />
+
+                                <Radar
+                                    dataKey="percentage"
+                                    stroke={getComputedStyle(
+                                        document.documentElement
+                                    ).getPropertyValue("--color-primary-bright")}
+                                    fill={getComputedStyle(
+                                        document.documentElement
+                                    ).getPropertyValue("--color-primary-bright")}
+                                    fillOpacity={0.7}
+                                />
+                            </RadarChart>
+                        </ResponsiveContainer>
                     </div>
                 </div>
             </div>
