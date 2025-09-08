@@ -3,21 +3,22 @@ import { useWorkout } from "../context/WorkoutContext";
 import { useSettings } from "../context/SettingsContext";
 import useModal from "../hooks/useModal";
 import { WorkoutType } from "../types/workout";
-import { Link } from "react-router-dom";
 
 import PageHeading from "../components/common/PageHeading";
 import { Select } from "../components/common/Inputs";
 import { Button } from "../components/common/Buttons";
 import Notice from "../components/common/Notice";
 import { ConfirmModal } from "../components/common/Modals";
+import TabNavigation from "../components/common/TabNavigation";
 
 import { TbFileExport, TbFileImport } from "react-icons/tb";
 import { MdOutlineDangerous } from "react-icons/md";
-import { IoIosArrowForward, IoIosInformationCircleOutline } from "react-icons/io";
 
 export default function Settings() {
     const { workouts, addWorkout, clearWorkouts } = useWorkout();
     const { weightUnit, setWeightUnit } = useSettings();
+
+    const [activeTab, setActiveTab] = useState<"general" | "data" | "about">("general");
 
     // Manage modal state
     const importConfirmModal = useModal();
@@ -80,6 +81,13 @@ export default function Settings() {
         input.click();
     };
 
+    // Handle tab change
+    const handleTabChange = (tabId: string) => {
+        if (tabId === "general" || tabId === "data" || tabId === "about") {
+            setActiveTab(tabId);
+        }
+    };
+
     return (
         <>
             <ConfirmModal
@@ -120,46 +128,76 @@ export default function Settings() {
 
                 <PageHeading>Settings</PageHeading>
 
-                <section className="mt-8 flex flex-col gap-4">
-                    <div className="flex flex-col gap-2">
-                        <label className="text-sm">Weight unit</label>
-                        <Select
-                            value={weightUnit}
-                            onChange={(e) => setWeightUnit(e.target.value as "kg" | "lb")}
-                        >
-                            <option value="kg">kg</option>
-                            <option value="lb">lb</option>
-                        </Select>
-                    </div>
+                <TabNavigation
+                    tabs={[
+                        { id: "general", label: "General" },
+                        { id: "data", label: "Data" },
+                        { id: "about", label: "About" },
+                    ]}
+                    activeTab={activeTab}
+                    onTabChange={handleTabChange}
+                />
 
-                    <div className="p-4 bg-secondary rounded-2xl border border-border/20">
-                        <h2 className="mb-6 text-text-grey text-sm">Your data</h2>
-                        <div className="flex gap-4 flex-wrap">
-                            <Button onClick={handleExport} variant="blue">
-                                <TbFileExport size={20} /> Export data
-                            </Button>
-                            <Button onClick={handleImport}>
-                                <TbFileImport size={20} /> Import data
-                            </Button>
-                            <Button variant="danger" onClick={clearDataConfirmModal.open}>
-                                <MdOutlineDangerous size={20} />
-                                Clear data
-                            </Button>
+                {activeTab === "general" && (
+                    <section id="general">
+                        <div className="flex flex-col gap-2">
+                            <label className="text-sm">Weight unit</label>
+                            <Select
+                                value={weightUnit}
+                                onChange={(e) => setWeightUnit(e.target.value as "kg" | "lb")}
+                            >
+                                <option value="kg">kg</option>
+                                <option value="lb">lb</option>
+                            </Select>
                         </div>
-                    </div>
-                </section>
+                    </section>
+                )}
 
-                <section className="mt-8">
-                    <Link to="/settings/about">
-                        <div className="p-4 bg-secondary rounded-2xl border border-border/20 flex justify-between items-center">
-                            <div className="flex items-center gap-1">
-                                <IoIosInformationCircleOutline size={20} />
-                                <h2>About this app</h2>
+                {activeTab === "data" && (
+                    <section id="data" className="flex flex-col gap-4">
+                        <div className="p-4 bg-secondary rounded-2xl border border-border/20">
+                            <h2 className="mb-6 text-text-grey text-sm">Export / Import</h2>
+                            <div className="flex gap-4 flex-wrap">
+                                <Button onClick={handleExport} variant="blue">
+                                    <TbFileExport size={20} /> Export data
+                                </Button>
+                                <Button onClick={handleImport}>
+                                    <TbFileImport size={20} /> Import data
+                                </Button>
                             </div>
-                            <IoIosArrowForward size={20} />
                         </div>
-                    </Link>
-                </section>
+
+                        <div className="p-4 bg-danger/10 rounded-2xl border border-danger/20">
+                            <h2 className="mb-6 text-text-grey text-sm">Danger zone</h2>
+                            <div className="flex gap-4 flex-wrap">
+                                <Button variant="danger" onClick={clearDataConfirmModal.open}>
+                                    <MdOutlineDangerous size={20} />
+                                    Clear data
+                                </Button>
+                            </div>
+                        </div>
+                    </section>
+                )}
+
+                {activeTab === "about" && (
+                    <section id="about">
+                        <h2 className="text-xl font-semibold mb-4">About this app</h2>
+                        <div className="space-y-4">
+                            <p>
+                                BarbellBook is a web-based workout logger that lets you effortlessly
+                                track your sets, reps, and progress.
+                            </p>
+                            <p>
+                                Your data is securely saved locally in your browser, so you stay in
+                                control without any sign-ups or cloud storage.
+                            </p>
+                            <p>
+                                Perfect for lifters of all levels to stay motivated and reach their
+                                goals.
+                            </p>
+                        </div>
+                    </section>
+                )}
             </div>
         </>
     );

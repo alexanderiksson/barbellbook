@@ -86,7 +86,7 @@ export default function Home() {
 
                 <div className="flex justify-between flex-wrap gap-2 mb-8 mt-8">
                     <LinkButton to="/log-exercise" variant={"outline"}>
-                        <IoMdAdd size={20} /> Log Exercise
+                        <IoMdAdd size={20} /> Log exercise
                     </LinkButton>
 
                     {exercises.length > 0 && (

@@ -51,7 +51,7 @@ export default function Navigation() {
                     <Tab to="/" label="Start" Icon={IoIosHome} />
                 </li>
                 <li>
-                    <Tab to="/log-exercise" label="Log Exercise" Icon={IoIosAddCircle} />
+                    <Tab to="/log-exercise" label="Log exercise" Icon={IoIosAddCircle} />
                 </li>
                 <li>
                     <Tab to="/history" label="History" Icon={IoIosTime} />

@@ -18,13 +18,13 @@ import useMenu from "../hooks/useMenu";
 import Details from "../components/pages/Workout/Details";
 import Log from "../components/pages/Workout/Log";
 
-import GymIcon from "../assets/icons/GymIcon";
 import { BiSolidEditAlt } from "react-icons/bi";
 import { MdDeleteForever } from "react-icons/md";
 
 export default function WorkoutPage() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(true);
+
     const [activeTab, setActiveTab] = useState<"details" | "exercises" | "log">("exercises");
 
     const [noticeMsg, setNoticeMsg] = useState("");
