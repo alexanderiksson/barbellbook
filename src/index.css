@@ -82,3 +82,16 @@ input.no-spinner {
         min-height: 100vh;
     }
 }
+
+nav.android {
+    padding-bottom: 1.5rem;
+}
+
+nav.ios {
+    padding-bottom: 2rem;
+}
+
+main.android,
+main.ios {
+    padding-bottom: 6rem;
+}
