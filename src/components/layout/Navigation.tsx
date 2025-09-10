@@ -40,8 +40,11 @@ export default function Navigation() {
     return (
         <nav
             className={`bg-secondary-bright/50 backdrop-blur-xl border-t border-border/20 fixed z-20 shadow-2xl w-full bottom-0 left-0 py-2
-            lg:top-0 lg:left-0 lg:bottom-0 lg:w-52 xl:w-60 lg:h-full lg:py-12 lg:flex lg:flex-col lg:px-6 xl:px-8 lg:border-r standalone:pb-6`}
+            lg:top-0 lg:left-0 lg:bottom-0 lg:w-52 xl:w-60 lg:h-full lg:py-12 lg:flex lg:flex-col lg:px-6 xl:px-8 lg:border-r`}
             role="navigation"
+            style={{
+                paddingBottom: "calc(0.5rem + env(safe-area-inset-bottom))",
+            }}
         >
             <ul
                 className="flex justify-around items-center px-4 lg:p-0 flex-row h-full

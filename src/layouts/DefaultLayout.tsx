@@ -1,13 +1,18 @@
 import { Outlet } from "react-router-dom";
 import Navigation from "../components/layout/Navigation";
+import SafeArea from "../components/layout/SafeArea";
 
 export default function DefaultLayout() {
     return (
         <>
-            <div className="hidden standalone:block fixed w-full top-0 h-16 border-b border-border/20 bg-secondary/50 backdrop-blur-xl z-30"></div>
+            <SafeArea />
             <main
                 role="main"
-                className={`flex-1 flex flex-col justify-start pt-8 pb-20 lg:pb-8 lg:ml-52 xl:ml-60 standalone:pt-22 standalone:pb-26`}
+                className="flex-1 flex flex-col justify-start lg:ml-52 xl:ml-60"
+                style={{
+                    paddingTop: "calc(1rem + env(safe-area-inset-top))",
+                    paddingBottom: "calc(5rem + env(safe-area-inset-bottom))",
+                }}
             >
                 <Outlet />
             </main>
