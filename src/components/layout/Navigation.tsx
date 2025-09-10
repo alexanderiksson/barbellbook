@@ -43,7 +43,7 @@ export default function Navigation() {
             lg:top-0 lg:left-0 lg:bottom-0 lg:w-52 xl:w-60 lg:h-full lg:py-12 lg:flex lg:flex-col lg:px-6 xl:px-8 lg:border-r`}
             role="navigation"
             style={{
-                paddingBottom: "calc(0.5rem + env(safe-area-inset-bottom))",
+                paddingBottom: "calc(0.5rem + var(--safe-bottom))",
             }}
         >
             <ul

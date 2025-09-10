@@ -8,8 +8,8 @@
         "build": "vite build",
         "lint": "eslint .",
         "preview": "vite preview",
-        "ios:build": "npm run build && npx cap sync ios && cd ios/App && pod install && xcodebuild -workspace App.xcworkspace -scheme App -configuration Debug -sdk iphonesimulator -derivedDataPath build",
-        "ios:open": "npx cap sync ios && open ios/App/App.xcworkspace",
+        "ios:build": "rm -rf ios/App/build && npm run build && npx cap sync ios && cd ios/App && pod install && xcodebuild -workspace App.xcworkspace -scheme App -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 16 Pro'",
+        "ios:open": "rm -rf ios/App/build && npx cap sync ios && open ios/App/App.xcworkspace",
         "android:build": "npm run build && npx cap sync android && cd android && ./gradlew assembleDebug",
         "android:open": "npx cap open android"
     },
