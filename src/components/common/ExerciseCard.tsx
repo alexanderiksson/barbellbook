@@ -43,7 +43,7 @@ export default function ExerciseCard({
                 action={() => onDelete?.(index)}
             />
 
-            <div className="p-4 lg:px-6 bg-[var(--secondary)] border border-[var(--border)]/20 rounded-2xl shadow-xl">
+            <div className="p-4 lg:px-6 bg-[var(--secondary)] border border-[var(--border)]/20 rounded-2xl">
                 <div className="flex items-center justify-between gap-2 mb-4">
                     <h2 className="font-medium truncate">
                         <span className="mr-2 text-[var(--text-grey)]">#{index + 1}</span>

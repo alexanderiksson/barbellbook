@@ -1,5 +1,6 @@
 import { useSettings } from "../context/SettingsContext";
 import { useTabNavigation } from "../hooks/useTabNavigation";
+import { Theme } from "../context/SettingsContext";
 
 import PageHeading from "../components/common/PageHeading";
 import { Select } from "../components/common/Inputs";
@@ -8,7 +9,7 @@ import About from "../components/pages/Settings/About";
 import Data from "../components/pages/Settings/Data";
 
 export default function Settings() {
-    const { weightUnit, setWeightUnit } = useSettings();
+    const { weightUnit, setWeightUnit, theme, setTheme } = useSettings();
 
     // Manage tab changes
     const validTabs = ["general", "data", "about"] as const;
@@ -29,7 +30,7 @@ export default function Settings() {
             />
 
             {activeTab === "general" && (
-                <section id="general">
+                <section id="general" className="flex flex-col gap-4">
                     <div className="flex flex-col gap-2">
                         <label className="text-sm">Weight unit</label>
                         <Select
@@ -38,6 +39,15 @@ export default function Settings() {
                         >
                             <option value="kg">Metric (kg)</option>
                             <option value="lb">Imperial (lb)</option>
+                        </Select>
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                        <label className="text-sm">Theme</label>
+                        <Select value={theme} onChange={(e) => setTheme(e.target.value as Theme)}>
+                            <option value="dark">Dark</option>
+                            <option value="light">Light</option>
+                            <option value="system">Follow system</option>
                         </Select>
                     </div>
                 </section>
