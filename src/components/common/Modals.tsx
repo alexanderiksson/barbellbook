@@ -120,7 +120,7 @@ export function PromptModal({
                 </div>
                 <input
                     type="text"
-                    className="w-full border border-border/50 rounded-xl p-2 bg-black/20"
+                    className="w-full border border-[var(--border)]/50 rounded-xl p-2 bg-black/20"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     autoFocus
@@ -171,7 +171,7 @@ export function LogModal({ isOpen, onClose, initialValue, onSubmit }: LogModalPr
                 </div>
 
                 <textarea
-                    className="w-full border border-border/0 rounded-xl p-4 bg-black/50 mb-2"
+                    className="w-full rounded-xl p-4 bg-black/50 mb-2"
                     rows={15}
                     value={textareaValue}
                     onChange={(e) => setTextareaValue(e.target.value)}

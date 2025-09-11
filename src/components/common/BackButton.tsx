@@ -16,7 +16,7 @@ import { IoIosArrowBack } from "react-icons/io";
 export default function BackButton({ to, label }: { to: string; label: string }) {
     return (
         <Link
-            className="mb-4 inline-flex items-center py-2 text-primary-bright max-w-full -translate-x-2"
+            className="mb-4 inline-flex items-center py-2 text-[var(--primary-bright)] max-w-full -translate-x-2"
             to={to}
             aria-label="Go back"
             title="Go back"

@@ -9,7 +9,7 @@
     --background: #0f0f11;
     --secondary: #18181b;
     --secondary-bright: #27272a;
-    --text: #e9e9e9;
+    --text: #e1e1e1;
     --text-grey: #6b6b6b;
     --border: #71717a80;
     --danger: #d51818;
@@ -21,19 +21,19 @@
     --safe-right: env(safe-area-inset-right, 0px);
 }
 
-@theme {
-    --color-primary: var(--primary);
-    --color-primary-bright: var(--primary-bright);
-    --color-accent: var(--accent);
-    --color-accent-bright: var(--accent-bright);
-    --color-background: var(--background);
-    --color-secondary: var(--secondary);
-    --color-secondary-bright: var(--secondary-bright);
-    --color-text: var(--text);
-    --color-text-grey: var(--text-grey);
-    --color-border: var(--border);
-    --color-danger: var(--danger);
-    --color-danger-bright: var(--danger-bright);
+.light {
+    --primary: #0ea5e9;
+    --primary-bright: #0ea5e9;
+    --accent: #10b981;
+    --accent-bright: #10b981;
+    --background: #ffffff;
+    --secondary: #e9e9e9;
+    --secondary-bright: #c8c8c8;
+    --text: #1b1b1b;
+    --text-grey: #6a6a6a;
+    --border: #bdbdbd;
+    --danger: #dc2626;
+    --danger-bright: #ef4444;
 }
 
 body,
@@ -57,7 +57,7 @@ body,
 }
 
 .modal {
-    @apply max-w-lg w-[90%] min-h-32 max-h-full bg-zinc-700/30 backdrop-blur-lg rounded-2xl border border-white/5 p-4 flex flex-col items-center justify-between gap-6;
+    @apply max-w-lg w-[90%] min-h-32 max-h-full bg-[var(--secondary)] backdrop-blur-lg rounded-2xl border border-[var(--border)]/20 p-4 flex flex-col items-center justify-between gap-6;
 }
 
 .modal-overlay {

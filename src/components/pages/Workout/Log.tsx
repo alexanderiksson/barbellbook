@@ -24,7 +24,7 @@ export default function Log({ workoutId, log }: { workoutId: number; log: string
             />
 
             <textarea
-                className="w-full p-4 placeholder:text-text-grey/50 bg-black/20 rounded-2xl border border-border/20 mb-4"
+                className="w-full p-4 placeholder:text-[var(--text-grey)]/50 bg-[var(--secondary)] rounded-2xl border border-[var(--border)]/20 mb-4"
                 rows={10}
                 placeholder="Write something about your workout..."
                 value={textareaValue}

@@ -19,7 +19,7 @@ export function Select({ onChange, value, children }: SelectProps) {
     return (
         <div className="relative mb-4 w-full lg:w-sm">
             <select
-                className="appearance-none py-3 w-full border-2 border-border/20 rounded-2xl bg-secondary/50 text-sm text-center last"
+                className="appearance-none py-3 w-full border-2 border-[var(--border)]/20 rounded-2xl bg-[var(--secondary)]/50 text-sm text-center last"
                 onChange={onChange}
                 value={value}
                 style={{
@@ -29,7 +29,7 @@ export function Select({ onChange, value, children }: SelectProps) {
                 {children}
             </select>
 
-            <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-text-grey">
+            <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[var(--text-grey)]">
                 <IoIosArrowDown size={16} />
             </div>
         </div>
@@ -40,7 +40,7 @@ export function Select({ onChange, value, children }: SelectProps) {
 export function TextInput({ placeholder, value, onChange, className }: TextInputProps) {
     return (
         <input
-            className={`bg-secondary/50 p-3 rounded-2xl w-full border-2 border-border/20 shadow placeholder:text-text-grey/50 ${className}`}
+            className={`bg-[var(--secondary)]/50 p-3 rounded-2xl w-full border-2 border-[var(--border)]/20 shadow placeholder:text-[var(--text-grey)]/50 ${className}`}
             type="text"
             placeholder={placeholder}
             value={value}

@@ -8,11 +8,11 @@ interface RepCounterProps {
 export default function RepCounter({ reps, setReps }: RepCounterProps) {
     return (
         <div className="flex flex-col justify-center items-center gap-4">
-            <h2 className="text-sm text-text-grey">Reps</h2>
+            <h2 className="text-sm text-[var(--text-grey)]">Reps</h2>
 
             <div className="flex items-center justify-center gap-4 w-full">
                 <button
-                    className="flex justify-center items-center w-10 h-10 bg-secondary-bright rounded-full cursor-pointer border border-border/20"
+                    className="flex justify-center items-center w-10 h-10 bg-[var(--secondary-bright)] rounded-full cursor-pointer border border-[var(--border)]/20"
                     onClick={() => setReps(reps + 1)}
                     disabled={reps >= 999}
                     aria-label="Increase reps"
@@ -22,7 +22,7 @@ export default function RepCounter({ reps, setReps }: RepCounterProps) {
                 </button>
                 <span className="text-2xl min-w-6 text-center">{reps}</span>
                 <button
-                    className="flex justify-center items-center w-10 h-10 bg-secondary-bright rounded-full cursor-pointer border border-border/20"
+                    className="flex justify-center items-center w-10 h-10 bg-[var(--secondary-bright)] rounded-full cursor-pointer border border-[var(--border)]/20"
                     onClick={() => setReps(reps - 1)}
                     disabled={reps <= 0}
                     aria-label="Decrease reps"

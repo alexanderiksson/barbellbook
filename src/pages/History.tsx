@@ -60,7 +60,7 @@ export default function History() {
             <PageHeading>Workout history</PageHeading>
 
             {workouts.length === 0 ? (
-                <p className="text-text-grey">No workouts logged yet.</p>
+                <p className="text-[var(--text-grey)]">No workouts logged yet.</p>
             ) : (
                 <>
                     <Select
@@ -82,8 +82,8 @@ export default function History() {
                             <button
                                 className={`${
                                     currentPage === 1
-                                        ? "bg-secondary cursor-not-allowed"
-                                        : "bg-secondary-bright cursor-pointer"
+                                        ? "bg-[var(--secondary)] cursor-not-allowed"
+                                        : "bg-bg-[var(--secondary-bright)] cursor-pointer"
                                 } p-3 rounded-full `}
                                 disabled={currentPage === 1}
                                 onClick={() => setCurrentPage((prev) => prev - 1)}
@@ -93,14 +93,14 @@ export default function History() {
                                     color={currentPage === 1 ? "gray" : "white"}
                                 />
                             </button>
-                            <span className="text-text-grey">
+                            <span className="text-[var(--text-grey)]">
                                 Page {currentPage} of {totalPages}
                             </span>
                             <button
                                 className={`${
                                     currentPage === totalPages
-                                        ? "bg-secondary cursor-not-allowed"
-                                        : "bg-secondary-bright cursor-pointer"
+                                        ? "bg-[var(--secondary)] cursor-not-allowed"
+                                        : "bg-[var(--secondary-bright)] cursor-pointer"
                                 } p-3 rounded-full `}
                                 disabled={currentPage === totalPages}
                                 onClick={() => setCurrentPage((prev) => prev + 1)}
