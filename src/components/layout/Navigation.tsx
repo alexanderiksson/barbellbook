@@ -13,13 +13,13 @@ const Tab = ({ to, label, Icon }: TabProps) => {
             to={to}
             className={({ isActive }) =>
                 `flex flex-col lg:flex-row lg:gap-2 items-center justify-center text-[10px] lg:text-base ${
-                    isActive ? "text-[var(--accent-bright)]" : "text-[var(--text)]"
+                    isActive ? "text-[var(--accent-bright)]" : "text-[var(--nav-text)]"
                 }`
             }
         >
             {({ isActive }) => (
                 <>
-                    <Icon color={isActive ? "var(--accent-bright)" : "var(--text)"} size={28} />
+                    <Icon color={isActive ? "var(--accent-bright)" : "var(--nav-text)"} size={24} />
                     <span>{label}</span>
                 </>
             )}

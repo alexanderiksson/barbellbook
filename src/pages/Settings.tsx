@@ -47,7 +47,7 @@ export default function Settings() {
                         <Select value={theme} onChange={(e) => setTheme(e.target.value as Theme)}>
                             <option value="dark">Dark</option>
                             <option value="light">Light</option>
-                            <option value="system">Follow system</option>
+                            <option value="system">Automatic</option>
                         </Select>
                     </div>
                 </section>
