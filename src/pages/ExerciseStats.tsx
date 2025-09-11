@@ -18,7 +18,7 @@ export default function ExerciseStats() {
     const { workouts } = useWorkout();
     const { weightUnit } = useSettings();
 
-    const [selectedYear, setSelectedYear] = useState<string>("all");
+    const [selectedPeriod, setSelectedPeriod] = useState<string>("all");
     const [filteredData, setFilteredData] = useState<WorkoutType[]>([]);
 
     // Find the exercise from the param
@@ -64,32 +64,40 @@ export default function ExerciseStats() {
         [allWorkouts]
     );
 
-    // Filter the data based on what year is selected
+    // Filter the data based on what time period is selected
     useEffect(() => {
-        if (selectedYear === "all") {
+        if (selectedPeriod === "all") {
             setFilteredData(allWorkouts);
-        } else if (selectedYear === "month") {
-            // Filter workouts from the last month
-            const oneMonthAgo = new Date();
-            oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
-
-            setFilteredData(allWorkouts.filter((workout) => new Date(workout.date) >= oneMonthAgo));
-        } else if (selectedYear === "3-months") {
-            // Filter workouts from the last 3 months
-            const threeMonthsAgo = new Date();
-            threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
-
-            setFilteredData(
-                allWorkouts.filter((workout) => new Date(workout.date) >= threeMonthsAgo)
-            );
-        } else {
-            setFilteredData(
-                allWorkouts.filter(
-                    (workout) => new Date(workout.date).getFullYear() === Number(selectedYear)
-                )
-            );
+            return;
         }
-    }, [selectedYear, allWorkouts]);
+
+        const now = new Date();
+        let cutoffDate: Date;
+
+        switch (selectedPeriod) {
+            case "1-month":
+                cutoffDate = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
+                break;
+            case "3-months":
+                cutoffDate = new Date(now.getFullYear(), now.getMonth() - 3, now.getDate());
+                break;
+            case "6-months":
+                cutoffDate = new Date(now.getFullYear(), now.getMonth() - 6, now.getDate());
+                break;
+            case "1-year":
+                cutoffDate = new Date(now.getFullYear() - 1, now.getMonth(), now.getDate());
+                break;
+            default:
+                setFilteredData(
+                    allWorkouts.filter(
+                        (workout) => new Date(workout.date).getFullYear() === Number(selectedPeriod)
+                    )
+                );
+                return;
+        }
+
+        setFilteredData(allWorkouts.filter((workout) => new Date(workout.date) >= cutoffDate));
+    }, [selectedPeriod, allWorkouts]);
 
     // Calculate estimate 1RM
     const allOneRM = filteredData.flatMap((workout) => {
@@ -119,10 +127,13 @@ export default function ExerciseStats() {
             <BackButton label="Exercises" to="/stats?tab=exercises" />
             <PageHeading>{exercise.name}</PageHeading>
 
-            <Select value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
+            <Select value={selectedPeriod} onChange={(e) => setSelectedPeriod(e.target.value)}>
                 <option value="all">All time</option>
-                <option value="month">Last month</option>
+                <option value="1-month">Last month</option>
                 <option value="3-months">Last 3 months</option>
+                <option value="6-months">Last 6 months</option>
+                <option value="1-year">Last year</option>
+
                 {years.map((year, index) => (
                     <option key={index} value={year}>
                         {new Date().getFullYear() == year ? "This year" : year}
