@@ -110,8 +110,8 @@ export default function Data() {
                 }}
             />
             <section id="data" className="flex flex-col gap-4">
-                <div className="p-4 bg-secondary rounded-2xl border border-border/20">
-                    <h2 className="mb-6 text-text-grey text-sm">Export / Import</h2>
+                <div className="p-4 bg-[var(--secondary)] rounded-2xl border border-[var(--border)]/20">
+                    <h2 className="mb-6 text-[var(--text-grey)] text-sm">Export / Import</h2>
                     <div className="flex gap-4 flex-wrap">
                         <Button onClick={handleExport} variant="blue">
                             <TbFileExport size={20} /> Export data
@@ -122,8 +122,8 @@ export default function Data() {
                     </div>
                 </div>
 
-                <div className="p-4 bg-danger/10 rounded-2xl border border-danger/20">
-                    <h2 className="mb-6 text-text-grey text-sm">Danger zone</h2>
+                <div className="p-4 bg-[var(--danger)]/10 rounded-2xl border border-[var(--danger)]/20">
+                    <h2 className="mb-6 text-[var(--text-grey)] text-sm">Danger zone</h2>
                     <div className="flex gap-4 flex-wrap">
                         <Button variant="danger" onClick={clearDataConfirmModal.open}>
                             <MdOutlineDangerous size={20} />

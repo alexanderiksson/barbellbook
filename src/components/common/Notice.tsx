@@ -39,7 +39,7 @@ export default function Notice({ registerTrigger, msg }: NoticeProps) {
         <div
             className={`${
                 notice ? "top-[calc(0.5rem+var(--safe-top))]" : "-top-full"
-            } content text-center p-3 bg-accent/70 border border-border/50 rounded-lg fixed w-full z-20 backdrop-blur-3xl transition-all duration-300`}
+            } content text-center p-3 bg-[var(--accent)]/70 border border-[var(--border)]/50 rounded-lg fixed w-full z-20 backdrop-blur-3xl transition-all duration-300`}
             role="alert"
         >
             {msg}

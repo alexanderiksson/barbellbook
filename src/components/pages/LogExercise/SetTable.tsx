@@ -31,7 +31,7 @@ export default function SetTable({ currentSets, removeCurrentSets }: SetTablePro
             />
 
             <table className="w-full">
-                <thead className="border-b border-border">
+                <thead className="border-b border-[var(--border)]">
                     <tr>
                         <th className="py-2 font-normal">Set</th>
 
@@ -45,7 +45,8 @@ export default function SetTable({ currentSets, removeCurrentSets }: SetTablePro
                             <td>Set {index + 1}</td>
                             <td>{set.reps}</td>
                             <td>
-                                {set.weight} <span className="text-text-grey">{weightUnit}</span>
+                                {set.weight}{" "}
+                                <span className="text-[var(--text-grey)]">{weightUnit}</span>
                             </td>
                             <td className="flex justify-center">
                                 <button
@@ -58,7 +59,7 @@ export default function SetTable({ currentSets, removeCurrentSets }: SetTablePro
                                     <MdDeleteForever
                                         color={getComputedStyle(
                                             document.documentElement
-                                        ).getPropertyValue("--color-danger")}
+                                        ).getPropertyValue("--danger")}
                                         size={24}
                                     />
                                 </button>

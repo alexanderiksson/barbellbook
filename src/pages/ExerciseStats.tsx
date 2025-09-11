@@ -134,29 +134,31 @@ export default function ExerciseStats() {
                 <p className="text-center">No records for this period</p>
             ) : (
                 <section className="grid grid-cols-1 gap-4 mb-8">
-                    <div className="bg-secondary p-4 rounded-2xl border border-border/20">
+                    <div className="bg-[var(--secondary)] p-4 rounded-2xl border border-[var(--border)]/20">
                         <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
                             <div>
-                                <h3 className="text-text-grey text-sm">Total Workouts</h3>
+                                <h3 className="text-[var(--text-grey)] text-sm">Total Workouts</h3>
                                 <span>{filteredData.length}</span>
                             </div>
 
                             <div>
-                                <h3 className="text-text-grey text-sm">Estimated 1RM</h3>
+                                <h3 className="text-[var(--text-grey)] text-sm">Estimated 1RM</h3>
                                 <span>
                                     {estimatedOneRM} {weightUnit}
                                 </span>
                             </div>
 
                             <div>
-                                <h3 className="text-text-grey text-sm">Avg. Sets/Workout</h3>
+                                <h3 className="text-[var(--text-grey)] text-sm">
+                                    Avg. Sets/Workout
+                                </h3>
                                 <span>
                                     {(allSets.length / filteredData.length).toFixed(1)} sets
                                 </span>
                             </div>
 
                             <div>
-                                <h3 className="text-text-grey text-sm">Avg. Reps/Set</h3>
+                                <h3 className="text-[var(--text-grey)] text-sm">Avg. Reps/Set</h3>
                                 <span>
                                     {(
                                         allReps.reduce((acc, num) => acc + num, 0) / allSets.length

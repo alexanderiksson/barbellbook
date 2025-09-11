@@ -74,7 +74,7 @@ export default function Home() {
                 />
 
                 <PageHeading>
-                    <span className="text-sm lg:text-base font-normal block text-text-grey">
+                    <span className="text-sm lg:text-base font-normal block text-[var(--text-grey)]">
                         {new Date().toLocaleDateString("en-US", {
                             weekday: "long",
                             month: "long",

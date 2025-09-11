@@ -69,8 +69,8 @@ export default function ExercisesList() {
                             onClick={() => setSelectedCategory(category)}
                             className={`py-1 px-4 rounded-full border transition-all duration-200 cursor-pointer ${
                                 selectedCategory === category
-                                    ? "bg-primary-bright text-background border-primary-bright"
-                                    : "border-primary-bright hover:bg-primary-bright/10"
+                                    ? "bg-[var(--primary-bright)] text-[var(--background)] border-[var(--primary-bright)]"
+                                    : "border-[var(--primary-bright)] hover:bg-[var(--primary-bright)]/10"
                             }`}
                         >
                             {category}
@@ -89,13 +89,15 @@ export default function ExercisesList() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     {filteredExercises.map((exercise, index) => (
                         <Link key={index} to={`/stats/exercises/${exercise.id}`}>
-                            <div className="flex justify-between items-center gap-4 p-3 bg-secondary rounded-xl border border-border/20">
+                            <div className="flex justify-between items-center gap-4 p-3 bg-[var(--secondary)] rounded-xl border border-[var(--border)]/20">
                                 <div className="flex flex-col gap-2">
                                     <h3 className="truncate">
-                                        <span className="text-text-grey mr-2">{index + 1}.</span>
+                                        <span className="text-[var(--text-grey)] mr-2">
+                                            {index + 1}.
+                                        </span>
                                         {exercise.name}
                                     </h3>
-                                    <span className="text-xs text-text-grey">
+                                    <span className="text-xs text-[var(--text-grey)]">
                                         {exercise.count > 1
                                             ? `${exercise.count} workouts`
                                             : `${exercise.count} workout`}

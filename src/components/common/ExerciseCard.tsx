@@ -6,7 +6,6 @@ import { MdDeleteForever } from "react-icons/md";
 import Menu from "./Menu";
 import useMenu from "../../hooks/useMenu";
 import { IoIosMore } from "react-icons/io";
-import { BiSolidEditAlt } from "react-icons/bi";
 
 interface ExerciseCardProps {
     index: number;
@@ -44,10 +43,10 @@ export default function ExerciseCard({
                 action={() => onDelete?.(index)}
             />
 
-            <div className="p-4 lg:px-6 bg-secondary border border-border/20 rounded-2xl shadow-xl">
+            <div className="p-4 lg:px-6 bg-[var(--secondary)] border border-[var(--border)]/20 rounded-2xl shadow-xl">
                 <div className="flex items-center justify-between gap-2 mb-4">
                     <h2 className="font-medium truncate">
-                        <span className="mr-2 text-text-grey">#{index + 1}</span>
+                        <span className="mr-2 text-[var(--text-grey)]">#{index + 1}</span>
                         {name}
                     </h2>
 
@@ -101,7 +100,7 @@ export default function ExerciseCard({
                                 <td>{set.reps}</td>
                                 <td>
                                     {set.weight}{" "}
-                                    <span className="text-text-grey">{weightUnit}</span>
+                                    <span className="text-[var(--text-grey)]">{weightUnit}</span>
                                 </td>
                             </tr>
                         ))}

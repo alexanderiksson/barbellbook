@@ -146,38 +146,38 @@ export default function Details({ id }: { id: string | undefined }) {
     }, [workout]);
 
     return (
-        <div className="bg-secondary p-4 rounded-2xl border border-border/20">
+        <div className="bg-[var(--secondary)] p-4 rounded-2xl border border-[var(--border)]/20">
             <div key="stats" className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 <div className="grid grid-cols-2 gap-2">
                     <div>
-                        <h3 className="text-text-grey text-sm">Duration</h3>
+                        <h3 className="text-[var(--text-grey)] text-sm">Duration</h3>
                         <span>{workoutDuration ? `${workoutDuration} min` : "-"}</span>
                     </div>
 
                     <div>
-                        <h3 className="text-text-grey text-sm">Total Sets</h3>
+                        <h3 className="text-[var(--text-grey)] text-sm">Total Sets</h3>
                         <span>{totalSets}</span>
                     </div>
 
                     <div>
-                        <h3 className="text-text-grey text-sm">Total Reps</h3>
+                        <h3 className="text-[var(--text-grey)] text-sm">Total Reps</h3>
                         <span>{totalReps}</span>
                     </div>
 
                     <div>
-                        <h3 className="text-text-grey text-sm">Total Weight</h3>
+                        <h3 className="text-[var(--text-grey)] text-sm">Total Weight</h3>
                         <span>
                             {totalWeight} <span>{weightUnit}</span>
                         </span>
                     </div>
 
                     <div>
-                        <h3 className="text-text-grey text-sm">Avg. Rest</h3>
+                        <h3 className="text-[var(--text-grey)] text-sm">Avg. Rest</h3>
                         <span>{averageRestTime ? `${averageRestTime} min` : "-"}</span>
                     </div>
 
                     <div>
-                        <h3 className="text-text-grey text-sm">Avg. Time/Exercise</h3>
+                        <h3 className="text-[var(--text-grey)] text-sm">Avg. Time/Exercise</h3>
                         <span>
                             {averageExerciseDuration ? `${averageExerciseDuration} min` : "-"}
                         </span>
@@ -195,10 +195,10 @@ export default function Details({ id }: { id: string | undefined }) {
                                     dataKey="percentage"
                                     stroke={getComputedStyle(
                                         document.documentElement
-                                    ).getPropertyValue("--color-primary-bright")}
+                                    ).getPropertyValue("--primary-bright")}
                                     fill={getComputedStyle(
                                         document.documentElement
-                                    ).getPropertyValue("--color-primary-bright")}
+                                    ).getPropertyValue("--primary-bright")}
                                     fillOpacity={0.7}
                                 />
                             </RadarChart>

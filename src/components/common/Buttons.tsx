@@ -24,12 +24,16 @@ const handleVariant = (variant: string) => {
         "bg-neutral-700 border-neutral-700 hover:bg-neutral-700/90 hover:border-neutral-700/90";
 
     if (variant === "green")
-        color = "bg-accent border-accent hover:bg-accent/90 hover:border-accent/90";
+        color =
+            "bg-[var(--accent)] border-[var(--accent)] hover:bg-[var(--accent)]/90 hover:border-[var(--accent)]/90";
     if (variant === "blue")
-        color = "bg-primary border-primary hover:bg-primary/90 hover:border-primary/90";
-    if (variant === "outline") color = "bg-transparent border-primary hover:bg-primary/10";
+        color =
+            "bg-[var(--primary)] border-[var(--primary)] hover:bg-[var(--primary)]/90 hover:border-[var(--primary)]/90";
+    if (variant === "outline")
+        color = "bg-transparent border-[var(--primary)] hover:bg-[var(--primary)]/10";
     if (variant === "danger")
-        color = "bg-danger border-danger hover:bg-danger/90 hover:border-danger/90";
+        color =
+            "bg-[var(--danger)] border-[var(--danger)] hover:bg-[var(--danger)]/90 hover:border-[var(--danger)]/90";
 
     return color;
 };

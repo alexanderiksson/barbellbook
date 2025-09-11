@@ -21,21 +21,6 @@
     --safe-right: env(safe-area-inset-right, 0px);
 }
 
-@theme {
-    --color-primary: var(--primary);
-    --color-primary-bright: var(--primary-bright);
-    --color-accent: var(--accent);
-    --color-accent-bright: var(--accent-bright);
-    --color-background: var(--background);
-    --color-secondary: var(--secondary);
-    --color-secondary-bright: var(--secondary-bright);
-    --color-text: var(--text);
-    --color-text-grey: var(--text-grey);
-    --color-border: var(--border);
-    --color-danger: var(--danger);
-    --color-danger-bright: var(--danger-bright);
-}
-
 body,
 #root {
     background-color: var(--background);

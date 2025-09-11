@@ -37,9 +37,9 @@ export default function PersonalRecords({ workouts }: PersonalRecordsProps) {
     };
 
     return (
-        <div className="bg-secondary p-4 rounded-2xl border border-border/20">
-            <h2 className="text-text-grey text-sm mb-6">Personal Records</h2>
-            <div className="flex flex-col gap-2 divide-y divide-border/50">
+        <div className="bg-[var(--secondary)] p-4 rounded-2xl border border-[var(--border)]/20">
+            <h2 className="text-[var(--text-grey)] text-sm mb-6">Personal Records</h2>
+            <div className="flex flex-col gap-2 divide-y divide-[var(--border)]/50">
                 {Object.entries(personalRecords(workouts)).map(([rep, record], index) => (
                     <div key={index} className="flex items-center justify-between py-2">
                         <span>{rep} RM</span>
@@ -47,7 +47,9 @@ export default function PersonalRecords({ workouts }: PersonalRecordsProps) {
                             <>
                                 <span>
                                     {record.weight}
-                                    <span className="text-text-grey ml-1">{weightUnit}</span>
+                                    <span className="text-[var(--text-grey)] ml-1">
+                                        {weightUnit}
+                                    </span>
                                 </span>
                                 <span className="w-24">
                                     {new Date(record.date).toLocaleDateString()}
@@ -56,7 +58,7 @@ export default function PersonalRecords({ workouts }: PersonalRecordsProps) {
                         ) : (
                             <>
                                 <span>-</span>
-                                <span className="text-text-grey w-24">Not logged</span>
+                                <span className="text-[var(--text-grey)] w-24">Not logged</span>
                             </>
                         )}
                     </div>

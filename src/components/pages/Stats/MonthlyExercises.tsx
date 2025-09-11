@@ -20,8 +20,8 @@ export default function MonthlyExercises({
     ).map(([month, Exercises]) => ({ month, Exercises }));
 
     return (
-        <div className="bg-secondary p-4 rounded-2xl border border-border/20">
-            <h2 className="mb-6 text-text-grey text-sm">Monthly Exercises</h2>
+        <div className="bg-[var(--secondary)] p-4 rounded-2xl border border-[var(--border)]/20">
+            <h2 className="mb-6 text-[var(--text-grey)] text-sm">Monthly Exercises</h2>
             <div className="w-full h-72">
                 <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={data} margin={{ top: 0, right: 10, left: -25, bottom: 0 }}>
@@ -32,7 +32,7 @@ export default function MonthlyExercises({
                         <Bar
                             dataKey="Exercises"
                             fill={getComputedStyle(document.documentElement).getPropertyValue(
-                                "--color-accent-bright"
+                                "--accent-bright"
                             )}
                             radius={[4, 4, 0, 0]}
                         />

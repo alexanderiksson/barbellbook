@@ -9,7 +9,7 @@ export default function Loader() {
             role="status"
             aria-label="Loading"
         >
-            <div className="w-10 h-10 border-4 border-t-primary-bright border-neutral-500 rounded-full animate-spin"></div>
+            <div className="w-10 h-10 border-4 border-t-[var(--primary-bright)] border-neutral-500 rounded-full animate-spin"></div>
         </div>
     );
 }

@@ -14,12 +14,12 @@ export default function PreviousSession({ sets }: PreviousSessionProps) {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <section className="bg-secondary border border-border/20 rounded-2xl p-4 text-sm">
+        <section className="bg-[var(--secondary)] border border-[var(--border)]/20 rounded-2xl p-4 text-sm">
             <div
                 className="flex justify-between items-center cursor-pointer"
                 onClick={() => setIsOpen(!isOpen)}
             >
-                <h2 className="text-text-grey text-sm">Previous session</h2>
+                <h2 className="text-[var(--text-grey)] text-sm">Previous session</h2>
                 <IoIosArrowDown
                     size={20}
                     color="grey"
@@ -51,7 +51,9 @@ export default function PreviousSession({ sets }: PreviousSessionProps) {
                                         <td>{set.reps}</td>
                                         <td>
                                             {set.weight}{" "}
-                                            <span className="text-text-grey">{weightUnit}</span>
+                                            <span className="text-[var(--text-grey)]">
+                                                {weightUnit}
+                                            </span>
                                         </td>
                                     </tr>
                                 ))}

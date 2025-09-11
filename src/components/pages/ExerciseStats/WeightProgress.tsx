@@ -44,8 +44,8 @@ export default function WeightProgress({ workouts }: WeightProgressProps) {
         .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
     return (
-        <div className="bg-secondary p-4 rounded-2xl border border-border/20">
-            <h2 className="text-text-grey text-sm mb-6">Weight Progress</h2>
+        <div className="bg-[var(--secondary)] p-4 rounded-2xl border border-[var(--border)]/20">
+            <h2 className="text-[var(--text-grey)] text-sm mb-6">Weight Progress</h2>
             <div className="w-full h-80 lg:h-96">
                 <ResponsiveContainer width="100%" height="100%">
                     <LineChart
@@ -76,7 +76,7 @@ export default function WeightProgress({ workouts }: WeightProgressProps) {
                             contentStyle={{
                                 backgroundColor: getComputedStyle(
                                     document.documentElement
-                                ).getPropertyValue("--color-background"),
+                                ).getPropertyValue("--background"),
                                 borderRadius: "16px",
                                 border: "none",
                                 color: "lightgray",
@@ -94,7 +94,7 @@ export default function WeightProgress({ workouts }: WeightProgressProps) {
                             type="bump"
                             dataKey="Weight"
                             stroke={getComputedStyle(document.documentElement).getPropertyValue(
-                                "--color-primary-bright"
+                                "--primary-bright"
                             )}
                             activeDot={{ r: 8 }}
                             strokeWidth={2}
@@ -104,7 +104,7 @@ export default function WeightProgress({ workouts }: WeightProgressProps) {
                             type="stepAfter"
                             dataKey="Reps"
                             stroke={getComputedStyle(document.documentElement).getPropertyValue(
-                                "--color-accent-bright"
+                                "--accent-bright"
                             )}
                             strokeWidth={2}
                         />

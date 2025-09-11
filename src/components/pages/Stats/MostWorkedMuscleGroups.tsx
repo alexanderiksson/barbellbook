@@ -30,8 +30,8 @@ export default function MostWorkedMuscleGroups({
     }));
 
     return (
-        <div className="bg-secondary p-4 rounded-2xl border border-border/20">
-            <h2 className="mb-6 text-text-grey text-sm">Most Worked Muscle Groups</h2>
+        <div className="bg-[var(--secondary)] p-4 rounded-2xl border border-[var(--border)]/20">
+            <h2 className="mb-6 text-[var(--text-grey)] text-sm">Most Worked Muscle Groups</h2>
             <div className="w-full h-72 lg:h-96">
                 <ResponsiveContainer width="100%" height="100%">
                     <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
@@ -41,10 +41,10 @@ export default function MostWorkedMuscleGroups({
                         <Radar
                             dataKey="percentage"
                             stroke={getComputedStyle(document.documentElement).getPropertyValue(
-                                "--color-primary-bright"
+                                "--primary-bright"
                             )}
                             fill={getComputedStyle(document.documentElement).getPropertyValue(
-                                "--color-primary-bright"
+                                "--primary-bright"
                             )}
                             fillOpacity={0.7}
                         />
