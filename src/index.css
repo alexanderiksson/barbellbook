@@ -22,6 +22,11 @@
     --safe-right: max(env(safe-area-inset-right), 0px);
 }
 
+.capacitor-android {
+    --safe-top: 1.5rem;
+    --safe-bottom: 1rem;
+}
+
 .light {
     --primary: #0ea5e9;
     --primary-bright: #0ea5e9;

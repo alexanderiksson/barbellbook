@@ -3,6 +3,7 @@ import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { WorkoutProvider } from "./context/WorkoutContext";
 import { SettingsProvider, useSettings } from "./context/SettingsContext";
 import ScrollToTop from "./components/common/ScrollToTop";
+import { Capacitor } from "@capacitor/core";
 
 import DefaultLayout from "./layouts/DefaultLayout";
 import Home from "./pages/Home";
@@ -24,6 +25,13 @@ function ThemedApp() {
             document.body.classList.remove("light");
         }
     }, [actualTheme]);
+
+    useEffect(() => {
+        if (Capacitor.isNativePlatform()) {
+            const platform = Capacitor.getPlatform();
+            document.body.classList.add(`capacitor-${platform}`);
+        }
+    }, []);
 
     return (
         <WorkoutProvider>
