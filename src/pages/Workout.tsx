@@ -123,6 +123,7 @@ export default function WorkoutPage() {
                     backLink="/history"
                     menuOnClick={() => (menu.isOpen ? menu.close() : menu.open())}
                 />
+
                 <Notice
                     msg={noticeMsg}
                     registerTrigger={(trigger) => (noticeTriggerRef.current = trigger)}

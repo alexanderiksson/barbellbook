@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import { createContext, useState, useContext, useEffect, ReactNode } from "react";
 import { StatusBar, Style } from "@capacitor/status-bar";
 import { Capacitor } from "@capacitor/core";
 
@@ -10,13 +10,16 @@ interface SettingsContextType {
     setWeightUnit: (unit: WeightUnit) => void;
     theme: Theme;
     setTheme: (theme: Theme) => void;
-    actualTheme: "light" | "dark"; // The resolved theme (system preference resolved)
+    actualTheme: "light" | "dark";
 }
 
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);
 
-// Function to update status bar based on theme
-const updateStatusBar = async (theme: "light" | "dark") => {
+interface SettingsProviderProps {
+    children: ReactNode;
+}
+
+const updateStatusBar = async (theme: "light" | "dark"): Promise<void> => {
     if (!Capacitor.isNativePlatform()) return;
 
     try {
@@ -32,57 +35,69 @@ const updateStatusBar = async (theme: "light" | "dark") => {
     }
 };
 
-export const SettingsProvider = ({ children }: { children: ReactNode }) => {
-    const getInitialUnit = (): WeightUnit => {
+const getSystemTheme = (): "light" | "dark" => {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+};
+
+const resolveTheme = (theme: Theme): "light" | "dark" => {
+    return theme === "system" ? getSystemTheme() : theme;
+};
+
+export function SettingsProvider({ children }: SettingsProviderProps) {
+    const [weightUnit, setWeightUnitState] = useState<WeightUnit>(() => {
         const stored = localStorage.getItem("weightUnit");
         return stored === "kg" || stored === "lb" ? stored : "kg";
-    };
+    });
 
-    const getInitialTheme = (): Theme => {
+    // Theme state
+    const [theme, setThemeState] = useState<Theme>(() => {
         const stored = localStorage.getItem("theme");
         return stored === "light" || stored === "dark" || stored === "system" ? stored : "dark";
-    };
+    });
 
-    const getSystemTheme = (): "light" | "dark" => {
-        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-    };
+    // Actual theme state
+    const [actualTheme, setActualTheme] = useState<"light" | "dark">(() => {
+        const stored = localStorage.getItem("theme");
+        const initialTheme =
+            stored === "light" || stored === "dark" || stored === "system" ? stored : "dark";
+        return resolveTheme(initialTheme);
+    });
 
-    const resolveTheme = (theme: Theme): "light" | "dark" => {
-        return theme === "system" ? getSystemTheme() : theme;
-    };
+    // Function to save weight unit to local storage when state is updated
+    useEffect(() => {
+        localStorage.setItem("weightUnit", weightUnit);
+    }, [weightUnit]);
 
-    const [weightUnit, setWeightUnitState] = useState<WeightUnit>(getInitialUnit());
-    const [theme, setThemeState] = useState<Theme>(getInitialTheme());
-    const [actualTheme, setActualTheme] = useState<"light" | "dark">(() =>
-        resolveTheme(getInitialTheme())
-    );
+    // Function to save theme to local storage when state is updated
+    useEffect(() => {
+        localStorage.setItem("theme", theme);
+    }, [theme]);
 
-    const setWeightUnit = (unit: WeightUnit) => {
+    // Update weight unit setting
+    const setWeightUnit = (unit: WeightUnit): void => {
         setWeightUnitState(unit);
-        localStorage.setItem("weightUnit", unit);
     };
 
-    const setTheme = async (newTheme: Theme) => {
+    // Update theme setting
+    const setTheme = async (newTheme: Theme): Promise<void> => {
         setThemeState(newTheme);
-        localStorage.setItem("theme", newTheme);
         const resolved = resolveTheme(newTheme);
         setActualTheme(resolved);
 
-        // Update status bar color
         await updateStatusBar(resolved);
     };
 
     useEffect(() => {
         if (theme === "system") {
             const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-            const handleChange = async () => {
+            const handleSystemThemeChange = async (): Promise<void> => {
                 const newSystemTheme = getSystemTheme();
                 setActualTheme(newSystemTheme);
                 await updateStatusBar(newSystemTheme);
             };
 
-            mediaQuery.addEventListener("change", handleChange);
-            return () => mediaQuery.removeEventListener("change", handleChange);
+            mediaQuery.addEventListener("change", handleSystemThemeChange);
+            return () => mediaQuery.removeEventListener("change", handleSystemThemeChange);
         }
     }, [theme]);
 
@@ -93,17 +108,23 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
 
     return (
         <SettingsContext.Provider
-            value={{ weightUnit, setWeightUnit, theme, setTheme, actualTheme }}
+            value={{
+                weightUnit,
+                setWeightUnit,
+                theme,
+                setTheme,
+                actualTheme,
+            }}
         >
             {children}
         </SettingsContext.Provider>
     );
-};
+}
 
-export const useSettings = () => {
+export function useSettings(): SettingsContextType {
     const context = useContext(SettingsContext);
     if (!context) {
         throw new Error("useSettings must be used within a SettingsProvider");
     }
     return context;
-};
+}

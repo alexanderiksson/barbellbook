@@ -125,6 +125,7 @@ export default function ExerciseStats() {
     return (
         <div className="content">
             <Header backLink="/stats?tab=exercises" />
+
             <PageHeading>{exercise.name}</PageHeading>
 
             <Select value={selectedPeriod} onChange={(e) => setSelectedPeriod(e.target.value)}>
