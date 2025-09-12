@@ -75,6 +75,7 @@ export default function LogExercise() {
     return (
         <>
             <AlertModal text={modalText} isOpen={alertModal.isOpen} onClose={alertModal.close} />
+
             <ConfirmModal
                 text="Do you want to save?"
                 isOpen={confirmModal.isOpen}
@@ -154,7 +155,6 @@ export default function LogExercise() {
                         )}
                     </div>
 
-                    {/* Add set */}
                     <section className="w-full flex flex-col gap-8 bg-[var(--secondary)] border border-[var(--border)]/20 rounded-2xl p-4">
                         <div className="flex justify-around gap-6 flex-wrap-reverse">
                             <RepCounter reps={reps} setReps={setReps} />
@@ -194,13 +194,11 @@ export default function LogExercise() {
 
                     {lastSessionSets && <PreviousSession sets={lastSessionSets} />}
 
-                    {/* Sets table */}
                     {currentSets.length > 0 && (
                         <SetTable currentSets={currentSets} removeCurrentSets={removeCurrentSets} />
                     )}
                 </div>
 
-                {/* Save exercise button */}
                 <Button
                     variant={"green"}
                     className={"mt-auto w-full"}
