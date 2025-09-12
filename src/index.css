@@ -16,7 +16,7 @@
     --danger: #d51818;
     --danger-bright: #f13333;
 
-    --safe-top: max(env(safe-area-inset-top), 1rem);
+    --safe-top: max(env(safe-area-inset-top), 0.5rem);
     --safe-bottom: max(env(safe-area-inset-bottom), 0px);
     --safe-left: max(env(safe-area-inset-left), 0px);
     --safe-right: max(env(safe-area-inset-right), 0px);
