@@ -63,41 +63,42 @@ export default function Menu({ isOpen, closeMenu, menuItems, spacingTop }: MenuP
     return (
         <>
             {isOpen && (
-                <div className="fixed inset-0 z-10 bg-black/70" onClick={() => closeMenu()}></div>
+                <div
+                    className="fixed w-screen h-screen top-0 left-0 z-30 bg-black/70 flex items-center justify-center"
+                    onClick={() => closeMenu()}
+                >
+                    <div
+                        className={`bg-[var(--secondary)] backdrop-blur-lg rounded-2xl w-[90%] max-w-xl overflow-hidden z-30`}
+                        role="menu"
+                        aria-hidden={!isOpen}
+                        style={{ top: spacingTop ? "3rem" : "1.5rem" }}
+                    >
+                        <ul className="divide-y divide-[var(--border)]">
+                            {menuItems.map((item, index) => {
+                                return item.type === "link" ? (
+                                    <LinkItem
+                                        key={index}
+                                        to={item.to || "#"}
+                                        label={item.label}
+                                        Icon={item.icon}
+                                    />
+                                ) : (
+                                    <Item
+                                        key={index}
+                                        onClick={() => {
+                                            item.onClick?.();
+                                            closeMenu();
+                                        }}
+                                        label={item.label}
+                                        Icon={item.icon}
+                                        danger={item.danger ?? false}
+                                    />
+                                );
+                            })}
+                        </ul>
+                    </div>
+                </div>
             )}
-
-            <div
-                className={`${
-                    isOpen ? "block" : "hidden"
-                } absolute bg-[var(--secondary)] backdrop-blur-lg rounded-2xl w-52 right-0 shadow-xl overflow-hidden z-30`}
-                role="menu"
-                aria-hidden={!isOpen}
-                style={{ top: spacingTop ? "3rem" : "1.5rem" }}
-            >
-                <ul className="divide-y divide-[var(--border)]">
-                    {menuItems.map((item, index) => {
-                        return item.type === "link" ? (
-                            <LinkItem
-                                key={index}
-                                to={item.to || "#"}
-                                label={item.label}
-                                Icon={item.icon}
-                            />
-                        ) : (
-                            <Item
-                                key={index}
-                                onClick={() => {
-                                    item.onClick?.();
-                                    closeMenu();
-                                }}
-                                label={item.label}
-                                Icon={item.icon}
-                                danger={item.danger ?? false}
-                            />
-                        );
-                    })}
-                </ul>
-            </div>
         </>
     );
 }
