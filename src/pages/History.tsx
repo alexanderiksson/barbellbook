@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import { useWorkout } from "../context/WorkoutContext";
 import { WorkoutType } from "../types/workout";
 
-import PageHeading from "../components/common/PageHeading";
 import WorkoutCard from "../components/pages/History/WorkoutCard";
 import Loader from "../components/common/Loader";
 import { Select } from "../components/common/Inputs";
+import Header from "../components/layout/Header";
 
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
@@ -57,7 +57,7 @@ export default function History() {
 
     return (
         <div className="content relative flex flex-col flex-1">
-            <PageHeading>Workout history</PageHeading>
+            <Header title="History" />
 
             {workouts.length === 0 ? (
                 <p className="text-[var(--text-grey)]">No workouts logged yet.</p>

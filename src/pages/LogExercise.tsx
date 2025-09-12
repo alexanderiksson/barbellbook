@@ -5,7 +5,6 @@ import exercises from "../data/exercises.json";
 import { SetType } from "../types/workout";
 import useModal from "../hooks/useModal";
 
-import PageHeading from "../components/common/PageHeading";
 import { Button } from "../components/common/Buttons";
 import RepCounter from "../components/pages/LogExercise/RepCounter";
 import WeightInput from "../components/pages/LogExercise/WeightInput";
@@ -15,6 +14,7 @@ import { AlertModal } from "../components/common/Modals";
 import Loader from "../components/common/Loader";
 import { TextInput } from "../components/common/Inputs";
 import PreviousSession from "../components/pages/LogExercise/PreviousSession";
+import Header from "../components/layout/Header";
 
 import { IoMdAdd } from "react-icons/io";
 
@@ -76,12 +76,11 @@ export default function LogExercise() {
             <AlertModal text={modalText} isOpen={alertModal.isOpen} onClose={alertModal.close} />
 
             <div className="content flex flex-col flex-1">
+                <Header title="Log exercise" />
                 <Notice
                     msg="Set added"
                     registerTrigger={(trigger) => (noticeTriggerRef.current = trigger)}
                 />
-
-                <PageHeading>Log exercise</PageHeading>
 
                 <div className="flex flex-col gap-4 flex-1 mb-4">
                     <div className="relative">

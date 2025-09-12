@@ -7,11 +7,11 @@ import { WorkoutType } from "../types/workout";
 import calculate1RM from "../utils/calculate1RM";
 
 import PageHeading from "../components/common/PageHeading";
-import BackButton from "../components/common/BackButton";
 import { Select } from "../components/common/Inputs";
 import WeightProgress from "../components/pages/ExerciseStats/WeightProgress";
 import PersonalRecords from "../components/pages/ExerciseStats/PersonalRecords";
 import Error from "../components/common/Error";
+import Header from "../components/layout/Header";
 
 export default function ExerciseStats() {
     const { id } = useParams<{ id: string }>();
@@ -124,7 +124,7 @@ export default function ExerciseStats() {
 
     return (
         <div className="content">
-            <BackButton label="Exercises" to="/stats?tab=exercises" />
+            <Header backLink="/stats?tab=exercises" />
             <PageHeading>{exercise.name}</PageHeading>
 
             <Select value={selectedPeriod} onChange={(e) => setSelectedPeriod(e.target.value)}>

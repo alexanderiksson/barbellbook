@@ -9,6 +9,7 @@ import ExerciseCard from "../components/common/ExerciseCard";
 import Notice from "../components/common/Notice";
 import { ConfirmModal, PromptModal } from "../components/common/Modals";
 import Loader from "../components/common/Loader";
+import Header from "../components/layout/Header";
 
 import { IoMdAdd, IoMdCheckmark } from "react-icons/io";
 
@@ -68,6 +69,7 @@ export default function Home() {
             />
 
             <div className="content">
+                <Header title="Start" />
                 <Notice
                     msg="Workout saved!"
                     registerTrigger={(trigger) => (noticeTriggerRef.current = trigger)}

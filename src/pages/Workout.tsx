@@ -8,16 +8,15 @@ import { useTabNavigation } from "../hooks/useTabNavigation";
 
 import Loader from "../components/common/Loader";
 import Error from "../components/common/Error";
-import BackButton from "../components/common/BackButton";
 import Notice from "../components/common/Notice";
 import { ConfirmModal, PromptModal } from "../components/common/Modals";
 import ExerciseCard from "../components/common/ExerciseCard";
-import MenuButton from "../components/common/MenuButton";
 import Menu from "../components/common/Menu";
 import TabNavigation from "../components/common/TabNavigation";
 import useMenu from "../hooks/useMenu";
 import Details from "../components/pages/Workout/Details";
 import Log from "../components/pages/Workout/Log";
+import Header from "../components/layout/Header";
 
 import { BiSolidEditAlt } from "react-icons/bi";
 import { MdDeleteForever } from "react-icons/md";
@@ -120,12 +119,14 @@ export default function WorkoutPage() {
             />
 
             <div className="content">
+                <Header
+                    backLink="/history"
+                    menuOnClick={() => (menu.isOpen ? menu.close() : menu.open())}
+                />
                 <Notice
                     msg={noticeMsg}
                     registerTrigger={(trigger) => (noticeTriggerRef.current = trigger)}
                 />
-
-                <BackButton to="/history" label="Workout history" />
 
                 <div className="flex justify-between items-center mb-6 gap-2">
                     <div className="flex flex-col gap-2 overflow-hidden">
@@ -138,30 +139,26 @@ export default function WorkoutPage() {
                         </span>
                     </div>
 
-                    <div className="flex relative shrink-0">
-                        <MenuButton onClick={() => (menu.isOpen ? menu.close() : menu.open())} />
-
-                        <Menu
-                            isOpen={menu.isOpen}
-                            closeMenu={menu.close}
-                            spacingTop
-                            menuItems={[
-                                {
-                                    type: "function",
-                                    label: "Edit name",
-                                    icon: BiSolidEditAlt,
-                                    onClick: promptModal.open,
-                                },
-                                {
-                                    type: "function",
-                                    label: "Delete",
-                                    icon: MdDeleteForever,
-                                    onClick: confirmModal.open,
-                                    danger: true,
-                                },
-                            ]}
-                        />
-                    </div>
+                    <Menu
+                        isOpen={menu.isOpen}
+                        closeMenu={menu.close}
+                        spacingTop
+                        menuItems={[
+                            {
+                                type: "function",
+                                label: "Edit name",
+                                icon: BiSolidEditAlt,
+                                onClick: promptModal.open,
+                            },
+                            {
+                                type: "function",
+                                label: "Delete",
+                                icon: MdDeleteForever,
+                                onClick: confirmModal.open,
+                                danger: true,
+                            },
+                        ]}
+                    />
                 </div>
 
                 <TabNavigation
