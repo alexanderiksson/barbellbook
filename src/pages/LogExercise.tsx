@@ -10,7 +10,7 @@ import RepCounter from "../components/pages/LogExercise/RepCounter";
 import WeightInput from "../components/pages/LogExercise/WeightInput";
 import SetTable from "../components/pages/LogExercise/SetTable";
 import Notice from "../components/common/Notice";
-import { AlertModal } from "../components/common/Modals";
+import { AlertModal, ConfirmModal } from "../components/common/Modals";
 import Loader from "../components/common/Loader";
 import { TextInput } from "../components/common/Inputs";
 import PreviousSession from "../components/pages/LogExercise/PreviousSession";
@@ -65,6 +65,7 @@ export default function LogExercise() {
     const noticeTriggerRef = useRef<() => void | null>(null);
 
     // Manage modal state
+    const confirmModal = useModal();
     const alertModal = useModal();
     const [modalText, setModalText] = useState("");
 
@@ -74,9 +75,36 @@ export default function LogExercise() {
     return (
         <>
             <AlertModal text={modalText} isOpen={alertModal.isOpen} onClose={alertModal.close} />
+            <ConfirmModal
+                text="Do you want to save?"
+                isOpen={confirmModal.isOpen}
+                onClose={confirmModal.close}
+                buttonText="Save exercise"
+                buttonVariant="green"
+                action={() => {
+                    setLoading(true);
+
+                    if (!exercise) {
+                        setLoading(false);
+                        return;
+                    }
+
+                    const newExercise = {
+                        id: exercise.id,
+                        name: exercise.name,
+                        sets: [...currentSets],
+                    };
+
+                    addExercise(newExercise);
+
+                    clearCurrentSets();
+                    navigate("/");
+                }}
+            />
 
             <div className="content flex flex-col flex-1">
                 <Header title="Log exercise" />
+
                 <Notice
                     msg="Set added"
                     registerTrigger={(trigger) => (noticeTriggerRef.current = trigger)}
@@ -186,15 +214,7 @@ export default function LogExercise() {
                             setModalText("Please select an exercise.");
                             alertModal.open();
                         } else {
-                            setLoading(true);
-                            const newExercise = {
-                                id: exercise.id,
-                                name: exercise.name,
-                                sets: [...currentSets],
-                            };
-                            addExercise(newExercise);
-                            clearCurrentSets();
-                            navigate("/");
+                            confirmModal.open();
                         }
                     }}
                 >
