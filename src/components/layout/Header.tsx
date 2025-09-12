@@ -12,8 +12,8 @@ export default function Header({ title, backLink, menuOnClick }: HeaderProps) {
         <div
             className="lg:hidden fixed w-full top-0 left-0 border-b border-[var(--border)]/20 bg-[var(--background)]/50 backdrop-blur-2xl z-30"
             style={{
-                paddingTop: "calc(var(--safe-top))",
-                paddingBottom: "0.75rem",
+                paddingTop: "calc(0.5rem + var(--safe-top))",
+                paddingBottom: "1rem",
             }}
         >
             <div className="content">
