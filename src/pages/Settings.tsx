@@ -2,7 +2,6 @@ import { useSettings } from "../context/SettingsContext";
 import { useTabNavigation } from "../hooks/useTabNavigation";
 import { Theme } from "../context/SettingsContext";
 
-import PageHeading from "../components/common/PageHeading";
 import { Select } from "../components/common/Inputs";
 import TabNavigation from "../components/common/TabNavigation";
 import About from "../components/pages/Settings/About";

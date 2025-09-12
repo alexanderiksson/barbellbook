@@ -3,7 +3,6 @@ import { useWorkout } from "../context/WorkoutContext";
 import { useSearchParams } from "react-router-dom";
 import { useTabNavigation } from "../hooks/useTabNavigation";
 
-import PageHeading from "../components/common/PageHeading";
 import { Select } from "../components/common/Inputs";
 import TabNavigation from "../components/common/TabNavigation";
 import MonthlyWorkouts from "../components/pages/Stats/MonthlyWorkouts";

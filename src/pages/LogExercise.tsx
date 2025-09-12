@@ -5,7 +5,6 @@ import exercises from "../data/exercises.json";
 import { SetType } from "../types/workout";
 import useModal from "../hooks/useModal";
 
-import PageHeading from "../components/common/PageHeading";
 import { Button } from "../components/common/Buttons";
 import RepCounter from "../components/pages/LogExercise/RepCounter";
 import WeightInput from "../components/pages/LogExercise/WeightInput";

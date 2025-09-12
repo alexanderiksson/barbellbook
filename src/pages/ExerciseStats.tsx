@@ -7,7 +7,6 @@ import { WorkoutType } from "../types/workout";
 import calculate1RM from "../utils/calculate1RM";
 
 import PageHeading from "../components/common/PageHeading";
-import BackButton from "../components/common/BackButton";
 import { Select } from "../components/common/Inputs";
 import WeightProgress from "../components/pages/ExerciseStats/WeightProgress";
 import PersonalRecords from "../components/pages/ExerciseStats/PersonalRecords";

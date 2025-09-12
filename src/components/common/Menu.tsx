@@ -69,7 +69,7 @@ export default function Menu({ isOpen, closeMenu, menuItems, spacingTop }: MenuP
             <div
                 className={`${
                     isOpen ? "block" : "hidden"
-                } absolute bg-[var(--secondary)] backdrop-blur-lg rounded-2xl w-52 right-0 shadow-xl overflow-hidden z-20`}
+                } absolute bg-[var(--secondary)] backdrop-blur-lg rounded-2xl w-52 right-0 shadow-xl overflow-hidden z-30`}
                 role="menu"
                 aria-hidden={!isOpen}
                 style={{ top: spacingTop ? "3rem" : "1.5rem" }}

@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useWorkout } from "../context/WorkoutContext";
 import { WorkoutType } from "../types/workout";
 
-import PageHeading from "../components/common/PageHeading";
 import WorkoutCard from "../components/pages/History/WorkoutCard";
 import Loader from "../components/common/Loader";
 import { Select } from "../components/common/Inputs";

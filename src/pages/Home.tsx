@@ -69,7 +69,7 @@ export default function Home() {
             />
 
             <div className="content">
-                <Header />
+                <Header title="Start" />
                 <Notice
                     msg="Workout saved!"
                     registerTrigger={(trigger) => (noticeTriggerRef.current = trigger)}

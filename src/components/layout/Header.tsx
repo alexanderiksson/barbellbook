@@ -1,14 +1,16 @@
 import BackButton from "../common/BackButton";
+import { IoIosMore } from "react-icons/io";
 
 interface HeaderProps {
     title?: string;
     backLink?: string;
+    menuOnClick?: () => void;
 }
 
-export default function Header({ title, backLink }: HeaderProps) {
+export default function Header({ title, backLink, menuOnClick }: HeaderProps) {
     return (
         <div
-            className="fixed w-full top-0 left-0 border-b border-[var(--border)]/20 bg-[var(--background)]/70 backdrop-blur-xl z-30 flex justify-center items-center text-center text-sm"
+            className="fixed w-full top-0 left-0 border-b border-[var(--border)]/20 bg-[var(--background)]/50 backdrop-blur-2xl z-30"
             style={{
                 paddingTop: "calc(1rem + var(--safe-top))",
                 paddingBottom: "1rem",
@@ -20,6 +22,18 @@ export default function Header({ title, backLink }: HeaderProps) {
                         {backLink && <BackButton to={backLink} label="Back" noMargin />}
                     </div>
                     <div className="flex items-center justify-center text-center">{title}</div>
+                    <div className="flex items-center justify-end">
+                        {menuOnClick && (
+                            <button className="cursor-pointer" onClick={menuOnClick}>
+                                <IoIosMore
+                                    size={24}
+                                    color={getComputedStyle(
+                                        document.documentElement
+                                    ).getPropertyValue("--primary-bright")}
+                                />
+                            </button>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
