@@ -10,6 +10,7 @@ import MonthlyWorkouts from "../components/pages/Stats/MonthlyWorkouts";
 import MostWorkedMuscleGroups from "../components/pages/Stats/MostWorkedMuscleGroups";
 import WorkoutsPerWeekday from "../components/pages/Stats/WorkoutsPerWeekday";
 import ExercisesList from "../components/pages/Stats/ExercisesList";
+import Header from "../components/layout/Header";
 
 export default function Stats() {
     const { workouts } = useWorkout();
@@ -44,7 +45,7 @@ export default function Stats() {
 
     return (
         <div className="content">
-            <PageHeading>Stats</PageHeading>
+            <Header title="Stats" />
 
             {workouts.length <= 0 ? (
                 <p className="text-neutral-500">No workouts logged yet.</p>

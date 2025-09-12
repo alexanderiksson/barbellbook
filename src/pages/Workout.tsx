@@ -18,6 +18,7 @@ import TabNavigation from "../components/common/TabNavigation";
 import useMenu from "../hooks/useMenu";
 import Details from "../components/pages/Workout/Details";
 import Log from "../components/pages/Workout/Log";
+import Header from "../components/layout/Header";
 
 import { BiSolidEditAlt } from "react-icons/bi";
 import { MdDeleteForever } from "react-icons/md";
@@ -120,12 +121,11 @@ export default function WorkoutPage() {
             />
 
             <div className="content">
+                <Header backLink="/history" />
                 <Notice
                     msg={noticeMsg}
                     registerTrigger={(trigger) => (noticeTriggerRef.current = trigger)}
                 />
-
-                <BackButton to="/history" label="Workout history" />
 
                 <div className="flex justify-between items-center mb-6 gap-2">
                     <div className="flex flex-col gap-2 overflow-hidden">

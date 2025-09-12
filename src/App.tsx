@@ -37,6 +37,7 @@ function ThemedApp() {
                     <Route path="/stats/exercises/:id" element={<ExerciseStats />} />
                     <Route path="/settings" element={<Settings />} />
                 </Route>
+
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </WorkoutProvider>

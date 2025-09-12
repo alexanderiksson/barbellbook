@@ -7,6 +7,7 @@ import { Select } from "../components/common/Inputs";
 import TabNavigation from "../components/common/TabNavigation";
 import About from "../components/pages/Settings/About";
 import Data from "../components/pages/Settings/Data";
+import Header from "../components/layout/Header";
 
 export default function Settings() {
     const { weightUnit, setWeightUnit, theme, setTheme } = useSettings();
@@ -17,7 +18,7 @@ export default function Settings() {
 
     return (
         <div className="content">
-            <PageHeading>Settings</PageHeading>
+            <Header title="Settings" />
 
             <TabNavigation
                 tabs={[
