@@ -10,7 +10,7 @@ interface HeaderProps {
 export default function Header({ title, backLink, menuOnClick }: HeaderProps) {
     return (
         <div
-            className="lg:hidden fixed w-full top-0 left-0 border-b border-[var(--border)]/20 bg-[var(--background)]/50 backdrop-blur-2xl z-30"
+            className="fixed w-full top-0 left-0 border-b border-[var(--border)]/20 bg-[var(--background)]/50 backdrop-blur-2xl z-20 lg:pl-54 xl:pl-60 lg:bg-[var(--secondary)]"
             style={{
                 paddingTop: "calc(0.5rem + var(--safe-top))",
                 paddingBottom: "1rem",
