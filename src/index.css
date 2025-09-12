@@ -16,10 +16,10 @@
     --danger: #d51818;
     --danger-bright: #f13333;
 
-    --safe-top: env(safe-area-inset-top, 0px);
-    --safe-bottom: env(safe-area-inset-bottom, 0px);
-    --safe-left: env(safe-area-inset-left, 0px);
-    --safe-right: env(safe-area-inset-right, 0px);
+    --safe-top: max(env(safe-area-inset-top), 1rem);
+    --safe-bottom: max(env(safe-area-inset-bottom), 0px);
+    --safe-left: max(env(safe-area-inset-left), 0px);
+    --safe-right: max(env(safe-area-inset-right), 0px);
 }
 
 .light {
