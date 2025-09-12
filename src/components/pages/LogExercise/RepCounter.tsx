@@ -12,7 +12,7 @@ export default function RepCounter({ reps, setReps }: RepCounterProps) {
 
             <div className="flex items-center justify-center gap-4 w-full">
                 <button
-                    className="flex justify-center items-center w-10 h-10 bg-[var(--secondary-bright)] rounded-full cursor-pointer border border-[var(--border)]/20"
+                    className="flex justify-center items-center w-11 aspect-square bg-[var(--secondary-bright)] rounded-full cursor-pointer border border-[var(--border)]/20"
                     onClick={() => setReps(reps + 1)}
                     disabled={reps >= 999}
                     aria-label="Increase reps"
@@ -20,9 +20,9 @@ export default function RepCounter({ reps, setReps }: RepCounterProps) {
                 >
                     <IoMdAdd size={16} />
                 </button>
-                <span className="text-2xl min-w-6 text-center">{reps}</span>
+                <span className="text-3xl min-w-6 text-center">{reps}</span>
                 <button
-                    className="flex justify-center items-center w-10 h-10 bg-[var(--secondary-bright)] rounded-full cursor-pointer border border-[var(--border)]/20"
+                    className="flex justify-center items-center w-11 aspect-square bg-[var(--secondary-bright)] rounded-full cursor-pointer border border-[var(--border)]/20"
                     onClick={() => setReps(reps - 1)}
                     disabled={reps <= 0}
                     aria-label="Decrease reps"
