@@ -40,7 +40,7 @@ export function Select({ onChange, value, children }: SelectProps) {
 export function TextInput({ placeholder, value, onChange, className }: TextInputProps) {
     return (
         <input
-            className={`bg-[var(--secondary)]/50 p-3 rounded-2xl w-full border-2 border-[var(--border)]/20 shadow placeholder:text-[var(--text-grey)]/50 ${className}`}
+            className={`bg-[var(--input)] p-3 rounded-2xl w-full border-2 border-[var(--border)]/20 placeholder:text-[var(--text-grey)]/50 ${className}`}
             type="text"
             placeholder={placeholder}
             value={value}
