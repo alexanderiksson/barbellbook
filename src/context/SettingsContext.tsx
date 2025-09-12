@@ -1,4 +1,6 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import { StatusBar, Style } from "@capacitor/status-bar";
+import { Capacitor } from "@capacitor/core";
 
 export type WeightUnit = "kg" | "lb";
 export type Theme = "light" | "dark" | "system";
@@ -12,6 +14,23 @@ interface SettingsContextType {
 }
 
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);
+
+// Function to update status bar based on theme
+const updateStatusBar = async (theme: "light" | "dark") => {
+    if (!Capacitor.isNativePlatform()) return;
+
+    try {
+        if (theme === "light") {
+            await StatusBar.setStyle({ style: Style.Light });
+            await StatusBar.setBackgroundColor({ color: "#ffffff" });
+        } else {
+            await StatusBar.setStyle({ style: Style.Dark });
+            await StatusBar.setBackgroundColor({ color: "#0f0f11" });
+        }
+    } catch (error) {
+        console.log("StatusBar not available:", error);
+    }
+};
 
 export const SettingsProvider = ({ children }: { children: ReactNode }) => {
     const getInitialUnit = (): WeightUnit => {
@@ -43,24 +62,34 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
         localStorage.setItem("weightUnit", unit);
     };
 
-    const setTheme = (newTheme: Theme) => {
+    const setTheme = async (newTheme: Theme) => {
         setThemeState(newTheme);
         localStorage.setItem("theme", newTheme);
-        setActualTheme(resolveTheme(newTheme));
+        const resolved = resolveTheme(newTheme);
+        setActualTheme(resolved);
+
+        // Update status bar color
+        await updateStatusBar(resolved);
     };
 
-    // Listen for system theme changes when theme is set to "system"
     useEffect(() => {
         if (theme === "system") {
             const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-            const handleChange = () => {
-                setActualTheme(getSystemTheme());
+            const handleChange = async () => {
+                const newSystemTheme = getSystemTheme();
+                setActualTheme(newSystemTheme);
+                await updateStatusBar(newSystemTheme);
             };
 
             mediaQuery.addEventListener("change", handleChange);
             return () => mediaQuery.removeEventListener("change", handleChange);
         }
     }, [theme]);
+
+    // Initialize status bar on app load
+    useEffect(() => {
+        updateStatusBar(actualTheme);
+    }, [actualTheme]);
 
     return (
         <SettingsContext.Provider
