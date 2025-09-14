@@ -19,7 +19,7 @@ export function Select({ onChange, value, children }: SelectProps) {
     return (
         <div className="relative mb-4 w-full lg:w-sm">
             <select
-                className="appearance-none py-3 w-full border-2 border-[var(--border)]/20 rounded-2xl bg-[var(--secondary)]/50 text-sm text-center last"
+                className="appearance-none py-2 px-4 w-full border border-[var(--border)]/40 rounded-full bg-[var(--input)]/50 text-sm text-center last"
                 onChange={onChange}
                 value={value}
                 style={{
@@ -40,7 +40,7 @@ export function Select({ onChange, value, children }: SelectProps) {
 export function TextInput({ placeholder, value, onChange, className }: TextInputProps) {
     return (
         <input
-            className={`bg-[var(--input)] p-3 rounded-2xl w-full border-2 border-[var(--border)]/20 placeholder:text-[var(--text-grey)]/50 ${className}`}
+            className={`bg-[var(--input)]/50 py-2 px-4 rounded-full w-full border border-[var(--border)]/40 placeholder:text-[var(--text-grey)]/50 ${className}`}
             type="text"
             placeholder={placeholder}
             value={value}

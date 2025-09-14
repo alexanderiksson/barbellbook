@@ -2,21 +2,29 @@
 @import "tailwindcss";
 
 :root {
+    /* Colors */
     --primary: #0369a1;
     --primary-bright: #0ea5e9;
     --accent: #047857;
     --accent-bright: #10b981;
     --background: #0f0f11;
-    --secondary: #18181b;
-    --secondary-bright: #27272a;
+    --secondary: #151517;
+    --secondary-bright: #202023;
     --text: #e1e1e1;
     --text-grey: #6b6b6b;
     --nav-text: #7d7f83;
     --border: #71717a80;
     --danger: #d51818;
     --danger-bright: #f13333;
-    --input: #0c0c0c;
+    --input: var(--secondary);
 
+    /* Border radius */
+    --radius: 1.25rem;
+
+    /* Font */
+    --font: "Inter", sans-serif;
+
+    /* Safe areas */
     --safe-top: max(env(safe-area-inset-top), 0.5rem);
     --safe-bottom: max(env(safe-area-inset-bottom), 0px);
     --safe-left: max(env(safe-area-inset-left), 0px);
@@ -54,7 +62,7 @@ body,
     min-height: 100dvh;
     box-sizing: border-box;
     overflow-x: hidden;
-    font-family: "Inter", sans-serif;
+    font-family: var(--font);
 }
 
 .content {
@@ -66,7 +74,7 @@ body,
 }
 
 .modal {
-    @apply max-w-lg w-[90%] min-h-32 max-h-full bg-[var(--secondary)] backdrop-blur-lg rounded-2xl border border-[var(--border)]/20 p-4 flex flex-col items-center justify-between gap-6;
+    @apply max-w-lg w-[90%] min-h-32 max-h-full bg-[var(--secondary)] backdrop-blur-lg rounded-[var(--radius)] border border-[var(--border)]/20 p-4 flex flex-col items-center justify-between gap-6;
 }
 
 .modal-overlay {

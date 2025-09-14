@@ -89,7 +89,7 @@ export default function ExercisesList() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     {filteredExercises.map((exercise, index) => (
                         <Link key={index} to={`/stats/exercises/${exercise.id}`}>
-                            <div className="flex justify-between items-center gap-4 p-3 bg-[var(--secondary)] rounded-xl border border-[var(--border)]/20">
+                            <div className="flex justify-between items-center gap-4 p-3 bg-[var(--secondary)] rounded-[var(--radius)] border border-[var(--border)]/20">
                                 <div className="flex flex-col gap-2">
                                     <h3 className="truncate">
                                         <span className="text-[var(--text-grey)] mr-2">

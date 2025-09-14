@@ -23,7 +23,6 @@ export default function Settings() {
                 tabs={[
                     { id: "general", label: "General" },
                     { id: "data", label: "Data" },
-                    { id: "about", label: "About" },
                 ]}
                 activeTab={activeTab}
                 onTabChange={handleTabChange}

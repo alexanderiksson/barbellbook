@@ -43,7 +43,25 @@ export default function ExerciseCard({
                 action={() => onDelete?.(index)}
             />
 
-            <div className="p-4 lg:px-6 bg-[var(--secondary)] border border-[var(--border)]/20 rounded-2xl">
+            <Menu
+                isOpen={menu.isOpen}
+                closeMenu={menu.close}
+                menuItems={[
+                    ...(canDelete
+                        ? [
+                              {
+                                  type: "function" as const,
+                                  label: "Delete exercise",
+                                  icon: MdDeleteForever,
+                                  danger: true,
+                                  onClick: () => confirmModal.open(),
+                              },
+                          ]
+                        : []),
+                ]}
+            />
+
+            <div className="p-4 lg:px-6 bg-[var(--secondary)] border border-[var(--border)]/20 rounded-[var(--radius)]">
                 <div className="flex items-center justify-between gap-2 mb-4">
                     <h2 className="font-medium truncate">
                         <span className="mr-2 text-[var(--text-grey)]">#{index + 1}</span>
@@ -51,37 +69,12 @@ export default function ExerciseCard({
                     </h2>
 
                     {showMenu && (
-                        <div className="flex relative">
-                            <button
-                                className="inline-flex justify-center items-center cursor-pointer"
-                                onClick={() => (menu.isOpen ? menu.close() : menu.open())}
-                            >
-                                <IoIosMore size={20} />
-                            </button>
-
-                            <Menu
-                                isOpen={menu.isOpen}
-                                closeMenu={menu.close}
-                                menuItems={[
-                                    /* {
-                                        type: "function" as const,
-                                        label: "Edit",
-                                        icon: BiSolidEditAlt,
-                                    } */
-                                    ...(canDelete
-                                        ? [
-                                              {
-                                                  type: "function" as const,
-                                                  label: "Delete",
-                                                  icon: MdDeleteForever,
-                                                  danger: true,
-                                                  onClick: () => confirmModal.open(),
-                                              },
-                                          ]
-                                        : []),
-                                ]}
-                            />
-                        </div>
+                        <button
+                            className="inline-flex justify-center items-center cursor-pointer"
+                            onClick={() => (menu.isOpen ? menu.close() : menu.open())}
+                        >
+                            <IoIosMore size={20} />
+                        </button>
                     )}
                 </div>
 
