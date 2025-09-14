@@ -24,7 +24,7 @@ export default function MonthlyWorkouts({
     ).map(([_, value]) => value);
 
     return (
-        <div className="bg-[var(--secondary)] p-4 rounded-2xl border border-[var(--border)]/20">
+        <div className="bg-[var(--secondary)] p-4 rounded-[var(--radius)] border border-[var(--border)]/20">
             <h2 className="mb-6 text-[var(--text-grey)] text-sm">Monthly Workouts</h2>
             <div className="w-full h-72">
                 <ResponsiveContainer width="100%" height="100%">

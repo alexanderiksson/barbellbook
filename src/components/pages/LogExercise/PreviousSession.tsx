@@ -14,7 +14,7 @@ export default function PreviousSession({ sets }: PreviousSessionProps) {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <section className="bg-[var(--secondary)] border border-[var(--border)]/20 rounded-2xl p-4 text-sm">
+        <section className="bg-[var(--secondary)] border border-[var(--border)]/20 rounded-[var(--radius)] p-4 text-sm">
             <div
                 className="flex justify-between items-center cursor-pointer"
                 onClick={() => setIsOpen(!isOpen)}

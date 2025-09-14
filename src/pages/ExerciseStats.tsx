@@ -146,7 +146,7 @@ export default function ExerciseStats() {
                 <p className="text-center">No records for this period</p>
             ) : (
                 <section className="grid grid-cols-1 gap-4 mb-8">
-                    <div className="bg-[var(--secondary)] p-4 rounded-2xl border border-[var(--border)]/20">
+                    <div className="bg-[var(--secondary)] p-4 rounded-[var(--radius)] border border-[var(--border)]/20">
                         <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
                             <div>
                                 <h3 className="text-[var(--text-grey)] text-sm">Total Workouts</h3>

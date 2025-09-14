@@ -44,7 +44,7 @@ export default function WeightProgress({ workouts }: WeightProgressProps) {
         .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
     return (
-        <div className="bg-[var(--secondary)] p-4 rounded-2xl border border-[var(--border)]/20">
+        <div className="bg-[var(--secondary)] p-4 rounded-[var(--radius)] border border-[var(--border)]/20">
             <h2 className="text-[var(--text-grey)] text-sm mb-6">Weight Progress</h2>
             <div className="w-full h-80 lg:h-96">
                 <ResponsiveContainer width="100%" height="100%">

@@ -120,8 +120,34 @@ export default function WorkoutPage() {
 
             <div className="content">
                 <Header
+                    title={new Date(workout.date).toLocaleDateString("en-US", {
+                        weekday: "short",
+                        day: "numeric",
+                        month: "short",
+                    })}
                     backLink="/history"
                     menuOnClick={() => (menu.isOpen ? menu.close() : menu.open())}
+                />
+
+                <Menu
+                    isOpen={menu.isOpen}
+                    closeMenu={menu.close}
+                    spacingTop
+                    menuItems={[
+                        {
+                            type: "function",
+                            label: "Edit name",
+                            icon: BiSolidEditAlt,
+                            onClick: promptModal.open,
+                        },
+                        {
+                            type: "function",
+                            label: "Delete",
+                            icon: MdDeleteForever,
+                            onClick: confirmModal.open,
+                            danger: true,
+                        },
+                    ]}
                 />
 
                 <Notice
@@ -129,37 +155,12 @@ export default function WorkoutPage() {
                     registerTrigger={(trigger) => (noticeTriggerRef.current = trigger)}
                 />
 
-                <div className="flex justify-between items-center mb-6 gap-2">
-                    <div className="flex flex-col gap-2 overflow-hidden">
-                        <h1 className="text-xl lg:text-2xl font-semibold truncate">
-                            {workoutName}
-                        </h1>
-                        <span className="text-sm text-text-grey flex flex-col lg:flex-row lg:gap-2">
-                            <span className="truncate">{dateConverter(workout.date)}</span>
-                            <span className="truncate">{workoutTime()}</span>
-                        </span>
-                    </div>
-
-                    <Menu
-                        isOpen={menu.isOpen}
-                        closeMenu={menu.close}
-                        spacingTop
-                        menuItems={[
-                            {
-                                type: "function",
-                                label: "Edit name",
-                                icon: BiSolidEditAlt,
-                                onClick: promptModal.open,
-                            },
-                            {
-                                type: "function",
-                                label: "Delete",
-                                icon: MdDeleteForever,
-                                onClick: confirmModal.open,
-                                danger: true,
-                            },
-                        ]}
-                    />
+                <div className="flex flex-col gap-2 overflow-hidden mb-6">
+                    <h1 className="text-xl lg:text-2xl font-semibold truncate">{workoutName}</h1>
+                    <span className="text-sm text-[var(--text-grey)] flex flex-col lg:flex-row lg:gap-2">
+                        <span className="truncate">{dateConverter(workout.date)}</span>
+                        <span className="truncate">{workoutTime()}</span>
+                    </span>
                 </div>
 
                 <TabNavigation

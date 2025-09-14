@@ -68,7 +68,7 @@ export default function Menu({ isOpen, closeMenu, menuItems, spacingTop }: MenuP
                     onClick={() => closeMenu()}
                 >
                     <div
-                        className={`bg-[var(--secondary)] backdrop-blur-lg rounded-2xl w-[90%] max-w-xl overflow-hidden z-30`}
+                        className={`bg-[var(--secondary)] backdrop-blur-lg rounded-[var(--radius)] w-[90%] max-w-xl overflow-hidden z-30`}
                         role="menu"
                         aria-hidden={!isOpen}
                         style={{ top: spacingTop ? "3rem" : "1.5rem" }}
