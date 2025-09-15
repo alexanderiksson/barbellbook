@@ -83,7 +83,7 @@ export default function History() {
                                 className={`${
                                     currentPage === 1
                                         ? "bg-[var(--secondary)] cursor-not-allowed"
-                                        : "bg-bg-[var(--secondary-bright)] cursor-pointer"
+                                        : "bg-[var(--secondary-bright)] cursor-pointer"
                                 } p-3 rounded-full `}
                                 disabled={currentPage === 1}
                                 onClick={() => setCurrentPage((prev) => prev - 1)}
