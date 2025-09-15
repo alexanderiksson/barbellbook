@@ -69,23 +69,20 @@ export default function Home() {
             />
 
             <div className="content">
-                <Header title="Start" />
+                <Header
+                    title={new Date().toLocaleDateString("en-US", {
+                        weekday: "short",
+                        day: "numeric",
+                        month: "short",
+                    })}
+                />
 
                 <Notice
                     msg="Workout saved!"
                     registerTrigger={(trigger) => (noticeTriggerRef.current = trigger)}
                 />
 
-                <PageHeading>
-                    <span className="text-sm lg:text-base font-normal block text-[var(--text-grey)]">
-                        {new Date().toLocaleDateString("en-US", {
-                            weekday: "long",
-                            month: "long",
-                            day: "numeric",
-                        })}
-                    </span>
-                    {greeting()}
-                </PageHeading>
+                <PageHeading>{greeting()}</PageHeading>
 
                 <div className="flex justify-between flex-wrap gap-2 mb-8 mt-8">
                     <LinkButton to="/log-exercise" variant={"outline"}>
