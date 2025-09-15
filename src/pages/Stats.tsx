@@ -3,13 +3,14 @@ import { useWorkout } from "../context/WorkoutContext";
 import { useSearchParams } from "react-router-dom";
 import { useTabNavigation } from "../hooks/useTabNavigation";
 
+import Header from "../components/layout/Header";
 import { Select } from "../components/common/Inputs";
 import TabNavigation from "../components/common/TabNavigation";
 import MonthlyWorkouts from "../components/pages/Stats/MonthlyWorkouts";
 import MostWorkedMuscleGroups from "../components/pages/Stats/MostWorkedMuscleGroups";
 import WorkoutsPerWeekday from "../components/pages/Stats/WorkoutsPerWeekday";
 import ExercisesList from "../components/pages/Stats/ExercisesList";
-import Header from "../components/layout/Header";
+import PowerliftingStats from "../components/pages/Stats/PowerliftingStats";
 
 export default function Stats() {
     const { workouts } = useWorkout();
@@ -76,6 +77,7 @@ export default function Stats() {
                                 <MonthlyWorkouts workouts={workouts} year={selectedYear} />
                                 <WorkoutsPerWeekday workouts={workouts} year={selectedYear} />
                                 <MostWorkedMuscleGroups workouts={workouts} year={selectedYear} />
+                                <PowerliftingStats workouts={workouts} year={selectedYear} />
                             </section>
                         </>
                     )}

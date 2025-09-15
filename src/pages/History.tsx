@@ -67,8 +67,8 @@ export default function History() {
                         onChange={(e) => setFilter(e.target.value as "new" | "old")}
                         value={filter}
                     >
-                        <option value="new">Sort by: Most recent</option>
-                        <option value="old">Sort by: Least recent</option>
+                        <option value="new">Most recent</option>
+                        <option value="old">Least recent</option>
                     </Select>
 
                     <section className="grid grid-cols-1 md:grid-cols-2 gap-3">

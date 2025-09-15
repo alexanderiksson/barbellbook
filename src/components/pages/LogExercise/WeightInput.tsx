@@ -9,7 +9,7 @@ export default function WeightInput({ weight, setWeight }: WeightInputProps) {
     const { weightUnit } = useSettings();
 
     return (
-        <div className="flex flex-col justify-center items-center gap-4">
+        <div className="flex flex-col justify-center items-center gap-2">
             <h2 className="text-sm text-[var(--text-grey)]">Weight</h2>
             <div className="relative">
                 <input
