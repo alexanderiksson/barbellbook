@@ -477,6 +477,12 @@
         "id": 80,
         "name": "Dips",
         "muscle": "Triceps",
-        "body-part": "Chest"
+        "body-part": "Arms"
+    },
+    {
+        "id": 81,
+        "name": "One Arm Tricep Pushdown",
+        "muscle": "Triceps",
+        "body-part": "Arms"
     }
 ]
