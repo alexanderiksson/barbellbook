@@ -7,7 +7,7 @@ interface RepCounterProps {
 
 export default function RepCounter({ reps, setReps }: RepCounterProps) {
     return (
-        <div className="flex flex-col justify-center items-center gap-4">
+        <div className="flex flex-col justify-center items-center gap-2">
             <h2 className="text-sm text-[var(--text-grey)]">Reps</h2>
 
             <div className="flex items-center justify-center gap-4 w-full">

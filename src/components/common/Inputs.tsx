@@ -17,13 +17,13 @@ interface TextInputProps {
 // Select input
 export function Select({ onChange, value, children }: SelectProps) {
     return (
-        <div className="relative mb-4 w-full lg:w-sm">
+        <div className="relative mb-6 max-w-sm">
             <select
-                className="appearance-none py-2 px-4 w-full border border-[var(--border)]/20 rounded-full bg-[var(--input)]/50 text-sm text-center last"
+                className="appearance-none py-2 px-4 w-full border border-[var(--border)]/20 rounded-full bg-[var(--input)]/50 text-sm"
                 onChange={onChange}
                 value={value}
                 style={{
-                    textAlignLast: "center",
+                    textAlignLast: "left",
                 }}
             >
                 {children}
@@ -40,7 +40,7 @@ export function Select({ onChange, value, children }: SelectProps) {
 export function TextInput({ placeholder, value, onChange, className }: TextInputProps) {
     return (
         <input
-            className={`bg-[var(--input)]/50 py-2 px-4 rounded-full w-full border border-[var(--border)]/20 placeholder:text-[var(--text-grey)]/50 ${className}`}
+            className={`bg-[var(--input)]/50 py-2 px-4 rounded-full w-full border border-[var(--border)]/20 placeholder:text-[var(--text-grey)]/80 ${className}`}
             type="text"
             placeholder={placeholder}
             value={value}

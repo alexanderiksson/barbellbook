@@ -155,8 +155,8 @@ export default function LogExercise() {
                         )}
                     </div>
 
-                    <section className="w-full flex flex-col gap-8 bg-[var(--secondary)] border border-[var(--border)]/20 rounded-[var(--radius)] p-4">
-                        <div className="flex justify-around gap-6 flex-wrap-reverse">
+                    <section className="w-full flex flex-col gap-6 bg-[var(--secondary)] border border-[var(--border)]/20 rounded-[var(--radius)] p-4">
+                        <div className="flex justify-around gap-4 flex-wrap-reverse">
                             <RepCounter reps={reps} setReps={setReps} />
                             <WeightInput weight={weight} setWeight={setWeight} />
                         </div>
