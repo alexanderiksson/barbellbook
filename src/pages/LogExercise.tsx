@@ -116,10 +116,14 @@ export default function LogExercise() {
                         <SearchField
                             placeholder="Search exercise..."
                             value={search}
+                            onClear={() => {
+                                setSearch("");
+                                setExercise(undefined);
+                            }}
                             onChange={(e) => {
                                 setSearch(e.target.value);
 
-                                if (e.target.value.length > 0) {
+                                if (e.target.value) {
                                     setNameListOpen(true);
                                 } else {
                                     setNameListOpen(false);
