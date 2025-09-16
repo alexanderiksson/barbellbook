@@ -119,6 +119,7 @@ export default function LogExercise() {
                             onClear={() => {
                                 setSearch("");
                                 setExercise(undefined);
+                                setNameListOpen(false);
                             }}
                             onChange={(e) => {
                                 setSearch(e.target.value);
