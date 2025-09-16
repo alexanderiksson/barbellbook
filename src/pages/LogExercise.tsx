@@ -12,7 +12,7 @@ import SetTable from "../components/pages/LogExercise/SetTable";
 import Notice from "../components/common/Notice";
 import { AlertModal, ConfirmModal } from "../components/common/Modals";
 import Loader from "../components/common/Loader";
-import { TextInput } from "../components/common/Inputs";
+import { SearchField } from "../components/common/Inputs";
 import PreviousSession from "../components/pages/LogExercise/PreviousSession";
 import Header from "../components/layout/Header";
 
@@ -113,7 +113,7 @@ export default function LogExercise() {
 
                 <div className="flex flex-col gap-4 flex-1 mb-4">
                     <div className="relative">
-                        <TextInput
+                        <SearchField
                             placeholder="Search exercise..."
                             value={search}
                             onChange={(e) => {

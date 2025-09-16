@@ -28,7 +28,7 @@ export default function MonthlyWorkouts({
             <h2 className="mb-6 text-[var(--text-grey)] text-sm">Monthly Workouts</h2>
             <div className="w-full h-72">
                 <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={data} margin={{ top: 0, right: 10, left: -25, bottom: 0 }}>
+                    <BarChart data={data} margin={{ top: 0, right: 10, left: -30, bottom: -5 }}>
                         <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.3} />
                         <XAxis dataKey="month" fontSize={12} />
                         <YAxis allowDecimals={false} fontSize={12} />
@@ -38,7 +38,7 @@ export default function MonthlyWorkouts({
                             fill={getComputedStyle(document.documentElement).getPropertyValue(
                                 "--primary-bright"
                             )}
-                            radius={[4, 4, 0, 0]}
+                            radius={[8, 8, 0, 0]}
                         />
                     </BarChart>
                 </ResponsiveContainer>

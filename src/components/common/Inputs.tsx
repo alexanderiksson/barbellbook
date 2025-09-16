@@ -1,5 +1,5 @@
 import { ChangeEvent, ReactNode } from "react";
-import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowDown, IoIosSearch } from "react-icons/io";
 
 interface SelectProps {
     onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
@@ -46,5 +46,21 @@ export function TextInput({ placeholder, value, onChange, className }: TextInput
             value={value}
             onChange={onChange}
         />
+    );
+}
+
+export function SearchField({ placeholder, value, onChange, className }: TextInputProps) {
+    return (
+        <div className="relative">
+            <div className="absolute top-1/2 -translate-y-1/2 left-4 text-[var(--text-grey)]">
+                <IoIosSearch />
+            </div>
+            <TextInput
+                placeholder={placeholder}
+                value={value}
+                onChange={onChange}
+                className={`pl-10 ${className}`}
+            />
+        </div>
     );
 }

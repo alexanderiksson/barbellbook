@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useWorkout } from "../../../context/WorkoutContext";
 import exercisesData from "../../../data/exercises.json";
-import { TextInput } from "../../common/Inputs";
+import { SearchField } from "../../common/Inputs";
 import { IoIosArrowForward } from "react-icons/io";
 
 export default function ExercisesList() {
@@ -78,7 +78,7 @@ export default function ExercisesList() {
                     ))}
                 </div>
 
-                <TextInput
+                <SearchField
                     placeholder="Search exercise..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
