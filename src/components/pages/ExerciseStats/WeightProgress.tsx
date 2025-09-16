@@ -101,12 +101,14 @@ export default function WeightProgress({ workouts }: WeightProgressProps) {
                         />
                         <Line
                             yAxisId="right"
-                            type="stepAfter"
+                            type="bump"
                             dataKey="Reps"
                             stroke={getComputedStyle(document.documentElement).getPropertyValue(
                                 "--accent-bright"
                             )}
+                            activeDot={{ r: 8 }}
                             strokeWidth={2}
+                            strokeDasharray="5 5"
                         />
                     </LineChart>
                 </ResponsiveContainer>
