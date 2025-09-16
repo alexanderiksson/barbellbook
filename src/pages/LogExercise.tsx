@@ -4,6 +4,7 @@ import { useWorkout } from "../context/WorkoutContext";
 import exercises from "../data/exercises.json";
 import { SetType } from "../types/workout";
 import useModal from "../hooks/useModal";
+import { usePersistentTimer } from "../hooks/useTimer";
 
 import { Button } from "../components/common/Buttons";
 import RepCounter from "../components/pages/LogExercise/RepCounter";
@@ -16,7 +17,7 @@ import { SearchField } from "../components/common/Inputs";
 import PreviousSession from "../components/pages/LogExercise/PreviousSession";
 import Header from "../components/layout/Header";
 
-import { IoMdAdd } from "react-icons/io";
+import { IoMdAdd, IoIosTimer } from "react-icons/io";
 
 export default function LogExercise() {
     const navigate = useNavigate();
@@ -37,6 +38,11 @@ export default function LogExercise() {
     const [reps, setReps] = useState<number>(0);
     const [weight, setWeight] = useState<string>("");
     const [lastSessionSets, setLastSessionSets] = useState<SetType[] | null>(null);
+
+    // Get the time of the last set for the persistent timer
+    const lastSetTime =
+        currentSets.length > 0 ? currentSets[currentSets.length - 1].time : undefined;
+    const timerDisplay = usePersistentTimer(lastSetTime);
 
     // Find previously logged sets
     useEffect(() => {
@@ -197,7 +203,12 @@ export default function LogExercise() {
                         </Button>
                     </section>
 
-                    {lastSessionSets && <PreviousSession sets={lastSessionSets} />}
+                    <div className="bg-[var(--secondary)] backdrop-blur-lg border border-[var(--border)]/20 rounded-full py-2 px-4 ">
+                        <div className="flex items-center gap-2">
+                            <IoIosTimer size={20} />
+                            <span className="text-lg">{timerDisplay}</span>
+                        </div>
+                    </div>
 
                     {currentSets.length > 0 && (
                         <SetTable currentSets={currentSets} removeCurrentSets={removeCurrentSets} />
@@ -206,7 +217,7 @@ export default function LogExercise() {
 
                 <Button
                     variant={"green"}
-                    className={"mt-auto w-full"}
+                    className={"mt-auto"}
                     onClick={() => {
                         if (currentSets.length <= 0) {
                             setModalText(
