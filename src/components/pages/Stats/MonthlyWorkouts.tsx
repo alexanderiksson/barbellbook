@@ -29,10 +29,17 @@ export default function MonthlyWorkouts({
             <div className="w-full h-72">
                 <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={data} margin={{ top: 0, right: 10, left: -30, bottom: -5 }}>
-                        <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.3} />
+                        <CartesianGrid strokeDasharray="0" strokeOpacity={0.2} vertical={false} />
                         <XAxis dataKey="month" fontSize={12} />
                         <YAxis allowDecimals={false} fontSize={12} />
-                        <Tooltip />
+                        <Tooltip
+                            contentStyle={{
+                                backgroundColor: "var(--secondary-bright)",
+                                border: "1px solid var(--border)",
+                                borderRadius: "var(--radius)",
+                                color: "var(--text-primary)",
+                            }}
+                        />
                         <Bar
                             dataKey="Sessions"
                             fill={getComputedStyle(document.documentElement).getPropertyValue(

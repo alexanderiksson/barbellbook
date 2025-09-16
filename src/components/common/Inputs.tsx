@@ -1,5 +1,5 @@
 import { ChangeEvent, ReactNode } from "react";
-import { IoIosArrowDown, IoIosSearch } from "react-icons/io";
+import { IoIosArrowDown, IoIosSearch, IoIosCloseCircle } from "react-icons/io";
 
 interface SelectProps {
     onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
@@ -12,6 +12,10 @@ interface TextInputProps {
     onChange: (e: ChangeEvent<HTMLInputElement>) => void;
     value: any;
     className?: string;
+}
+
+interface SearchFieldProps extends TextInputProps {
+    onClear: () => void;
 }
 
 // Select input
@@ -49,7 +53,14 @@ export function TextInput({ placeholder, value, onChange, className }: TextInput
     );
 }
 
-export function SearchField({ placeholder, value, onChange, className }: TextInputProps) {
+// Search field
+export function SearchField({
+    placeholder,
+    value,
+    onClear,
+    onChange,
+    className,
+}: SearchFieldProps) {
     return (
         <div className="relative">
             <div className="absolute top-1/2 -translate-y-1/2 left-4 text-[var(--text-grey)]">
@@ -59,8 +70,16 @@ export function SearchField({ placeholder, value, onChange, className }: TextInp
                 placeholder={placeholder}
                 value={value}
                 onChange={onChange}
-                className={`pl-10 ${className}`}
+                className={`px-10 ${className}`}
             />
+            {value && (
+                <div
+                    className="absolute top-1/2 -translate-y-1/2 right-4 text-[var(--text-grey)] cursor-pointer"
+                    onClick={onClear}
+                >
+                    <IoIosCloseCircle />
+                </div>
+            )}
         </div>
     );
 }

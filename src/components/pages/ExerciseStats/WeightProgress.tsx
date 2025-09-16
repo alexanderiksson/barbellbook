@@ -52,12 +52,12 @@ export default function WeightProgress({ workouts }: WeightProgressProps) {
                         data={data}
                         margin={{
                             top: 0,
-                            right: -42,
-                            left: -25,
+                            right: -40,
+                            left: -30,
                             bottom: 0,
                         }}
                     >
-                        <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.3} />
+                        <CartesianGrid strokeDasharray="0" strokeOpacity={0.2} vertical={false} />
                         <XAxis dataKey="date" fontSize={12} />
                         <YAxis
                             yAxisId="left"
@@ -74,12 +74,10 @@ export default function WeightProgress({ workouts }: WeightProgressProps) {
                         />
                         <Tooltip
                             contentStyle={{
-                                backgroundColor: getComputedStyle(
-                                    document.documentElement
-                                ).getPropertyValue("--background"),
-                                borderRadius: "16px",
-                                border: "none",
-                                color: "lightgray",
+                                backgroundColor: "var(--secondary-bright)",
+                                border: "1px solid var(--border)",
+                                borderRadius: "var(--radius)",
+                                color: "var(--text-primary)",
                             }}
                             formatter={(value, name) => {
                                 if (name === "Weight") {
