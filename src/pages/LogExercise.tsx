@@ -189,7 +189,7 @@ export default function LogExercise() {
                                     saveCurrentSets({
                                         reps: reps,
                                         weight: Number(weight),
-                                        time: new Date().toLocaleTimeString(),
+                                        time: new Date().toISOString(),
                                     });
 
                                     // Trigger the notice
