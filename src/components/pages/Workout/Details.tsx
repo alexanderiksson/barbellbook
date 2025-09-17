@@ -113,30 +113,52 @@ export default function Details({ id }: { id: string | undefined }) {
     // Calculate workout duration
     const workoutDuration = useMemo(() => {
         const setTimes: number[] = [];
+
         for (const exercise of workout.exercises) {
             for (const set of exercise.sets) {
                 if (!set.time) {
-                    return null;
+                    continue;
                 }
-                let t = Date.parse(set.time);
+
+                let t: number;
+
+                t = Date.parse(set.time);
+
                 if (isNaN(t)) {
-                    const parts = set.time.split(":");
-                    if (parts.length === 3) {
-                        const now = new Date();
-                        now.setHours(Number(parts[0]), Number(parts[1]), Number(parts[2]), 0);
-                        t = now.getTime();
+                    const timeMatch = set.time.match(/^(\d{1,2}):(\d{2}):(\d{2})$/);
+                    if (timeMatch) {
+                        const [, hours, minutes, seconds] = timeMatch;
+                        const baseDate = new Date();
+                        baseDate.setHours(
+                            parseInt(hours, 10),
+                            parseInt(minutes, 10),
+                            parseInt(seconds, 10),
+                            0
+                        );
+                        t = baseDate.getTime();
                     } else {
-                        return null;
+                        const numericTime = parseInt(set.time, 10);
+                        if (!isNaN(numericTime) && numericTime > 0) {
+                            t = numericTime;
+                        } else {
+                            continue;
+                        }
                     }
                 }
-                setTimes.push(t);
+
+                if (!isNaN(t) && t > 0) {
+                    setTimes.push(t);
+                }
             }
         }
+
         if (setTimes.length < 2) return null;
+
         setTimes.sort((a, b) => a - b);
         const durationMs = setTimes[setTimes.length - 1] - setTimes[0];
         const minutes = Math.round(durationMs / 60000);
-        return Number(minutes);
+
+        return minutes > 0 ? minutes : null;
     }, [workout]);
 
     // Calculate average exercise duration
