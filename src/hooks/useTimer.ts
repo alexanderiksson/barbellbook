@@ -28,7 +28,10 @@ const calculateElapsedTime = (timeString: string): number => {
     return Math.floor(diffMs / 1000);
 };
 
-export const usePersistentTimer = (lastSetTime: string | undefined): string | null => {
+export const usePersistentTimer = (
+    lastSetTime: string | undefined,
+    timeLimitMinutes: number = 0.5
+): string | null => {
     const [, setCurrentTime] = useState(Date.now());
 
     // Update current time every second for live updates
@@ -41,16 +44,19 @@ export const usePersistentTimer = (lastSetTime: string | undefined): string | nu
     }, []);
 
     if (!lastSetTime) {
-        return "00:00";
+        return formatElapsedTime(timeLimitMinutes * 60);
     }
 
     const elapsedSeconds = calculateElapsedTime(lastSetTime);
 
     if (elapsedSeconds < 0) {
-        return "00:00";
+        return formatElapsedTime(timeLimitMinutes * 60);
     }
 
-    return formatElapsedTime(elapsedSeconds);
+    const timeLimitSeconds = timeLimitMinutes * 60;
+    const remainingSeconds = Math.max(0, timeLimitSeconds - elapsedSeconds);
+
+    return formatElapsedTime(remainingSeconds);
 };
 
 export default function timer(timeString: string): string {

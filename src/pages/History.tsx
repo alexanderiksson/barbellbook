@@ -66,6 +66,7 @@ export default function History() {
                     <Select
                         onChange={(e) => setFilter(e.target.value as "new" | "old")}
                         value={filter}
+                        className="mb-6"
                     >
                         <option value="new">Most recent</option>
                         <option value="old">Least recent</option>

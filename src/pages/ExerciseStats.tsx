@@ -128,7 +128,11 @@ export default function ExerciseStats() {
 
             <PageHeading>{exercise.name}</PageHeading>
 
-            <Select value={selectedPeriod} onChange={(e) => setSelectedPeriod(e.target.value)}>
+            <Select
+                value={selectedPeriod}
+                onChange={(e) => setSelectedPeriod(e.target.value)}
+                className="mb-6"
+            >
                 <option value="all">All time</option>
                 <option value="1-month">Last month</option>
                 <option value="3-months">Last 3 months</option>
