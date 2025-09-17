@@ -84,6 +84,7 @@ export default function Details({ id }: { id: string | undefined }) {
                     return null;
                 }
                 let t = Date.parse(set.time);
+
                 if (isNaN(t)) {
                     const parts = set.time.split(":");
                     if (parts.length === 3) {
@@ -97,6 +98,7 @@ export default function Details({ id }: { id: string | undefined }) {
                 setTimes.push(t);
             }
         }
+
         setTimes.sort((a, b) => a - b);
         if (setTimes.length < 2) return null;
         let totalRest = 0;
@@ -105,7 +107,7 @@ export default function Details({ id }: { id: string | undefined }) {
         }
         const avgRestMs = totalRest / (setTimes.length - 1);
         const minutes = avgRestMs / 60000;
-        return minutes.toFixed(1);
+        return Number(minutes.toFixed(1));
     }, [workout]);
 
     // Calculate workout duration
@@ -134,7 +136,7 @@ export default function Details({ id }: { id: string | undefined }) {
         setTimes.sort((a, b) => a - b);
         const durationMs = setTimes[setTimes.length - 1] - setTimes[0];
         const minutes = Math.round(durationMs / 60000);
-        return minutes;
+        return Number(minutes);
     }, [workout]);
 
     // Calculate average exercise duration
@@ -142,7 +144,7 @@ export default function Details({ id }: { id: string | undefined }) {
         if (!workoutDuration) return null;
 
         const averageDuration = workoutDuration / workout.exercises.length;
-        return averageDuration.toFixed(1);
+        return Number(averageDuration.toFixed(1));
     }, [workout]);
 
     return (
