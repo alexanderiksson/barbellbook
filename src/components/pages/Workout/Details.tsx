@@ -75,65 +75,93 @@ export default function Details({ id }: { id: string | undefined }) {
             .sort((a, b) => b.percentage - a.percentage);
     }, [workout]);
 
-    // Simple, safe cross-platform time parser
+    // Flexible time parser:
+    // Returns milliseconds-from-midnight for all legacy formats,
+    // OR ms-from-midnight for ISO too (so everything is uniform).
     const parseTime = (value?: string): number | null => {
         if (!value) return null;
 
-        // Try native parse first (works for ISO)
-        const native = Date.parse(value);
-        if (!isNaN(native)) return native;
-
-        // Fallback: HH:MM or HH:MM:SS
-        if (/^\d{2}:\d{2}(:\d{2})?$/.test(value)) {
-            const [h, m, s = 0] = value.split(":").map(Number);
-            if (h > 23 || m > 59 || s > 59) return null;
-            // Represent as milliseconds-from-midnight (enough for intra-workout math)
-            return ((h * 60 + m) * 60 + s) * 1000;
+        // ISO?
+        if (value.includes("T")) {
+            const d = new Date(value);
+            if (!isNaN(d.getTime())) {
+                return (
+                    (d.getHours() * 3600 + d.getMinutes() * 60 + d.getSeconds()) * 1000 +
+                    d.getMilliseconds()
+                );
+            }
         }
 
-        return null;
+        // Match: H:MM, HH:MM, H:MM:SS, HH:MM:SS with optional AM/PM
+        const m = value.trim().match(/^(\d{1,2}):([0-5]\d)(?::([0-5]\d))?(?:\s?(AM|PM))?$/i);
+        if (!m) return null;
+
+        let hour = parseInt(m[1], 10);
+        const minute = parseInt(m[2], 10);
+        const second = m[3] ? parseInt(m[3], 10) : 0;
+        const ampm = m[4]?.toUpperCase();
+
+        if (ampm) {
+            if (hour === 12 && ampm === "AM") hour = 0;
+            else if (hour < 12 && ampm === "PM") hour += 12;
+        }
+        if (hour > 23) return null;
+
+        return ((hour * 60 + minute) * 60 + second) * 1000;
     };
 
-    // Shared: normalize & sort (handles either absolute ms or ms-from-midnight)
-    const prepareTimes = (times: number[]) => {
-        if (times.length < 2) return null;
-        // If all values look like < 2 days => treat as relative (already fine for differences)
-        return times.sort((a, b) => a - b);
+    // Build a monotonic timeline from ms-from-midnight values,
+    // handling potential wrap past midnight (e.g., 23:58 -> 00:03).
+    const buildTimeline = (values: number[]): number[] | null => {
+        if (values.length < 2) return null;
+        const timeline: number[] = [];
+        let dayOffset = 0;
+        let prev = values[0];
+
+        values.forEach((v, idx) => {
+            // Detect wrap (time decreased compared to previous)
+            if (idx > 0 && v < prev) {
+                dayOffset += 24 * 60 * 60 * 1000;
+            }
+            timeline.push(v + dayOffset);
+            prev = v;
+        });
+        return timeline;
     };
 
     // Calculate average rest time
     const averageRestTime = useMemo(() => {
-        const times: number[] = [];
-        for (const exercise of workout.exercises) {
-            for (const set of exercise.sets) {
-                const t = parseTime(set.time);
-                if (t !== null) times.push(t);
+        const parsed: number[] = [];
+        for (const ex of workout.exercises) {
+            for (const set of ex.sets) {
+                const ms = parseTime(set.time);
+                if (ms !== null) parsed.push(ms);
             }
         }
-        const sorted = prepareTimes(times);
-        if (!sorted) return null;
+        const timeline = buildTimeline(parsed);
+        if (!timeline) return null;
 
         let total = 0;
-        for (let i = 1; i < sorted.length; i++) {
-            total += sorted[i] - sorted[i - 1];
+        for (let i = 1; i < timeline.length; i++) {
+            total += timeline[i] - timeline[i - 1];
         }
-        const avgMs = total / (sorted.length - 1);
+        const avgMs = total / (timeline.length - 1);
         return Number((avgMs / 60000).toFixed(1));
     }, [workout]);
 
     // Calculate workout duration
     const workoutDuration = useMemo(() => {
-        const times: number[] = [];
-        for (const exercise of workout.exercises) {
-            for (const set of exercise.sets) {
-                const t = parseTime(set.time);
-                if (t !== null) times.push(t);
+        const parsed: number[] = [];
+        for (const ex of workout.exercises) {
+            for (const set of ex.sets) {
+                const ms = parseTime(set.time);
+                if (ms !== null) parsed.push(ms);
             }
         }
-        const sorted = prepareTimes(times);
-        if (!sorted) return null;
+        const timeline = buildTimeline(parsed);
+        if (!timeline) return null;
 
-        const durationMs = sorted[sorted.length - 1] - sorted[0];
+        const durationMs = timeline[timeline.length - 1] - timeline[0];
         return Math.round(durationMs / 60000);
     }, [workout]);
 
