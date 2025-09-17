@@ -65,6 +65,7 @@ export default function Stats() {
                             <Select
                                 value={selectedYear}
                                 onChange={(e) => setSelectedYear(e.target.value)}
+                                className="mb-6"
                             >
                                 {years.map((year, index) => (
                                     <option key={index} value={year}>

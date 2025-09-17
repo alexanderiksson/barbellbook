@@ -29,7 +29,7 @@ export default function Settings() {
             />
 
             {activeTab === "general" && (
-                <section id="general" className="flex flex-col gap-4">
+                <section id="general" className="flex flex-col gap-8">
                     <div className="flex flex-col gap-2">
                         <label className="text-sm">Weight unit</label>
                         <Select

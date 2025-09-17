@@ -1,5 +1,35 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { parseWorkoutTime, buildMonotonicTimeline } from "../utils/time";
+
+// Notification (EXPERIMENTAL FEATURE)
+const sendRestTimerNotification = async (): Promise<void> => {
+    if (!("Notification" in window)) {
+        console.log("This browser does not support notifications");
+        return;
+    }
+
+    if (Notification.permission === "default") {
+        const permission = await Notification.requestPermission();
+        if (permission !== "granted") {
+            console.log("Notification permission denied");
+            return;
+        }
+    }
+
+    if (Notification.permission === "granted") {
+        const notification = new Notification("Rest Timer Complete!", {
+            body: "Time to start your next set!",
+            icon: "/favicon.png",
+            tag: "rest-timer",
+            requireInteraction: false,
+        });
+
+        // Auto-close notification after 5 seconds
+        setTimeout(() => {
+            notification.close();
+        }, 5000);
+    }
+};
 
 const formatElapsedTime = (elapsedSeconds: number): string => {
     const totalMinutes = Math.floor(elapsedSeconds / 60);
@@ -28,8 +58,13 @@ const calculateElapsedTime = (timeString: string): number => {
     return Math.floor(diffMs / 1000);
 };
 
-export const usePersistentTimer = (lastSetTime: string | undefined): string | null => {
+export const usePersistentTimer = (
+    lastSetTime: string | undefined,
+    timeLimitMinutes: number = 0.5,
+    enableNotifications: boolean = true
+): string | null => {
     const [, setCurrentTime] = useState(Date.now());
+    const notificationSentRef = useRef(false);
 
     // Update current time every second for live updates
     useEffect(() => {
@@ -40,17 +75,31 @@ export const usePersistentTimer = (lastSetTime: string | undefined): string | nu
         return () => clearInterval(interval);
     }, []);
 
+    // Reset notification flag when lastSetTime changes
+    useEffect(() => {
+        notificationSentRef.current = false;
+    }, [lastSetTime]);
+
     if (!lastSetTime) {
-        return "00:00";
+        return formatElapsedTime(timeLimitMinutes * 60);
     }
 
     const elapsedSeconds = calculateElapsedTime(lastSetTime);
 
     if (elapsedSeconds < 0) {
-        return "00:00";
+        return formatElapsedTime(timeLimitMinutes * 60);
     }
 
-    return formatElapsedTime(elapsedSeconds);
+    const timeLimitSeconds = timeLimitMinutes * 60;
+    const remainingSeconds = Math.max(0, timeLimitSeconds - elapsedSeconds);
+
+    // Send notification when timer reaches zero (only once per timer session)
+    if (remainingSeconds === 0 && enableNotifications && !notificationSentRef.current) {
+        notificationSentRef.current = true;
+        sendRestTimerNotification().catch(console.error);
+    }
+
+    return formatElapsedTime(remainingSeconds);
 };
 
 export default function timer(timeString: string): string {

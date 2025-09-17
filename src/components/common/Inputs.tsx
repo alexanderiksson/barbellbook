@@ -5,6 +5,7 @@ interface SelectProps {
     onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
     value: any;
     children: ReactNode;
+    className?: string;
 }
 
 interface TextInputProps {
@@ -19,9 +20,9 @@ interface SearchFieldProps extends TextInputProps {
 }
 
 // Select input
-export function Select({ onChange, value, children }: SelectProps) {
+export function Select({ onChange, value, children, className }: SelectProps) {
     return (
-        <div className="relative mb-6 max-w-sm">
+        <div className={`${className} relative max-w-sm`}>
             <select
                 className="appearance-none py-2 px-4 w-full border border-[var(--border)]/20 rounded-full bg-[var(--input)]/50 text-sm"
                 onChange={onChange}
