@@ -1,13 +1,15 @@
 import { useState, useEffect, useRef } from "react";
 import { parseWorkoutTime, buildMonotonicTimeline } from "../utils/time";
 
-// Notification (EXPERIMENTAL FEATURE)
+// PWA-compatible notification function
 const sendRestTimerNotification = async (): Promise<void> => {
+    // Check if notifications are supported
     if (!("Notification" in window)) {
         console.log("This browser does not support notifications");
         return;
     }
 
+    // Request permission if not already granted
     if (Notification.permission === "default") {
         const permission = await Notification.requestPermission();
         if (permission !== "granted") {
@@ -16,7 +18,42 @@ const sendRestTimerNotification = async (): Promise<void> => {
         }
     }
 
-    if (Notification.permission === "granted") {
+    if (Notification.permission !== "granted") {
+        console.log("Notification permission not granted");
+        return;
+    }
+
+    // Check if service worker is available (PWA)
+    if ("serviceWorker" in navigator && navigator.serviceWorker.controller) {
+        try {
+            const registration = await navigator.serviceWorker.ready;
+
+            // Use service worker notification for PWA
+            await registration.showNotification("Rest Timer Complete!", {
+                body: "Time to start your next set!",
+                icon: "/favicon.png",
+                badge: "/favicon.png",
+                tag: "rest-timer",
+                requireInteraction: false,
+                silent: false,
+            });
+        } catch (error) {
+            console.error("Service Worker notification failed:", error);
+
+            // Fallback to regular notification
+            const notification = new Notification("Rest Timer Complete!", {
+                body: "Time to start your next set!",
+                icon: "/favicon.png",
+                tag: "rest-timer",
+                requireInteraction: false,
+            });
+
+            setTimeout(() => {
+                notification.close();
+            }, 5000);
+        }
+    } else {
+        // Regular notification for non-PWA
         const notification = new Notification("Rest Timer Complete!", {
             body: "Time to start your next set!",
             icon: "/favicon.png",
@@ -24,7 +61,6 @@ const sendRestTimerNotification = async (): Promise<void> => {
             requireInteraction: false,
         });
 
-        // Auto-close notification after 5 seconds
         setTimeout(() => {
             notification.close();
         }, 5000);
