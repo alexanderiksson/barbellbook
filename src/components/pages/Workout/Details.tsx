@@ -1,4 +1,10 @@
 import { useMemo } from "react";
+import {
+    parseWorkoutTime,
+    buildMonotonicTimeline,
+    averageGapMinutes,
+    spanMinutes,
+} from "../../../utils/time";
 import { useWorkout } from "../../../context/WorkoutContext";
 import { useSettings } from "../../../context/SettingsContext";
 import exercisesData from "../../../data/exercises.json";
@@ -77,73 +83,35 @@ export default function Details({ id }: { id: string | undefined }) {
 
     // Calculate average rest time
     const averageRestTime = useMemo(() => {
-        const setTimes: number[] = [];
-        for (const exercise of workout.exercises) {
-            for (const set of exercise.sets) {
-                if (!set.time) {
-                    return null;
-                }
-                let t = Date.parse(set.time);
-                if (isNaN(t)) {
-                    const parts = set.time.split(":");
-                    if (parts.length === 3) {
-                        const now = new Date();
-                        now.setHours(Number(parts[0]), Number(parts[1]), Number(parts[2]), 0);
-                        t = now.getTime();
-                    } else {
-                        return null;
-                    }
-                }
-                setTimes.push(t);
+        const parsed: number[] = [];
+        for (const ex of workout.exercises) {
+            for (const set of ex.sets) {
+                const ms = parseWorkoutTime(set.time);
+                if (ms !== null) parsed.push(ms);
             }
         }
-        setTimes.sort((a, b) => a - b);
-        if (setTimes.length < 2) return null;
-        let totalRest = 0;
-        for (let i = 1; i < setTimes.length; i++) {
-            totalRest += setTimes[i] - setTimes[i - 1];
-        }
-        const avgRestMs = totalRest / (setTimes.length - 1);
-        const minutes = avgRestMs / 60000;
-        return minutes.toFixed(1);
+        const timeline = buildMonotonicTimeline(parsed);
+        return averageGapMinutes(timeline);
     }, [workout]);
 
     // Calculate workout duration
     const workoutDuration = useMemo(() => {
-        const setTimes: number[] = [];
-        for (const exercise of workout.exercises) {
-            for (const set of exercise.sets) {
-                if (!set.time) {
-                    return null;
-                }
-                let t = Date.parse(set.time);
-                if (isNaN(t)) {
-                    const parts = set.time.split(":");
-                    if (parts.length === 3) {
-                        const now = new Date();
-                        now.setHours(Number(parts[0]), Number(parts[1]), Number(parts[2]), 0);
-                        t = now.getTime();
-                    } else {
-                        return null;
-                    }
-                }
-                setTimes.push(t);
+        const parsed: number[] = [];
+        for (const ex of workout.exercises) {
+            for (const set of ex.sets) {
+                const ms = parseWorkoutTime(set.time);
+                if (ms !== null) parsed.push(ms);
             }
         }
-        if (setTimes.length < 2) return null;
-        setTimes.sort((a, b) => a - b);
-        const durationMs = setTimes[setTimes.length - 1] - setTimes[0];
-        const minutes = Math.round(durationMs / 60000);
-        return minutes;
+        const timeline = buildMonotonicTimeline(parsed);
+        return spanMinutes(timeline);
     }, [workout]);
 
     // Calculate average exercise duration
     const averageExerciseDuration = useMemo(() => {
-        if (!workoutDuration) return null;
-
-        const averageDuration = workoutDuration / workout.exercises.length;
-        return averageDuration.toFixed(1);
-    }, [workout]);
+        if (workoutDuration === null) return null;
+        return Number((workoutDuration / workout.exercises.length).toFixed(1));
+    }, [workoutDuration, workout.exercises.length]);
 
     return (
         <div className="bg-[var(--secondary)] p-4 rounded-[var(--radius)] border border-[var(--border)]/20">
@@ -151,7 +119,7 @@ export default function Details({ id }: { id: string | undefined }) {
                 <div className="grid grid-cols-2 gap-2">
                     <div>
                         <h3 className="text-[var(--text-grey)] text-sm">Duration</h3>
-                        <span>{workoutDuration ? `${workoutDuration} min` : "-"}</span>
+                        <span>{workoutDuration !== null ? `${workoutDuration} min` : "-"}</span>
                     </div>
 
                     <div>
@@ -173,13 +141,15 @@ export default function Details({ id }: { id: string | undefined }) {
 
                     <div>
                         <h3 className="text-[var(--text-grey)] text-sm">Avg. Rest</h3>
-                        <span>{averageRestTime ? `${averageRestTime} min` : "-"}</span>
+                        <span>{averageRestTime !== null ? `${averageRestTime} min` : "-"}</span>
                     </div>
 
                     <div>
                         <h3 className="text-[var(--text-grey)] text-sm">Avg. Time/Exercise</h3>
                         <span>
-                            {averageExerciseDuration ? `${averageExerciseDuration} min` : "-"}
+                            {averageExerciseDuration !== null
+                                ? `${averageExerciseDuration} min`
+                                : "-"}
                         </span>
                     </div>
                 </div>
