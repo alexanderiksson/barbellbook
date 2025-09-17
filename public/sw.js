@@ -126,6 +126,9 @@ self.addEventListener('sync', (event) => {
   }
 });
 
+// Global variable to store the notification timeout
+let notificationTimeout = null;
+
 // Handle messages from the main app
 self.addEventListener('message', (event) => {
   console.log('Service Worker: Message received', event.data);
@@ -133,6 +136,41 @@ self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }
-});
 
-console.log('Service Worker: Loaded and ready');
+  // Handle notification scheduling
+  if (event.data && event.data.type === 'SCHEDULE_NOTIFICATION') {
+    const { delay, notification } = event.data;
+
+    // Clear any existing timeout
+    if (notificationTimeout) {
+      clearTimeout(notificationTimeout);
+    }
+
+    // Schedule new notification
+    notificationTimeout = setTimeout(() => {
+      self.registration.showNotification(notification.title, {
+        body: notification.body,
+        icon: notification.icon,
+        badge: notification.badge,
+        tag: notification.tag,
+        requireInteraction: false,
+        silent: false
+      }).then(() => {
+        console.log('Service Worker: Background notification shown');
+      }).catch((error) => {
+        console.error('Service Worker: Failed to show notification', error);
+      });
+    }, delay);
+
+    console.log(`Service Worker: Scheduled notification in ${delay}ms`);
+  }
+
+  // Handle notification cancellation
+  if (event.data && event.data.type === 'CANCEL_NOTIFICATION') {
+    if (notificationTimeout) {
+      clearTimeout(notificationTimeout);
+      notificationTimeout = null;
+      console.log('Service Worker: Cancelled scheduled notification');
+    }
+  }
+});console.log('Service Worker: Loaded and ready');

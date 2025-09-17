@@ -1,15 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 import { parseWorkoutTime, buildMonotonicTimeline } from "../utils/time";
 
-// PWA-compatible notification function
-const sendRestTimerNotification = async (): Promise<void> => {
-    // Check if notifications are supported
-    if (!("Notification" in window)) {
-        console.log("This browser does not support notifications");
+// Schedule a background notification with the service worker
+const scheduleBackgroundNotification = async (delayMs: number): Promise<void> => {
+    if (!("serviceWorker" in navigator)) {
+        console.log("Service worker not supported");
         return;
     }
 
-    // Request permission if not already granted
+    // Request notification permission first
     if (Notification.permission === "default") {
         const permission = await Notification.requestPermission();
         if (permission !== "granted") {
@@ -23,47 +22,43 @@ const sendRestTimerNotification = async (): Promise<void> => {
         return;
     }
 
-    // Check if service worker is available (PWA)
-    if ("serviceWorker" in navigator && navigator.serviceWorker.controller) {
-        try {
-            const registration = await navigator.serviceWorker.ready;
+    try {
+        const registration = await navigator.serviceWorker.ready;
 
-            // Use service worker notification for PWA
-            await registration.showNotification("Rest Timer Complete!", {
-                body: "Time to start your next set!",
-                icon: "/favicon.png",
-                badge: "/favicon.png",
-                tag: "rest-timer",
-                requireInteraction: false,
-                silent: false,
+        // Send message to service worker to schedule notification
+        if (registration.active) {
+            registration.active.postMessage({
+                type: "SCHEDULE_NOTIFICATION",
+                delay: delayMs,
+                notification: {
+                    title: "Rest Timer Complete!",
+                    body: "Time to start your next set!",
+                    icon: "/favicon.png",
+                    badge: "/favicon.png",
+                    tag: "rest-timer",
+                },
             });
-        } catch (error) {
-            console.error("Service Worker notification failed:", error);
-
-            // Fallback to regular notification
-            const notification = new Notification("Rest Timer Complete!", {
-                body: "Time to start your next set!",
-                icon: "/favicon.png",
-                tag: "rest-timer",
-                requireInteraction: false,
-            });
-
-            setTimeout(() => {
-                notification.close();
-            }, 5000);
+            console.log(`Scheduled background notification in ${delayMs}ms`);
         }
-    } else {
-        // Regular notification for non-PWA
-        const notification = new Notification("Rest Timer Complete!", {
-            body: "Time to start your next set!",
-            icon: "/favicon.png",
-            tag: "rest-timer",
-            requireInteraction: false,
-        });
+    } catch (error) {
+        console.error("Failed to schedule background notification:", error);
+    }
+};
 
-        setTimeout(() => {
-            notification.close();
-        }, 5000);
+// Cancel any pending background notifications
+const cancelBackgroundNotification = async (): Promise<void> => {
+    if (!("serviceWorker" in navigator)) return;
+
+    try {
+        const registration = await navigator.serviceWorker.ready;
+        if (registration.active) {
+            registration.active.postMessage({
+                type: "CANCEL_NOTIFICATION",
+            });
+            console.log("Cancelled background notification");
+        }
+    } catch (error) {
+        console.error("Failed to cancel background notification:", error);
     }
 };
 
@@ -100,7 +95,7 @@ export const usePersistentTimer = (
     enableNotifications: boolean = true
 ): string | null => {
     const [, setCurrentTime] = useState(Date.now());
-    const notificationSentRef = useRef(false);
+    const notificationScheduledRef = useRef(false);
 
     // Update current time every second for live updates
     useEffect(() => {
@@ -111,9 +106,37 @@ export const usePersistentTimer = (
         return () => clearInterval(interval);
     }, []);
 
+    // Schedule background notification when timer starts
+    useEffect(() => {
+        if (lastSetTime && enableNotifications && !notificationScheduledRef.current) {
+            const elapsedSeconds = calculateElapsedTime(lastSetTime);
+            const timeLimitSeconds = timeLimitMinutes * 60;
+            const remainingSeconds = Math.max(0, timeLimitSeconds - elapsedSeconds);
+
+            if (remainingSeconds > 0) {
+                // Schedule notification for remaining time
+                scheduleBackgroundNotification(remainingSeconds * 1000);
+                notificationScheduledRef.current = true;
+                console.log(`Timer: Scheduled notification in ${remainingSeconds} seconds`);
+            }
+        }
+    }, [lastSetTime, timeLimitMinutes, enableNotifications]);
+
+    // Cancel notification when component unmounts or timer changes
+    useEffect(() => {
+        return () => {
+            if (notificationScheduledRef.current) {
+                cancelBackgroundNotification();
+            }
+        };
+    }, []);
+
     // Reset notification flag when lastSetTime changes
     useEffect(() => {
-        notificationSentRef.current = false;
+        if (notificationScheduledRef.current) {
+            cancelBackgroundNotification();
+        }
+        notificationScheduledRef.current = false;
     }, [lastSetTime]);
 
     if (!lastSetTime) {
@@ -128,12 +151,6 @@ export const usePersistentTimer = (
 
     const timeLimitSeconds = timeLimitMinutes * 60;
     const remainingSeconds = Math.max(0, timeLimitSeconds - elapsedSeconds);
-
-    // Send notification when timer reaches zero (only once per timer session)
-    if (remainingSeconds === 0 && enableNotifications && !notificationSentRef.current) {
-        notificationSentRef.current = true;
-        sendRestTimerNotification().catch(console.error);
-    }
 
     return formatElapsedTime(remainingSeconds);
 };
