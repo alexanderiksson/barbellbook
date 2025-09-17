@@ -7,7 +7,7 @@ import { Select } from "../../common/Inputs";
 export default function RestTimer() {
     const { currentSets } = useWorkout();
 
-    const [restTime, setRestTime] = useState(sessionStorage.getItem("rest-timer") || "0.5");
+    const [restTime, setRestTime] = useState(sessionStorage.getItem("rest-timer") || "0");
 
     useEffect(() => {
         sessionStorage.setItem("rest-timer", restTime);
