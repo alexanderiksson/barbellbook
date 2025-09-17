@@ -15,7 +15,7 @@ export default function RestTimer() {
 
     const lastSetTime =
         currentSets.length > 0 ? currentSets[currentSets.length - 1].time : undefined;
-    const timerDisplay = usePersistentTimer(lastSetTime, Number(restTime), true);
+    const timerDisplay = usePersistentTimer(lastSetTime, Number(restTime));
 
     return (
         <div className="bg-[var(--secondary)] backdrop-blur-lg border border-[var(--border)]/20 rounded-full py-2 px-4 flex justify-between">

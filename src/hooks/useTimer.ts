@@ -1,66 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { parseWorkoutTime, buildMonotonicTimeline } from "../utils/time";
-
-// Schedule a background notification with the service worker
-const scheduleBackgroundNotification = async (delayMs: number): Promise<void> => {
-    if (!("serviceWorker" in navigator)) {
-        console.log("Service worker not supported");
-        return;
-    }
-
-    // Request notification permission first
-    if (Notification.permission === "default") {
-        const permission = await Notification.requestPermission();
-        if (permission !== "granted") {
-            console.log("Notification permission denied");
-            return;
-        }
-    }
-
-    if (Notification.permission !== "granted") {
-        console.log("Notification permission not granted");
-        return;
-    }
-
-    try {
-        const registration = await navigator.serviceWorker.ready;
-
-        // Send message to service worker to schedule notification
-        if (registration.active) {
-            registration.active.postMessage({
-                type: "SCHEDULE_NOTIFICATION",
-                delay: delayMs,
-                notification: {
-                    title: "Rest Timer Complete!",
-                    body: "Time to start your next set!",
-                    icon: "/favicon.png",
-                    badge: "/favicon.png",
-                    tag: "rest-timer",
-                },
-            });
-            console.log(`Scheduled background notification in ${delayMs}ms`);
-        }
-    } catch (error) {
-        console.error("Failed to schedule background notification:", error);
-    }
-};
-
-// Cancel any pending background notifications
-const cancelBackgroundNotification = async (): Promise<void> => {
-    if (!("serviceWorker" in navigator)) return;
-
-    try {
-        const registration = await navigator.serviceWorker.ready;
-        if (registration.active) {
-            registration.active.postMessage({
-                type: "CANCEL_NOTIFICATION",
-            });
-            console.log("Cancelled background notification");
-        }
-    } catch (error) {
-        console.error("Failed to cancel background notification:", error);
-    }
-};
 
 const formatElapsedTime = (elapsedSeconds: number): string => {
     const totalMinutes = Math.floor(elapsedSeconds / 60);
@@ -91,11 +30,9 @@ const calculateElapsedTime = (timeString: string): number => {
 
 export const usePersistentTimer = (
     lastSetTime: string | undefined,
-    timeLimitMinutes: number = 0.5,
-    enableNotifications: boolean = true
+    timeLimitMinutes: number = 0.5
 ): string | null => {
     const [, setCurrentTime] = useState(Date.now());
-    const notificationScheduledRef = useRef(false);
 
     // Update current time every second for live updates
     useEffect(() => {
@@ -105,39 +42,6 @@ export const usePersistentTimer = (
 
         return () => clearInterval(interval);
     }, []);
-
-    // Schedule background notification when timer starts
-    useEffect(() => {
-        if (lastSetTime && enableNotifications && !notificationScheduledRef.current) {
-            const elapsedSeconds = calculateElapsedTime(lastSetTime);
-            const timeLimitSeconds = timeLimitMinutes * 60;
-            const remainingSeconds = Math.max(0, timeLimitSeconds - elapsedSeconds);
-
-            if (remainingSeconds > 0) {
-                // Schedule notification for remaining time
-                scheduleBackgroundNotification(remainingSeconds * 1000);
-                notificationScheduledRef.current = true;
-                console.log(`Timer: Scheduled notification in ${remainingSeconds} seconds`);
-            }
-        }
-    }, [lastSetTime, timeLimitMinutes, enableNotifications]);
-
-    // Cancel notification when component unmounts or timer changes
-    useEffect(() => {
-        return () => {
-            if (notificationScheduledRef.current) {
-                cancelBackgroundNotification();
-            }
-        };
-    }, []);
-
-    // Reset notification flag when lastSetTime changes
-    useEffect(() => {
-        if (notificationScheduledRef.current) {
-            cancelBackgroundNotification();
-        }
-        notificationScheduledRef.current = false;
-    }, [lastSetTime]);
 
     if (!lastSetTime) {
         return formatElapsedTime(timeLimitMinutes * 60);
