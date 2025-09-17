@@ -15,7 +15,7 @@ export default function RestTimer() {
 
     const lastSetTime =
         currentSets.length > 0 ? currentSets[currentSets.length - 1].time : undefined;
-    const timerDisplay = usePersistentTimer(lastSetTime, Number(restTime));
+    const timerDisplay = usePersistentTimer(lastSetTime, Number(restTime), true);
 
     return (
         <div className="bg-[var(--secondary)] backdrop-blur-lg border border-[var(--border)]/20 rounded-full py-2 px-4 flex justify-between">
@@ -24,6 +24,7 @@ export default function RestTimer() {
                 <span className="text-lg">{timerDisplay}</span>
             </div>
             <Select onChange={(e) => setRestTime(e.target.value)} value={restTime} className="w-28">
+                <option value="0">No timer</option>
                 <option value="0.5">30 sec</option>
                 <option value="1">1 min</option>
                 <option value="2">2 min</option>
