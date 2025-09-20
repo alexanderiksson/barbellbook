@@ -1,27 +1,31 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
+import { useSettings } from "../context/SettingsContext";
 import exercises from "../data/exercises.json";
 import { SetType } from "../types/workout";
-import useModal from "../hooks/useModal";
+import useOverlay from "../hooks/useOverlay";
 
 import { Button } from "../components/common/Buttons";
 import RepCounter from "../components/pages/LogExercise/RepCounter";
 import WeightInput from "../components/pages/LogExercise/WeightInput";
 import SetTable from "../components/pages/LogExercise/SetTable";
 import Notice from "../components/common/Notice";
-import { AlertModal, ConfirmModal } from "../components/common/Modals";
+import { AlertModal, ConfirmModal, CustomModal } from "../components/common/Modals";
 import Loader from "../components/common/Loader";
 import { SearchField } from "../components/common/Inputs";
-import PreviousSession from "../components/pages/LogExercise/PreviousSession";
 import Header from "../components/layout/Header";
 import RestTimer from "../components/pages/LogExercise/RestTimer";
+import Menu from "../components/common/Menu";
 
 import { IoMdAdd } from "react-icons/io";
+import { MdHistory, MdContentCopy } from "react-icons/md";
 
 export default function LogExercise() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(false);
+
+    const { weightUnit } = useSettings();
 
     const {
         addExercise,
@@ -66,9 +70,13 @@ export default function LogExercise() {
     const noticeTriggerRef = useRef<() => void | null>(null);
 
     // Manage modal state
-    const confirmModal = useModal();
-    const alertModal = useModal();
+    const confirmModal = useOverlay();
+    const alertModal = useOverlay();
+    const customModal = useOverlay();
     const [modalText, setModalText] = useState("");
+
+    // Manage menu state
+    const menu = useOverlay();
 
     // Show loader if loading
     if (loading) return <Loader />;
@@ -104,8 +112,66 @@ export default function LogExercise() {
                 }}
             />
 
+            <CustomModal
+                isOpen={customModal.isOpen}
+                onClose={customModal.close}
+                text={lastSessionSets ? "Previous session" : "Select an exercise"}
+            >
+                {lastSessionSets && (
+                    <table className="w-full mt-4">
+                        <thead>
+                            <tr className="text-left">
+                                <th>Set</th>
+                                <th>Reps</th>
+                                <th>Weight</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {lastSessionSets.map((set, index) => (
+                                <tr key={index}>
+                                    <td>Set {index + 1}</td>
+                                    <td>{set.reps}</td>
+                                    <td>
+                                        {set.weight}{" "}
+                                        <span className="text-[var(--text-grey)]">
+                                            {weightUnit}
+                                        </span>
+                                    </td>
+                                    <td
+                                        className="py-2 flex justify-center cursor-pointer"
+                                        onClick={() => {
+                                            setReps(set.reps);
+                                            setWeight(set.weight.toString());
+                                        }}
+                                    >
+                                        <MdContentCopy />
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                )}
+            </CustomModal>
+
             <div className="content flex flex-col flex-1">
-                <Header title="Log exercise" />
+                <Header
+                    title="Log exercise"
+                    menuOnClick={() => (menu.isOpen ? menu.close() : menu.open())}
+                />
+
+                <Menu
+                    isOpen={menu.isOpen}
+                    closeMenu={menu.close}
+                    spacingTop
+                    menuItems={[
+                        {
+                            type: "function",
+                            label: "Previous session",
+                            icon: MdHistory,
+                            onClick: customModal.open,
+                        },
+                    ]}
+                />
 
                 <Notice
                     msg="Set added"

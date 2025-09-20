@@ -1,7 +1,3 @@
-/**
- * This component will show a spinning loader centered vertically and horizontally on the screen.
- */
-
 export default function Loader() {
     return (
         <div

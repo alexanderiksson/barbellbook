@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { useWorkout } from "../context/WorkoutContext";
-import useModal from "../hooks/useModal";
+import useOverlay from "../hooks/useOverlay";
 import greeting from "../utils/greeting";
 
 import PageHeading from "../components/common/PageHeading";
@@ -21,8 +21,8 @@ export default function Home() {
     const noticeTriggerRef = useRef<() => void | null>(null);
 
     // Manage modal state
-    const confirmModal = useModal();
-    const promptModal = useModal();
+    const confirmModal = useOverlay();
+    const promptModal = useOverlay();
 
     // Show loader if loading
     if (loading) return <Loader />;

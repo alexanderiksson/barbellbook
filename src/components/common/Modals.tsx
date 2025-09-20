@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactNode } from "react";
 import { Button } from "./Buttons";
 import { IoIosClose } from "react-icons/io";
 import { IoIosAlert } from "react-icons/io";
@@ -23,6 +23,10 @@ interface PromptModalProps extends ModalProps {
 interface LogModalProps extends ModalProps {
     initialValue: string | undefined;
     onSubmit: (...args: any[]) => void;
+}
+
+interface CustomModalProps extends ModalProps {
+    children: ReactNode;
 }
 
 // Alert modal
@@ -176,6 +180,32 @@ export function LogModal({ isOpen, onClose, initialValue, onSubmit }: LogModalPr
                     value={textareaValue}
                     onChange={(e) => setTextareaValue(e.target.value)}
                 ></textarea>
+            </div>
+        </div>
+    );
+}
+
+// Custom modal
+export function CustomModal({ isOpen, onClose, text, children }: CustomModalProps) {
+    if (!isOpen) return null;
+
+    return (
+        <div className="modal-overlay">
+            <div className="modal" role="dialog" aria-modal="true">
+                <div className="w-full flex justify-between items-center gap-2">
+                    <h2 className="truncate text-lg">{text}</h2>
+
+                    <IoIosClose
+                        size={32}
+                        color="grey"
+                        className="cursor-pointer flex-shrink-0"
+                        onClick={() => {
+                            onClose();
+                        }}
+                    />
+                </div>
+
+                {children}
             </div>
         </div>
     );

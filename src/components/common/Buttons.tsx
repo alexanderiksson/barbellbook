@@ -1,7 +1,3 @@
-/**
- * This is a reusable button component with customizable styles and diffrent variants.
- */
-
 import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 

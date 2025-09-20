@@ -1,21 +1,3 @@
-/**
- * This component will show a temporary notice message,
- * The notice disappears after 2 seconds.
- *
- * @example
- * ```tsx
- * const triggerRef = useRef<() => void>();
- *
- * <Notice
- *   registerTrigger={(trigger) => (triggerRef.current = trigger)}
- *   msg="This is a notice message!"
- * />
- *
- * // To show the notice:
- * triggerRef.current?.();
- * ```
- */
-
 import { useState } from "react";
 
 interface NoticeProps {

@@ -1,10 +1,3 @@
-/**
- * A functional React component that displays an error message.
- *
- * @param msg - The error message to display. Defaults to "Something went wrong" if not provided.
- *
- */
-
 export default function Error({ msg = "Something went wrong" }: { msg?: string }) {
     return (
         <p
