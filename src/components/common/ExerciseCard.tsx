@@ -1,10 +1,9 @@
 import { useSettings } from "../../context/SettingsContext";
-import useModal from "../../hooks/useModal";
+import useOverlay from "../../hooks/useOverlay";
 import { SetType } from "../../types/workout";
 import { ConfirmModal } from "./Modals";
 import { MdDeleteForever } from "react-icons/md";
 import Menu from "./Menu";
-import useMenu from "../../hooks/useMenu";
 import { IoIosMore } from "react-icons/io";
 
 interface ExerciseCardProps {
@@ -27,10 +26,10 @@ export default function ExerciseCard({
     const { weightUnit } = useSettings();
 
     // Manage modal state
-    const confirmModal = useModal();
+    const confirmModal = useOverlay();
 
     // Manage menu state
-    const menu = useMenu();
+    const menu = useOverlay();
 
     return (
         <>

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
 import exercises from "../data/exercises.json";
 import { SetType } from "../types/workout";
-import useModal from "../hooks/useModal";
+import useOverlay from "../hooks/useOverlay";
 
 import { Button } from "../components/common/Buttons";
 import RepCounter from "../components/pages/LogExercise/RepCounter";
@@ -66,8 +66,8 @@ export default function LogExercise() {
     const noticeTriggerRef = useRef<() => void | null>(null);
 
     // Manage modal state
-    const confirmModal = useModal();
-    const alertModal = useModal();
+    const confirmModal = useOverlay();
+    const alertModal = useOverlay();
     const [modalText, setModalText] = useState("");
 
     // Show loader if loading

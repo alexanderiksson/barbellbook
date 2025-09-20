@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 
-export default function useModal(initial: boolean = false) {
+export default function useOverlay(initial: boolean = false) {
     const [isOpen, setIsOpen] = useState(initial);
     const open = useCallback(() => setIsOpen(true), []);
     const close = useCallback(() => setIsOpen(false), []);

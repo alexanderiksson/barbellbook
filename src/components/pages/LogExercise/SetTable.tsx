@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSettings } from "../../../context/SettingsContext";
 import { SetType } from "../../../types/workout";
-import useModal from "../../../hooks/useModal";
+import useOverlay from "../../../hooks/useOverlay";
 
 import { ConfirmModal } from "../../common/Modals";
 import { MdDeleteForever } from "react-icons/md";
@@ -15,7 +15,7 @@ export default function SetTable({ currentSets, removeCurrentSets }: SetTablePro
     const { weightUnit } = useSettings();
 
     // Manage modal state
-    const confirmModal = useModal();
+    const confirmModal = useOverlay();
 
     const [removeIndex, setRemoveIndex] = useState(0);
 

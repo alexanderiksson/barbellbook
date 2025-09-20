@@ -5,7 +5,7 @@ import { useWorkout } from "../../../context/WorkoutContext";
 import { ConfirmModal } from "../../common/Modals";
 import Notice from "../../common/Notice";
 import { Button } from "../../common/Buttons";
-import useModal from "../../../hooks/useModal";
+import useOverlay from "../../../hooks/useOverlay";
 
 import { TbFileExport, TbFileImport } from "react-icons/tb";
 import { MdOutlineDangerous } from "react-icons/md";
@@ -14,8 +14,8 @@ export default function Data() {
     const { workouts, addWorkout, clearWorkouts } = useWorkout();
 
     // Manage modal state
-    const importConfirmModal = useModal();
-    const clearDataConfirmModal = useModal();
+    const importConfirmModal = useOverlay();
+    const clearDataConfirmModal = useOverlay();
 
     // Trigger to show notice
     const noticeTriggerRef = useRef<() => void | null>(null);

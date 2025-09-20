@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useWorkout } from "../context/WorkoutContext";
 import { WorkoutType } from "../types/workout";
 import dateConverter from "../utils/dateConverter";
-import useModal from "../hooks/useModal";
 import { useTabNavigation } from "../hooks/useTabNavigation";
 
 import Loader from "../components/common/Loader";
@@ -13,7 +12,7 @@ import { ConfirmModal, PromptModal } from "../components/common/Modals";
 import ExerciseCard from "../components/common/ExerciseCard";
 import Menu from "../components/common/Menu";
 import TabNavigation from "../components/common/TabNavigation";
-import useMenu from "../hooks/useMenu";
+import useOverlay from "../hooks/useOverlay";
 import Details from "../components/pages/Workout/Details";
 import Log from "../components/pages/Workout/Log";
 import Header from "../components/layout/Header";
@@ -67,11 +66,11 @@ export default function WorkoutPage() {
     const noticeTriggerRef = useRef<() => void | null>(null);
 
     // Manage modal state
-    const confirmModal = useModal();
-    const promptModal = useModal();
+    const confirmModal = useOverlay();
+    const promptModal = useOverlay();
 
     // Manage menu state
-    const menu = useMenu();
+    const menu = useOverlay();
 
     // Disable loader when the workout are found
     useEffect(() => {
