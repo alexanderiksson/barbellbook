@@ -16,6 +16,7 @@ interface ConfirmModalProps extends ModalProps {
 }
 
 interface PromptModalProps extends ModalProps {
+    buttonVariant?: string;
     initialValue?: string;
     onSubmit: (...args: any[]) => void;
 }
@@ -59,8 +60,8 @@ export function ConfirmModal({
     return (
         <div className="modal-overlay">
             <div className="modal" role="dialog" aria-modal="true">
-                <div className="w-full flex justify-between items-center gap-2">
-                    <h2 className="font-semibold ml-1 flex items-center gap-3">
+                <div className="w-full flex justify-between items-start gap-2">
+                    <h2 className="font-semibold ml-1 flex items-center gap-2">
                         <IoIosAlert size={40} className="translate-y-0.5" /> {text}
                     </h2>
                     <IoIosClose
@@ -72,7 +73,7 @@ export function ConfirmModal({
                         }}
                     />
                 </div>
-                <div className="w-full flex justify-end gap-4">
+                <div className="w-full grid grid-cols-2 gap-2">
                     <Button onClick={onClose}>Cancel</Button>
                     <Button
                         variant={buttonVariant}
@@ -93,6 +94,7 @@ export function ConfirmModal({
 export function PromptModal({
     text,
     buttonText = "Ok",
+    buttonVariant,
     isOpen,
     onClose,
     initialValue,
@@ -129,10 +131,10 @@ export function PromptModal({
                     onChange={(e) => setInputValue(e.target.value)}
                     autoFocus
                 />
-                <div className="w-full flex justify-end gap-4">
+                <div className="w-full grid grid-cols-2 gap-2">
                     <Button onClick={onClose}>Cancel</Button>
                     <Button
-                        variant="blue"
+                        variant={buttonVariant}
                         onClick={() => {
                             onSubmit(inputValue);
                             onClose();

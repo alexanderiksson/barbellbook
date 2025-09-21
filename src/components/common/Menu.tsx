@@ -64,7 +64,7 @@ export default function Menu({ isOpen, closeMenu, menuItems, spacingTop }: MenuP
         <>
             {isOpen && (
                 <div
-                    className="fixed w-screen h-screen top-0 left-0 z-30 bg-black/70 flex items-center justify-center"
+                    className="fixed w-screen h-screen top-0 left-0 z-30 bg-black/80 flex items-center justify-center backdrop-blur-xs"
                     onClick={() => closeMenu()}
                 >
                     <div
