@@ -99,6 +99,7 @@ export default function WorkoutPage() {
             <PromptModal
                 text="Workout name"
                 buttonText="Save changes"
+                buttonVariant="green"
                 isOpen={promptModal.isOpen}
                 onClose={promptModal.close}
                 initialValue={workoutName}

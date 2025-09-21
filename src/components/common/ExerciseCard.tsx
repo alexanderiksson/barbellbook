@@ -50,7 +50,7 @@ export default function ExerciseCard({
                         ? [
                               {
                                   type: "function" as const,
-                                  label: "Delete exercise",
+                                  label: `Delete exercise #${index + 1}`,
                                   icon: MdDeleteForever,
                                   danger: true,
                                   onClick: () => confirmModal.open(),

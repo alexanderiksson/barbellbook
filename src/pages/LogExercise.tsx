@@ -121,9 +121,9 @@ export default function LogExercise() {
                     <table className="w-full mt-4">
                         <thead>
                             <tr className="text-left">
-                                <th>Set</th>
-                                <th>Reps</th>
-                                <th>Weight</th>
+                                <th className="font-normal">Set</th>
+                                <th className="font-normal">Reps</th>
+                                <th className="font-normal">Weight</th>
                             </tr>
                         </thead>
                         <tbody>
