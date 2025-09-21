@@ -115,9 +115,9 @@ export default function LogExercise() {
             <CustomModal
                 isOpen={customModal.isOpen}
                 onClose={customModal.close}
-                text={lastSessionSets ? "Previous session" : "Select an exercise"}
+                text={exercise ? "Previous session" : "No exercise selected"}
             >
-                {lastSessionSets && (
+                {lastSessionSets ? (
                     <table className="w-full mt-4">
                         <thead>
                             <tr className="text-left">
@@ -150,6 +150,10 @@ export default function LogExercise() {
                             ))}
                         </tbody>
                     </table>
+                ) : (
+                    exercise && (
+                        <span className="text-[var(--text-grey)]">No previous sessions found</span>
+                    )
                 )}
             </CustomModal>
 
