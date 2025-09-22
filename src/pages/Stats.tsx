@@ -48,7 +48,7 @@ export default function Stats() {
             <Header title="Stats" />
 
             {workouts.length <= 0 ? (
-                <p className="text-neutral-500">No workouts logged yet.</p>
+                <p className="text-[var(--text-grey)]">No workouts logged yet.</p>
             ) : (
                 <>
                     <TabNavigation
