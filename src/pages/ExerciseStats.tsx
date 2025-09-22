@@ -5,6 +5,7 @@ import { useSettings } from "../context/SettingsContext";
 import exercisesData from "../data/exercises.json";
 import { WorkoutType } from "../types/workout";
 import calculate1RM from "../utils/calculate1RM";
+import { calculateTrend } from "../utils/calculateTrend";
 
 import PageHeading from "../components/common/PageHeading";
 import { Select } from "../components/common/Inputs";
@@ -12,6 +13,8 @@ import WeightProgress from "../components/pages/ExerciseStats/WeightProgress";
 import PersonalRecords from "../components/pages/ExerciseStats/PersonalRecords";
 import Error from "../components/common/Error";
 import Header from "../components/layout/Header";
+
+import { IoMdArrowDropup, IoMdArrowDropdown } from "react-icons/io";
 
 export default function ExerciseStats() {
     const { id } = useParams<{ id: string }>();
@@ -122,6 +125,53 @@ export default function ExerciseStats() {
         return set.reps;
     });
 
+    // Calculate rep trend
+    const repsTrend = (() => {
+        if (filteredData.length < 2) {
+            return null;
+        }
+
+        const firstWorkout = filteredData[0];
+        const firstExercise = firstWorkout.exercises[0];
+        const firstTotalReps = firstExercise
+            ? firstExercise.sets.reduce((acc, set) => acc + Number(set.reps), 0)
+            : 0;
+        const firstTotalSets = firstExercise ? firstExercise.sets.length : 0;
+        const firstAverage =
+            firstTotalSets > 0 ? Number((firstTotalReps / firstTotalSets).toFixed(1)) : 0;
+
+        const recentWorkout = filteredData[filteredData.length - 1];
+        const recentExercise = recentWorkout.exercises[0];
+        const recentTotalReps = recentExercise
+            ? recentExercise.sets.reduce((acc, set) => acc + Number(set.reps), 0)
+            : 0;
+        const recentTotalSets = recentExercise ? recentExercise.sets.length : 0;
+        const recentAverage =
+            recentTotalSets > 0 ? Number((recentTotalReps / recentTotalSets).toFixed(1)) : 0;
+
+        return calculateTrend(firstAverage, recentAverage);
+    })();
+
+    // Calculate set trend
+    const setsTrend = (() => {
+        if (filteredData.length < 2) {
+            return {
+                first: 0,
+                recent: 0,
+                isIncreasing: false,
+                isDecreasing: false,
+                noChange: true,
+            };
+        }
+
+        const firstSets = filteredData[0].exercises[0]?.sets.length || 0;
+        const recentSets = filteredData[filteredData.length - 1].exercises[0]?.sets.length || 0;
+
+        return calculateTrend(firstSets, recentSets);
+    })();
+
+    console.log(filteredData);
+
     return (
         <div className="content">
             <Header backLink="/stats?tab=exercises" />
@@ -168,19 +218,38 @@ export default function ExerciseStats() {
                                 <h3 className="text-[var(--text-grey)] text-sm">
                                     Avg. Sets/Workout
                                 </h3>
-                                <span>
-                                    {(allSets.length / filteredData.length).toFixed(1)} sets
-                                </span>
+                                <div className="flex gap-1">
+                                    <span>
+                                        {(allSets.length / filteredData.length).toFixed(1)} sets
+                                    </span>
+
+                                    {filteredData.length > 1 &&
+                                        (setsTrend.isIncreasing ? (
+                                            <IoMdArrowDropup color="green" />
+                                        ) : setsTrend.isDecreasing ? (
+                                            <IoMdArrowDropdown color="red" />
+                                        ) : null)}
+                                </div>
                             </div>
 
                             <div>
                                 <h3 className="text-[var(--text-grey)] text-sm">Avg. Reps/Set</h3>
-                                <span>
-                                    {(
-                                        allReps.reduce((acc, num) => acc + num, 0) / allSets.length
-                                    ).toFixed(1)}{" "}
-                                    reps
-                                </span>
+                                <div className="flex gap-1">
+                                    <span>
+                                        {(
+                                            allReps.reduce((acc, num) => acc + num, 0) /
+                                            allSets.length
+                                        ).toFixed(1)}{" "}
+                                        reps
+                                    </span>
+
+                                    {repsTrend &&
+                                        (repsTrend.isIncreasing ? (
+                                            <IoMdArrowDropup color="#10eb44" />
+                                        ) : repsTrend.isDecreasing ? (
+                                            <IoMdArrowDropdown color="#eb1313" />
+                                        ) : null)}
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -484,5 +484,11 @@
         "name": "One Arm Tricep Pushdown",
         "muscle": "Triceps",
         "body-part": "Arms"
+    },
+    {
+        "id": 82,
+        "name": "Machine Lateral Raise",
+        "muscle": "Lateral Delts",
+        "body-part": "Shoulders"
     }
 ]

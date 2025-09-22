@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useWorkout } from "../../../context/WorkoutContext";
 import exercisesData from "../../../data/exercises.json";
 import { SearchField } from "../../common/Inputs";
-import { IoIosArrowForward } from "react-icons/io";
 
 export default function ExercisesList() {
     const { workouts } = useWorkout();
@@ -82,6 +81,7 @@ export default function ExercisesList() {
                     placeholder="Search exercise..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
+                    onClear={() => setSearch("")}
                 />
             </div>
 
@@ -103,8 +103,6 @@ export default function ExercisesList() {
                                             : `${exercise.count} workout`}
                                     </span>
                                 </div>
-
-                                <IoIosArrowForward size={20} color="grey" />
                             </div>
                         </Link>
                     ))}
