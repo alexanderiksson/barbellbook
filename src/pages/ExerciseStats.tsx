@@ -170,8 +170,6 @@ export default function ExerciseStats() {
         return calculateTrend(firstSets, recentSets);
     })();
 
-    console.log(filteredData);
-
     return (
         <div className="content">
             <Header backLink="/stats?tab=exercises" />
@@ -225,9 +223,9 @@ export default function ExerciseStats() {
 
                                     {filteredData.length > 1 &&
                                         (setsTrend.isIncreasing ? (
-                                            <IoMdArrowDropup color="green" />
+                                            <IoMdArrowDropup color="#10eb44" />
                                         ) : setsTrend.isDecreasing ? (
-                                            <IoMdArrowDropdown color="red" />
+                                            <IoMdArrowDropdown color="#eb1313" />
                                         ) : null)}
                                 </div>
                             </div>
