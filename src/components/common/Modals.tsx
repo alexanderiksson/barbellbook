@@ -38,7 +38,7 @@ export function AlertModal({ text, buttonText = "Close", isOpen, onClose }: Moda
         <div className="modal-overlay">
             <div className="modal" role="dialog" aria-modal="true">
                 <h2 className="text-lg font-semibold text-center">{text}</h2>
-                <Button variant="blue" onClick={onClose}>
+                <Button variant="blue" onClick={onClose} className="w-full">
                     {buttonText}
                 </Button>
             </div>
