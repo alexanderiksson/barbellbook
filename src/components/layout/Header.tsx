@@ -21,7 +21,9 @@ export default function Header({ title, backLink, menuOnClick }: HeaderProps) {
                     <div className="flex">
                         {backLink && <BackButton to={backLink} label="Back" noMargin />}
                     </div>
-                    <div className="flex items-center justify-center text-center">{title}</div>
+                    <div className="flex items-center justify-center text-center truncate">
+                        {title}
+                    </div>
                     <div className="flex items-center justify-end">
                         {menuOnClick && (
                             <button className="cursor-pointer" onClick={menuOnClick}>
