@@ -52,6 +52,9 @@ export default function History() {
     );
     const totalPages = Math.ceil(filteredWorkouts.length / itemsPerPage);
 
+    const startIndex = filteredWorkouts.length === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
+    const endIndex = Math.min(currentPage * itemsPerPage, filteredWorkouts.length);
+
     // Show loader if loading
     if (loading) return <Loader />;
 
@@ -71,6 +74,11 @@ export default function History() {
                         <option value="new">Most recent</option>
                         <option value="old">Least recent</option>
                     </Select>
+
+                    <span className="text-[var(--text-grey)] text-sm mb-4">
+                        Showing {filteredWorkouts.length === 0 ? "0" : `${startIndex}-${endIndex}`}{" "}
+                        of {filteredWorkouts.length} workouts
+                    </span>
 
                     <section className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         {paginatedWorkouts.map((workout, index) => (
