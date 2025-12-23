@@ -11,19 +11,19 @@ interface ModalProps {
 }
 
 interface ConfirmModalProps extends ModalProps {
-    action: (...args: any[]) => void;
+    action: () => void;
     buttonVariant?: string;
 }
 
 interface PromptModalProps extends ModalProps {
     buttonVariant?: string;
     initialValue?: string;
-    onSubmit: (...args: any[]) => void;
+    onSubmit: (value: string) => void;
 }
 
 interface LogModalProps extends ModalProps {
     initialValue: string | undefined;
-    onSubmit: (...args: any[]) => void;
+    onSubmit: (value: string) => void;
 }
 
 interface CustomModalProps extends ModalProps {

@@ -3,7 +3,7 @@ import { IoIosArrowDown, IoIosSearch, IoIosCloseCircle } from "react-icons/io";
 
 interface SelectProps {
     onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
-    value: any;
+    value: string;
     children: ReactNode;
     className?: string;
 }
@@ -11,7 +11,7 @@ interface SelectProps {
 interface TextInputProps {
     placeholder?: string;
     onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-    value: any;
+    value: string | number;
     className?: string;
 }
 
