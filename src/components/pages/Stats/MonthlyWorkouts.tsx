@@ -21,7 +21,7 @@ export default function MonthlyWorkouts({
                 acc.set(month, entry);
                 return acc;
             }, new Map<string, { month: string; Sessions: number; Exercises: number }>())
-    ).map(([_, value]) => value);
+    ).map(([, value]) => value);
 
     return (
         <div className="bg-[var(--secondary)] p-4 rounded-[var(--radius)] border border-[var(--border)]/20">

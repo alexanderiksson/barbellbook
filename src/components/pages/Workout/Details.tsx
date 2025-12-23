@@ -22,29 +22,33 @@ export default function Details({ id }: { id: string | undefined }) {
         return workouts.find((_, index) => index === workoutId);
     }, [id, workouts]);
 
-    if (!workout) return null;
+    // Calculate body parts trained
+    const allBodyParts = useMemo(
+        () => [...new Set(exercisesData.map((ex) => ex["body-part"]))],
+        []
+    );
 
     // Calculate total sets
     const totalSets = useMemo(
-        () => workout.exercises.reduce((sets, exercise) => sets + exercise.sets.length, 0),
+        () => workout?.exercises.reduce((sets, exercise) => sets + exercise.sets.length, 0) ?? 0,
         [workout]
     );
 
     // Calculate total reps
     const totalReps = useMemo(
         () =>
-            workout.exercises.reduce(
+            workout?.exercises.reduce(
                 (reps, exercise) =>
                     reps + exercise.sets.reduce((setReps, set) => setReps + set.reps, 0),
                 0
-            ),
+            ) ?? 0,
         [workout]
     );
 
     // Calculate total weight
     const totalWeight = useMemo(
         () =>
-            workout.exercises.reduce(
+            workout?.exercises.reduce(
                 (weight, exercise) =>
                     weight +
                     exercise.sets.reduce(
@@ -53,14 +57,13 @@ export default function Details({ id }: { id: string | undefined }) {
                         0
                     ),
                 0
-            ),
+            ) ?? 0,
         [workout]
     );
 
-    // Calculate body parts trained
-    const allBodyParts = [...new Set(exercisesData.map((ex) => ex["body-part"]))];
-
     const bodyPartsTrained = useMemo(() => {
+        if (!workout) return [];
+
         const bodyPartCounts = workout.exercises
             .map((ex) => exercisesData.find((e) => e.name === ex.name)?.["body-part"])
             .filter(Boolean)
@@ -79,10 +82,12 @@ export default function Details({ id }: { id: string | undefined }) {
                     : 0,
             }))
             .sort((a, b) => b.percentage - a.percentage);
-    }, [workout]);
+    }, [workout, allBodyParts]);
 
     // Calculate average rest time
     const averageRestTime = useMemo(() => {
+        if (!workout) return null;
+
         const parsed: number[] = [];
         for (const ex of workout.exercises) {
             for (const set of ex.sets) {
@@ -96,6 +101,8 @@ export default function Details({ id }: { id: string | undefined }) {
 
     // Calculate workout duration
     const workoutDuration = useMemo(() => {
+        if (!workout) return null;
+
         const parsed: number[] = [];
         for (const ex of workout.exercises) {
             for (const set of ex.sets) {
@@ -109,9 +116,11 @@ export default function Details({ id }: { id: string | undefined }) {
 
     // Calculate average exercise duration
     const averageExerciseDuration = useMemo(() => {
-        if (workoutDuration === null) return null;
+        if (!workout || workoutDuration === null) return null;
         return Number((workoutDuration / workout.exercises.length).toFixed(1));
-    }, [workoutDuration, workout.exercises.length]);
+    }, [workoutDuration, workout]);
+
+    if (!workout) return null;
 
     return (
         <div className="bg-[var(--secondary)] p-4 rounded-[var(--radius)] border border-[var(--border)]/20">

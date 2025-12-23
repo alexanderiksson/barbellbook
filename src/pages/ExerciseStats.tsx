@@ -36,27 +36,24 @@ export default function ExerciseStats() {
         }
 
         return { name: exerciseEntry.name, category: exerciseEntry["body-part"] };
-    }, [id, workouts]);
-
-    if (!exercise) return <Error msg="Exercise not found" />;
+    }, [id]);
 
     // Finds all workouts that contains the exercise
-    const allWorkouts = useMemo(
-        () =>
-            workouts
-                .filter((workout) => workout.exercises.some((ex) => ex.name === exercise.name))
-                .map((workout) => {
-                    const exerciseData = workout.exercises.find((ex) => ex.name === exercise.name);
-                    return {
-                        date: workout.date,
-                        name: workout.name,
-                        log: workout.log,
-                        exercises: exerciseData ? [exerciseData] : [],
-                    };
-                })
-                .filter((workout) => workout.exercises.length > 0),
-        [workouts, exercise.name]
-    );
+    const allWorkouts = useMemo(() => {
+        if (!exercise) return [];
+        return workouts
+            .filter((workout) => workout.exercises.some((ex) => ex.name === exercise.name))
+            .map((workout) => {
+                const exerciseData = workout.exercises.find((ex) => ex.name === exercise.name);
+                return {
+                    date: workout.date,
+                    name: workout.name,
+                    log: workout.log,
+                    exercises: exerciseData ? [exerciseData] : [],
+                };
+            })
+            .filter((workout) => workout.exercises.length > 0);
+    }, [workouts, exercise]);
 
     // Find the years from the logged data
     const years = useMemo(
@@ -101,6 +98,8 @@ export default function ExerciseStats() {
 
         setFilteredData(allWorkouts.filter((workout) => new Date(workout.date) >= cutoffDate));
     }, [selectedPeriod, allWorkouts]);
+
+    if (!exercise) return <Error msg="Exercise not found" />;
 
     // Calculate estimate 1RM
     const allOneRM = filteredData.flatMap((workout) => {

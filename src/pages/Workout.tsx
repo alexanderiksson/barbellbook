@@ -36,6 +36,21 @@ export default function WorkoutPage() {
         (_, index) => index === parseInt(id || "", 10)
     );
 
+    // Trigger to show notice
+    const noticeTriggerRef = useRef<(() => void) | null>(null);
+
+    // Manage modal state
+    const confirmModal = useOverlay();
+    const promptModal = useOverlay();
+
+    // Manage menu state
+    const menu = useOverlay();
+
+    // Disable loader when the workout are found
+    useEffect(() => {
+        if (workout) setLoading(false);
+    }, [workout]);
+
     // Show error if no workout is found
     if (!workout) return <Error msg="Workout not found" />;
 
@@ -61,21 +76,6 @@ export default function WorkoutPage() {
 
         return `${formatTime(rawStartTime)} - ${formatTime(rawEndTime)}`;
     };
-
-    // Trigger to show notice
-    const noticeTriggerRef = useRef<() => void | null>(null);
-
-    // Manage modal state
-    const confirmModal = useOverlay();
-    const promptModal = useOverlay();
-
-    // Manage menu state
-    const menu = useOverlay();
-
-    // Disable loader when the workout are found
-    useEffect(() => {
-        if (workout) setLoading(false);
-    }, [workouts]);
 
     // Show loader if loading
     if (loading) return <Loader />;
