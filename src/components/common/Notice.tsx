@@ -12,7 +12,7 @@ export default function Notice({ registerTrigger, msg }: NoticeProps) {
         setNotice(true);
         setTimeout(() => {
             setNotice(false);
-        }, 2000);
+        }, 1500);
     };
 
     registerTrigger(showNotice);
